@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<!--[if IE 8]>			<html class="ie ie8"> <![endif]-->
+<!--[if IE 9]>			<html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->	<html> <!--<![endif]-->
+<head>
+
+
+
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta name="keywords" content="HTML5 Template" />
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>ДЕМО-ВЕБ-СТРАНИЦА</title>
+
+	<!-- Mobile Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Favicons -->
+	<link rel="shortcut icon" href="img/favicon.ico">
+
+	<!-- Google Fonts & Fontawesome -->
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,900,800' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,100,300,300italic,100italic,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,100,300,300italic,100italic,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="js/vendor/slick/slick.css">
+	<link rel="stylesheet" href="css/prettyphoto.css">
+	<link rel="stylesheet" href="css/style.css">
+	
+
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<!-- JS - MEDIAQUERIES -->
+	<script src="js/css3-mediaqueries.js"></script>
+	
+	
+<style>
+#form-box {
+  padding: 10px;
+  margin: 0 15px;
+  font-family: Tahoma,Arial,Helvetica,Verdana,sans-serif;
+  color:#000;
+}
+#form-box #Heading {
+  color: #fff;
+  text-transform: uppercase;
+  font-weight:bold;
+  font-size: 12px;
+  background-color:#003e71;
+  padding: 5px 15px;
+  margin: 20px 0;
+}
+
+
+#form-box p {
+  font-size: 16px;
+  line-height: 22px;
+  margin-bottom: 10px;
+}
+#form-box p .prefix {
+  font-family: Tahoma,Arial,Helvetica,Verdana,sans-serif;
+  color: #808080;
+  font-style: normal;
+  font-size: 16px;
+}
+
+#form-box p.quest {
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+  font-size: 1.2em;
+}
+
+#form-box p.answer {
+  margin-left: 50px;
+  margin-bottom: 35px;
+}
+
+table {
+ border-collapse:collapse;
+ margin: 10px 0;
+ width: 800px;
+}
+td {
+  padding: 10px;
+  text-align:left;
+  vertical-align:top;
+}
+td.lbl {
+  text-align:right;
+}
+#labels {
+  width: 200px;
+  background-color: #d8edff;
+}
+#labelsProfile {
+  width: 400px;
+  background-color: #d8edff;
+}
+
+#inputs {
+  width: 600px;
+}
+
+label {
+  margin-bottom:10px;
+}
+textarea {
+  width: 600px;
+  font-size:16px;
+}
+
+#saveButton {
+  height:48px;
+  width: 290px;
+  margin: 0;
+  border: 0;
+  font-size: 18px;
+  color:#4babfa;
+  background: url(/bitrix/templates/matorin_lk/images/btnsblue.png) 0px 0px no-repeat; 
+}
+#saveButton:hover {
+  cursor: pointer;
+  color:#fff;
+  background: url(/bitrix/templates/matorin_lk/images/btnsblue.png) 0px -48px no-repeat; 
+}
+#saveButton:active {
+  background: url(/bitrix/templates/matorin_lk/images/btnsblue.png) 0px -96px no-repeat; 
+}
+
+a:link, a:visited, a:hover {
+  color: #003e71;
+}
+
+#allquestions {
+  margin-bottom: 25px;
+  padding: 0px;
+  font-size:18px;
+}
+
+#userpick {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #808080;
+  background-color: #c0c0c0;
+  background: url(../skins/btnaddpic.png) no-repeat;
+  cursor: pointer;
+}
+.starrequired {
+  color:#f00;
+}
+label.uploadbutton {
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05); 
+  width: 100px;
+  height: 100px;
+    display: inline-block;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+label.uploadbutton input {
+    display: none;   
+}
+
+#oprosForm {
+  margin: 20px;
+}
+
+.oprosPeriod, #oprosName {
+  width: 500px;
+  height: 25px;
+  margin: 0;
+  border: 1px solid #808080;
+  padding: 0px 5px;
+  font-size: 20px; 
+  color: #000;
+}
+
+.oprosPeriod {
+  width: 120px;
+}
+
+.blog-posts-content {
+  fonr-size: 18px;
+}
+
+.blog-posts-content a {
+  font-size: 18px;
+  font-weight:bold;
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- Topbar -->
+<div class="top-bar container">
+	<div class="row">
+		<div class="col-md-6">
+			<ul class="tb-left">
+				<li class="tbl-date"><span>АПРЕЛЕВКА, УЛ. ЖАСМИНОВАЯ, Д. 8, КВ.998</span></li>
+				<li class="tbl-temp"><i class="fa fa-sun-o"></i>32&deg; C</li>
+			</ul>
+		</div>
+		<div class="col-md-6">
+			<ul class="tb-right">
+
+			
+				<li class="tbr-login">
+					<a href="./login.html">[ Вход ]</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="container wrapper">
+	
+<!--
+	<div class="header">
+
+	</div>-->
+	
+	<!-- Header -->
+	<header>
+		<div class="col-md-12">
+			<div class="row">
+				<!-- Navigation -->
+				<div class="col-md-12">
+					<div class="menu-trigger"><i class="fa fa-align-justify"></i> Menu</div>
+					<nav>
+						<ul id="nav">
+							<li id="selected" class="n-menu subnav">
+								<a href="index.html" class="sub-nav">Главная</a>
+							</li>
+
+
+				<li id="selected" class="n-menu subnav">
+					<a href="#" class="sub-nav">Обслуживание</a>
+					<ul class="mega-menu simple">
+						<li class="sub-menu">
+							<ul>
+								<li><a href="big_table.html">Показания приборов учета</a></li>
+								<li><a href="object.html">Показания общедомовых <br> приборов учета</a></li>
+								<li><a href="settings.html">Настройка счетчиков</a></li>
+								<li><a href="reports.html">Отчет по счетчичкам</a></li>
+								<li><a href="session.html">Информация по должникам</a></li>
+								<li><a href="extra.html">Настройка оплаты доп.услуг</a></li>
+								<li><a href="my_request.html">Заявки жителей</a></li>
+								<li><a href="my_questions.html">Вопросы жителей</a></li>
+								<li><a href="votings.html">Опрос для жителей</a></li>
+								<li><a href="alert.html">Выгрузить отчет по <br> пользователям</a></li>
+								<li><a href="big_setting.html">Настройка</a></li>	
+							</ul>
+						</li>
+					</ul>
+				</li>
+
+
+				<li id="selected" class="n-menu subnav">
+					<a href="#" class="sub-nav">Информация</a>
+					<ul class="mega-menu simple">
+						<li class="sub-menu">
+							<ul>
+								<li><a href="my_contats.html">График работы</a></li>
+								<li><a href="news.html">Новости</a></li>
+								<li><a href="photogal.html">Фотогалерея</a></li>
+								<li><a href="information.html">Отчетность</a></li>
+								<li><a href="samples.html">Документация</a></li>
+								<li><a href="forms.html">Раскрытие информации</a></li>
+								<li><a href="faq.html">Часто задаваемые вопросы</a></li>
+								<li><a href="map_1.html">На карте: Поликлиники</a></li>
+								<li><a href="map_2.html">На карте: Больницы</a></li>
+								<li><a href="map_3.html">На карте: Аптеки</a></li>
+								<li><a href="map_4.html">На карте: Такси</a></li>
+								<li><a href="map_5.html">На карте: Магазины</a></li>
+								<li><a href="map_6.html">На карте: Рестораны/Кафе</a></li>
+								<li><a href="map_7.html">На карте: Банкоматы</a></li>
+								<li><a href="map_8.html">На карте: Ветеринарные клиники</a></li>
+
+
+							</ul>
+						</li>
+					</ul>
+				</li>
+
+
+
+				<li id="selected" class="n-menu subnav">
+					<a href="#" class="sub-nav">Профиль</a>
+					<ul class="mega-menu simple">
+						<li class="sub-menu">
+							<ul>
+								<li><a href="profile.html">Личные данные</a></li>
+								<li><a href="profile.html">Настройка оповещений</a></li>
+								<li><a href="motorin.html">Выход</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+
+
+
+
+		<div style="margin-left: 200px;" class="col-md-3">
+
+			<ul class="tb-right">
+				<a href="#"><b>Вход</b></a> <br>
+				<a href="#">ЛС No: 800693458</a> <br>
+				<a href="#">Скачать мобильную версию</a> <br>
+				<a href="#">Выход</a> 
+			</ul>
+		</div>
+
+
+
+					</nav>
+					
+					<!-- Search -->
+	
+			
+			</div>
+
+
+
+		</div>
+	</header>
+	
+		<ul class="breadcrumb">
+			<li class="active"><a href="#">Главная</a></li>
+			<li><a href="#">Test</a></li>
+		</ul>
+
+				<!-- Featured News 2 -->
+
+
+			<div class="featured-news">
+				<div class="container">
+					<div class="row">
+
+						
+					<div id="main" style="height: 2185px;">
+
+
+      <!--center column-->
+      <div id="main-center" style="height: 2185px;">
+<div id="banner">
+<img src="/upload/iblock/d6c/empty_buner.png" border="0" about="_blank" alt="" width="1" height="1">        </div>
+         
+
+
+<div id="form-box">
+<h2>Ваши вопросы и ответы</h2>
+
+<div id="allquestions">
+ 
+<div id="blog-posts-content" style="border: 1px solid #C9C5C8; padding: 10px !important;">
+<h4 style="color: #888 !important; margin: 0px !important;padding-left: 0;">Объект: <span style="color: #000000;">Апрелевка, ул. Жасминовая, д. 8</span></h4><a style="text-decoration: none !important; color: #888 !important; margin: 0px !important;padding-left: 0;">Вопросов по данному объекту: <span style="color: #000000;">15</span></a>    
+                        				<div class="blog-post blog-post-first blog-post-alt blog-post-year-2017 blog-post-month-10 blog-post-day-12" style="margin-top: 5px !important;">
+                                                                               <a href="detail_post.php?page=post&amp;blog=company_blog&amp;post_id=723" title="Оплата ЖКХ">Оплата ЖКХ</a> <span style="color: #888 !important;">[  Начисление и оплата  ]</span>
+					                                       
+				</div>
+	                        				<div class="blog-post blog-post-year-2017 blog-post-month-10 blog-post-day-9" style="margin-top: 5px !important;">
+                                                                               <a href="detail_post.php?page=post&amp;blog=company_blog&amp;post_id=713" title="кварплата за сентябрь">кварплата за сентябрь</a> <span style="color: #888 !important;">[  Другое  ]</span>
+					                                       
+				</div>
+	                        				<div class="blog-post blog-post-alt blog-post-year-2017 blog-post-month-10 blog-post-day-6" style="margin-top: 5px !important;">
+                                                                               <a href="detail_post.php?page=post&amp;blog=company_blog&amp;post_id=710" title="квитанция за сентябрь">квитанция за сентябрь</a> <span style="color: #888 !important;">[  Начисление и оплата  ]</span>
+					                                       
+				</div>
+	                        				<div class="blog-post blog-post-year-2017 blog-post-month-9 blog-post-day-7" style="margin-top: 5px !important;">
+                                                                               <a href="detail_post.php?page=post&amp;blog=company_blog&amp;post_id=648" title="Тестовый вопрос">Тестовый вопрос</a> <span style="color: #888 !important;">[  Другое  ]</span>
+					                                       
+				</div>
+	                        				<div class="blog-post blog-post-alt blog-post-year-2017 blog-post-month-9 blog-post-day-4" style="margin-top: 5px !important;">
+                                                                               <a href="detail_post.php?page=post&amp;blog=company_blog&amp;post_id=644" title="кварплата за август 2017">кварплата за август 2017</a> <span style="color: #888 !important;">[  Другое  ]</span>
+					                                       
+				</div>
+	                        				<div class="blog-post blog-post-year-2017 blog-post-month-8 blog-post-day-24" style="margin-top: 5px !important;">
+                                                                               <a href="detail_post.php?page=post&amp;blog=company_blog&amp;post_id=642" title="в Клиентский отдел">в Клиентский отдел</a> <span style="color: #888 !important;">[  Другое  ]</span>
+					                                       
+				</div>
+	                        				<div class="blog-post blog-post-alt blog-post-year-2017 blog-post-month-8 blog-post-day-23" style="margin-top: 5px !important;">
+                                                                               <a href="detail_post.php?page=post&amp;blog=company_blog&amp;post_id=641" title="Почему за горячию воду платим так дорого.">Почему за горячию воду платим так дорого.</a> <span style="color: #888 !important;">[  Начисление и оплата  ]</span>
+					                                       
+				</div>
+	                        				<div class="blog-post blog-post-year-2017 blog-post-month-8 blog-post-day-23" style="margin-top: 5px !important;">
+                                                                               <a href="detail_post.php?page=post&amp;blog=company_blog&amp;post_id=640" title="Почему за горячию воду платим так дорого.">Почему за горячию воду платим так дорого.</a> <span style="color: #888 !important;">[  Начисление и оплата  ]</span>
+					                                       
+				</div>
+	                        				<div class="blog-post blog-post-alt blog-post-year-2017 blog-post-month-8 blog-post-day-23" style="margin-top: 5px !important;">
+                                                                               <a href="detail_post.php?page=post&amp;blog=company_blog&amp;post_id=639" title="Почему за горячию воду платим так дорого.">Почему за горячию воду платим так дорого.</a> <span style="color: #888 !important;">[  Начисление и оплата  ]</span>
+					                                       
+				</div>
+	                        				<div class="blog-post blog-post-year-2017 blog-post-month-8 blog-post-day-23" style="margin-top: 5px !important;">
+                                                                               <a href="detail_post.php?page=post&amp;blog=company_blog&amp;post_id=638" title="Почему за горячию воду платим так дорого.">Почему за горячию воду платим так дорого.</a> <span style="color: #888 !important;">[  Начисление и оплата  ]</span>
+					                                       
+				</div>
+	                        				<div class="blog-post blog-post-alt blog-post-year-2017 blog-post-month-8 blog-post-day-23" style="margin-top: 5px !important;">
+                                                                               <a href="detail_post.php?page=post&amp;blog=company_blog&amp;post_id=637" title="Почему за горячию воду платим так дорого.">Почему за горячию воду платим так дорого.</a> <span style="color: #888 !important;">[  Начисление и оплата  ]</span>
+					                                       
+				</div>
+	                        				<div class="blog-post blog-post-year-2017 blog-post-month-8 blog-post-day-23" style="margin-top: 5px !important;">
+                                                                               <a href="detail_post.php?page=post&amp;blog=company_blog&amp;post_id=636" title="Почему за горячию воду платим так дорого.">Почему за горячию воду платим так дорого.</a> <span style="color: #888 !important;">[  Начисление и оплата  ]</span>
+					                                       
+				</div>
+	                        				<div class="blog-post blog-post-alt blog-post-year-2017 blog-post-month-8 blog-post-day-23" style="margin-top: 5px !important;">
+                                                                               <a href="detail_post.php?page=post&amp;blog=company_blog&amp;post_id=635" title="Почему за горячию воду платим так дорого.">Почему за горячию воду платим так дорого.</a> <span style="color: #888 !important;">[  Начисление и оплата  ]</span>
+					                                       
+				</div>
+	                        				<div class="blog-post blog-post-year-2017 blog-post-month-8 blog-post-day-23" style="margin-top: 5px !important;">
+                                                                               <a href="detail_post.php?page=post&amp;blog=company_blog&amp;post_id=634" title="Почему за горячию воду платим так дорого.">Почему за горячию воду платим так дорого.</a> <span style="color: #888 !important;">[  Начисление и оплата  ]</span>
+					                                       
+				</div>
+	                        				<div class="blog-post blog-post-last blog-post-alt blog-post-year-2017 blog-post-month-8 blog-post-day-18" style="margin-top: 5px !important;">
+                                                                               <a href="detail_post.php?page=post&amp;blog=company_blog&amp;post_id=631" title="Начисления июль 2017">Начисления июль 2017</a> <span style="color: #888 !important;">[  Начисление и оплата  ]</span>
+					                                       
+				</div>
+	
+<ul id="Pages">
+  <li class="arrLeft" title="предыдущая страница"><a href="?PAGEN_1=14" class="prevnext">←</a></li>
+
+  <li><p><a href="?PAGEN_1=1">1</a></p></li>
+  <li><p><a href="?PAGEN_1=2">2</a></p></li>
+  <li><p><a href="?PAGEN_1=3">3</a></p></li>
+  <li><p><a href="?PAGEN_1=4">4</a></p></li>
+  <li><p><a href="?PAGEN_1=5">5</a></p></li>
+  <li><p><a href="?PAGEN_1=6">6</a></p></li>
+  <li><p><a href="?PAGEN_1=7">7</a></p></li>
+  <li><p><a href="?PAGEN_1=8">8</a></p></li>
+  <li><p><a href="?PAGEN_1=9">9</a></p></li>
+  <li><p><a href="?PAGEN_1=10">10</a></p></li>
+  <li><p><a href="?PAGEN_1=11">11</a></p></li>
+  <li><p><a href="?PAGEN_1=12">12</a></p></li>
+  <li><p><a href="?PAGEN_1=13">13</a></p></li>
+  <li><p><a href="?PAGEN_1=14">14</a></p></li>
+  <li><p><a href="?PAGEN_1=15" class="chBk">15</a></p></li>
+
+
+  <li class="arrRight" title="следующая страница"><a href="#" class="inact prevnext" onclick="return false;">→</a></li>
+
+
+</ul>
+
+	
+</div>
+</div>
+
+</div>
+
+      </div>
+      <!--/center column-->
+
+      <!--right-col-->
+      <!--/right-col-->
+
+
+      <div class="clear"></div>
+    </div>
+
+
+
+					</div>
+				</div>
+			</div>
+			
+								<div class="space40"></div>
+
+
+
+
+
+	
+	<div class="footer-bottom">
+		<div class="container">
+
+			<div class="col-md-6">
+			<p>&copy; Все права защищены.
+ I 2017 Веб-дизайн: Tolga KARAKOL<br>
+ ©1998-2015 — Общество с ограниченной ответственностью <br>
+ <«МАТОРИН-Региональная управляющая компания» (ООО «МАТОРИН-РУК»)
+ 	</div>
+
+
+			<div style="color: #cccccc;" class="col-md-6">		
+<p>Московский проспект, д. 2, г. Пушкино, Московская область, 141207<br>
+Телефон: +7 (495) 5 444 000 
+Факс: +7 (495) 5 444 000 (доб. 108)<br> 
+Почта: <b>info@matorin-un.ru</b>
+</p>
+	</div>
+
+	<div class="col-md-12">
+			<ul class="footer-links">
+				<li><a href="#">Главная</a></li>
+				<li><a href="#">Обслуживание</a></li>
+				<li><a href="#">Информация</a></li>
+				<li><a href="#">Выход</a></li>
+				 
+				 
+				<li class="tbr-social">
+					<span>
+					<a href="#" class="fa fa-twitter"></a>
+					<a href="#" class="fa fa-facebook"></a>
+					<a href="#" class="fa fa-google-plus"></a>
+					<a href="#" class="fa fa-rss"></a>
+					<a href="#" class="fa fa-pinterest"></a>
+					<a href="#" class="fa fa-youtube-play"></a>
+					</span>
+				</li>
+				
+				
+			</ul>
+</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="clearfix space30"></div>
+
+<!-- Javascript -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/vendor/slick/slick.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/jflickrfeed.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/jquery.spasticNav.js"></script>
+<script src="js/jquery.prettyphoto.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
+

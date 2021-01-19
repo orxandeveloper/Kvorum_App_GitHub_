@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script language="javascript">
+
+        function Get(uri) {
+            var x = new XMLHttpRequest();
+            x.open("GET", uri, false, null, null);
+            x.send();
+            return x.responseText;
+        }
+    </script> 
+    <title></title>
+</head>
+<body>
+    <button onclick="alert(Get('http://31.3.22.226:12480/WCFServices/MATORIN.QUICK_API.svc/A?1=1'))">test3</button>
+    <button onclick="alert('23131')">test4</button>
+    <br>
+    <a href="/MATORIN.QUICK_API.svc/A?1=1">666</a>
+</body>
+</html>

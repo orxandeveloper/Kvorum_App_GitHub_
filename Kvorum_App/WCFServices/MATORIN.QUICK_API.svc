@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Server.QUICK_API" CodeBehind="~/App_Code/MATORIN.QUICK_API.cs" %>

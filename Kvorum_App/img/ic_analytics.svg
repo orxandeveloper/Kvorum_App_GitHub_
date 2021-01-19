@@ -1,0 +1,15 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<style type="text/css">
+	.st0{fill:#F6D1D3;}
+	.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#D11B25;}
+</style>
+<path class="st0" d="M12,13c0-0.5,0.4-1,1-1H35c0.5,0,1,0.4,1,1v4.8c0,0.5-0.4,1-1,1H13c-0.5,0-1-0.4-1-1V13z"/>
+<path class="st0" d="M26.2,24v10.9h4.4V24H26.2z"/>
+<path class="st0" d="M17.5,30l0,4.9h4.4L21.7,30H17.5z"/>
+<path class="st1" d="M13.4,13.4v21.1h21.1V13.4H13.4z M13,12c-0.5,0-1,0.4-1,1V35c0,0.5,0.4,1,1,1H35c0.5,0,1-0.4,1-1V13
+	c0-0.5-0.4-1-1-1H13z"/>
+<path class="st1" d="M13.4,13.4v3.8h21.1v-3.8H13.4z M13,12c-0.5,0-1,0.4-1,1v4.8c0,0.5,0.4,1,1,1H35c0.5,0,1-0.4,1-1V13
+	c0-0.5-0.4-1-1-1H13z"/>
+<path class="st1" d="M16.6,30c0-0.5,0.4-0.8,0.8-0.8h4.2c0.5,0,0.8,0.4,0.8,0.8v5h-1.3v-4.5H18V35h-1.4V30z"/>
+<path class="st1" d="M25.1,23.8c0-0.5,0.3-0.8,0.8-0.8h4.3c0.5,0,0.8,0.4,0.8,0.8v11h-1.5V24.5h-2.8v10.4h-1.6V23.8z"/>
+</svg>

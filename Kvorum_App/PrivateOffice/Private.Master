@@ -1,0 +1,207 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Private.master.cs" Inherits="Kvorum_App.PrivateOffice.Private" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+      <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>ДЕМО-ВЕБ-СТРАНИЦА</title>
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicons 
+    <link rel="shortcut icon" href="img/favicon.ico">-->
+
+    <!-- Google Fonts & Fontawesome -->
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/styles.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="js/vendor/slick/slick.css">
+    <link rel="stylesheet" href="css/prettyphoto.css">
+    <link rel="stylesheet" href="css/style.css">
+
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- JS - MEDIAQUERIES -->
+    <script src="js/css3-mediaqueries.js"></script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+ <body>
+  <div class="top-bar row">
+        <div class="container">
+            <div class="col-md-8">
+                <span id="mngr">
+			 
+				</span>
+            </div>
+            <div id="lgtT" class="col-md-4 btnLink">
+                <a  href="LoginT.aspx">Вход</a>
+            </div>
+
+        </div>
+
+    </div>
+    <header>
+    <div class="row domHdr">
+        <div class="container"> 
+            <div class="col-md-6 adres">
+               
+            </div>
+		<div class="col-md-2 btnLink">
+				
+                <a id="cntr" href="#">
+                    <img src="images/counter.png" class="domIcon" alt="Счётчики">
+                    <span>Счётчики</span></a>
+            </div>
+            <div class="col-md-2 btnLink">
+                <a id="pymnts" href="Payments.aspx">
+                    <img src="images/wallet.png" class="domIcon" alt="Платежи">
+                    <span>Платежи</span></a>
+            </div>
+          <div class="col-md-2 btnLink">
+              <a id="treg" href="#"> 
+                <img src="images/wallet.png" class="domIcon" alt="Платежи">
+				<span>Мои заявки</span>
+                  </a>
+            </div>
+        </div>
+    </div> <!-- row -->
+	<!-- Navigation -->
+	<div class="row">
+		<div class="container">
+			<div class="col-md-12">
+                <div class="menu-trigger">
+					<i class="fa fa-align-justify"></i> Menu
+				</div>
+                <nav>
+                    <ul id="nav">
+                        <li id="selected" class="n-menu subnav">
+                            <a href="index.html" class="sub-nav">Главная</a>
+                        </li>
+
+
+                        <li id="selected" class="n-menu subnav">
+                            <a href="#" class="sub-nav">НОВОСТИ</a>
+                                    <!--<ul class="mega-menu simple">
+                                        <li class="sub-menu">
+                                            <ul>
+                                                <li><a href="big_table.html">Показания приборов учета</a></li>
+                                                <li><a href="object.html">Показания общедомовых <br> приборов учета</a></li>
+                                                <li><a href="settings.html">Настройка счетчиков</a></li>
+                                                <li><a href="reports.html">Отчет по счетчичкам</a></li>
+                                                <li><a href="session.html">Информация по должникам</a></li>
+                                                <li><a href="extra.html">Настройка оплаты доп.услуг</a></li>
+                                                <li><a href="my_request.html">Заявки жителей</a></li>
+                                                <li><a href="my_questions.html">Вопросы жителей</a></li>
+                                                <li><a href="votings.html">Опрос для жителей</a></li>
+                                                <li><a href="alert.html">Выгрузить отчет по <br> пользователям</a></li>
+                                                <li><a href="big_setting.html">Настройка</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>-->
+                       </li>
+
+                        <li id="selected" class="n-menu subnav">
+                            <a href="#" class="sub-nav">КОНТАКТЫ И ГРАФИКИ РАБОТЫ</a>
+                                    <!--<ul class="mega-menu simple">
+                                        <li class="sub-menu">
+                                            <ul>
+                                                <li><a href="my_contats.html">График работы</a></li>
+                                                <li><a href="news.html">Новости</a></li>
+                                                <li><a href="photogal.html">Фотогалерея</a></li>
+                                                <li><a href="information.html">Отчетность</a></li>
+                                                <li><a href="samples.html">Документация</a></li>
+                                                <li><a href="forms.html">Раскрытие информации</a></li>
+                                                <li><a href="faq.html">Часто задаваемые вопросы</a></li>
+                                                <li><a href="map_1.html">На карте: Поликлиники</a></li>
+                                                <li><a href="map_2.html">На карте: Больницы</a></li>
+                                                <li><a href="map_3.html">На карте: Аптеки</a></li>
+                                                <li><a href="map_4.html">На карте: Такси</a></li>
+                                                <li><a href="map_5.html">На карте: Магазины</a></li>
+                                                <li><a href="map_6.html">На карте: Рестораны/Кафе</a></li>
+                                                <li><a href="map_7.html">На карте: Банкоматы</a></li>
+                                                <li><a href="map_8.html">На карте: Ветеринарные клиники</a></li>
+
+
+                                            </ul>
+                                        </li>
+                                    </ul>-->
+                        </li>
+
+                        <li id="selected" class="n-menu subnav">
+                            <a href="#" class="sub-nav">ИНФОРМАЦИЯ О ДОМЕ</a>
+                                    <!--<ul class="mega-menu simple">
+                                        <li class="sub-menu">
+                                            <ul>
+                                                <li><a href="profile.html">Личные данные</a></li>
+                                                <li><a href="profile.html">Настройка оповещений</a></li>
+                                                <li><a href="motorin.html">Выход</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>-->
+                        </li>
+                        
+						<li id="selected" class="n-menu subnav">
+                            <a href="#" class="sub-nav">РАСКРЫТИЕ ИНФОРМАЦИИ</a>
+                        </li>
+						
+                        <li id="selected" class="n-menu subnav">
+                            <a href="#" class="sub-nav">ФОТОГАЛЕРЕЯ</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div> <!-- row -->
+</header>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+     <footer>
+                <div class="row footer-bottom">
+                    <div class="container">
+
+                        <div class="col-md-6">
+
+                    
+                                    <span>Техподдержка:</span>
+                        
+                                    <span>+7 (495) 199-3854  / help-desk@upravbot.ru</span>
+                          
+                          
+                        </div>
+
+
+                        <div class="col-md-6 btnLink">
+                            <img src="images/fb.png">
+                            <img src="images/tw.png">
+                            <img src="images/vk.png">
+                            <img src="images/ok.png">
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+  
+		</footer>
+     
+</body>
+</html>

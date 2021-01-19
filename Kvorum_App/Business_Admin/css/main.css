@@ -1,0 +1,97 @@
+﻿body {
+    width: auto;
+    height: auto;
+}
+
+.zagol {
+    list-style: none;
+    font-size: 30px;
+    font-weight: normal;
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
+
+
+.aside {
+    min-width: 190px;
+    height: auto;
+    background: #fff;
+    padding: 10px;
+    display: block;
+    vertical-align: top;
+    box-shadow: 2px 3px 15px 0px rgba(0,0,0,0.25);
+    margin-bottom: 20px;
+}
+
+    .aside:before {
+        content: '';
+        display: block;
+        width: 20px;
+        height: 20px;
+        transform: rotate(45deg);
+        background: #fff;
+        position: relative;
+        top: -20px;
+        left: 17%;
+        box-shadow: -1px -2px 3px rgba(0,0,0,0.05);
+    }
+
+    .aside a {
+        white-space: normal;
+    }
+
+.tablica {
+    padding-left: 400px;
+}
+
+
+
+.polya {
+    line-height: 2.5;
+    margin: 30px 20px;
+    /*text-align: center;*/
+}
+
+label {
+    width: 32%;
+    white-space: nowrap;
+    display: inline-block;
+    text-align: left;
+}
+
+input[type="text"] {
+    width: 50%;
+}
+
+input [type="submit"] {
+    width: 250px;
+}
+
+.but {
+    margin-left: 650px;
+    margin-top: 15px;
+    width: 140px;
+    height: 30px;
+    font-size: 15px;
+}
+
+.butt {
+    margin-left: 100px;
+    margin-top: 15px;
+    width: 140px;
+    height: 30px;
+    font-size: 15px;
+}
+
+.fr {
+    padding-left: 15px;
+}
+
+.pol {
+    padding-bottom: 100px;
+}
+
+hr {
+    color: lightgray;
+    width: 50%;
+}

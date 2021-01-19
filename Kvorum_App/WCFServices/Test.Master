@@ -1,0 +1,133 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Test.master.cs" Inherits="WcfServices.Test1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="Scripts/bootbox.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/jquery.colorbox-min.js"></script>
+    <script src="Scripts/custombox.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="CSS/custombox.min.css" />
+    <link rel="stylesheet" type="text/css" href="CSS/colorbox.css" />
+    <style type="text/css">
+        #header{  
+    color: #247BA0;  
+    text-align: center;  
+    font-size: 20px;  
+}  
+#nav{  
+    background-color:#FF1654;  
+    padding: 5px;  
+}  
+.center {
+    width: 80%; 
+    padding: 10px; 
+    margin: auto; 
+    background: #EEF5DB; 
+    border-radius: 15px;
+   }
+ul{  
+  
+    list-style-type: none;  
+}  
+li a {  
+    color: #F1FAEE;  
+font-size: 30px;  
+column-width: 5%;  
+    }  
+    li  
+   {  
+    display: inline;  
+    padding-left: 2px;  
+    column-width: 20px;  
+   }  
+   a{  
+ text-decoration: none;  
+ margin-left:20px  
+    }  
+   li a:hover{  
+    background-color: #F3FFBD;  
+    color: #FF1654;  
+    padding:1%;  
+   }  
+   #side{  
+    text-align: center;  
+    float: left;  
+    width: 15%;  
+    padding-bottom: 79%;  
+    background-color: #F1FAEE;  
+   }  
+   #article{  
+    background-color: #EEF5DB;  
+    padding: 10px;  
+    padding-bottom: 75%;  
+   }  
+   #footer{  
+    background-color: #C7EFCF;  
+    text-align:center;  
+    padding-bottom: 5%;  
+    font-size: 20px;  
+}  
+   #con{  
+       border:double;  
+       border-color:burlywood;  
+   }  
+    </style>
+    <title></title>
+     <style type="text/css">
+   .header, .footer { background: #D5BAE4; }
+   .layout { overflow: hidden; }
+   .col1 { background: #C7E3E4; float: left; width: 200px; }
+   .col2 { background: #E0D2C7; 
+    margin: 0 100px 0 200px; /* Отступ справа и слева */
+   }
+   .col3 { background: #ECD5DE; width: 100px; float: right; }
+  </style>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="center">
+        <header> 
+        ШАПКА
+        </header>
+            <nav id="nav">  
+    <ul>  
+        <li><a href="home.aspx">Home</a></li>  
+        <li><a href="News.aspx">НОВОСТИ</a></li>  
+        <li><a href="#">Article</a></li>  
+        <li><a href="#">Contact</a></li>  
+    </ul>  
+        </nav>  
+        <aside id="side">  
+    <h1>news</h1>  
+    <a href="#"><p>creating html website</p></a>  
+    <a href="#"><p>learn css</p></a>  
+    <a href="#">learn c#</a>  
+</aside>  
+        <div class="center">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+              <script lang="javascript">
+                  
+                  </script>
+            </asp:ContentPlaceHolder>
+            </div>
+        <footer id="footer">
+            ПОДВАЛ
+        </footer>
+        </div>
+
+
+     
+
+    </form>
+
+      
+</body>
+</html>

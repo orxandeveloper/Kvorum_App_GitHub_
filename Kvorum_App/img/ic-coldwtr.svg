@@ -1,0 +1,16 @@
+<svg width="95" height="91" viewBox="0 0 95 91" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M23.5096 29.7972C25.709 29.4564 28.3953 29.4425 31.9559 29.4425H51.2939L77.7255 29.4425L78.3701 17.8L51.295 17.8001L31.697 17.8001C28.4638 17.7997 24.913 17.7993 21.7387 18.2912C18.4248 18.8047 14.7218 19.9592 11.814 22.916C9.00583 25.7715 7.85658 29.3859 7.34052 32.0097C6.8145 34.6842 6.81474 37.0446 6.81484 37.9647V44.499C6.81484 44.499 9.41239 44.5 12.6166 44.5H18.4184V38.0002C18.4184 37.2022 18.4257 35.7833 18.7245 34.2638C19.0403 32.6585 19.5546 31.621 20.0736 31.0932C20.493 30.6667 21.3649 30.1296 23.5096 29.7972Z" stroke="#EAEAEA" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22.9873 44.2747L1.99975 44.2747V52.5121L22.9873 52.5121L22.9873 44.2747Z" stroke="#EAEAEA" stroke-width="4"/>
+<path d="M93 9L93 37C93 38.6569 91.6569 40 90 40L82 40C80.3431 40 79 38.6569 79 37L79 26.2692L79 9C79 7.34315 80.3431 6 82 6L90 6C91.6569 6 93 7.34315 93 9Z" stroke="#EAEAEA" stroke-width="4"/>
+<rect width="16" height="4" transform="matrix(4.46268e-08 -1 -1 -4.28147e-08 42 19)" fill="#EAEAEA"/>
+<rect width="18" height="4" rx="2" transform="matrix(-1 0 0 1 49 0)" fill="#EAEAEA"/>
+<path d="M19.0457 79.1632C18.5667 77.5897 15.2269 68.969 13.5643 64.6989C13.2331 63.8482 12.0333 63.8486 11.7063 64.7008C10.1678 68.7107 7.15266 76.5853 6.21085 79.1632C4.92737 82.6763 5.56911 89 12.6283 89C19.6874 89 19.6874 81.2711 19.0457 79.1632Z" stroke="#EAEAEA" stroke-width="4"/>
+<path d="M36.1982 64.0592C72.0788 64.0592 83.2638 64.0592 84.3713 64.0592" stroke="#EAEAEA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M39.5205 57.55L44.5039 64.0583L39.5205 70.5665" stroke="#EAEAEA" stroke-width="3" stroke-linecap="round"/>
+<path d="M81.0498 70.5674L76.0664 64.0591L81.0498 57.5509" stroke="#EAEAEA" stroke-width="3" stroke-linecap="round"/>
+<path d="M66.0986 44.5341L59.4541 49.4152L52.8095 44.5341" stroke="#EAEAEA" stroke-width="3" stroke-linecap="round"/>
+<path d="M66.0986 85.2104L59.4541 80.3293L52.8095 85.2105" stroke="#EAEAEA" stroke-width="3" stroke-linecap="round"/>
+<path d="M72.8555 76.3716L59.4205 63.8388L45.9854 76.3716" stroke="#EAEAEA" stroke-width="3" stroke-linecap="round"/>
+<path d="M72.8555 51.3059L59.4205 63.8387L45.9854 51.3059" stroke="#EAEAEA" stroke-width="3" stroke-linecap="round"/>
+<path d="M59.4551 88.4646C59.4551 53.32 59.4551 42.3645 59.4551 41.2798" stroke="#EAEAEA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

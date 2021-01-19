@@ -1,0 +1,261 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="pc_portal.master.cs" Inherits="Kvorum_App.pc_portal" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+      <meta charset="utf-8">
+    <meta name="keywords" content="главная">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Главная</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital@0;1&display=swap" rel="stylesheet">
+    <!-- Favicons 
+    <link rel="shortcut icon" href="img/favicon.ico"> 
+	-->
+    <link rel="stylesheet" href="pc_css/bootstrap.min.css">		
+	<link href="pc_css/style.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="pc_css/swiper.min.css">	
+	<!-- <script src="pc_js/jquery-1.12.4.min.js"></script>-->
+	<script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
+	<script src="pc_js/popper.min.js"></script>
+	<script src="pc_js/bootstrap.min.js"></script>
+	<script src="pc_js/design.js"></script>
+	<script src="pc_js/swiper.min.js"></script> 
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <header>
+	<ul class="nav h-100 m-10 flexHoriz">
+		<li class="nav-item">
+				<a class="nav-link collapsed" data-toggle="collapse" href="#collapse0">
+					<span class="if-collapsed"><img src="pc_img/menu.svg" class="reddishSvg w16 mt-1 mr-2" alt=""/></span>
+					<span class="reddish if-not-collapsed"><img src="pc_img/menu-close.svg" class="reddishSvg w16 mt-1 mr-2" alt=""/></span>
+				</a>
+			</li>
+		<li class="nav-item">
+			<a class="nav-link logo navbar-brand" href="pc_main.aspx">
+				<img src="pc_img/app-logo.png" class="logoImg" alt="УправБот">
+			</a></li>
+		<li class="p-1">&nbsp;</li>
+		<li class="nav-item cln"><a class="nav-link" href="pc_clients.aspx">Клиентам</a></li>
+		<li class="nav-item ptn"><a class="nav-link" href="pc_partners.aspx">Партнёрам</a></li>
+		<li class="nav-item tnt"><a class="nav-link" href="pc_tenants.aspx">Жителям</a></li>
+
+		<li class="nav-item ml-n1">
+			<a class="nav-link" href="pc_search.aspx">
+				<span class="fonCircle rounded-pill flexCenter">
+					<img src="pc_img/search-ic.svg" class="" alt="" />
+				</span>
+			</a></li>
+	
+		<!-- блок с телефоном/входом и подменю -->
+		
+		<li class="nav-item ml-auto h-100 text-right column-flex">
+			<div class="flex-grow-1 flexHoriz w-100 justify-content-end">
+				<a class="nav-link d-flex flexCenter" href="tel:+74997070790">
+					<span class="linkText">+7 499 707-07-90</span> 
+					<span class="fonCircle1 rounded-pill flexCenter ml-1">
+						<img class="bordoSvg" src="pc_img/phone.svg"/>
+					</span>
+				</a>
+				<a class="nav-link d-inline pl-0 mr-2" href="mailto:#">
+					<span class="fonCircle rounded-pill flexCenter">
+						<img class="bordoSvg" src="pc_img/mail.svg"/>
+					</span>
+				</a>
+				<button class="nav-link btn h42" type="button">
+					<span class="flexHoriz w-100 flexCenter">
+						<img src="pc_img/login.svg" class="mr-2 pl-1" alt=""/>
+						<span class="pr-1">Войти</span>
+					</span>
+				</button>
+
+			</div><!-- top -->
+		<!--	<ul class="nav sub2 w-100 p-0 flex-grow-0 flexHoriz justify-content-between">
+				<li class=""><a href="#" class="gray1">Рейтинг</a></li>
+				<li class=""><a href="marketplace.html">Маркетплейс</a></li>
+				<li class=""><a href="news.html">Новости</a></li>
+				<li class=""><a href="#" class="gray1">Поддержка</a></li>
+			</ul> -->
+	  
+		</li>
+	</ul>
+
+
+
+	
+	<div class="collapse " id="collapse0">
+		<ul class="mobileMenu">
+			<li class="nav-item mt-5 mr-5 mb-4">
+				<form class="text-left w-100 posRel border-0 bgLightGrey rounded16">
+					<input class="border-0 p-3 rounded-lg text-dark w-95 bgLightGrey" type="search" placeholder="Поиск" aria-label="Search">
+					<button class="searchIcon transp border-0 mt-3" type="submit">
+						<img src="pc_img/search-ic.svg" class="mt-n2" alt="" />
+					</button>
+				</form>
+	
+			</li>
+			
+			<li class="nav-item"><a href="pc_clients.aspx">Клиентам</a></li>
+			<li class="nav-item"><a href="pc_partners.aspx">Партнерам</a></li>
+			<li class="nav-item"><a href="pc_tenants.aspx">Жителям</a></li>
+		<!--	<li class="nav-item"><a href="rating.html">Рейтинг УК</a></li>
+			<li class="nav-item"><a href="marketplace.html">Маркетплейс</a></li>
+			<li class="nav-item"><a href="news.html">Новости</a></li> -->
+			<li class="nav-item"><a href="">О системе</a></li>
+			<li class="nav-item"><a href="faq.html">Вопросы-ответы</a></li>
+			<li class="nav-item"><a href="uk-reply.html">Задать свой вопрос</a></li>
+			<li class="nav-item"><a href="contacts.html">Контакты</a></li>
+			<li class="nav-item"><a href="docs.html">Документы</a></li>
+			<li class="nav-item"><a href="support.html">Поддержка</a></li>
+			<li class="nav-item"><a href="app_ten.html">Приложение Жителя</a></li>
+			<!--	<li class="nav-item"><a href="">Приложение Сотрудника</a></li> -->
+		</ul>
+	</div>	
+</header>
+    <main class="p-0">
+    <form id="form1" runat="server">
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+    </main>
+<script src="pc_js/swiper.min.js"></script> 
+
+<footer class="fon">
+<div class="m-10">
+<div class="row pt-5 show-desktop">
+	<div class="col-lg-3 col-sm-12 ">
+	
+		<ol>
+			<li><a class="white" href="pc_clients.aspx">Клиентам</a></li>
+			<li><a class="white" href="pc_partners.aspx">Партнерам</a></li>
+			<li><a class="white" href="pc_tenants.aspx">Жителям</a></li>
+			<li class="mb-n1">&nbsp;</li>
+		<!--	<li><a class="white" href="rating.html">Рейтинг УК</a></li>
+			<li><a class="white" href="marketplace.html">Маркетплейс</a></li>
+			<li><a class="white" href="news.html">Новости</a></li> -->
+		</ol>
+		
+	</div>
+	<div class="col-lg-3 col-sm-12">
+	
+		<ol>
+			<li><a class="white" href="about.html">Система</a></li>
+			<li><a class="white" href="faq.html">Вопросы-ответы</a></li>
+			<li><a class="white" href="uk-reply">Задать свой вопрос</a></li>
+			<li class="mb-n1">&nbsp;</li>
+			<li><a class="white" href="app_ten.html">Приложение Жителя</a></li>
+			<li><a class="white" href="app_ten.html">Приложение Сотрудника</a></li>
+
+		</ol>
+	</div>
+	<div class="col-lg-3 col-sm-12">
+
+		<ol>
+		<li><a class="white" href="contacts.html">Контакты</a></li>
+			<li><a class="white" href="docs.html">Документы</a></li>
+			<li><a class="white" href="support.html">Поддержка</a></li>
+			<li class="mb-n1">&nbsp;</li>
+			<li class="">&nbsp;</li>
+			<li class="white font-weight-bold">Присоединяйтесь к нам
+			<ul class="list-unstyled list-inline mt-3">
+				<li class="list-inline-item ml-2">
+					<a href="https://www.facebook.com/upravbot/" class="flexCenter ">
+					<span class=" rounded-pill bgDark-sm"></span>
+						<img src="pc_img/fb.svg" class="w16" alt==""/>
+						
+					</a>
+				</li>
+				<li class="list-inline-item ml-4">
+					<a href="https://www.instagram.com/upravbot/" class="flexCenter ">
+					<span class=" rounded-pill bgDark-sm"></span>
+						<img src="pc_img/insta.svg" class="w16" alt==""/>
+						
+					</a>
+				</li>
+			<!--	<li class="list-inline-item ml-4">
+					<a href="" class="flexCenter ">
+						<span class="rounded-pill bgDark-sm"></span>
+						<img src="pc_img/vk.svg" class="w16 " alt==""/>
+						
+					</a>
+				</li> -->
+			</ul>
+			</li>
+		</ol>
+	</div>
+	<div class="col-lg-3 col-sm-12">
+
+		<ol class="mt-2">
+			<li class="mb-3">
+				<a class="white flexCenter" href="mailto:info@upravbot.ru">
+					<span class="flexCenter mr-4"><span class=" rounded-pill bgDark-lg42"></span>
+						<img src="pc_img/mail.svg" class="w24 invert " alt=""/>
+						
+					</span>
+					info@upravbot.ru
+				</a>
+				<div class="small">&nbsp;</div>
+			</li>
+			
+			<li class="mb-3"><a class="white flexCenter" href="tel:+74997070790">
+					<span class="flexCenter mr-4"><span class=" rounded-pill bgDark-lg42"></span>
+						<img src="pc_img/phone.svg" class="w24 invert" alt=""/>
+						
+					</span>
+					+7 499 707-07-90
+				</a>
+				<div class="small">&nbsp;</div>
+			</li>
+		
+			<li class="mb-3"><a class="white flexCenter" href="#">
+				<span class="flexCenter mr-4"><span class=" rounded-pill bgDark-lg42"></span>
+					<img src="pc_img/geo.svg" class="w24 brightness" alt=""/>
+					
+				</span>
+				<span class="textAddr">Моск. обл., г. Пушкино,<br/> ул. Пушкинская, 17, оф. 99</span>
+				</a>
+				<div class="small">&nbsp;</div>
+			</li>
+		</ol>
+
+		<button class="btn w177 pl-3 pr-3 " type="button">
+			<span class="flexCenter w-100 h42">
+				<span class="pr-3">Написать нам </span>
+				<img src="pc_img/arrow-long.svg" class="" alt=""/>
+			</span>
+		</button>
+
+	</div>
+</div>
+<div class="white show-mobile w-100 text-center"><h4 class="white pt-5">Присоединяйтесь к нам!</h4>
+			<div class="white p-3">
+				<a href="" class="rounded-pill bgDark"><img src="pc_img/fb.svg" class="w24 " alt==""/></a>
+				<a href="" class="rounded-pill bgDark ml-2"><img src="pc_img/insta.svg" class="w24 " alt==""/></a>
+			<!--	<a href="" class="rounded-pill bgDark ml-2"><img src="pc_img/vk.svg" class="w24 " alt==""/></a>  -->
+			</div>
+</div>
+</div> <!-- m-10 -->
+<hr class="bgLightGrey">
+
+<div class="m-10">
+<div class="row">
+	<div class="col-lg-6 col-sm-12">
+		<p>&copy; 2020 &laquo;Управбот&raquo;. Все права защищены. 
+	</div>
+	<div class="col-lg-6 col-sm-12">
+	</div>
+</div>
+</div> <!-- m-10 -->
+
+</footer>
+</body>
+</html>

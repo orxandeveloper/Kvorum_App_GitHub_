@@ -1,0 +1,116 @@
+﻿body {
+    width: auto;
+    height: auto;
+}
+
+.zagol {
+    list-style: none;
+    font-size: 30px;
+    font-weight: normal;
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
+
+button {
+    display: block;
+}
+
+.vihod {
+    float: right;
+    position: fixed;
+    top: 0;
+    right: 30px;
+}
+
+.stolbik {
+    float: left;
+    width: 200px;
+    height: 910px;
+    background: rgba(122,194,125,0.82);
+}
+
+.tablica {
+    padding-left: 400px;
+}
+
+.obekt {
+    margin-top: 20px;
+    text-align: center;
+}
+
+footer {
+    position: fixed;
+    left: 750px;
+    bottom: 0;
+    color: #fff;
+}
+
+.polya {
+    margin-left: 700px;
+    text-align: center;
+}
+
+input[type="text"] {
+    width: 200px;
+}
+
+.ris {
+    width: 7px;
+    height: 10px;
+    /*background-image: url(kartinka2.jpg);*/
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 0px;
+}
+
+textarea {
+    width: 600px;
+    height: 100px;
+}
+
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    display: inline-block;
+}
+
+td {
+    border: 1px solid black;
+    height: 30px;
+    width: 150px;
+}
+
+.zel {
+    background: rgba(122,194,125,0.82);
+    font-size: 20px;
+}
+
+.pus {
+    text-align: center;
+}
+
+.ko {
+    position: absolute;
+    right: 200px;
+    top: 412px;
+}
+
+.ko2 {
+    position: absolute;
+    right: 200px;
+    top: 377px;
+}
+
+.ko3 {
+    position: absolute;
+    right: 200px;
+    top: 342px;
+}
+
+.sozd {
+    margin-right: 750px;
+}
+
+.naz {
+    text-align: center;
+}

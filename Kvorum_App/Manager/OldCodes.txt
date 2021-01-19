@@ -1,0 +1,423 @@
+﻿/*
+http://172.20.20.115/Manager/AddApartment.aspx#tab1
+
+for Update and Save
+
+    var tabCount = $('#nav-tab li:nth-last-child(2)').attr('itemid');//$('#nav-tab li').length;
+                                                tabCount = (tabCount == 0) ? parseInt(tabCount) + 1 : tabCount
+                                                var txtDatas = []
+                                                var success = true
+
+                                                for (var i = 0; i <= tabCount; i++) {
+                                                    var lc = $('#tab' + i).children('.row').children('div:eq(0)').children('#lc').val() //$('#tab' + i + ' .row:nth-last-child(1)  #lc').val();
+                                                    var ID_lc = $('#tab' + i).children('.row').children('div:eq(0)').children('#lc').attr('data-id')
+                                                    ID_lc = (ID_lc == undefined) ? '0' : ID_lc
+                                                    if (lc != undefined) {
+                            if (lc.length == 0) {/*$('#tab' + i + ' .row:nth-last-child(1) #lc_E')*/
+                                if ($('#tab' + i).children('.row').children('div:eq(0)').children('#lc_E').length == 0) {
+                                    $('#tab' + i).children('.row').children('div:eq(0)').after('<label id="lc_E" style="color:red;padding: 0px 0;">Необходимо заполнить поле "Номер лицевого счета"</label><br/>')
+
+                                }
+                                success = false
+                                $("#nav-tab li").attr('class', '');
+                                $('#nav-tab li[itemid=' + i + ']').attr('class', 'active');
+                                $(".tab-content").children().attr("class", "tab-pane fade");
+                                $("#tab" + i + "").attr('class', 'tab-pane fade active in')
+                                break;
+                                                        }
+                                                    }
+                                                    var pass = $('#tab' + i).children('.row').children('div:eq(0)').children('#pss').val() //$('#tab' + i + ' .row:nth-last-child(1)  #pss').val();
+                                                    var data_sms = "";
+                                                    var data_em = "";
+                                                    var data_exp = "";
+                                                    if (pass != undefined) {
+                                                        if (pass.length != 0) {//$('#tab' + i + ' .row:nth-last-child(1)  #pss')
+                                                            data_sms = ($('#tab' + i).children('.row').children('div:eq(0)').children('#pss').attr('data-sms') == undefined) ? "" : $('#tab' + i).children('.row').children('div:eq(0)').children('#pss').attr('data-sms');
+                                                            //$('#tab' + i + ' .row:nth-last-child(1)  #pss')
+                                                            data_em = ($('#tab' + i).children('.row').children('div:eq(0)').children('#pss').attr('data-em') == undefined) ? "" : $('#tab' + i).children('.row').children('div:eq(0)').children('#pss').attr('data-em');
+                                                            //$('#tab' + i + ' .row:nth-last-child(1)  #pss')
+                                                            data_exp = ($('#tab' + i).children('.row').children('div:eq(0)').children('#pss').attr('data-exp') == undefined) ? "" : $('#tab' + i).children('.row').children('div:eq(0)').children('#pss').attr('data-exp')
+
+                                                        }
+                                                    }
+                                                    lc = lc + "|" + pass + "|" + data_sms + "|" + data_em + "|" + data_exp
+
+                                                    var typeProp = $('#tab' + i).children('.row').children('div:eq(0)').children('#typeProp').val()//$('#tab' + i + ' .row:nth-last-child(1)  #typeProp').val();
+                                                    //if (typeProp != undefined) {
+
+
+                                                    //    if (typeProp == 0) {
+                                                    //        if ($('#tab' + i + ' .row:nth-last-child(1) #typeProp_E').length == 0) {
+                                                    //            $('#tab' + i + ' .row:nth-last-child(1)  #typeProp').after('<label id="typeProp_E" style="color:red;padding: 0px 0;">Пожалуйста, Выберите собственность</label><br/>')
+
+                                                    //        }
+                                                    //        success = false
+                                                    //        $("#nav-tab li").attr('class', '');
+                                                    //        $('#nav-tab li[itemid=' + i + ']').attr('class', 'active');
+                                                    //        $(".tab-content").children().attr("class", "tab-pane fade");
+                                                    //        $("#tab" + i + "").attr('class', 'tab-pane fade active in');
+                                                    //        break;
+                                                    //    }
+                                                    //}
+                                                    var LiveSq = $('#tab' + i).children('.row').children('div:eq(1)').children('#LiveSq').val()//$('#tab' + i + ' .row:last-child  #LiveSq').val();
+                                                    if (LiveSq != undefined) {
+
+
+                                                        if (LiveSq.length == 0) {
+                                                            if ($('#tab' + i + ' .row:last-child #LiveSq_E')) {
+                                                                // $('#tab' + i + ' .row:last-child  #LiveSq').after('<label id="LiveSq_E" style="color:red;padding: 0px 0;">Необходимо заполнить поле "Жилая площадь по данному"</label><br/>')
+
+                                                            }
+                                                            LiveSq = " "
+                                                            // success = false
+                                                            //$("#nav-tab li").attr('class', '');
+                                                            //$('#nav-tab li[itemid=' + i + ']').attr('class', 'active');
+                                                            //$(".tab-content").children().attr("class", "tab-pane fade");
+                                                            //$("#tab" + i + "").attr('class', 'tab-pane fade active in');
+                                                            //break;
+                                                        }
+                                                    }
+                                                    var GenSq = $('#tab' + i).children('.row').children('div:eq(1)').children('#GenSq').val()//$('#tab' + i + ' .row:last-child  #GenSq').val();
+                                                    if (GenSq != undefined) {
+
+
+                                                        if (GenSq.length == 0) {
+                                                            //if ($('#tab' + i + ' .row:last-child #GenSq_E').length == 0) {
+                                                            //    $('#tab' + i + ' .row:last-child  #GenSq').after('<label id="GenSq_E" style="color:red;padding: 0px 0;">Необходимо заполнить поле "Общая площадь по данному"</label><br/>')
+
+                                                            //}
+                                                            GenSq = " "
+                                                            //success = false
+                                                            //$("#nav-tab li").attr('class', '');
+                                                            //$('#nav-tab li[itemid=' + i + ']').attr('class', 'active');
+                                                            //$(".tab-content").children().attr("class", "tab-pane fade");
+                                                            //$("#tab" + i + "").attr('class', 'tab-pane fade active in');
+                                                            //break;
+                                                        }
+                                                    }
+                                                    var LiveSqB = $('#tab' + i).children('.row').children('div:eq(1)').children('#LiveSqB').val() //$('#tab' + i + ' .row:last-child  #LiveSqB').val();
+                                                    if (LiveSqB != undefined) {
+
+
+                                                        if (LiveSqB.length == 0) {
+                                                            //if ($('#tab' + i + ' .row:last-child #LiveSqB_E').length == 0) {
+                                                            //    $('#tab' + i + ' .row:last-child  #LiveSqB').after('<label id="LiveSqB_E" style="color:red;padding: 0px 0;">Необходимо заполнить поле "Общая площадь без летних зон по данному "</label><br/>')
+
+
+                                                            //}
+                                                            LiveSqB = " "	
+                                                            //success = false
+                                                            //$("#nav-tab li").attr('class', '');
+                                                            //$('#nav-tab li[itemid=' + i + ']').attr('class', 'active');
+                                                            //$(".tab-content").children().attr("class", "tab-pane fade");
+                                                            //$("#tab" + i + "").attr('class', 'tab-pane fade active in');
+                                                            //break;
+
+                                                        }
+                                                    }
+                                                    var AmRoom = $('#tab' + i).children('.row').children('div:eq(1)').children('#AmRoom').val()//$('#tab' + i + ' .row:last-child  #AmRoom').val();
+                                                    if (AmRoom != undefined) {
+
+
+                                                        if (AmRoom.length == 0) {
+                                                            //if ($('#tab' + i + ' .row:last-child #AmRoom_E').length == 0) {
+                                                            //    $('#tab' + i + ' .row:last-child  #AmRoom').after('<label id="AmRoom_E" style="color:red;padding: 0px 0;">Необходимо заполнить поле "Количество комнат "</label><br/>')
+
+                                                            //}
+                                                            //success = false
+                                                            //$("#nav-tab li").attr('class', '');
+                                                            //$('#nav-tab li[itemid=' + i + ']').attr('class', 'active');
+                                                            //$(".tab-content").children().attr("class", "tab-pane fade");
+                                                            //$("#tab" + i + "").attr('class', 'tab-pane fade active in');
+                                                            //break;
+                                                            AmRoom = " ";
+                                                        }
+                                                    }
+                                                    var itmsC = $('#tab' + i).children('.row').children('div:eq(0)').children('#itms').children('.row:last').attr('itemid') //$('#tab' + i + ' .row  #itms .row:last').attr('itemid');
+                                                    itmsC = (itmsC == 0) ? parseInt(itmsC) + 1 : itmsC
+                                                    var itmsS = []
+                                                    for (var j = 0; j <= itmsC; j++) {
+                                                        var sobs = $('#tab' + i).children('.row').children('div:eq(0)').children('#itms').children('.row[itemid=' + j + ']').children('div:eq(0)').children('#sobs' + j).val()//$("#tab" + i + " .row:nth-last-child(1)  #itms .row #sobs" + j + "").val();
+                                                        var currentRow = $('#tab' + i + ' .row  #itms .row:eq(' + j + ')').attr('itemid')
+                                                        if (sobs != undefined) {
+
+
+
+                                                            //if (sobs.length == 0 && currentRow < 2) {
+                                                            //    if ($('#tab' + i + ' .row  #itms .row #sobs' + j + '_E').length == 0) {
+                                                            //        if (typeProp != 4) {
+                                                            //            $("#tab" + i + " .row  #itms .row #sobs" + j + "").after('<label id="sobs' + j + '_E" style="color:red;padding: 0px 0;">Необходимо заполнить поле "Собственник"</label></br>')
+                                                            //        }
+                                                            //        else {
+                                                            //            $("#tab" + i + " .row  #itms .row #sobs" + j + "").after('<label id="sobs' + j + '_E" style="color:red;padding: 0px 0;">Необходимо заполнить поле "Наниматель"</label></br>')
+                                                            //        }
+
+                                                            //    }
+                                                            //    success = false
+                                                            //    $("#nav-tab li").attr('class', '');
+                                                            //    $('#nav-tab li[itemid=' + i + ']').attr('class', 'active');
+                                                            //    $(".tab-content").children().attr("class", "tab-pane fade");
+                                                            //    $("#tab" + i + "").attr('class', 'tab-pane fade active in');
+                                                            //    break
+                                                            //    //  sobs = " "
+                                                            //}
+                                                        }
+                                                        var dol
+                                                        /*  var dolC = $('#tab' + i).children('.row').children('div:eq(0)').children('#itms').children('.row[itemid=' + j + ']').children('div:eq(1)').children('#dol' + j).val()*/ //$("#tab" + i + " .row:nth-last-child(1)  #itms .row #dol" + j + "").length
+
+
+                                                        if (typeProp == 3) {
+                                                            dol = $('#tab' + i).children('.row').children('div:eq(0)').children('#itms').children('.row[itemid=' + j + ']').children('div:eq(1)').children('#dol' + j).val()//$("#tab" + i + " .row:nth-last-child(1)  #itms .row #dol" + j + "").val();
+                                                            if (dol.length == 0 && currentRow < 2) {
+                                                                if ($('#tab' + i + ' .row #itms .row #dol' + j + '_E').length == 0) {
+                                                                    $("#tab" + i + " .row #itms .row #dol" + j + "").after('<label id="dol' + j + '_E" style="color:red;padding: 0px 0;">Необходимо заполнить поле "Доля"</label><br/>')
+
+                                                                }
+                                                                success = false
+
+                                                                $("#nav-tab li").attr('class', '');
+                                                                $('#nav-tab li[itemid=' + i + ']').attr('class', 'active');
+                                                                $(".tab-content").children().attr("class", "tab-pane fade");
+                                                                $("#tab" + i + "").attr('class', 'tab-pane fade active in');
+                                                                break
+                                                                //dol = " "
+                                                            }
+                                                        }
+                                                        else {
+                                                            dol = ""
+                                                        }
+                                                        var eqTel = (typeProp == 1) ? '1' : '2'
+
+
+                                                        var tel = $('#tab' + i).children('.row').children('div:eq(0)').children('#itms').children('.row[itemid=' + j + ']').children('div:eq(' + eqTel + ')').children('#tel' + j).val()// $("#tab" + i + " .row:nth-last-child(1)  #itms .row #tel" + j + "").val();
+
+                                                        if (tel != undefined) {
+
+
+                                                            if (pass.length != 0 && data_sms == "has" && tel.length == 0 && currentRow < 2) {
+                                                                if ($('#tab' + i + ' .row #itms .row #tel' + j + '_E').length == 0) {
+                                                                    $("#tab" + i + " .row #itms .row #tel" + j + "").after('<label id="tel' + j + '_E" style="color:red;padding: 0px 0;">Для рассылки пароля не хватает следующих данных "Номер телефона"</label><br/>')
+
+                                                                }
+                                                                success = false
+                                                                $("#nav-tab li").attr('class', '');
+                                                                $('#nav-tab li[itemid=' + i + ']').attr('class', 'active');
+                                                                $(".tab-content").children().attr("class", "tab-pane fade");
+                                                                $("#tab" + i + "").attr('class', 'tab-pane fade active in');
+                                                                break
+
+                                                            }
+                                                            else {
+                                                                tel = ($('#tab' + i).children('.row').children('div:eq(0)').children('#itms').children('.row[itemid=' + j + ']').children('div:eq(' + eqTel + ')').children('#tel' + j).val().length == 0) ? "" : $('#tab' + i).children('.row').children('div:eq(0)').children('#itms').children('.row[itemid=' + j + ']').children('div:eq(' + eqTel + ')').children('#tel' + j).val();
+                                                            }
+                                                        }
+                                                        else {
+                                                            tel = ""
+                                                        }
+                                                        var eqEm = (typeProp == 1) ? '2' : '3'
+                                                        var email = $('#tab' + i).children('.row').children('div:eq(0)').children('#itms').children('.row[itemid=' + j + ']').children('div:eq(' + eqEm + ')').children('#email' + j).val() //$("#tab" + i + " .row:nth-last-child(1)  #itms .row #email" + j + "").val()
+
+                                                        if (email != undefined) {
+
+
+                                                            if (pass.length != 0 && data_em == "has" && email.length == 0 && currentRow < 2) {
+                                                                if ($("#tab" + i + " .row  #itms .row  #email" + j + "_E").length == 0) {
+                                                                    $("#tab" + i + " .row  #itms .row #email" + j + "").after('<label id="email' + j + '_E" style="color:red;padding: 0px 0;">Для рассылки пароля не хватает следующих данных: "E-mail"</label><br/>')
+
+                                                                }
+                                                                success = false
+                                                                $("#nav-tab li").attr('class', '');
+                                                                $('#nav-tab li[itemid=' + i + ']').attr('class', 'active');
+                                                                $(".tab-content").children().attr("class", "tab-pane fade");
+                                                                $("#tab" + i + "").attr('class', 'tab-pane fade active in');
+                                                                break
+
+                                                            }
+                                                            else {
+                                                                email = ($('#tab' + i).children('.row').children('div:eq(0)').children('#itms').children('.row[itemid=' + j + ']').children('div:eq(' + eqEm + ')').children('#email' + j).val().length == 0) ? "" : $('#tab' + i).children('.row').children('div:eq(0)').children('#itms').children('.row[itemid=' + j + ']').children('div:eq(' + eqEm + ')').children('#email' + j).val();
+                                                            }
+                                                        }
+                                                        else {
+                                                            email = "";
+                                                        }
+                                                        if (sobs != undefined && dol != undefined && tel != undefined && email != undefined) {
+                                                            itmsS.push({ "FIRST_NAME": sobs, "SHARE": dol, "PHONE": tel, "EMAIL": email })
+                                                        }
+
+                                                    }
+                                                    if (lc != undefined && typeProp != undefined && LiveSq != undefined && GenSq != undefined && LiveSqB != undefined && AmRoom != undefined) {
+                                                        txtDatas.push({ "NUMBER": lc, "OWNERSHIP_TYPE_ID": typeProp, "LIVE_SQUARE": LiveSq, "GEN_SQUARE": GenSq, "WITHOUT_SUMMER_SQUARE": LiveSqB, "ROOM_QUANT": AmRoom, "A_D": itmsS, "ID": ID_lc })
+                                                    }
+
+                                                }
+
+*/
+
+ DateTime.FromOADate(double.Parse(mtr.PREVIOUS_DATE)).ToString("dd.MM.yyyy");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     if (meter_type == "Электроэнергия")
+                    {
+                        string Meter_number = mtr.METERS_NUMBER;
+                        if (Meter_number.IndexOf('(') == -1)
+                        {
+                            string kolTarif = mtr.AMUNT_TARIF;
+
+                            // .Where(r => r.METERS_NUMBER.Replace(" ", "").Substring(r.METERS_NUMBER.Trim().IndexOf('-') + 1) == mtr.METERS_NUMBER && r.SCORE_ID == mtr.SCORE_ID).ToList();
+                            //.Substring(0, (x.Field<string>("Номер счетчика*").IndexOf('_') != -1) ? (x.Field<string>("Номер счетчика*").IndexOf('_')) : x.Field<string>("Номер счетчика*").Length)
+                            ////int a = i;
+                            //var dubl2 = dt.AsEnumerable()
+                            //    .Select(x => new
+                            //    {
+                            //        SCORE_ID = x.Field<string>("№ ЛС*"),
+                            //        METERS_NUMBER = x.Field<string>("Номер счетчика*")
+
+                            //    .TrimStart().TrimEnd().Replace(" ", "")
+
+                            //    ,
+                            //        METER_TYPE = x.Field<string>("Тип счетчика*")
+                            //    })
+
+                            //    .Where(s => !string.IsNullOrEmpty(s.METERS_NUMBER.Trim())).Where(f => !string.IsNullOrEmpty(f.SCORE_ID)).Where(d => !string.IsNullOrEmpty(d.METER_TYPE)).Reverse().ToList();
+
+
+                            // .Substring((x.Field<string>("Номер счетчика*").IndexOf('-')!=-1)? x.Field<string>("Номер счетчика*").IndexOf('-') + 1:0)
+
+                            //.Substring(0, (x.Field<string>("Номер счетчика*").IndexOf('_') != -1) ? (x.Field<string>("Номер счетчика*").IndexOf('_')) : x.Field<string>("Номер счетчика*") .ToCharArray().Count())
+
+
+                            //.Substring(x.Field<string>("Номер счетчика*").IndexOf('-') + 1, (x.Field<string>("Номер счетчика*").IndexOf('_') != -1) ? x.Field<string>("Номер счетчика*").IndexOf('_') - 3 : x.Field<string>("Номер счетчика*").Length - 3)
+
+                            var dublicateDatas = dt.AsEnumerable()
+                                .Select(x => new { SCORE_ID = x.Field<string>("№ ЛС*"), METERS_NUMBER = x.Field<string>("Номер счетчика*")
+                                .Replace("T1-", "")//ru
+                                .Replace("T1-", "")//en
+
+                                .Replace("T2-","")//ru
+                                .Replace("T2-","")//en
+
+                                 .Replace("T3-", "")//ru
+                                .Replace("T3-", "")//en
+
+
+                                   .Replace("Т1-", "")
+                                .Replace("Т2-", "")
+                                .Replace("_x000D_","")
+                                .TrimStart()
+                                .TrimStart()
+                                .Replace(" ","")
+                                .Replace("\n","")
+
+
+
+                               , METER_TYPE = x.Field<string>("Тип счетчика*"),
+                                    AMUNT_TARIF = x.Field<string>("Количество тарифов**"),
+                                    TARIF = x.Field<string>("Тариф**")
+                                })
+
+                                .Where(s => !string.IsNullOrEmpty(s.METERS_NUMBER.Trim())).Where(f => !string.IsNullOrEmpty(f.SCORE_ID)).Where(d => !string.IsNullOrEmpty(d.METER_TYPE)).ToList().Where(y => y.METER_TYPE == "Электроэнергия").ToList();
+
+
+
+
+
+
+
+                            if (kolTarif.IndexOf('(') == -1)
+                            {
+
+                                dublicateDatas = dublicateDatas.Where(r => r.METERS_NUMBER == mtr.METERS_NUMBER && r.SCORE_ID == mtr.SCORE_ID).ToList();
+                                int MeterCount = dublicateDatas.Count;//get same counters by meter numbe
+
+                                if (MeterCount != Convert.ToInt32(kolTarif))
+                                {
+                                    mtr.AMUNT_TARIF = mtr.AMUNT_TARIF + " (Количество тарифов не соответствует количеству счетчиков)";
+                                    currentSucc = false;
+                                }
+                            }
+
+                            if (mtr.AMUNT_TARIF.IndexOf('(')==-1)
+                            {
+                                if (mtr.TYPE_ID.IndexOf('(') == -1)
+                                {
+                                    var T1_datas = dublicateDatas.Where(r => r.METERS_NUMBER == mtr.METERS_NUMBER && r.SCORE_ID == mtr.SCORE_ID && r.AMUNT_TARIF == mtr.AMUNT_TARIF && (r.TARIF == "T1" || r.TARIF == "Т1")).ToList();
+                                    //ENG                //RUS
+                                    if (T1_datas.Count > 1 || T1_datas.Count < 1)
+                                    {
+                                        if (mtr.TYPE_ID.IndexOf('(') == -1)
+                                        {
+                                            if (mtr.TYPE_ID == "T1" || mtr.TYPE_ID == "Т1")
+                                            {
+                                                mtr.TYPE_ID = mtr.TYPE_ID + " (счетчики электроэнергии, имя тариф \"T1\" не уникально)";
+
+                                                currentSucc = false;
+                                            }
+                                        }
+                                    }
+                                    if (kolTarif == "2")
+                                    {
+                                        var T2_datas = dublicateDatas.Where(r => r.METERS_NUMBER == mtr.METERS_NUMBER && r.SCORE_ID == mtr.SCORE_ID && r.AMUNT_TARIF == mtr.AMUNT_TARIF && (r.TARIF == "T2" || r.TARIF == "Т2")).ToList();
+                                        //eng               //rus
+                                        if (T2_datas.Count > 1 || T2_datas.Count < 1)
+                                        {
+                                            if (mtr.TYPE_ID.IndexOf('(') == -1)
+                                            {
+                                                if (mtr.TYPE_ID == "T2" || mtr.TYPE_ID == "Т2")
+                                                {
+                                                    mtr.TYPE_ID = mtr.TYPE_ID + " (счетчики электроэнергии, имя тариф \"T2\" не уникально)";
+
+                                                    currentSucc = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (kolTarif == "3")
+                                    {
+                                        var T3_datas = dublicateDatas.Where(r => r.METERS_NUMBER == mtr.METERS_NUMBER && r.SCORE_ID == mtr.SCORE_ID && r.AMUNT_TARIF == mtr.AMUNT_TARIF && (r.TARIF == "T3" || r.TARIF == "Т3")).ToList();
+                                        //eng               //rus
+                                        if (T3_datas.Count > 1 || T3_datas.Count < 1)
+                                        {
+                                            if (mtr.TYPE_ID.IndexOf('(') == -1)
+                                            {
+                                                if (mtr.TYPE_ID == "T3" || mtr.TYPE_ID == "Т3")
+                                                {
+                                                    mtr.TYPE_ID = mtr.TYPE_ID + " (счетчики электроэнергии, имя тариф \"T3\" не уникально)";
+
+                                                    currentSucc = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                } 
+                            }
+
+                             
+                        }
+
+                    }

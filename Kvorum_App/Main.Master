@@ -1,0 +1,140 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="Kvorum_App.Main" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+        <title>UPRAVBOT</title>
+
+      <link href="css/bootstrap.min.css" rel="stylesheet" /> 
+    <link href="css/Footer-Clean.css" rel="stylesheet" />
+    <link href="css/animate.min.css" rel="stylesheet" /> 
+    <link href="css/swiper.min.css" rel="stylesheet" /> 
+    <link href="css/Navigation-Clean1.css" rel="stylesheet" /> 
+    <link href="css/Navigation-with-Button1.css" rel="stylesheet" /> 
+    <link href="css/Navigation-with-Search1.css" rel="stylesheet" /> 
+    <link href="css/Simple-Slider.css" rel="stylesheet" /> 
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script>
+   !function(f,b,e,v,n,t,s)
+   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+   n.queue=[];t=b.createElement(e);t.async=!0;
+   t.src=v;s=b.getElementsByTagName(e)[0];
+   s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+   fbq('init', '2507816279340851');
+   fbq('track', 'PageView');
+ </script>
+ <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2507816279340851&ev=PageView&noscript=1"/></noscript>
+    <!-- End Facebook Pixel Code -->
+    <style>
+        #kl, #jl {
+            box-shadow: 5px 7px 10px 0 rgba(0,0,0,0.3);
+        }
+	    #kl span, #jl span {
+		    font-size: 36px;
+		    font-family: 'PT Sans Narrow', sans-serif;
+	    }
+        .buttonsMain {
+               margin-top: 30px;
+               text-align: right;
+               padding-right: 0;
+        }
+        .fa-user, .fa-users {
+            font-size: 37px;
+        }
+        .menu {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="row fonDark">
+            <div class="container fonDark" style="text-align:right;">
+                <a href="#" class="topMenu"><i class="fa fa-phone" aria-hidden="true"></i>+7 (495) 199-3854 </a>
+                <a href="mailto:help-desk@upravbot.ru" class="topMenu"><i class="fa fa-envelope-o" aria-hidden="true"></i>help-desk@upravbot.ru</a>
+            </div>
+        </div>
+        <div class="row" style="height:95px;">
+            <div class="container">
+                <div class="col-xs-5">
+                    <a href="HomePage.aspx" id="lg1"><img src="img/logo3.png" class="logoImg"></a>
+                    <a href="HomePage.aspx" class="logoMain" id="lg2"  >
+                        <img src="/img/logofont.png" class="logoFont" alt=""/></a>
+                </div>
+                <div class="col-xs-7 buttonsMain">
+                    <button id="kl" class="btn clientBtn" type="button"><span>Вход</span></button>
+                   <%-- <button id="jl"  class="btn" type="button"><i class="fa fa-user" aria-hidden="true"></i><span>Вход для жителей</span></button>--%>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="background-color:#fff;height:15px;"> <!-- 434242 -->
+        </div>
+        <div class="row fonDark" style="height:42px;margin-top:9px;">
+            <div class="container">
+                <ul class="menu">
+                 <%--   <li><a href="#">О ПРОДУКТЕ</a></li>
+                    <li><a href="#">ТАРИФНАЯ ПОЛИТИКА</a></li>--%>
+                    <li ><a href="#" style="display:none">НАЙДИ СВОЙ ДОМ</a></li>
+                    <li><a href="About.aspx">О НАС</a></li>
+                    <li ><a href="#" style="display:none">НОВОСТИ </a></li>
+                    <li ><a href="#" style="display:none">МЫ В СОЦСЕТЯХ </a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <main>
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+    </asp:ContentPlaceHolder>
+     <footer class="footer-clean">
+     
+            <div class="row">
+                <div class="container">
+                   <div class="menuFooter">
+                       <div id="vers" class="version item" > </div>
+                      <span class="copyright item">&copy; UPRAVBOT 2018</span>
+                      <a class="item" href="tel:+74951254101"><i class="fa fa-phone" aria-hidden="true"></i>+7 (495) 199-3854 </a>
+                     <a id="eml" class="item" href="mailto:help-desk@upravbot.ru"><i class="fa fa-envelope-o" aria-hidden="true"></i>help-desk@upravbot.ru</a>
+                     <input style="display:none" class="item" type="search" placeholder="Поиск"/>
+                   </div>
+   
+                </div>
+            </div>
+    </footer>
+        <div id="myModal" class="modal" style="z-index: 13;">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close" id="close">&times;</span>
+      <h2 id="mh">Modal Header</h2>
+    </div>
+    <div class="modal-body" style="height: 100px;height: 100px;padding: 15px;/* min-width:100px; */display: inline-block;">
+      <p id="txt" style="font-size: 23px;">Some text in the Modal Body</p>
+      
+    </div>
+    <div class="modal-footer" style="text-align: left;">
+      <h3 id="mf">Modal Footer</h3>
+    </div>
+  </div>
+
+</div>
+      <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bs-animation.js"></script>
+    <script src="js/swiper.jquery.min.js"></script>
+    <script src="js/Simple-Slider.js"></script>
+     <%--<script src="scripts/utilities.js"></script> --%>
+        <script type='text/javascript'>
+document.write('<'+'script type="text/javascript" src="scripts/utilities.js?'+Math.random()+'"></'+'script>')
+</script> 
+</body>
+</html>

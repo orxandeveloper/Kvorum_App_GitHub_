@@ -1,0 +1,846 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Manager.master.cs" Inherits="Kvorum_App.Manager.Manager" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+
+    <!-- Meta -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Профиль управляющего</title>
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    <!-- CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="../css/styles.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+        .box {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+            .box.selected {
+                box-shadow: 0 0 0 99999px rgba(0, 0, 0, .5);
+            }
+        .lc_E,
+        .typeProp_E,
+        .LiveSq_E,
+        .LiveSqB_E,
+        .AmRoom_E,
+        .dols,.emails,.tels {
+        
+        color:red;
+        padding: 0px 0;
+        }
+        #loader2 {
+            display: none;
+            position: fixed;
+            top: 25%;
+            left: 30%;
+            width: 700px;
+            height: 150px;
+            z-index: 2000500
+        }
+
+        .modal2 {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(255,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content2 {
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 25%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+        /* Add Animation */
+        @-webkit-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        /* The Close Button */
+        .close2 {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close2:hover,
+            .close2:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        .modal-header2 {
+            padding: 2px 16px;
+            background-color: red;
+            color: white;
+        }
+
+        .modal-body2 {
+            padding: 2px 16px;
+        }
+
+        .modal-footer2 {
+            padding: 2px 16px;
+            background-color: red;
+            color: white;
+            height: 45px;
+        }
+    </style>
+    <style>
+        .modalBnp {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 2000; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(9, 118, 255, 0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-contentBnp {
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 57%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+        /* Add Animation */
+        @-webkit-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        /* The Close Button */
+        .closebnp {
+            color: black;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .mhbnp {
+            text-align: left;
+            color: black;
+        }
+
+        .close2:hover,
+        .close2:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-headerBnp {
+            background-color: white;
+            padding: 2px 16px;
+            color: white;
+            height: 75px;
+        }
+
+        .modal-bodybnp {
+            display: inline-block;
+            padding: 15px;
+            padding: 2px 16px;
+        }
+
+        .modal-footer2 {
+            padding: 2px 16px;
+            background-color: red;
+            color: white;
+            height: 45px;
+        }
+
+        .modalSs {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0, 100, 223, 0.4);
+        }
+
+        /* Modal Content */
+        .modal-contentSs {
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 50%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+        /* Add Animation */
+        @-webkit-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        /* The Close Button */
+        .closeSs {
+            color: black;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .closeSs:hover,
+            .closeSs:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        .modal-headerSs {
+            padding: 2px 16px;
+            background-color: white;
+            color: white;
+        }
+
+        .modal-bodySs {
+            /*height: 250px !important;*/
+            width: 100%;
+            padding: 15px;
+            display: inline-block
+        }
+
+        .mhSs {
+            text-align: left;
+        }
+
+        .modal-footerSs {
+            padding: 2px 16px;
+            color: white;
+            height: 50px !important;
+            text-align: left;
+            height: 14px;
+            background-color: white;
+        }
+
+        .AddSs {
+            width: 24%;
+            height: 35px;
+            background-color: white;
+            color: black;
+            font-weight: 700;
+            margin-left: 38%;
+        }
+    </style>
+    <style>
+        .ui-loader-background {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            margin: 0;
+            background: rgba(0, 0, 0, 0.3);
+            display: none;
+            position: fixed;
+            z-index: 10000;
+        }
+
+        .modalkvart {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 2000; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(9, 118, 255, 0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-contentkvart {
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 57%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+        /* Add Animation */
+        @-webkit-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        /* The Close Button */
+        .closekvart {
+            color: black;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .mhkvart {
+            text-align: left;
+            color: black;
+        }
+
+        .close2:hover,
+        .close2:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-headerkvart {
+            background-color: white;
+            padding: 2px 16px;
+            color: white;
+            height: 75px;
+        }
+
+        .modal-bodykvart {
+            display: inline-block;
+            padding: 15px;
+            padding: 2px 16px;
+        }
+
+        .modal-footerkvart {
+            padding: 2px 16px;
+            background-color: red;
+            color: white;
+            height: 45px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="ui-loader-background" style="display: none"></div>
+    <div id="loader" style="position: fixed"></div>
+    <%--<div class="w3-container" id="loader2" style="display:none">
+        <div class="w3-light-grey">
+            <div class="w3-blue" style="height: 24px; width: 75%"><label id="lblloader" style="color:white"></label></div>
+        </div>
+    </div>--%>
+    <div class="row fonDark">
+        <div class="container fonDark" style="text-align: right;">
+            <div class="col-xs-12">
+                             &nbsp;
+
+            </div>
+        </div>
+    </div>
+    <div class="row" style="height: 50px;">
+        <div class="container">
+            <div class="col-xs-5 col-sm-3">
+         <a href="../HomePage.aspx" id="lg1"><img src="/img/app-logo.png" class="logoImg"></a>
+            </div>
+            <div class="col-xs-5 col-sm-7 header">
+                <h1>Профиль управляющего</h1>
+            </div>
+            <div class="col-xs-2">
+                <button class="btn log_out" id="Out" type="button"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Выход</button>
+            </div>
+        </div>
+   
+    </div>
+    <div class="row">
+        <div class="main-panel">
+            <div class="container">
+                <div class="col-sm-12">
+                    <ul class="main-menu" style="float: right;">
+                         <li ><a href="Users_.aspx">Пользователи</a></li>
+                        <li ><a href="Services.aspx">Добавить Сервис</a></li>
+                        <%--<li><a href="NewsRegister.aspx">Новости</a></li>--%>
+                        <li><a href="#">Новости и Опросы</a>
+                            <ul class="sub-menu">
+                                <li><a href="NewsRegister.aspx">Новости</a></li>
+                                <li><a href="CreatePoll.aspx">Опросы</a></li>
+
+                            </ul>
+                        </li>
+                        <li><a href="Apartments.aspx">Помещения и лицевые счета</a></li>
+                        <li><a href="Counters.aspx">Счетчики</a></li>
+                          <li style="display:none"><a href="RequestsManager.aspx">Заявки</a>
+                     <%--   <li>
+                            <a>Начисления и платежи</a>
+                            <ul class="sub-menu">
+                                <li id="UplKvart"><a style="cursor: pointer;">Загрузить из Квартплаты</a></li>
+                                <li id="UplPayment"><a style="cursor: pointer;">Загрузить по шаблону</a></li>
+                            </ul>
+                        </li>--%>
+                        <%-- <li><a href="#">Страница дома</a>
+                    <ul class="sub-menu">
+                      <li><a href="#">Перейти на страницу дома</a></li>
+                      
+                      
+                          
+                    </ul>
+                </li>
+                <li><a href="#">Помещения и лицевые счета</a></li>
+                <li><a href="#">Счетчики</a></li>
+                <li><a href="#">Начисления и платежи</a></li>
+                <!--<li><a href="#">Услуги</a></li>-->
+                <li><a href="#">Настройки</a></li>--%>
+                        <li>
+                            <select id="objsM" style="padding: 0; width: auto">
+                                <option value="0">Выберите объект</option>
+                            </select></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <div class="aside col-xs-12 col-sm-3">
+                <span>Роль: Управляющий</span>
+                <br />
+                <em id="idk"></em>
+                <br />
+                <br />
+                <span id="fiodsp"></span>
+              
+                <%--  <a href="#">Обращения <span class="circQty">5</span></a>--%>
+                <br>
+                <br />
+                <%--   <a href="#">Заказы <span class="circQty">10</span></a>--%>
+                <br>
+                <br />
+                <%--  <a href="#">Уведомления <span class="circQty">3</span></a>--%>
+                <br>
+                <br />
+                <%-- <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;Написать в тех. поддержку</a><br />--%>
+                <a href="#"><i class="fa fa-phone" aria-hidden="true"></i>+7 (495) 452-44-44</a>
+            </div>
+
+            <div class="col-xs-12 col-sm-9" id="body">
+                <!-- main -->
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <div style="display: block; width: 50%; height: 150px;">&nbsp;</div>
+            <div class="layout">
+                <div class="tabs-layout">
+                    <ul>
+
+                        <li class="current"><a href="#">Профиль управляющего</a></li>
+
+                    </ul>
+                </div>
+                <div class="search-layout">
+                    <input class="lenta-search" id="serchUpro" type="search" placeholder="Введите данные для поиска…" />
+                </div>
+                <br>
+                <div class="lenta" style="overflow-y: scroll;">
+                    <ul id="lgs_">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myModal2" class="modal2" style="z-index: 3000; background-color: rgba(9, 118, 255,0.4)">
+
+        <!-- Modal content -->
+        <div class="modal-content2" style="">
+            <div class="modal-header2" style="background-color: white">
+                <span class="close2" id="close_">&times;</span>
+                <h2 id="mh2" style="text-align: left; color: black">Ошибка</h2>
+            </div>
+            <div class="modal-body2" style="height: 100px; height: 100px; padding: 15px; /* min-width: 100px; */display: inline-block;">
+                <p id="txt2" style="font-size: 23px;">Some text in the Modal Body</p>
+
+            </div>
+            <div class="modal-footer2" style="text-align: left; background-color: white">
+                <%--<h3 id="mf2">Modal Footer</h3>--%>
+                <input type="button" id="cls" name="name" value="Отмена" style="width: 25%; float: right; height: 78%; background-color: white; color: black; font-weight: 700;" />
+                <input type="button" id="deleteO" name="name" value="Удалить" style="float: left; width: 25%; height: 78%; background-color: white; color: black; font-weight: 700;" />
+            </div>
+        </div>
+
+    </div>
+    <div id="myModal4" class="modal2" style="z-index: 1000; background-color: rgba(0, 100, 223, 0.4); display: none;">
+
+        <!-- Modal content -->
+        <div class="modal-content2" style="width: 17%;">
+            <div class="modal-header2" style="background-color: white">
+                <span class="close2" style="color: black" id="close_4">×</span><br>
+
+                <label style="color: black; font-size: 21px; text-align: center; font-weight: 500;">
+                    Сгенерированный пароль
+    
+                </label>
+            </div>
+            <div class="modal-body2" style="width: 100%; padding: 15px; display: inline-block;">
+                <input type="text" id="genPass"><%--<input type="number" min="0" value="7" id="psExp" style="width: 28%; float: right; text-align: center;">--%>
+                <span id="" style="color: red; display: none;" class="domOk"></span>
+                <%-- <label>Срок действия пароля в днях</label>
+                <label style="font-style: italic; font-weight: 100; width: 100%; float: left;">
+                    <i class="fa fa-info-circle" aria-hidden="true" style="color: grey; font-size: 16px; margin-right: 11px;"></i>значение "0" соответствует неограниченному сроку действия пароля</label>
+                <br>
+                <br>--%>
+            </div>
+
+            <div class="modal-footer2" id="modal-footer4" style="text-align: left; height: 150px; background-color: white; margin-top: 0px; color: black;">
+
+                <input type="checkbox" id="sms" style="margin-right: 15px;">Сделать смс-рассылку<br>
+                  <input type="checkbox" id="em" style="margin-right: 15px;">Сделать рассылку на электронную почту
+                <br>
+                <button style="margin-left: 26%; margin-top: 3%; width: 47%; font-size: 16px;" onclick="GetValuesG(this)" id="GENER" class="btn genBtn">ОК</button>
+                <label style="font-style: italic; font-weight: 100; width: 100%; float: left;">
+                    <i class="fa fa-info-circle" aria-hidden="true" style="color: grey; font-size: 16px; margin-right: 11px;"></i>Выбранная рассылка будет произведена после нажатия на кнопку "Сохранить" на карточке помещения.</label>
+            </div>
+        </div>
+
+    </div>
+    <div id="GenPass" class="modal2" style="z-index: 2000; background-color: rgba(9, 118, 255, 0.4); display: none;">
+
+        <!-- Modal content -->
+        <div class="modal-content2" style="width: 40%">
+            <div class="modal-header2" style="background-color: white">
+                <span class="close2" style="color: black" id="closeGEN">×</span>
+                <h2 id="mh3" style="text-align: left; color: black">ГЕНЕРИРОВАНИЕ ПАРОЛЕЙ "Москва,Краснопахорское,Варварино,Нагорная ул , Д. 43, К. 76"</h2>
+            </div>
+            <div class="modal-body2" style="height: 100px; height: 100px; padding: 15px; /* min-width: 100px; */display: inline-block;">
+                <div id="loadLC">
+
+                    <div style="padding-left: 20px;">
+
+                        <select id="ObjAdr">
+                        </select>
+
+                        <%--<input type="number" value="7" id="psExp1" style="width: 8%; float: right; text-align: center; margin-right: 60%;">
+
+                        <label>Срок действия пароля в днях</label>--%>
+                        <div  >
+                            <br>
+                            <input type="checkbox" id="sms2" data-ras="no" style="margin-right: 15px;">Сделать смс-рассылку
+                        <br>
+                            <input type="checkbox" id="em2" data-ras="no" style="margin-right: 15px;">Сделать рассылку на электронную почту
+                
+                        <br>
+                        </div>
+                        <br>
+                        <label>Лицевые счета для которых необходимо сформировать пароли : </label>
+                        <br>
+
+                        <input type="checkbox" id="bezPar" style="margin-right: 15px;">Показать лицевые счета без паролей
+                        <br>
+                        <%-- <input type="checkbox" id="prosrec" style="margin-right: 15px;">Показать лицевые счета с просроченными паролями--%>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="=SAll" onclick="selectAll(this)" name="name" value="" />
+                                    Выбрать все</th>
+                                <th>ЛС</th>
+                                <th>Назначение помещения</th>
+                                <th>Тип помещения</th>
+                                <th>№помещения</th> 
+                                <th>Собственник</th>
+                            </tr>
+                        </thead>
+                        <tbody id="roomsPass">
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+
+            </div>
+            <div class="modal-footer2" style="text-align: left; background-color: white">
+
+                <input type="button" id="GenPassMass" class="btn genBtn" name="name" value="СГЕНЕРИРОВАТЬ" style="width: 25%; height: 78%; background-color: rgb(0,100,223); color: white; font-weight: 700; margin-left: 39%;">
+            </div>
+        </div>
+
+    </div>
+    <div id="ModalBNP" class="modalBnp" style="display: none;">
+
+        <!-- Modal content -->
+        <div class="modal-contentBnp">
+            <div class="modal-headerBnp">
+                <span class="closebnp" id="closebnp">×</span>
+                <h2 style="/* padding-top: 10px; */">Загрузка начислений и платежей</h2>
+            </div>
+            <div class="modal-bodybnp">
+                <div id="loadBnP" style="width: 100%; margin-top: -32px;">
+                    <div id="sled" style="padding-left: 20px;">
+                        <br>
+                        <p>Поля, выделенные красным цветом на скачиваемой форме загрузки начислений и платежей, обязательны для заполнения. </p>
+                        <p>Тип начисления/платежа «ЖКУ» означает жилищно-коммунальные услуги, «КР» - капитальный ремонт. </p>
+                        <p>При заполнении полей «Остаток на начало периода» и «Остаток на конец периода» значения со знаком «+» означают переплату жителя; значения со знаком «-» означают долг жителя.</p>
+                        <p>Для услуг «Итого» все поля обязательны для заполнения.</p>
+
+                        <strong>Обратите внимание, если в систему ранее уже была загружена информация по начислениям и платежам по данному л/с за данный период по данной услуге, при повторной загрузке (если все данные заполнены корректно) данные обновляются.</strong>
+                        <br>
+                        <br />
+                        <a href="../img/Форма загрузки начислений и платежей.xlsx">Форма для загрузки начислений и платежей</a><input type="file" onchange="BNPFileChange(this)" style="margin-top: 22px;" id="fileBnP">
+                    </div>
+                    <br>
+                    <div style="padding-left: 20px;" class="col-md-12">
+                        <div class="col-md-6" style="width: 30%;"
+                            id="SuccessText">
+                            <label id="Successlbl"></label>
+                        </div>
+                        <div class="col-md-6">
+                            <a id="loadPmnt1" class="btn logBtn" style="display: none; margin-left: 40%; height: 42px;">ЗАГРУЗИТЬ ДАННЫЕ</a>
+                        </div>
+
+                        <!--  <button class="btn logBtn" style="background:#ccc">Отмена</button> -->
+                    </div>
+                    <div style="padding-left: 20px;" class="col-md-12">
+                        <div class="col-md-6" style="width: 30%;"
+                            id="ErrorText">
+                            <label id="Errorlbl"></label>
+                        </div>
+                        <div class="col-md-6">
+                            <a id="loadPmn_t_Error" class="btn logBtn" style="display: none; margin-left: 43%; width: 31.5%; margin-top: 10px; height: 42px;">СКАЧАТЬ ФАЙЛ</a>
+                        </div>
+                        <div style="clear: both; height: 10px;">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="ModalKVART" class="modalkvart">
+
+        <!-- Modal content -->
+        <div class="modal-contentkvart">
+            <div class="modal-headerkvart">
+                <span class="closekvart" id="closekvart" style="cursor: pointer;">×</span>
+                <h2 style="/* padding-top: 10px; */">Загрузка начислений и платежей</h2>
+            </div>
+            <div class="modal-bodykvart">
+                <div id="loadkvart" style="width: 100%; margin-top: -32px;">
+                    <div id="sledKvart" style="padding-left: 20px;">
+                        <br>
+                        <p>Для загрузки истории начислений и платежей необходимо:</p>
+                        <p>-прикрепить выгруженный из "Квартплаты" файл</p>
+
+                        <p style="color: grey;">
+                            Загрузка может занять несколько минут. Не закрывайте окно загрузки
+                        </p>
+
+                        <%--                        <a href="../img/Форма загрузки начислений и платежей.xlsx">Форма для загрузки начислений и платежей</a>--%>
+                        <input type="file" onchange="kvartFileChange(this)" style="margin-top: 22px;" id="filekvart"><br>
+                        <p>-скачать преобразованный файл</p>
+                        <p style="color: grey;">
+                            Кнопка "Скачать файл" станет доступна сразу после преобразования файла в нужный формат.
+                        </p>
+
+
+
+                        <a id="loadPmntKvart" disabled="disabled" class="btn logBtn" style="/* margin-left: 40%; *//* height: 42px; */">Скачать Файл</a>
+                    </div>
+                    <br>
+                    <div style="padding-left: 20px;" class="col-md-12">
+                        <div class="col-md-6" style="width: 30%;" id="SuccessTextKvart">
+                            <label id="SuccesslblKvart"></label>
+                        </div>
+                        <div class="col-md-6" style="margin-left: 80%;">
+                            <input type="button" id="toShablon" class="btn logBtn" value="Перейти">
+                        </div>
+
+                        <!--  <button class="btn logBtn" style="background:#ccc">Отмена</button> -->
+                    </div>
+                    <div style="padding-left: 20px;" class="col-md-12">
+                        <div class="col-md-6" style="/* width: 30%; */" id="ErrorTextKvart">
+                            <label id="ErrorlblKvart"></label>
+                        </div>
+                        <div class="col-md-6" style="">
+                        </div>
+                        <div style="clear: both; height: 10px;">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <div id="myModalSs" class="modalSs" style="display: none;">
+
+        <!-- Modal content -->
+        <div class="modal-contentSs">
+            <div class="modal-headerSs">
+
+                <span class="closeSs">×</span>
+                <h2 id="mh7" class="mhSs">Выбрать Сервис</h2>
+            </div>
+            <div class="modal-bodySs">
+            </div>
+            <hr>
+            <div class="modal-footerSs">
+                <input type="button" id="AddSs" class="AddSs" name="name" value="Сохранить">
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../js/jquery-1.12.4.min.js"></script>
+    <%--<script src="http://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>--%>
+    <script src="../Supplier_Admin/Utilities/jquery.mask.min.js"></script>
+    <%--   <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>--%>
+    <script src="../Supplier_Office/js/jquery.inputmask.bundle.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <%-- <script type="text/javascript" src="http://davidstutz.de/bootstrap-multiselect/dist/js/bootstrap-multiselect.js"></script>--%>
+    <script src="js/bootstrap-multiselect.js"></script>
+    <link href="../css/jquery.dataTables.css" rel="stylesheet" />
+    <script src="js/jquery.dataTables.js"></script>
+    <script src="../css/ckeditor/ckeditor.js"></script>
+   <script src="../Disp_Admin/Script/date-de.js"></script>
+    <script src="../Disp_Admin/Script/natural.js"></script>
+    <%--<script src="js/Manager_Utilities.js"></script>--%>
+       
+     <script type='text/javascript'>
+         document.write('<' + 'script type="text/javascript" src="js/Manager_Utilities.js"></' + 'script>')//?' + Math.random() + '
+         document.write('<' + 'script type="text/javascript" src="../scripts/logger.js?' + Math.random() + '"></' + 'script>')
+         var isNeed=(window.location.pathname=='/Manager/AddUsers_.aspx')?true:false
+         if (isNeed) {
+              document.write('<' + 'script type="text/javascript"  src="js/UserCard.js"></' + 'script>')//?' + Math.random() + '
+         }
+</script>
+
+
+   <%-- <script src="../scripts/logger.js"></script>--%>
+</body>
+</html>

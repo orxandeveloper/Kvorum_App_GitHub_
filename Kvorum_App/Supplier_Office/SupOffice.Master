@@ -1,0 +1,661 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SupOffice.master.cs" Inherits="Kvorum_App.Supplier_Office.SupOffice" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+       <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- <link href="css/styles.css" rel="stylesheet" type="text/css"> -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- CSS -->
+ <style>
+@font-face {font-family: 'Lato', sans-serif; 
+	src: local('Lato'), url('fonts/Lato/Lato-Regular.ttf') format('truetype');
+	}
+
+@font-face {font-family: 'Lato', sans-serif; 
+	font-style: italic;
+	src: local('Lato Italic'), url('fonts/Lato/Lato-Italic.ttf') format('truetype');
+	}
+
+@font-face {font-family: 'Lato', sans-serif;
+	font-style: normal;
+	font-weight: bold; 
+	src: local('Lato Bold'), url('fonts/Lato/Lato-Bold.ttf') format('truetype');
+	}
+
+@font-face {font-family: 'Lato', sans-serif;
+	font-style: italic;
+	font-weight: bold; 
+	src: local('Lato Bold Italic'), url('fonts/Lato/Lato-BoldItalic.ttf') format('truetype');
+	}
+	
+header nav ul li a {
+	padding: 26px 20px;
+	color: RGB(0,44,125); 
+	margin-left:3px;
+	font-size: 18px;
+}
+#popup .table td:last-child {white-space: nowrap;}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-style: italic;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  font-style: italic;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  font-style: italic;
+}
+:-moz-placeholder { /* Firefox 18- */
+  font-style: italic;
+}
+</style>
+    <link rel="stylesheet" href="js/vendor/slick/slick.css">
+    <link rel="stylesheet" href="css/prettyphoto.css">
+  <%--  <link rel="stylesheet" href="css/style.css">--%>
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- JS - MEDIAQUERIES 
+   <script src="js/jquery.min.js"></script>-->
+    <%--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>--%>
+    <script src="js/jquery-1.9.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+
+    <script src="js/css3-mediaqueries.js"></script>
+    <script src="js/jquery.spasticNav.js"></script>
+    <script src="js/vendor/slick/slick.js"></script>
+    <script src="js/jquery.nicescroll.js"></script>
+    <script src="js/jflickrfeed.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/jquery.spasticNav.js"></script>
+    <script src="js/jquery.prettyphoto.js"></script>
+    <script src="js/main.js"></script>
+   <%--     <script src="../js/jquery.mask.js"></script>--%>
+      
+    <style>
+        .modalFLogin {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-contentFLogin {
+            position: relative;
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 6px;
+            border: 1px solid #888;
+            width: 25%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s;
+        }
+
+        .modal-headerFLogin {
+            background-color: #500000;
+            color: white;
+                margin-top: -20px;
+        }
+
+        .closeFLogin {
+            color: #fff;
+            float: right;
+            margin: 5px 7px;
+            cursor: pointer;
+            font-size: 21px;
+        }
+
+        .modal-headerFLogin h2 {
+            padding: 2px 16px;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: none;
+        }
+
+        .modal-bodyFLogin {
+            min-height: 100px;
+            display: inline-block;
+            padding: 15px;
+            height: 100px;
+        }
+
+            .modal-bodyFLogin p {
+                font-size: 23px;
+            }
+
+        .modal-footerFLogin {
+            font-size: 18px;
+            color: #fff;
+            padding: 2px 16px;
+            text-align: left;
+            background-color: #500000;
+        }
+    </style>
+      <style>
+            #loader {
+          display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 20000;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #500000;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+        }
+            @-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+                  .ui-loader-background {
+    width:100%;
+    height:100%;
+    top:0;
+    padding: 0;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display:none;
+    position: fixed;
+    z-index:10000;
+}
+
+.ui-loading .ui-loader-background {
+    display:block;
+}
+        .modalAlert {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-contentAlert {
+            position: relative;
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 6px;
+            border: 1px solid #888;
+            width: 25%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s;
+        }
+
+        .modal-headerAlert {
+            background-color: #500000;
+            color: white;
+                margin-top: -20px;
+        }
+
+        .closeAlert {
+            color: #fff;
+            float: right;
+            margin: 5px 7px;
+            cursor: pointer;
+            font-size: 21px;
+        }
+
+        .modal-headerAlert h2 {
+            padding: 2px 16px;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: none;
+        }
+
+        .modal-bodyAlert {
+            min-height: 100px;
+            display: inline-block;
+            padding: 15px;
+            height: 100px;
+        }
+
+            .modal-bodyAlert p {
+                font-size: 23px;
+            }
+
+        .modal-footerAlert {
+            font-size: 18px;
+            color: #fff;
+            padding: 2px 16px;
+            text-align: left;
+            background-color: #500000;
+        }
+    </style>
+    <style>
+        .select2.narrow {
+    width: 200px;
+}
+.wrap.select2-selection--single {
+    height: 100%;
+}
+.select2-container .wrap.select2-selection--single .select2-selection__rendered {
+    word-wrap: break-word;
+    text-overflow: inherit;
+    white-space: normal;
+}
+        .ui-loader-background {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            margin: 0;
+            background: rgba(0, 0, 0, 0.3);
+            display: none;
+            position: fixed;
+            z-index: 10000;
+        }
+
+        #loader {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 1;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            border: 16px solid #E6E6FA;
+            border-radius: 50%;
+            border-top: 16px solid #D3D3D3;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 1s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar row">
+        <div class="container">
+            <div class="col-md-2">
+                <span id="welcome" class="whiteText margLf">
+			
+				</span>
+            </div>
+            <div class="col-md-9">
+          
+			 <ul class="alignRight">
+            <!--      <li class="whiteText">Мои начисления и оплаты</li>
+                <li class="whiteText">Уведомления</li>
+                 <li class="whiteText">Мои вопросы</li> -->
+                 <li>
+                     <div class="dropdown">
+                          <button class="btn btn-secondary dropdown-toggle whiteText" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ></button>
+                          <ul class="dropdown-menu txtRt" style="display:none" aria-labelledby="dropdownMenuButton"></ul>
+                     </div>
+                 </li>
+			 </ul>
+		
+            </div>
+            <div class="col-md-1 btnLink">
+                <a id="login" href="../ClientLogin.aspx" >Выход</a>
+            </div>
+
+        </div>
+
+    </div>
+    <header>
+  	<!-- Navigation -->
+	<div class="row">
+		<div class="container fffBG">
+			<div class="col-md-12">
+                <div class="menu-trigger">
+					<i class="fa fa-align-justify"></i> Меню
+				</div>
+                <nav>
+                    <ul id="nav">
+                        <li id="selected" class="n-menu subnav active">
+                            <a href="MainPage.aspx" class="sub-nav">Главная</a>
+                        </li>
+
+
+                        <!--  <li id="selected" class="n-menu subnav">
+                            <a href="news.html" class="sub-nav">НОВОСТИ</a>
+                                  <ul class="mega-menu simple">
+                                        <li class="sub-menu">
+                                            <ul>
+                                                <li><a href="big_table.html">Показания приборов учета</a></li>
+                                                <li><a href="object.html">Показания общедомовых <br> приборов учета</a></li>
+                                                <li><a href="settings.html">Настройка счетчиков</a></li>
+                                                <li><a href="reports.html">Отчет по счетчичкам</a></li>
+                                                <li><a href="session.html">Информация по должникам</a></li>
+                                                <li><a href="extra.html">Настройка оплаты доп.услуг</a></li>
+                                                <li><a href="my_request.html">Заявки жителей</a></li>
+                                                <li><a href="my_questions.html">Вопросы жителей</a></li>
+                                                <li><a href="votings.html">Опрос для жителей</a></li>
+                                                <li><a href="alert.html">Выгрузить отчет по <br> пользователям</a></li>
+                                                <li><a href="big_setting.html">Настройка</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                       </li>-->
+<!--
+                        <li class="n-menu subnav">
+                            <a href="#" class="sub-nav">КОНТАКТЫ И ГРАФИКИ РАБОТЫ</a>
+                                   <ul class="mega-menu simple">
+                                        <li class="sub-menu">
+                                            <ul>
+                                                <li><a href="my_contats.html">График работы</a></li>
+                                                <li><a href="news.html">Новости</a></li>
+                                                <li><a href="photogal.html">Фотогалерея</a></li>
+                                                <li><a href="information.html">Отчетность</a></li>
+                                                <li><a href="samples.html">Документация</a></li>
+                                                <li><a href="forms.html">Раскрытие информации</a></li>
+                                                <li><a href="faq.html">Часто задаваемые вопросы</a></li>
+                                                <li><a href="map_1.html">На карте: Поликлиники</a></li>
+                                                <li><a href="map_2.html">На карте: Больницы</a></li>
+                                                <li><a href="map_3.html">На карте: Аптеки</a></li>
+                                                <li><a href="map_4.html">На карте: Такси</a></li>
+                                                <li><a href="map_5.html">На карте: Магазины</a></li>
+                                                <li><a href="map_6.html">На карте: Рестораны/Кафе</a></li>
+                                                <li><a href="map_7.html">На карте: Банкоматы</a></li>
+                                                <li><a href="map_8.html">На карте: Ветеринарные клиники</a></li>
+
+
+                                            </ul>
+                                        </li>
+                                    </ul>-->
+                    <!--     </li>
+
+                        <li class="n-menu subnav">
+                            <a href="#" class="sub-nav">ИНФОРМАЦИЯ О ДОМЕ</a>
+                                   <ul class="mega-menu simple">
+                                        <li class="sub-menu">
+                                            <ul>
+                                                <li><a href="profile.html">Личные данные</a></li>
+                                                <li><a href="profile.html">Настройка оповещений</a></li>
+                                                <li><a href="motorin.html">Выход</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                        </li>-->
+                        
+						
+						
+                   <!--     <li class="n-menu subnav">
+                            <a href="#" class="sub-nav">ФОТОГАЛЕРЕЯ</a>
+                        </li> -->
+                    <li id="blob" style="width: 102px; height: 65px; left: 0px; top: -10px; background-color: rgb(11, 43, 97);"></li></ul>
+                </nav>
+            </div>
+        </div>
+    </div> <!-- row -->
+</header>
+       <div class="row">
+        <div class="container fffBG">
+            <div class="col-md-9 col-sm-12 marpad0">
+                <div class="carousel-reviews broun-block">
+   
+                <div id="carousel-reviews" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="item active">
+            
+						        <div class="gallery img-responsive">
+                                    <h3 class="galHeader"><span class="glyphicon glyphicon-home"></span></h3>	
+
+						        </div>
+                        </div>	
+                          <!--  <div class="item">
+                               <div class="gallery img-responsive">
+                                        <h3>А это тот же дом, который построил Джек</h3>	
+				                </div>
+                            </div>-->
+                        </div>
+                        <a class="left carousel-control" href="#carousel-reviews" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-reviews" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </div>   <!--  -->
+                </div>
+         
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+            </div>
+            <div class="col-md-3 col-sm-12 ">
+                 <ul class="mainBtns">
+                    <li style="/* display: none; */">
+                        <a href="Requests.aspx" onclick="GoToSuppOficePage('Requests.aspx')">Мои заявки<span class="icn"></span></a>
+
+                    </li><li>
+                        <a href="#" onclick="GoToSuppOficePage('RequestCreate.aspx')">Создать заявку<span class="icn"></span></a>
+
+                    </li>
+                    
+                    <li>
+                        <a href="#" onclick="GoToSuppOficePage('SupplierServices.aspx')">Мои услуги<span class="icn"></span></a>
+                    </li>
+                    <li>
+                        <a href="Requisites.aspx" onclick="GoToSuppOficePage('Requisites.aspx')">Мои реквизиты<span class="icn"></span></a>
+                    </li>
+                </ul>
+
+                <br style="clear: both;">
+                <h2 id="contact" style="display:none">Контакты</h2>
+              
+             
+                <!-- votingBx -->
+
+                
+              <%--  <div class="bossBx">
+                    <h4>Единый контактный центр</h4>
+                    <div>+7 (495) 230-30-66</div>
+
+                    <h4>Участковый Лебедев Евгений Владимирович</h4>
+                    <div>+7 (999) 010-70-63</div>
+
+                    <h4>График приёма Клиентского отдела</h4>
+                    <div>
+                        Понедельник – Пятница	 <span class="txtRt">09:00 – 20:00</span><br>
+                        Первая суббота месяца	 <span class="txtRt">10:00 – 17:00</span><br>
+                        Обеденный перерыв	 <span class="txtRt">13:00 – 14:00</span><br>
+                        <span style="color: #500000;">Последний четверг месяца – неприемный день</span>
+                    </div>
+
+                    <h4>График приема Расчетного отдела</h4>
+                    <div>
+                        Первая суббота месяца	 <span class="txtRt">10:00 – 17:00</span><br>
+                        Обеденный перерыв	 <span class="txtRt">13:00 – 14:00</span>
+                    </div>
+
+                    <h4>График работы Инженерной группы</h4>
+                    <div>
+                        Понедельник – Пятница	 <span class="txtRt">09:00-18:00</span>
+                    </div>
+
+                </div>
+
+                <br style="clear: both;">--%>
+             <%--   <div class="newsBx">
+                    <h2>Текущие опросы</h2>
+
+                    <div class="votingBx" style="position: relative;">
+
+                        <h4>Когда включать архитектурную подсветку дома?</h4>
+
+                        <div class="txtLt">
+                            Варианты ответа:
+                            <br>
+                            <input type="checkbox" id="vt1" style="display: inline-block;"><label for="vt1">В выходные</label>
+                            <span id="res1" style="display: none;" class="txtRt red">50%</span><br>
+                            <input type="checkbox" id="vt2" style="display: inline-block;"><label for="vt2">Во время праздников</label>
+                            <span id="res2" style="display: none;" class="txtRt red">40%</span><br>
+                            <input type="checkbox" id="vt3" style="display: inline-block;"><label for="vt3">Никогда</label>
+                            <span id="res3" style="display: none;" class="txtRt red">10%</span><br>
+                        </div>
+
+                        <button class="voteBtn" id="voteBtn" onclick="javascript:voting();">Проголосовать<span class="glyphicon glyphicon-ok"></span></button>
+
+                        <div class="voteInfo">
+                            Проголосовало: <span class="numVoters">3</span><br>
+                            Опрос завершится <span class="endVote">15.10.2018</span>
+                        </div>
+
+                    </div>
+
+                </div>--%>
+                <!-- votingBx -->
+
+               
+            </div>
+           
+        </div>
+    </div>
+    <footer>
+        <div class="row">
+            <div class="container whiteText">
+
+                <div class="col-md-2 margLf">
+                    <span>© UPRAVBOT 2019</span>
+                </div>
+                <div class="col-md-6">
+                    <!--     <span>Техподдержка:</span>
+                        
+                                    <span>+7 (495) 199-3854  &nbsp;&nbsp;&nbsp; help-desk@upravbot.ru</span> -->
+                </div>
+                <div class="col-md-4 btnLink ">
+                    <!--    <span>Мы в соцсетях:</span>
+                            <a href="#"><img class="socnetIc" src="images/ic_ok.png" alt="Odnoklassniki"/></a>
+                            <a href="#"><img class="socnetIc" src="images/ic_inst.png" alt="Instagram"/></a> -->
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+    </footer>
+    <div id="myModalFLogin" class="modalFLogin" >
+
+        <!-- Modal content -->
+        <div class="modal-contentFLogin">
+            <div class="modal-headerFLogin" >
+                <span class="closeFLogin" id="closeFLogin">×</span>
+                <h2 id="mh">Неудачное действие</h2>
+            </div>
+            <div class="modal-bodyFLogin" style="height: 100px; height: 100px; padding: 15px; /* min-width: 100px; */display: inline-block;">
+                <p id="txt" style="font-size: 23px;">Неправильное имя пользователя или пароль. Проверьте правильность введенных данных</p>
+
+            </div>
+            <div class="modal-footerFLogin" style="text-align: left; background-color: #500000;">
+                <h3 id="mf">:(</h3>
+            </div>
+        </div>
+
+    </div>
+    <div id="myModalAlert" class="modalAlert">
+
+        <!-- Modal content -->
+        <div class="modal-contentAlert">
+            <div class="modal-headerFLogin">
+                <span class="closeAlert" id="closeAlert">×</span>
+                <h2 id="mhAlert"></h2>
+            </div>
+            <div class="modal-bodyAlert" >
+                <p id="txtAlert" style="font-size: 23px;"></p>
+
+            </div>
+            <div class="modal-footerAlert" >
+                <h3 id="mfAlert">:(</h3>
+            </div>
+        </div>
+
+    </div>
+   <%-- <div id="myModal5" class="modal2" style="z-index: 1000; background-color: rgba(0,100,223,0.4);">
+
+        <!-- Modal content -->
+        <div class="modal-content2" style="">
+            <div class="modal-header2" style="background-color: white">
+                <span class="close2" style="color: black" id="close_5">&times;</span>
+              
+            </div>
+            <div class="modal-body2" style="height: 100px; width: 100%; height: 100px; padding: 15px; /* min-width: 100px; */display: inline-block;">
+                <textarea style="width: 522px; height: 205px; max-width: 100%; min-width: 100%; max-height: 109px; min-height: 109px; margin: 0px;" id="cmntsts2">Все работы по данной заявке выполнены</textarea>
+
+            </div>
+            <hr />
+            <div class="modal-footer2" style="text-align: left; height: 80px; background-color: white">
+
+                <input class="knop" id="f_iles2" style="width: 124px" type="file">
+                <input type="button" id="OkVipol" name="name" value="ОК" style="width: 25%; height: 37%; background-color: white; color: black; font-weight: 700; margin-left: 48%; margin-bottom: -26px;" />
+                <input type="button" id="Close_Ot" name="name" value="Отмена" style="width: 25%; height: 37%; background-color: white; color: black; font-weight: 700; margin-top: -20px;" />
+
+            </div>
+        </div>
+
+    </div>--%>
+    <%-- <script src="http://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>--%>
+    <script src="js/jquery.mask.min.js"></script>
+    <script src="js/select2.full.js"></script>
+    <link href="js/select2.css" rel="stylesheet" />
+   <%--  <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>--%>
+    <script src="js/jquery.inputmask.bundle.js"></script>
+    <%--<link href="../js/jquery.dataTables.css" rel="stylesheet" />--%>
+    <link href="../css/jquery.dataTables.css" rel="stylesheet" />
+   <%-- <script src="../js/jquery.dataTables.js"></script>--%>
+     <script src="../Manager/js/jquery.dataTables.js"></script>
+   
+   
+    <script src="js/Supplier_Office.js"></script>
+</body>
+</html>
