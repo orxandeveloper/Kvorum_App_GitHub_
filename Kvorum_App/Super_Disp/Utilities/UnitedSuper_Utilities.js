@@ -214,7 +214,8 @@ $(function () {
         $('.formTable tr:not(:first)').remove();
      
         var all = (window.location.pathname.indexOf('AllRequsts.aspx') != -1) ? 1 : 0
-        if (role!=15) {
+        if (role != 15) {
+            alert('test 2 alert')
              GetDispsRequests(SLogId, role, all)
         }
         else {
