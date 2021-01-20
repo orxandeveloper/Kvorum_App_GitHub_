@@ -215,7 +215,7 @@ $(function () {
      
         var all = (window.location.pathname.indexOf('AllRequsts.aspx') != -1) ? 1 : 0
         if (role != 15) {
-           
+           //
              GetDispsRequests(SLogId, role, all)
         }
         else {
