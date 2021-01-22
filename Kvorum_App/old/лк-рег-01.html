@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="keywords" content="информационная система">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<meta name="format-detection" content="telephone=no">
+    <title>Управбот: информационная система</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicons 
+    <link rel="shortcut icon" href="img/favicon.ico"> 
+	-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">		
+	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/swiper.min.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+</head>
+<body class="bgWhite">
+
+<header>
+
+	<ul class="nav">
+		<li class="nav-item"><a class="nav-link logo navbar-brand" href="главная.html">
+				<img src="img/app-logo.png" class="logoImg" alt="УправБот">
+			</a></li>
+		<li class="nav-item active"><a class="nav-link" href="#">Клиентам</a></li>
+		<li class="nav-item"><a class="nav-link" href="#">Партнёрам</a></li>
+		<li class="nav-item"><a class="nav-link" href="#">Жителям</a></li>
+	<!--	<li class="nav-item"><a class="nav-link" href="#">Рейтинг УК</a></li>
+		<li class="nav-item"><a class="nav-link" href="#">Поддержка</a></li>
+		<li class="nav-item"><a class="nav-link" href="#">Новости</a></li>
+		<li class="nav-item"><a href="#" class="nav-link active" >Мобильные приложения
+			<span class="caret"></span></a>
+		</li> -->
+		<li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+		<form class="form-inline my-2 my-lg-0 d-none">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Искать</button>
+    </form>
+		
+		</li>
+		<li class="nav-item ml-auto">
+		<a class="nav-link d-inline" href="tel:+79646274444"><i class="fa fa-phone" aria-hidden="true"></i> +7 964 627-44-44</a>
+		<a class="nav-link d-inline" href="mailto:#"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+		<button class="nav-link forn-control btn login" type="button"><i class="fa fa-sign-in" aria-hidden="true"></i>Войти</button></li> 
+	</ul>
+	
+			<ul class="nav">
+			  <li class="nav-item">
+				<a class="nav-link active" href="#">Рейтинг</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link disabled" href="#">Маркетплейс</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="#">Новости</a>
+			  </li> 
+			  <li class="nav-item">
+				<a class="nav-link" href="#">Поддержка</a>
+			  </li>
+			</ul>
+
+	
+	
+	
+</header>
+
+<main class="intern bgWhite wrapper8">
+
+
+	
+
+	<div class="row item8">
+		
+		<div class="col-lg-6 hidden-xs p-5">
+			<img class="square6" />
+		</div>
+		<div class="col-lg-6 col-xs-12 p-5">
+			
+			<h2 class="w-100">Регистрация
+				<span class="navbar-text right">
+					<a href="#">Уже есть аккаунт</a></span>
+			</h2>
+
+			<ul class="nav">
+			  <li class="nav-item">
+				<a class="nav-link active" href="#">Клиент</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="#">Житель</a>
+			  </li>
+			</ul>
+			<div class="row">
+				<div class="col-lg-6">	
+					<input type="mail" placeholder="E-mail" class="form-control" />
+					
+					<input type="tel" placeholder="Ваш номер телефона" class="form-control" />
+					
+					<button class="forn-control btn" type="button">Зарегестрироваться</button>
+				</div>
+				<div class="col-lg-6">
+					
+					<select class="form-control">
+						<option></option>
+						<option></option>
+					</select>
+					
+					<input type="password" placeholder="Не менее 8 знаков" class="form-control" />
+			
+
+					<p class="small">Придумайте сильный пароль, чтобы надежно защитить ващи личные данные</p>
+				
+		
+				</div>
+			</div>
+	
+			<span class="inputLabel">
+						<input type="checkbox" value="0" class="" id="check3">
+						<label for="check3">Нажимая, я соглашаюсь с 
+							<a href="#">Пользовательским соглашением</a>.</label>
+					</span>
+		</div>
+	</div>
+	
+	
+</main>
+
+
+
+<footer class="short">
+</footer>
+
+
+<script src="js/swiper.min.js"></script> 
+<script type="text/javascript">
+	$(document).ready(function(){
+		var mySwiper2 = new Swiper('.swiper-container2', {
+				slidesPerView: 3,
+				loop: false,
+				spaceBetween: 50,
+				pagination: {
+					el: '.swiper-pagination2',
+					clickable: true,
+				},
+				nextButton: '.swiper-button-next2',
+				prevButton: '.swiper-button-prev2'
+          });
+	});
+</script>
+</body>
+</html>

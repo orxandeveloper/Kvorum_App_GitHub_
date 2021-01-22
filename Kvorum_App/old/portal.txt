@@ -1,0 +1,32 @@
+портал 
+
+Главная 		main.html
+Клиентам 		clients.html
+Партнерам 		partners.html
+Жителям			tenants.html
+Поддержка 		support.html
+Маркетплейс		marketplace.html
+Карточка партнера card_partn.html
+Новости 		news.html
+Новость 		news-more.html
+Контакты		contacts.html
+Вопросы-ответы 	faq.html
+Документы 		docs.html
+Рейтинг 		rating.html
+Управляющая компания uk.html
+Управляющая компания_коммент uk-reply.html
+Форма для заполнения оценки uk-rate.html
+Форма для заполнения оценки_отправлено uk-send-ok.html
+ЖК				gk.html
+ЖК_карточка 	gk-card.html
+О Системе 		about.html
+Мобильное приложенеие _Житель app_ten.html
+ЛК_Клиент, ЛК_Жителя, ЛК_клиентам_регистрация, ЛК_жителям_регистрация,
+Обратная связь_отправлена, Написать_отправлено, Обратная связь, Написать - dialog.html
+Поиск 			search.html
+Поиск_результат search-ok.html
+Поиск_нет результата Cookie search-res.html
+Восстановить пароль dialog-window.html
+404 			p404.html
+новая 404 		p404.html
+страница выбора города удалена location.html
