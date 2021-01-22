@@ -98,12 +98,12 @@ $(document).ready(function () {
                     window.location.href = "../ClientLogin.aspx";
                 }
                 else {
-                  //  console.log("jsondata_")
-                   // console.log(jsondata_)
+                    //  console.log("jsondata_")
+                    // console.log(jsondata_)
                     SLogId = jsondata_[0].LOG_IN_ID
 
-                  //  console.log('document.location')
-                   // console.log(document.location)
+                    //  console.log('document.location')
+                    // console.log(document.location)
                     sessionStorage.setItem("Log", SLogId),
                         sessionStorage.setItem("Clien_ID", jsondata_[0].CLIENT_ID)
                     clientId = jsondata_[0].CLIENT_ID
@@ -112,7 +112,7 @@ $(document).ready(function () {
                     sessionStorage.setItem("REQUEST_STATUS", jsondata_[0].REQUEST_STATUS)
                     var Req_guid = jsondata_[0].REQ_GUID
                     if (Req_guid != undefined) {
-                        document.location.search = "?RId="+Req_guid+"&st=" + jsondata_[0].STATUS
+                        document.location.search = "?RId=" + Req_guid + "&st=" + jsondata_[0].STATUS
                     }
                 }
 
@@ -211,7 +211,7 @@ $(document).ready(function () {
         $(document).on('change', '#prjcts', function () {
             // $('#prjcts_lbl').remove()
             getObjectByProjectId("", $(this).val())
-          //  $('.ui-loader-background,#loader').show()
+            //  $('.ui-loader-background,#loader').show()
             $('#PrServiceH tbody').empty();
             $('#PrServiceH').hide();
             GetAllServicesOfProject($(this).children('option:selected').attr('guid'))
@@ -221,19 +221,19 @@ $(document).ready(function () {
 
         $(document).on('change', '#RequestKind', function () {
             // $('#prjcts_lbl').remove()
-          
+
             $('.ui-loader-background,#loader').show()
             $('#PrServiceH tbody').empty();
             $('#PrServiceH').hide();
-            if ($(this).val()==1) {
+            if ($(this).val() == 1) {
                 $('#reqType').children('option[value="0"]').remove()
                 $('#chkem,#lblEm').hide();
             }
             else {
-                $('#reqType').prepend('<option value="0">Внутренняя</option>') 
+                $('#reqType').prepend('<option value="0">Внутренняя</option>')
                 $('#chkem,#lblEm').show();
             }
-          //  GetAllServicesOfProject($(this).children('option:selected').attr('guid'))
+            //  GetAllServicesOfProject($(this).children('option:selected').attr('guid'))
             getDirection_K("", $('#prjcts').children('option:selected').attr('guid'), "", $(this).val());
 
         })
@@ -278,7 +278,7 @@ $(document).ready(function () {
                 }
             }
         })
-        
+
         $(document).on('click', '#file_btn', function () {
             $('#files').click();
         })
@@ -326,7 +326,7 @@ $(document).ready(function () {
                     totalCost = (isNaN(totalCost)) ? "0.00" : totalCost
                 })
                 totalCost = parseFloat(totalCost)
-                $('#PrServiceH').after('<label id="total" total-summ=\"'+totalCost.toFixed(2)+'\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
+                $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
                 //   $('#NewServs').jstree(true).destroy();
                 $('#NewServs').jstree("destroy").empty();
                 $('#NewServs').jstree("deselect_all");
@@ -538,8 +538,8 @@ $(document).ready(function () {
                 $(".modal-body2 h4").remove();
                 $(".modal-body2 i").remove()
             })
-             var role = sessionStorage.getItem("role")
-            if (role=="15") {
+            var role = sessionStorage.getItem("role")
+            if (role == "15") {
                 getCurrentDispObject("", SLogId);
             }
             $('#SaveDD').hide()
@@ -590,7 +590,7 @@ $(document).ready(function () {
                     $('#RequestKindr_S').remove();
                     $("#RequestKind").after('<span id="RequestKindr_S" style="float: right; font-weight: bold; color: red; display: none">Необходимо выбрать вид заявку</span>')
                     successRequest = false;
-                   // $("#adr_S").text("Необходимо выбрать адрес объекта").show();
+                    // $("#adr_S").text("Необходимо выбрать адрес объекта").show();
 
                     $("html, body").animate({ scrollTop: 50 }, "slow");
                     window.setTimeout(function () { $('#adr_S').hide(); }, 5000);
@@ -746,8 +746,8 @@ $(document).ready(function () {
                 var request_type = $('#reqType').val()
                 var role = sessionStorage.getItem("role")
                 if (role == 15) {
-                    request_type="1"
-                     }
+                    request_type = "1"
+                }
                 var SPECIATISTS = null
                 if (location.pathname == '/Responsible_Admin/CreateRequest.aspx' && $('.manysps').length != 0) {
 
@@ -784,23 +784,25 @@ $(document).ready(function () {
                     'request_type': request_type,
                     'RequestKind': $('#RequestKind option:selected').attr('guid'),
                     'path': window.location.pathname
-                    
+
 
 
                 }
                 //   //console.log(JSON.stringify(obj));
                 //  ////console.log(JSON.stringify(P_Services));
                 //////console.log(JSON.stringify(RImg));
-
-                if (successRequest == true && ismc=="True") {
+                if (ismc == "True" && RequestKind == 1) {
+                    ismc = "False"
+                }
+                if (successRequest == true && ismc == "True") {
                     // alert(ok)
                     $('.ui-loader-background,#loader').show()
                     SaveRequest_Super(JSON.stringify(obj), JSON.stringify(P_Services), JSON.stringify(RImg), SPECIATISTS);
                 }
                 if (successRequest == true && ismc == "False") {
-                   
-                    GetAndSaveDatasSuppRequest($(this),successRequest)
-                   
+
+                    GetAndSaveDatasSuppRequest($(this), successRequest)
+
                 }
 
 
@@ -1032,7 +1034,9 @@ $(document).ready(function () {
                 //   //console.log(JSON.stringify(obj));
                 //  ////console.log(JSON.stringify(P_Services));
                 //////console.log(JSON.stringify(RImg));
-
+                if (ismc == "True" && RequestKind == 1) {
+                    ismc = "False"
+                }
                 if (successRequest == true && ismc == "True") {
                     // alert(ok)
                     $('.ui-loader-background,#loader').show()
@@ -1040,7 +1044,7 @@ $(document).ready(function () {
                 }
                 if (successRequest == true && ismc == "False") {
 
-                    GetAndSaveDatasSuppRequest($(this),successRequest)
+                    GetAndSaveDatasSuppRequest($(this), successRequest)
 
                 }
 
@@ -1177,7 +1181,7 @@ $(document).ready(function () {
                                 var COST = $(this).children('td:eq(' + eq + ')').children('a').text()
 
 
-                             //   COST = (COST == undefined || COST == 'Договорная') ? '0.00' : COST
+                                //   COST = (COST == undefined || COST == 'Договорная') ? '0.00' : COST
                                 if (COST == undefined || COST == 'Договорная') {
                                     successRequest = false
                                     $('#costErr').remove()
@@ -1293,7 +1297,7 @@ $(document).ready(function () {
                         //if ($.isNumeric(R_id)) {
                         //   // $("#SaveDD").click()
                         //    var imgs = [];
-                         
+
                         //}
                         //else {
                         //    $('#updateRequest').click();
@@ -1317,7 +1321,7 @@ $(document).ready(function () {
                                 })
                                 if (imgs.length != 0) {
                                     if ($.isNumeric(R_id)) {
-                                        SaveFileOtmen(R_id, JSON.stringify(imgs), $('#fiodsp').text(),4);
+                                        SaveFileOtmen(R_id, JSON.stringify(imgs), $('#fiodsp').text(), 4);
                                     }
 
                                     // SaveFileZakrito(R_id, imgs);
@@ -1326,7 +1330,7 @@ $(document).ready(function () {
                                 if (textZakrit.length != 0) {
 
                                     if ($.isNumeric(R_id)) {
-                                        SaveCommentOtmen(R_id, textZakrit, $('#fiodsp').text(),4);
+                                        SaveCommentOtmen(R_id, textZakrit, $('#fiodsp').text(), 4);
                                     }
                                 }
 
@@ -1406,7 +1410,7 @@ $(document).ready(function () {
                                 var COST = $(this).children('td:eq(' + eq + ')').children('a').text()
 
 
-                               // COST = (COST == undefined || COST == 'Договорная') ? '0.00' : COST
+                                // COST = (COST == undefined || COST == 'Договорная') ? '0.00' : COST
                                 if (COST == undefined || COST == 'Договорная') {
                                     successRequest = false
                                     $('#costErr').remove()
@@ -1779,7 +1783,7 @@ $(document).ready(function () {
                             dataType: "json",
                             success: function (data) {//Заявка по работе <Номер заявки> выполнена
                                 var mn = $('#hedrZ').attr('mn');
-                                SaveFCM('Заявки', 'Заявка получила статус «Отправлена»', 'Заявке № ' + mn + ' в статусе «Отправлена».', '', $('#Acnum').val(), SLog_id, 'CreateDispRequest.aspx', rid)
+                                SaveFCM('Заявки', 'Заявка получила статус «Отправлена»', 'Заявка № ' + mn + ' в статусе «Отправлена».', '', $('#Acnum').val(), SLog_id, 'CreateDispRequest.aspx', rid)
                                 //  SaveLog_S("Работа выполнена", "Важное", "Диспетчер", "Диспетчеризация", "Работа по заявке < " + rid + " > выполнена", SLog_id);
                                 //window.location.href = "DispRequests.aspx"
                                 //parent.history.back();
@@ -1790,14 +1794,14 @@ $(document).ready(function () {
                         })
                         //var R_id = $('#hedrZ').attr('z_id')
                         //if ($.isNumeric(R_id)) {
-                       
+
 
 
                         //}
                         //else {
                         //    GetAndSaveDatasSuppRequest($(this), successRequest)
                         //}
-                        
+
                     })
 
                     $(document).on('click', '#backUo', function () {
@@ -1819,7 +1823,7 @@ $(document).ready(function () {
                                 })
                                 if (imgs.length != 0) {
                                     if ($.isNumeric(R_id)) {
-                                        SaveFileOtmen(R_id, JSON.stringify(imgs), $('#fiodsp').text(),4);
+                                        SaveFileOtmen(R_id, JSON.stringify(imgs), $('#fiodsp').text(), 4);
                                     }
                                     // SaveFileZakrito(R_id, imgs);
                                 }
@@ -1827,7 +1831,7 @@ $(document).ready(function () {
                                 if (textZakrit.length != 0) {
 
                                     if ($.isNumeric(R_id)) {
-                                        SaveCommentOtmen(R_id, textZakrit, $('#fiodsp').text(),4);
+                                        SaveCommentOtmen(R_id, textZakrit, $('#fiodsp').text(), 4);
                                     }
                                 }
                                 if ($.isNumeric(R_id)) {
@@ -1856,7 +1860,7 @@ $(document).ready(function () {
                     })
 
                     R_id = R_id.replace("disp_", "");
-                    
+
                     if (!$.isNumeric(R_id)) {
                         $('#SaveMO').hide();
                     }
@@ -1938,7 +1942,7 @@ $(document).ready(function () {
                     // $("#shServ").hide();
                     $("#hdPr").text("Прикрепленный файл")
                     GetRSComment(R_id)
-                   // $('#').attr('disabled','disabled')
+                    // $('#').attr('disabled','disabled')
                     $('#objctZ,#Otven,#prjcts,#disps,#reqType,#RequestKind').attr('disabled', 'disabled').css('background-color', 'rgb(235,235,228)');
                     // getEngTextDispForVerVrbt(LogId, "2");
                     $("#hedrZ").attr("Z_id", R_id);
@@ -1965,8 +1969,8 @@ $(document).ready(function () {
                     }
                     $("#backUo").text("Вернуть заявку в работу ")
                     $("#lstcmnt").show();
-                    if ($.isNumeric(R_id)) {
-                        
+                    if (!$.isNumeric(R_id)) {
+                        $("#lstcmnt").hide();
                     }
                     $("#SendComent").show();
                     $('#hstComh,#hstCom').show();
@@ -2048,14 +2052,14 @@ $(document).ready(function () {
                                 if (imgs.length != 0) {
                                     if ($.isNumeric(R_id)) {
 
-                                        SaveFileZakrito(R_id, JSON.stringify(imgs), $('#fiodsp').text(),5);
+                                        SaveFileZakrito(R_id, JSON.stringify(imgs), $('#fiodsp').text(), 5);
                                     }
                                 }
                                 var textZakrit = $('#cmntsts2').val()
                                 if (textZakrit.length != 0) {
 
                                     if ($.isNumeric(R_id)) {
-                                        SaveCommentZakrito(R_id, textZakrit, $('#fiodsp').text(),5);
+                                        SaveCommentZakrito(R_id, textZakrit, $('#fiodsp').text(), 5);
                                     }
                                 }
 
@@ -2145,14 +2149,13 @@ $(document).ready(function () {
                                     ispol = $('#IspolList').val()
                                     PERFORMER_EMAIL = $('#IspolList option:selected').attr('email')
                                 }
-                                else
-                                {
+                                else {
                                     PERFORMER_EMAIL = $('#ispol2 option:selected').attr('email')
                                     ispol = $("#ispol2 option:selected").val()
                                 }
                             }
                             else {
-                                ispol=null
+                                ispol = null
                             }
                             var obj =
                             {
@@ -2187,7 +2190,7 @@ $(document).ready(function () {
                 }
             })
         }
-        if (role==15) {
+        if (role == 15) {
             $('#Otven,#AddSpecialist').hide();//#IspolList,
             $('#lblSupp,#nameSup,.sps').remove();
             $('#Otven').prev('label').hide()//,#IspolList_S
@@ -2555,7 +2558,7 @@ function RabotVipolSuper(R_id) {
                 //  SaveLog_S("Работа выполнена", "Важное", "Диспетчер", "Диспетчеризация", "Работа по заявке < " + rid + " > выполнена", SLog_id);
                 //window.location.href = "DispRequests.aspx"
                 var loc = window.location.pathname
-                var back = (loc.indexOf('Responsible') != -1) ? 'Resp_Requests.aspx' : (loc.indexOf('Manager') != -1) ? 'RequestsManager.aspx' : (loc.indexOf('Disp_Admin') != -1) ? 'RegisterRequest.aspx'  : (loc.indexOf('Super_Disp') != -1) ? 'DispRequests.aspx' : 'SRequests.aspx'
+                var back = (loc.indexOf('Responsible') != -1) ? 'Resp_Requests.aspx' : (loc.indexOf('Manager') != -1) ? 'RequestsManager.aspx' : (loc.indexOf('Disp_Admin') != -1) ? 'RegisterRequest.aspx' : (loc.indexOf('Super_Disp') != -1) ? 'DispRequests.aspx' : 'SRequests.aspx'
                 window.location.href = back
                 //parent.history.back();
             }
@@ -2855,7 +2858,7 @@ function Save_SUPPLIER_Request_Super(jsonRequestString, prs_json) {
         }
     })
 }
-function GetAndSaveDatasSuppRequest(e,successRequest) {
+function GetAndSaveDatasSuppRequest(e, successRequest) {
     var SUPPLIER = $('#PrServiceH').children('tbody').children('tr:eq(0)').attr('supp-name');
     var SUPPLIER_GUID = $('#PrServiceH').children('tbody').children('tr:eq(0)').attr('supp-guid');
     var time = $('#tm').val();
@@ -2877,7 +2880,7 @@ function GetAndSaveDatasSuppRequest(e,successRequest) {
 
         // RImg.push({ "REQUEST_COMMENT_": "=", "COMMENT_FILE": ImgSrc, "COMMENT_DATETIME": "++" })
     })
-    
+
     var SERVICE_GUID = ""
     var SERVICE_NAME = ""
     var SERVICE_COST = ""
@@ -2887,7 +2890,7 @@ function GetAndSaveDatasSuppRequest(e,successRequest) {
     if (role == 15) {
         request_type = "1"
     }
-    var PERFORMER_EMAIL = $('#IspolList option:selected').attr('email') 
+    var PERFORMER_EMAIL = $('#IspolList option:selected').attr('email')
     var ispol = $('#IspolList').val()
     var suppServices = [];
     $('#PrServiceH tbody tr').each(function () {
@@ -2965,23 +2968,22 @@ function GetAndSaveDatasSuppRequest(e,successRequest) {
     //    "SERVICE_CUSTOM": ""
     //}
     //var  i=0 
-   
-   // console.log("images: " + ImgSrc)
-   // console.log(suppServices)
+
+    // console.log("images: " + ImgSrc)
+    // console.log(suppServices)
     //console.log('suppServices-----------------------------------')
     //console.log(obj_)
-   // console.log('suppRequest-----------------------------------')
+    // console.log('suppRequest-----------------------------------')
     if (successRequest == true) {
         $('.ui-loader-background,#loader').show()
         Add_Supplier_request(obj_, suppServices)
     }
 }
-function Add_Supplier_request(jsonRequestString, prs_json)
-{
+function Add_Supplier_request(jsonRequestString, prs_json) {
     var frmData = new FormData();
     frmData.append('jsonRequestString', JSON.stringify(jsonRequestString));
     frmData.append('prs_json', JSON.stringify(prs_json));
-   // frmData.append('Cf_json', Cf_json);
+    // frmData.append('Cf_json', Cf_json);
     $.ajax({
         type: "POST",
         url: window.location.protocol + '//' + window.location.host + location.port + '/ProjectApi/Request_Fili/Add_Supplier_request',//"http://localhost:63362/Request_Fili/Add_Supplier_request",//
@@ -3010,7 +3012,7 @@ function Add_Supplier_request(jsonRequestString, prs_json)
     })
 }
 function SaveRequest_Super(jsonRequestString, prs_json, Cf_json, SPECIATISTS) {
-     
+
     //
     //var obj = { 'jsonRequestString': jsonRequestString, 'prs_json': prs_json, 'Cf_json': Cf_json }
     var frmData = new FormData();
@@ -3075,7 +3077,7 @@ function CalculatTotaleCost() {
 
     })
     T_cost = isNaN(T_cost) ? parseFloat('0.00') : T_cost
-    $('#PrServiceH').after('<label id="total" total-summ=\"' + T_cost.toFixed(2)+'\" style="float: right; display: block;">Итого: ' + T_cost.toFixed(2) + ' руб</label>');
+    $('#PrServiceH').after('<label id="total" total-summ=\"' + T_cost.toFixed(2) + '\" style="float: right; display: block;">Итого: ' + T_cost.toFixed(2) + ' руб</label>');
 
 }
 function SelectFinded_K(e, SERVICE_GUID) {
@@ -3256,22 +3258,22 @@ function Search_Service(e) {
             if (jsondata[i].PARENT_GUID == "0") {
                 //guid-direction=\"' + DIRECTION_GUID + '\"
                 //' + jsondata[i].SERVICE_SUPPLIER + '<i class="	glyphicon glyphicon-arrow-right SuppGrupRelations"></i>
-                if (role==17) {
-                 $('#subMenuSearch').prepend('<div ><input type="checkbox" class="chkGrups"  grup-guid=\"' + jsondata[i].SERVICE_GUID + '\" ismc=\"' + jsondata[i].IS_MC + '\"   onclick="selectGrupOnly_K(this)"><div Id="grup" supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  class="accMenu" style="display:none" grup-guid=\"' + jsondata[i].SERVICE_GUID + '\">' + jsondata[i].SERVICE_NAME + '</div><div>' + jsondata[i].SERVICE_NAME + '</div></div>')
+                if (role == 17) {
+                    $('#subMenuSearch').prepend('<div ><input type="checkbox" class="chkGrups"  grup-guid=\"' + jsondata[i].SERVICE_GUID + '\" ismc=\"' + jsondata[i].IS_MC + '\"   onclick="selectGrupOnly_K(this)"><div Id="grup" supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  class="accMenu" style="display:none" grup-guid=\"' + jsondata[i].SERVICE_GUID + '\">' + jsondata[i].SERVICE_NAME + '</div><div>' + jsondata[i].SERVICE_NAME + '</div></div>')
                 }
-                
 
-                    if (role==15) {
-                         if (suppguid == jsondata[i].SUPPLIER_GUID) {
-                            $('#subMenuSearch').prepend('<div ><input type="checkbox" class="chkGrups"  grup-guid=\"' + jsondata[i].SERVICE_GUID + '\" ismc=\"' + jsondata[i].IS_MC + '\"   onclick="selectGrupOnly_K(this)"><div Id="grup" supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  class="accMenu" style="display:none" grup-guid=\"' + jsondata[i].SERVICE_GUID + '\">' + jsondata[i].SERVICE_NAME + '</div><div>' + jsondata[i].SERVICE_NAME + '</div></div>')
-                        }
+
+                if (role == 15) {
+                    if (suppguid == jsondata[i].SUPPLIER_GUID) {
+                        $('#subMenuSearch').prepend('<div ><input type="checkbox" class="chkGrups"  grup-guid=\"' + jsondata[i].SERVICE_GUID + '\" ismc=\"' + jsondata[i].IS_MC + '\"   onclick="selectGrupOnly_K(this)"><div Id="grup" supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  class="accMenu" style="display:none" grup-guid=\"' + jsondata[i].SERVICE_GUID + '\">' + jsondata[i].SERVICE_NAME + '</div><div>' + jsondata[i].SERVICE_NAME + '</div></div>')
                     }
-                    if (role == 16) {
-                        if (jsondata[i].IS_MC=="True") {
-                            $('#subMenuSearch').prepend('<div ><input type="checkbox" class="chkGrups"  grup-guid=\"' + jsondata[i].SERVICE_GUID + '\" ismc=\"' + jsondata[i].IS_MC + '\"   onclick="selectGrupOnly_K(this)"><div Id="grup" supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  class="accMenu" style="display:none" grup-guid=\"' + jsondata[i].SERVICE_GUID + '\">' + jsondata[i].SERVICE_NAME + '</div><div>' + jsondata[i].SERVICE_NAME + '</div></div>')
-                        }
+                }
+                if (role == 16) {
+                    if (jsondata[i].IS_MC == "True") {
+                        $('#subMenuSearch').prepend('<div ><input type="checkbox" class="chkGrups"  grup-guid=\"' + jsondata[i].SERVICE_GUID + '\" ismc=\"' + jsondata[i].IS_MC + '\"   onclick="selectGrupOnly_K(this)"><div Id="grup" supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  class="accMenu" style="display:none" grup-guid=\"' + jsondata[i].SERVICE_GUID + '\">' + jsondata[i].SERVICE_NAME + '</div><div>' + jsondata[i].SERVICE_NAME + '</div></div>')
                     }
-                 
+                }
+
 
             }
             else {
@@ -3281,15 +3283,15 @@ function Search_Service(e) {
                     SCost = jsondata[i].SERVICE_COST + ' <i class="glyphicon glyphicon-ruble" ></i>'
                 }
                 //' + jsondata[i].SERVICE_SUPPLIER + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>
-                if (role==17|| role==3) {
-                     $('#subMenuSearch').prepend('<div grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12 serviceDivs" ><input type="checkbox" grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + ' </i></label><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label><label   itemid="' + jsondata[i].SERVICE_GUID + '" style="display:none" class="serviceName">' + jsondata[i].SERVICE_NAME + '</label><div>' + jsondata[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</div></div><br/>')
+                if (role == 17 || role == 3) {
+                    $('#subMenuSearch').prepend('<div grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12 serviceDivs" ><input type="checkbox" grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + ' </i></label><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label><label   itemid="' + jsondata[i].SERVICE_GUID + '" style="display:none" class="serviceName">' + jsondata[i].SERVICE_NAME + '</label><div>' + jsondata[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</div></div><br/>')
                 }
-                
-                    if (role==15) {
-                        if (suppguid == jsondata[i].SUPPLIER_GUID) {
-                                $('#subMenuSearch').prepend('<div grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12 serviceDivs" ><input type="checkbox" grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + ' </i></label><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label><label   itemid="' + jsondata[i].SERVICE_GUID + '" style="display:none" class="serviceName">' + jsondata[i].SERVICE_NAME + '</label><div>' + jsondata[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</div></div><br/>')
 
-                            }
+                if (role == 15) {
+                    if (suppguid == jsondata[i].SUPPLIER_GUID) {
+                        $('#subMenuSearch').prepend('<div grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12 serviceDivs" ><input type="checkbox" grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + ' </i></label><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label><label   itemid="' + jsondata[i].SERVICE_GUID + '" style="display:none" class="serviceName">' + jsondata[i].SERVICE_NAME + '</label><div>' + jsondata[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</div></div><br/>')
+
+                    }
                 }
 
                 if (role == 16) {
@@ -3298,8 +3300,8 @@ function Search_Service(e) {
 
                     }
                 }
-                    
-                
+
+
             }
         }
         $('#PrServiceH tbody tr').each(function () {
@@ -3354,7 +3356,7 @@ function GetAllServicesOfProject(PROJECT_GUID) {
 
             $('body').data('search', j);
             $('#SerchService').show()
-           // $('#SerchService').remove();
+            // $('#SerchService').remove();
             //$('#RequestKind').after('<input type="text" id="SerchService" onfocus=showResultArea("open") onblur=showResultArea("close") onkeyup=Search_Service(this) placeholder="Поиск Услуг"/>')
         }
     })
@@ -3371,9 +3373,9 @@ function getCurrentDispObject(selected, lg) {
         success: function (result) {
             var j = JSON.parse(result.d)
             // console.log(j);
-            $('#objctZ').attr('onchange',"GetAllServicesAndRelationalDirection(this)")
+            $('#objctZ').attr('onchange', "GetAllServicesAndRelationalDirection(this)")
             for (var i = 0; i < j.length; i++) {
-                $('#objctZ').append('<option value=' + j[i].Object_Id + ' proj-guid=\"' + j[i].PROJECT_GUID+'\">' + j[i].ObjectAdress + '</option>')
+                $('#objctZ').append('<option value=' + j[i].Object_Id + ' proj-guid=\"' + j[i].PROJECT_GUID + '\">' + j[i].ObjectAdress + '</option>')
             }
             if (selected != "") {
                 $('#objctZ').val(selected);
@@ -3381,21 +3383,20 @@ function getCurrentDispObject(selected, lg) {
         }
     })
 }
-function GetAllServicesAndRelationalDirection(e)
-{
+function GetAllServicesAndRelationalDirection(e) {
     var projectGuid = $(e).children('option:selected').attr('proj-guid')
     GetAllServicesOfProject(projectGuid);
-  getDirection_K("", projectGuid);
-   $('#prjcts').children('option[guid="' + projectGuid + '"]').attr('selected','selected')
+    getDirection_K("", projectGuid);
+    $('#prjcts').children('option[guid="' + projectGuid + '"]').attr('selected', 'selected')
 }
-function getDirection_K(selected, PROJECT_GUID, otv,RequestKind) {
+function getDirection_K(selected, PROJECT_GUID, otv, RequestKind) {
     var loc_ = window.location.pathname
     var respid = 0
     if (loc_ == '/Responsible_Admin/CreateRequest.aspx') {
         respid = sessionStorage.getItem("Log")
     }
 
-    var Supp_Guid=null
+    var Supp_Guid = null
     if (loc_ == '/Supplier_Admin/CreateDispRequest.aspx') {
         Supp_Guid = $('#fiodsp').attr('supp-guid')
     }
@@ -3457,7 +3458,7 @@ function getDirection_K(selected, PROJECT_GUID, otv,RequestKind) {
                 if (st == 4 || st == 5 || st == 3) {
                     $('.selectdrc,.drct').removeAttr('onclick');
                 }
-                
+
             }
 
             $('.ui-loader-background,#loader').hide()
@@ -3482,10 +3483,10 @@ function selectGrupOnly_K(e, otv) {
         $('#PrServiceH thead tr th:eq(0)').text('Наименование услуг')
         $('#PrServiceH tbody tr:not([grup-guid])').remove();
         $('#PrServiceH thead tr th:eq(1),#PrServiceH thead tr th:eq(2)').show()
-      //  $('#PrServiceH tbody').empty();
-      //  $('#subMenu,#grups').find('input[type="checkbox"]').prop('checked', false).not($(e))
+        //  $('#PrServiceH tbody').empty();
+        //  $('#subMenu,#grups').find('input[type="checkbox"]').prop('checked', false).not($(e))
         //' + SuppName + '<i class="	glyphicon glyphicon-arrow-right SuppGrupRelations"></i>
-        $('#PrServiceH tbody').prepend('<tr isgrup="true" grup-name=\"'+grupName+'\" supp-name=\"' + SuppName + '\" ismc=\"' + ismc + '\" supp-guid=' + suppGuid + ' grup-name=\"' + grupName + '\" grup-guid=' + grupGuid + ' title=\"' + SuppName + ' -> ' + grupName + '\" ><td>' + grupName + '</td><td>-</td><td>-</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a guid=' + grupGuid + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+        $('#PrServiceH tbody').prepend('<tr isgrup="true" grup-name=\"' + grupName + '\" supp-name=\"' + SuppName + '\" ismc=\"' + ismc + '\" supp-guid=' + suppGuid + ' grup-name=\"' + grupName + '\" grup-guid=' + grupGuid + ' title=\"' + SuppName + ' -> ' + grupName + '\" ><td>' + grupName + '</td><td>-</td><td>-</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a guid=' + grupGuid + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
 
 
         //checking suppguid, is different or not
@@ -3530,7 +3531,7 @@ function selectGrupOnly_K(e, otv) {
                     $('#PrServiceH tbody tr[grup-guid!="' + grupGuid + '"]').remove();
                     $('.chkGrups[grup-guid!="' + grupGuid + '"]').prop('checked', false);
                     $('.chkServc[grup-name!="' + grupName + '"]').prop('checked', false);
-                    
+
                 }
 
 
@@ -3582,10 +3583,10 @@ function selectGrupOnly_K(e, otv) {
 
                 $('#PrServiceH tbody').children('tr[isgrup="true"]').remove();
                 var is_Checked = $('#subMenu').children('div').children('input[type="checkbox"]').prop('checked')
-                if (is_Checked==false) {
-                     $('#subMenu').children('div').children('input[type="checkbox"]').trigger('click');
+                if (is_Checked == false) {
+                    $('#subMenu').children('div').children('input[type="checkbox"]').trigger('click');
                 }
-                
+
             }
         }
     }
@@ -3619,17 +3620,17 @@ function selectGrupOnly_K(e, otv) {
         if (SubMenuCount != 0) {
             var SubMenuChildren = $('#subMenu').children('div').length
             if (SubMenuChildren == 1) {
-                
+
                 $('#PrServiceH tbody').empty()
                 var is_Checked = $('#subMenu').children('div').children('input[type="checkbox"]').prop('checked')
                 if (is_Checked == true) {
                     $('#subMenu').children('div').children('input[type="checkbox"]').trigger('click');
                 }
-                
+
             }
         }
     }
-   
+
     CalculatTotaleCost()
     //  getSpesicalisetsBySupplierGuid(suppGuid)
 }
@@ -3673,7 +3674,7 @@ function GetRelatedGroups_K(selected, PROJECT_GUID, DIRECTION_GUID, otv) {
                 //  }
             }
 
-            
+
             var role = sessionStorage.getItem("role")
             if (selected != "") {
                 for (var k = 0; k < selected.length; k++) {
@@ -3685,7 +3686,7 @@ function GetRelatedGroups_K(selected, PROJECT_GUID, DIRECTION_GUID, otv) {
                     //}
                     $('input[type="checkbox"][grup-guid=\"' + selected[k].SERVICE_GUID + '\"]').prop('checked', true);
                     if (role == 15) {
-                      //  var selectedGuid = (selected[k].PARENT_GUID != "0") ? selected[k].PARENT_GUID : selected[k].SERVICE_GUID
+                        //  var selectedGuid = (selected[k].PARENT_GUID != "0") ? selected[k].PARENT_GUID : selected[k].SERVICE_GUID
                         $('#drct[guid=\"' + selected[k].BASE_DIRECTION_GUID + '\"]').attr('direct-suppguid', selected[k].SUPPLIER_GUID)
                         $('#grups').find('#grup:not([supp-guid=\"' + selected[k].SUPPLIER_GUID + '\"])').parent().remove();
                     }
@@ -3693,7 +3694,7 @@ function GetRelatedGroups_K(selected, PROJECT_GUID, DIRECTION_GUID, otv) {
                     var loc_ = window.location.pathname
                     if (loc_ == '/Responsible_Admin/CreateRequest.aspx') {
                         respid = sessionStorage.getItem("Log")
-                         $('.drct').not('.selectdrc, div[rvalue="' + respid + '"]').remove()
+                        $('.drct').not('.selectdrc, div[rvalue="' + respid + '"]').remove()
                     }
                     $('#PrServiceH thead tr th:eq(0)').text('Наименование услуг')
 
@@ -3728,7 +3729,7 @@ function GetRelatedGroups_K(selected, PROJECT_GUID, DIRECTION_GUID, otv) {
                         var group_guid = selected[k].PARENT_GUID
 
                         if (group_guid != "0") {
-                            if (k==0) {
+                            if (k == 0) {
                                 getServices_K(groupDiv, group_guid, selected, otv)
                             }
                         }
@@ -3741,25 +3742,25 @@ function GetRelatedGroups_K(selected, PROJECT_GUID, DIRECTION_GUID, otv) {
                     $('.grups').children('div').children('div').removeAttr('onclick')
                     $('a[onclick="Open_Pop(this)"],a[onclick="RemoveDirectRow(this)"]').removeAttr('onclick').attr('disabled', 'disabled').css('text-decoration', 'none');
                 }
-                
+
             }
 
 
-            if (role == 15 ) {
-                var SUPPLIER_GUID =$('#fiodsp').attr('supp-guid')
-                $('#grups').find('#grup:not([supp-guid=\"' +SUPPLIER_GUID + '\"])').parent().remove();
+            if (role == 15) {
+                var SUPPLIER_GUID = $('#fiodsp').attr('supp-guid')
+                $('#grups').find('#grup:not([supp-guid=\"' + SUPPLIER_GUID + '\"])').parent().remove();
             }
             if (role == 16) {
-              //  $('#grups').find('input[ismc="False"]').parent().remove();
+                //  $('#grups').find('input[ismc="False"]').parent().remove();
             }
             var DirectSuppGuid = $('#drct[direct-suppguid]').length
-           // console.log('DirectSuppGuid: ' + DirectSuppGuid)
+            // console.log('DirectSuppGuid: ' + DirectSuppGuid)
             if (DirectSuppGuid != 0) {
                 DirectSuppGuid = $('#drct[direct-suppguid]').attr('direct-suppguid')
-              //  console.log('DirectSuppGuid: ' + DirectSuppGuid)
+                //  console.log('DirectSuppGuid: ' + DirectSuppGuid)
                 $('#grups').find('#grup:not([supp-guid=\"' + DirectSuppGuid + '\"])').parent().remove();
             }
-          
+
 
             $('.ui-loader-background,#loader').hide()
         }
@@ -3784,7 +3785,7 @@ function getServices_K(e, SERVICE_GUID, selected, otv) {
             dataType: "json",
             success: function (data) {
                 var rid = urlParam('RId')
-                var checkboxDissable="";
+                var checkboxDissable = "";
                 //if (rid != null) {
                 //    if (rid.indexOf('disp_') == -1) {
                 //        checkboxDissable = 'disabled="disabled" title="Заявка создана жителем,  нельзя добавлять и убирать группу услуг и услугу"'
@@ -3811,9 +3812,9 @@ function getServices_K(e, SERVICE_GUID, selected, otv) {
                     })
                     var SCost = jsondata[i].SERVICE_COST;
                     if ($.isNumeric(jsondata[i].SERVICE_COST)) {
-                        SCost =  jsondata[i].SERVICE_COST + ' <i class="glyphicon glyphicon-ruble" ></i>'
+                        SCost = jsondata[i].SERVICE_COST + ' <i class="glyphicon glyphicon-ruble" ></i>'
                     }
-                    $(e).next('#subMenu').append('<div title="' + jsondata[i].SERVICE_NOTES +'" grup-guid="' + SERVICE_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\"  class="col-md-12" ><input type="checkbox" ' + checkedService + ' ' + checkboxDissable + ' grup-name=\"' + $(e).text().trim() + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">'+SCost+'</label><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label><label   itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_NAME + '</label></div><br/>')
+                    $(e).next('#subMenu').append('<div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + SERVICE_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\"  class="col-md-12" ><input type="checkbox" ' + checkedService + ' ' + checkboxDissable + ' grup-name=\"' + $(e).text().trim() + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + '</label><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label><label   itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_NAME + '</label></div><br/>')
 
 
                 }
@@ -3840,10 +3841,10 @@ function getServices_K(e, SERVICE_GUID, selected, otv) {
                                 //
 
                                 if (otv != undefined) {
-                                   // $('#Otven').val(otv)
+                                    // $('#Otven').val(otv)
                                 }
                                 else {
-                                   // $('#Otven').prop("selectedIndex", 0);
+                                    // $('#Otven').prop("selectedIndex", 0);
                                 }
                                 $('#Otven,#IspolList_S').prev('label').show()
                                 $('#lblSupp,#nameSup').remove();
@@ -3862,24 +3863,24 @@ function getServices_K(e, SERVICE_GUID, selected, otv) {
                                     disabled = "disabled=disabled"
                                 }
                                 // console.log(selected[i].COST)
-                               // console.log("selected[" + i + "].COST")
-                              //  console.log(i)
-                               // console.log(selected.length)
-                              
-                             ////   console.log(selected[i].SERVICE_NAME)
-                             //   console.log("selected[i]")
-                             //   console.log(selected[i])
+                                // console.log("selected[" + i + "].COST")
+                                //  console.log(i)
+                                // console.log(selected.length)
+
+                                ////   console.log(selected[i].SERVICE_NAME)
+                                //   console.log("selected[i]")
+                                //   console.log(selected[i])
                                 var cost_forOne = $('#subMenu').children('div[grup-guid=\"' + selected[i].PARENT_GUID + '\"]').children('input[type="checkbox"][service-guid=\"' + selected[i].SERVICE_GUID + '\"]').next('.serviceCost').text();
 
                                 cost_forOne = (parseFloat(selected[i].COST) == 0) ? 'Договорная' : cost_forOne
 
-                                var costTd = ($.isNumeric(cost_forOne)) ? '<a>' + selected[i].COST + '</a>' : (selected[i].COST == "") ? '<a onclick="Open_Pop(this)">Договорная</a>' : (parseFloat(selected[i].COST) == 0) ? '<a  onclick="Open_Pop(this)" >0</a>' : (parseFloat(selected[i].COST) != 0) ? '<a  onclick="Open_Pop(this)" >' + selected[i].COST+'</a>':""
+                                var costTd = ($.isNumeric(cost_forOne)) ? '<a>' + selected[i].COST + '</a>' : (selected[i].COST == "") ? '<a onclick="Open_Pop(this)">Договорная</a>' : (parseFloat(selected[i].COST) == 0) ? '<a  onclick="Open_Pop(this)" >0</a>' : (parseFloat(selected[i].COST) != 0) ? '<a  onclick="Open_Pop(this)" >' + selected[i].COST + '</a>' : ""
 
-                               
-                               
 
-                                $('#PrServiceH tbody').prepend('<tr service-name=\"' + selected[i].SERVICE_NAME+'\" service-guid=' + selected[i].SERVICE_GUID + ' ismc=\"' + selected[i].IS_MC + '\" supp-name=\"' + selected[i].SERVICE_SUPPLIER + '\" supp-guid=' + selected[i].SUPPLIER_GUID + ' grup-name=\"' + selected[i].SERVICE_GROUP + '\" grup-guid=' + selected[i].PARENT_GUID + ' title=\"' + selected[i].SERVICE_SUPPLIER + ' -> ' + selected[i].SERVICE_GROUP + ' -> ' + selected[i].SERVICE_NAME + '\" ><td>' + selected[i].SERVICE_SUPPLIER + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + selected[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + selected[i].SERVICE_NAME + '</td><td><input type="text" ' + disabled + ' onkeyup=multiPlaying(this,\"' + cost_forOne.trim() + '\") onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value=\"' + selected[i].QUANTITY + '\"></td><td style="text-align:center">' + edizm + '</td><td style="width:120px;text-align:center;">' + costTd + '<div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a guid=' + selected[i].SERVICE_GUID + ' ' + checkboxDissable + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
-                         }
+
+
+                                $('#PrServiceH tbody').prepend('<tr service-name=\"' + selected[i].SERVICE_NAME + '\" service-guid=' + selected[i].SERVICE_GUID + ' ismc=\"' + selected[i].IS_MC + '\" supp-name=\"' + selected[i].SERVICE_SUPPLIER + '\" supp-guid=' + selected[i].SUPPLIER_GUID + ' grup-name=\"' + selected[i].SERVICE_GROUP + '\" grup-guid=' + selected[i].PARENT_GUID + ' title=\"' + selected[i].SERVICE_SUPPLIER + ' -> ' + selected[i].SERVICE_GROUP + ' -> ' + selected[i].SERVICE_NAME + '\" ><td>' + selected[i].SERVICE_SUPPLIER + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + selected[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + selected[i].SERVICE_NAME + '</td><td><input type="text" ' + disabled + ' onkeyup=multiPlaying(this,\"' + cost_forOne.trim() + '\") onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value=\"' + selected[i].QUANTITY + '\"></td><td style="text-align:center">' + edizm + '</td><td style="width:120px;text-align:center;">' + costTd + '<div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a guid=' + selected[i].SERVICE_GUID + ' ' + checkboxDissable + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+                            }
                         }
                         $('#PrServiceH').show();
                     }
@@ -3893,7 +3894,7 @@ function getServices_K(e, SERVICE_GUID, selected, otv) {
                         })
 
                     }
-                    
+
                 }
                 $('.ui-loader-background,#loader').hide()
             }
@@ -3919,19 +3920,19 @@ function SelectService_K(e, SERVICE_GUID, otv) {
     var service_cost = $(e).attr('service-cost')
     var multiPlayVal = service_cost
     if (!$.isNumeric(service_cost)) {
-        service_cost ='<a onclick="Open_Pop(this)">Договорная</a>'
-        
+        service_cost = '<a onclick="Open_Pop(this)">Договорная</a>'
+
     }
     else {
-        if (service_cost==0) {
+        if (service_cost == 0) {
             service_cost = '<a onclick="Open_Pop(this)">0</a>'
-            multiPlayVal ="Договорная"
+            multiPlayVal = "Договорная"
         }
         else {
             service_cost = '<a>' + service_cost + '</a>'
         }
-      
-        
+
+
     }
     var SuppName = $(e).parent().attr('supp-name');
     var ismc = $(e).attr('ismc');
@@ -3943,10 +3944,10 @@ function SelectService_K(e, SERVICE_GUID, otv) {
         // $('#PrServiceH tbody').empty();
         $('#PrServiceH tbody tr:not([grup-guid])').remove();
         $('#PrServiceH thead tr th:eq(1),#PrServiceH thead tr th:eq(2)').show()
-      //  $('#subMenu,#grups').find('input[type="checkbox"]').prop('checked', false).not($(e))
-      //  $('#PrServiceH tbody').empty();
+        //  $('#subMenu,#grups').find('input[type="checkbox"]').prop('checked', false).not($(e))
+        //  $('#PrServiceH tbody').empty();
         //' + SuppName + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>
-        $('#PrServiceH tbody').prepend('<tr title="' + title + '" service-name="' + ServiceName+'" supp-name=\"' + SuppName + '\" grup-guid=\"' + grupGuid + '\" ismc=\"' + ismc + '\" supp-guid=' + suppGuid + ' grup-name=\"' + grupName + '\" service-guid=' + SERVICE_GUID + ' title=\"' + SuppName + ' -> ' + grupName + ' -> ' + ServiceName + '\" ><td>' + grupName + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + ServiceName + '</td><td><input type="text" onkeyup=multiPlaying(this,\"' + multiPlayVal + '\") onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value="1"></td><td style="text-align:center">' + edizm + '</td><td style="width:120px;text-align:center;">' + service_cost + '<div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a guid=' + SERVICE_GUID + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+        $('#PrServiceH tbody').prepend('<tr title="' + title + '" service-name="' + ServiceName + '" supp-name=\"' + SuppName + '\" grup-guid=\"' + grupGuid + '\" ismc=\"' + ismc + '\" supp-guid=' + suppGuid + ' grup-name=\"' + grupName + '\" service-guid=' + SERVICE_GUID + ' title=\"' + SuppName + ' -> ' + grupName + ' -> ' + ServiceName + '\" ><td>' + grupName + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + ServiceName + '</td><td><input type="text" onkeyup=multiPlaying(this,\"' + multiPlayVal + '\") onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value="1"></td><td style="text-align:center">' + edizm + '</td><td style="width:120px;text-align:center;">' + service_cost + '<div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a guid=' + SERVICE_GUID + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
 
         var grup_guid = $(e).parent().parent('#subMenu').attr('data-d')
         //checking suppguid, is different or not
@@ -3988,10 +3989,10 @@ function SelectService_K(e, SERVICE_GUID, otv) {
 
                 }
 
-               
+
             }
             else {
-                 
+
                 $(e).prop('checked', false)
                 if ($('#PrServiceH tbody tr').length != 0) {
 
@@ -4021,10 +4022,10 @@ function SelectService_K(e, SERVICE_GUID, otv) {
             else {
                 $('#IspolList,#Otven,#AddSpecialist').show();
                 if (otv != undefined) {
-                  //  $('#Otven').val(otv);
+                    //  $('#Otven').val(otv);
                 }
                 else {
-                 //   $('#Otven').prop("selectedIndex", 0);
+                    //   $('#Otven').prop("selectedIndex", 0);
                 }
                 $('#Otven,#IspolList_S').prev('label').show()
                 $('#lblSupp,#nameSup').remove();
@@ -4034,8 +4035,8 @@ function SelectService_K(e, SERVICE_GUID, otv) {
         if (SubMenuChildren == 1) {
             var Is_checked = $('input[type="checkbox"][grup-guid="' + grupGuid + '"]').prop('checked')
 
-            if (Is_checked==false) {
-                  $('input[type="checkbox"][grup-guid="' + grupGuid + '"]').trigger('click');
+            if (Is_checked == false) {
+                $('input[type="checkbox"][grup-guid="' + grupGuid + '"]').trigger('click');
             }
         }
     }
@@ -4050,7 +4051,7 @@ function SelectService_K(e, SERVICE_GUID, otv) {
         }
         removeFromSps();
         var suppGuid2 = $(e).attr('supp-guid');
-      
+
         $('.chkServc[service-guid="' + SERVICE_GUID + '"]').prop('checked', false);
         $('#PrServiceH tbody tr').each(function () {
             var trgrupGuid = $(this).attr('service-guid')
@@ -4124,19 +4125,19 @@ function SelectDirect(e) {
     var rname = $(e).attr('rname');
     var remail = $(e).attr('remail');
     var role = sessionStorage.getItem("role")
-    if (role!=15) {
-     $('#IspolList,#Otven').show();
+    if (role != 15) {
+        $('#IspolList,#Otven').show();
         $('#Otven,#IspolList_S').prev('label').show()
         $('#lblSupp,#nameSup').remove();
     }
-   
+
     var Count_resp = $('#Otven').children('option[value=\"' + rvalue + '\"]').length
     if (Count_resp == 0) {
-      //  $('#Otven').prepend('<option email=\"' + remail + '\" value=\"' + rvalue + '\">' + rname + '</option>')
-     //   $('#Otven').val(rvalue);
+        //  $('#Otven').prepend('<option email=\"' + remail + '\" value=\"' + rvalue + '\">' + rname + '</option>')
+        //   $('#Otven').val(rvalue);
     }
     else {
-     //   $('#Otven').val(rvalue);
+        //   $('#Otven').val(rvalue);
     }
 
 
@@ -4144,14 +4145,14 @@ function SelectDirect(e) {
 function ChangeToSend(e) {
     var Selectedvalue = $(e).val()
     var currentUSer = sessionStorage.getItem("Log")
-    if (Selectedvalue!=0) {
+    if (Selectedvalue != 0) {
 
         if (Selectedvalue == currentUSer) {
-         //   $("#SaveMO").hide();//Отправить Испонителю
-          //  $("#SaveDD").show().attr('data-status', '1')//Принять в Работу
+            //   $("#SaveMO").hide();//Отправить Испонителю
+            //  $("#SaveDD").show().attr('data-status', '1')//Принять в Работу
             var st = urlParam('st')
-            if (st!=1) {
-                 $("#SaveDD").text('Принять в Работу').attr('data-status', '1').show()
+            if (st != 1) {
+                $("#SaveDD").text('Принять в Работу').attr('data-status', '1').show()
             }
             else {
                 $("#SaveDD").text('Работа выполнена').attr('data-status', '3').show()
@@ -4159,9 +4160,9 @@ function ChangeToSend(e) {
         }
         else {
             $('#SaveDD').hide()
-          //  $("#SaveDD").text('Отправить Испонителю').attr('data-status', '2')
-           // $("#SaveMO").show();//Отправить Испонителю
-           // $("#SaveDD").hide().attr('data-status', '2')//Принять в Работу
+            //  $("#SaveDD").text('Отправить Испонителю').attr('data-status', '2')
+            // $("#SaveMO").show();//Отправить Испонителю
+            // $("#SaveDD").hide().attr('data-status', '2')//Принять в Работу
         }
     }
     else {
@@ -4453,7 +4454,7 @@ function GetRSComment(rid) {
                 $('#myModal4').children('.modal-content2').children('.modal-body2').append('<textarea disabled="disabled" style="width: 522px; height: 205px; max-width: 100%; min-width: 100%; max-height: 109px; min-height: 109px; margin: 0px;" id="cmntsts"> </textarea>')
                 var jsondata_ = JSON.parse(data.d)
                 if (jsondata_.length == 0) {
-                 //   $('#lstcmnt').hide();
+                    //   $('#lstcmnt').hide();
                 }
                 $("#cmntsts").text(" ");
                 for (var i = 0; i < jsondata_.length; i++) {
@@ -4680,7 +4681,7 @@ function MakeOtmenSupp(R_id, imgs, text) {
             var SLog_id = sessionStorage.getItem("Log")
             SaveLog_S("Отменить заявку", "Важное", "Диспетчер", "Диспетчеризация", "Заявка  < " + R_id + " > отменена", SLog_id);
             var mn = $('#hedrZ').attr('mn')
- 
+
             var loc = window.location.pathname
             var back = (loc.indexOf('Responsible') != -1) ? 'Resp_Requests.aspx' : (loc.indexOf('Manager') != -1) ? 'RequestsManager.aspx' : (loc.indexOf('Disp_Admin') != -1) ? 'RegisterRequest.aspx' : (loc.indexOf('Super_Disp') != -1) ? 'DispRequests.aspx' : 'SRequests.aspx'
             window.location.href = back
@@ -4736,7 +4737,7 @@ function SaveFCM(SECTION, EVENT, TEXT, PROJECT_ID, SCORE_ID, LOG_IN_ID, PAGE, ID
     })
 
 }
-function SaveCommentOtmen(rid, rc, AUTHOR,status) {
+function SaveCommentOtmen(rid, rc, AUTHOR, status) {
     var SLogId = sessionStorage.getItem("Log")
     var obj = { "rq": rid, "cmnt": rc, "AUTHOR": AUTHOR, 'lg': sessionStorage.getItem("Log"), 'path': window.location.pathname, status: status }
     $.ajax({
@@ -4751,7 +4752,7 @@ function SaveCommentOtmen(rid, rc, AUTHOR,status) {
 
     })
 }
-function SaveFileOtmen(rid, img_s, AUTHOR,status) {
+function SaveFileOtmen(rid, img_s, AUTHOR, status) {
     var obj = { "R": rid, "imgs": img_s, "AUTHOR": AUTHOR, status: status }
     $.ajax({
         type: "POST",
@@ -4974,7 +4975,7 @@ function H_fileSave(rid, imgC, AUTHOR) {//ImgAdres
         var imgAdres = ($(".HistImg[itemid='" + i + "']").attr("data-url") != undefined) ? $(".HistImg[itemid='" + i + "']").attr("data-url") : "";
         img_s.push({ "ImgAdres": imgAdres })
     }
-    var obj = { "R": rid, "imgs": JSON.stringify(img_s), 'AUTHOR': AUTHOR,'status':5 }
+    var obj = { "R": rid, "imgs": JSON.stringify(img_s), 'AUTHOR': AUTHOR, 'status': 5 }
     $.ajax({
         type: "POST",
         url: "../Super_Disp/CreateDispRequest.aspx/SaveHFile",
@@ -5177,7 +5178,7 @@ function removeF3(e, num) {
     $("img[itemid='" + num + "']").remove();
     $(".titleF[itemid='" + num + "']").remove();
 }
-function getHasInds(Type_,ind_) {
+function getHasInds(Type_, ind_) {
     var obj = { "indId": ind_ }
     $.ajax({
         type: "POST",
@@ -5193,8 +5194,8 @@ function getHasInds(Type_,ind_) {
                 $("#Room").val(jsondata[0].ROOM_NUMBER)
                 // $("#Room_Type").val(jsondata[0].ROOM_TYPE_ID)
                 //getcurrdspObj(LogId, jsondata[0].OBJECT_ID);
-                if (Type_!="M") {
-     $("#Entrance").val(jsondata[0].ENTRANCE)
+                if (Type_ != "M") {
+                    $("#Entrance").val(jsondata[0].ENTRANCE)
                     $("#Floor").val(jsondata[0].FLOOR)
                 }
             }
@@ -5215,7 +5216,7 @@ function GetRequesByR(R) {
         dataType: "json",
         success: function (data) {
             var jsondata_ = JSON.parse(data.d)
-     console.log(jsondata_)
+            console.log(jsondata_)
             var Slog = sessionStorage.getItem("Log")
             var st = urlParam('st')
             $("#hedrZ").text('Заявка № ' + jsondata_[0].MOBILE_NUMBER + '   (Статус заявки "' + jsondata_[0].STATUS + '")')
@@ -5241,7 +5242,7 @@ function GetRequesByR(R) {
                     //    GetRelatedSets(jsondata_[i].SERVICE_GROUP_ID, jsondata_[i].ADRESS)
                     //}
                     var jsonServices = JSON.parse(jsondata_[i].ROOM_COUNT)
-                    if (jsonServices.length!=0) {
+                    if (jsonServices.length != 0) {
                         jsonServices[0]["RESPONSIBLE_ID"] = jsondata_[i].RESPONSIBLE_ID
                     }
 
@@ -5250,8 +5251,8 @@ function GetRequesByR(R) {
                     reqType_WorkKind = reqType_WorkKind[1]
                     GetKindOfRequest(reqType_WorkKind)
                     $('#reqType').val(jsondata_[i].REQUEST_TYPE)
-                  //  console.log("jsonServices")
-                   // console.log(jsonServices)
+                    //  console.log("jsonServices")
+                    // console.log(jsonServices)
                     var st = urlParam('st') //sessionStorage.getItem("st")
                     getDirection_K(jsonServices, json_Project_guid_andId[0].GUID, jsondata_[i].RESPONSIBLE_ID, reqType_WorkKind);
 
@@ -5275,7 +5276,7 @@ function GetRequesByR(R) {
                     else {
                         $('#Ind').val(jsondata_[i].FIRST_NAME).attr('itemid', jsondata_[i].INDIVIDUAL_ID)
 
-                        getHasInds("U",jsondata_[i].INDIVIDUAL_ID)
+                        getHasInds("U", jsondata_[i].INDIVIDUAL_ID)
                         getcurrdspObj(jsondata_[i].DISP_ID, jsondata_[i].ADRESS)//WAS LogId
                         //$("#hstComh").show();
                         //$("#hstCom").append('<h4> -- ' + jsondata_[i].REQUEST_COMMENT + '</h4>').show();
@@ -5337,7 +5338,7 @@ function GetRequesByR(R) {
                     //GetGroupOfServices(jsondata_[0].SERVICE_GROUP_ID, jsondata_[0].ADRESS)
 
                 }
-                $('#PrServiceH').after('<label id="total" total-summ=\"' + jsondata_[0].TOTAL_COST+'\" style="float: right; display: block;">' + jsondata_[0].TOTAL_COST + '</label>');
+                $('#PrServiceH').after('<label id="total" total-summ=\"' + jsondata_[0].TOTAL_COST + '\" style="float: right; display: block;">' + jsondata_[0].TOTAL_COST + '</label>');
             }
             else {
                 //    var lg = sessionStorage.getItem("Log");
@@ -5432,11 +5433,11 @@ function GetSuppRequesByR(R) {
         dataType: "json",
         success: function (data) {
             var jsondata_ = JSON.parse(data.d)
-         //jsondata_ = jsondata_[0]
+            //jsondata_ = jsondata_[0]
             console.log("jsondata_");
             $('#lblEm,#chkem').hide()
-          //  delete jsondata_[2]
-          console.log(jsondata_);
+            //  delete jsondata_[2]
+            console.log(jsondata_);
             //console.log("RequestDatas:");
             var Slog = sessionStorage.getItem("Log")
             var st = urlParam('st')
@@ -5448,7 +5449,7 @@ function GetSuppRequesByR(R) {
                 if (st != 4 && st != 5 && st != 3) {
                     GetAllServicesOfProject(json_Project_guid_andId[0].GUID)
                 }
-                $('#reqType').attr('disabled', 'disabled').css('background-color','rgb(235, 235, 228)')
+                $('#reqType').attr('disabled', 'disabled').css('background-color', 'rgb(235, 235, 228)')
                 //GetDispsByObjectid(jsondata_[i].DISP_ID, jsondata_[i].ADRESS)
 
                 // ////console.log(jsondata_[i].ACCOUNT_NAME)
@@ -5465,26 +5466,26 @@ function GetSuppRequesByR(R) {
                 //    GetRelatedSets(jsondata_[i].SERVICE_GROUP_ID, jsondata_[i].ADRESS)
                 //}
                 var jsonServices = JSON.parse(jsondata_[i].ROOM_COUNT)
-               //console.log("jsonServices")
-              // console.log(jsonServices)
+                //console.log("jsonServices")
+                // console.log(jsonServices)
                 var st = urlParam('st') //sessionStorage.getItem("st")
                 if (jsonServices.length != 0) {
                     jsonServices[0]["RESPONSIBLE_ID"] = jsondata_[i].RESPONSIBLE_ID
                 }
                 GetKindOfRequest(1)
-                getDirection_K(jsonServices, json_Project_guid_andId[0].GUID, jsondata_[i].RESPONSIBLE_ID,1);
-               
+                getDirection_K(jsonServices, json_Project_guid_andId[0].GUID, jsondata_[i].RESPONSIBLE_ID, 1);
+
                 $('#reqType').val(jsondata_[i].REQUEST_TYPE)
                 getDate();
                 getTime();
 
 
                 gtTypeOfroom2(jsondata_[i].ROOM_T);
-                
+
                 if (jsondata_[i].INDIVIDUAL_ID == 0) {
 
                     //gtCommenst(R)//fuck
-                   // gtCommenst(jsondata_[i].SERVICE_GROUP_ID, R)
+                    // gtCommenst(jsondata_[i].SERVICE_GROUP_ID, R)
 
                     $("#RComment").val("")//mustdo
                     //////console.log(rc[0].room)
@@ -5493,7 +5494,7 @@ function GetSuppRequesByR(R) {
                 else {
                     $('#Ind').val(jsondata_[i].FIRST_NAME).attr('itemid', jsondata_[i].INDIVIDUAL_ID)
 
-                    getHasInds("M",jsondata_[i].INDIVIDUAL_ID)
+                    getHasInds("M", jsondata_[i].INDIVIDUAL_ID)
                     getcurrdspObj(jsondata_[i].DISP_ID, jsondata_[i].ADRESS)//WAS LogId
                     //$("#hstComh").show();
                     //$("#hstCom").append('<h4> -- ' + jsondata_[i].REQUEST_COMMENT + '</h4>').show();
@@ -5503,16 +5504,16 @@ function GetSuppRequesByR(R) {
                     //$('#Phn').val(jsondata_[i].TOTAL_COST);
                 }
                 var jsonWorkDatesAndFiles = JSON.parse(jsondata_[i].PLAN_END_DATE)
-               // console.log(jsonWorkDatesAndFiles)
-               
+                // console.log(jsonWorkDatesAndFiles)
+
                 DocumentsTenants(jsonWorkDatesAndFiles.FILES, jsondata_[i].FIRST_NAME)
 
                 var date_ = jsonWorkDatesAndFiles.WORKDATE
-                 date_ = date_.substr(0, 10);
-                 var year = date_.substr(6, 10);
+                date_ = date_.substr(0, 10);
+                var year = date_.substr(6, 10);
 
-                 var month = date_.substr(3, 2)
-                  var day = date_.substr(0, 2)
+                var month = date_.substr(3, 2)
+                var day = date_.substr(0, 2)
                 date_ = year + "-" + month + "-" + day
                 //$("#Room").val(jsondata_[i].ROOM_COUNT)
                 $("#calen1").val(date_)
@@ -5537,37 +5538,37 @@ function GetSuppRequesByR(R) {
                 GetPerFormers(jsondata_[i].SPECIALIS_ID, jsondata_[i].ADRESS)
                 //if (isResponsibleProfile != '/Responsible_Admin/CreateRequest.aspx') {
 
-                    
+
                 //}
                 //else {
-                    //var sps = JSON.parse(jsondata_[i].SPECIALISTS)
-                    //if (sps.length == 1) {
-                    //    if (sps[0].SPECIALIS_ID == jsondata_[i].SPECIALIS_ID && sps[0].SGUID == undefined) {
-                    //        GetPerFormers(jsondata_[i].SPECIALIS_ID, jsondata_[i].ADRESS)
-                    //    }
-                    //}
-                    //else {
-                    //    if (sps.length != 0) {
-                    //        GetPerFormers("", jsondata_[i].ADRESS)
-                    //    }
-                    //    else {
-                    //        GetPerFormers(jsondata_[i].SPECIALIS_ID, jsondata_[i].ADRESS)
-                    //    }
+                //var sps = JSON.parse(jsondata_[i].SPECIALISTS)
+                //if (sps.length == 1) {
+                //    if (sps[0].SPECIALIS_ID == jsondata_[i].SPECIALIS_ID && sps[0].SGUID == undefined) {
+                //        GetPerFormers(jsondata_[i].SPECIALIS_ID, jsondata_[i].ADRESS)
+                //    }
+                //}
+                //else {
+                //    if (sps.length != 0) {
+                //        GetPerFormers("", jsondata_[i].ADRESS)
+                //    }
+                //    else {
+                //        GetPerFormers(jsondata_[i].SPECIALIS_ID, jsondata_[i].ADRESS)
+                //    }
 
-                    //    for (var j = 0; j < sps.length; j++) {
-                    //        Add_Specialist(sps[j])
-                    //        $('#AddSpecialist').removeAttr('disabled')
+                //    for (var j = 0; j < sps.length; j++) {
+                //        Add_Specialist(sps[j])
+                //        $('#AddSpecialist').removeAttr('disabled')
 
-                    //    }
-                    //}
+                //    }
+                //}
 
-              //  }
+                //  }
                 getResponsibels_(jsondata_[i].RESPONSIBLE_ID)
                 //GetGroupOfServices(jsondata_[0].SERVICE_GROUP_ID, jsondata_[0].ADRESS)
 
             }
 
-            $('#PrServiceH').after('<label id="total" total-summ=\"' + jsondata_[0].TOTAL_COST +'\" style="float: right; display: block;">' + jsondata_[0].TOTAL_COST + '</label>');
+            $('#PrServiceH').after('<label id="total" total-summ=\"' + jsondata_[0].TOTAL_COST + '\" style="float: right; display: block;">' + jsondata_[0].TOTAL_COST + '</label>');
 
 
         }
@@ -6121,12 +6122,12 @@ function GetPerFormers(selected, obj) {
                 $("#Ispolname").text($("#IspolList option:selected").text()).attr("itemid", $("#IspolList option:selected").val())
                 $("#Ispolname").attr('email', $("#IspolList option:selected").attr('email'))
 
-               
+
             }
             if (selected == 0) {
                 var role = sessionStorage.getItem("role")
                 if (role != "15") {
-                     $('#SaveDD').hide();
+                    $('#SaveDD').hide();
                 }
             }
 
@@ -6179,9 +6180,9 @@ function getDate() {
 }
 function multiPlaying(e, Cost) {
     var totalC = 0
-  //  var iUk = $(e).next('td').next('td').children('a').attr('isuk')
+    //  var iUk = $(e).next('td').next('td').children('a').attr('isuk')
     if ($.isNumeric(Cost)) {
-     if ($(e).val() != 0 && $(e).val().length != 0) {
+        if ($(e).val() != 0 && $(e).val().length != 0) {
             //Cost = Cost.substr(0, Cost.indexOf('.') + 1)
 
             Cost = parseFloat($(e).val().replace(',', '.')) * Cost
@@ -6211,8 +6212,8 @@ function multiPlaying(e, Cost) {
             $(e).val('1')
         }
         else {
-            if ($(e).val().length!=0) {
-                 Cost = doqValue
+            if ($(e).val().length != 0) {
+                Cost = doqValue
                 Cost = parseFloat($(e).val().replace(',', '.')) * Cost
                 Cost = Cost.toFixed(2)
                 $(e).parent().next('td').next('td').children('a').text(Cost);
@@ -6221,55 +6222,55 @@ function multiPlaying(e, Cost) {
         }
     }
 
-   
-     
+
+
 
 }
 function RemoveDirectRow(e) {
     //$('#total').remove();
     //$('#PrServiceH').removeAttr('data-d')
-   // var rid = urlParam('RId')
+    // var rid = urlParam('RId')
 
-  ///  if (rid != null) {
-       // if (rid.indexOf('disp_') != -1) {
+    ///  if (rid != null) {
+    // if (rid.indexOf('disp_') != -1) {
 
-            var trGrupGuid = $(e).attr('guid')
-            $('.grups').children('div').children('input:checkbox:checked').each(function () {
-                var checkedGrupGuid = $(this).next('#grup').attr('grup-guid')
-                if (trGrupGuid == checkedGrupGuid) {
-                    $(this).prop('checked', false);
-                }
+    var trGrupGuid = $(e).attr('guid')
+    $('.grups').children('div').children('input:checkbox:checked').each(function () {
+        var checkedGrupGuid = $(this).next('#grup').attr('grup-guid')
+        if (trGrupGuid == checkedGrupGuid) {
+            $(this).prop('checked', false);
+        }
 
-            })
-            $('.subMenu').children('div').children('input:checkbox:checked').each(function () {
-                var checkedServiceGuid = $(this).attr('service-guid')
-                if (trGrupGuid == checkedServiceGuid) {
-                    $(this).prop('checked', false);
-                }
-            })
-            //var guidsps = ($(e).parent().parent().attr('service-guid') != undefined) ? 'service-guid="' + $(e).parent().parent().attr('service-guid') + '"' : ($(e).parent().parent().attr('grup-guid') != undefined) ? 'grup-guid="' + $(e).parent().parent().attr('grup-guid') + '"' : 'guid="' + $('.selectdrc').attr('guid') + '"'
-           // removeFromSps()
-            $(e).parent().parent().remove();
+    })
+    $('.subMenu').children('div').children('input:checkbox:checked').each(function () {
+        var checkedServiceGuid = $(this).attr('service-guid')
+        if (trGrupGuid == checkedServiceGuid) {
+            $(this).prop('checked', false);
+        }
+    })
+    //var guidsps = ($(e).parent().parent().attr('service-guid') != undefined) ? 'service-guid="' + $(e).parent().parent().attr('service-guid') + '"' : ($(e).parent().parent().attr('grup-guid') != undefined) ? 'grup-guid="' + $(e).parent().parent().attr('grup-guid') + '"' : 'guid="' + $('.selectdrc').attr('guid') + '"'
+    // removeFromSps()
+    $(e).parent().parent().remove();
 
-            if ($('#PrServiceH tbody tr').length == 0) {
-                $('#IspolList').children().show()
-                $('#PrServiceH thead tr th:eq(3)').show();
-                $('#PrServiceH thead tr th:eq(0)').text('Наименование направления')
-                $('#PrServiceH thead tr').each(function () {
-                    $(this).children('th:eq(1),th:eq(2)').hide();
+    if ($('#PrServiceH tbody tr').length == 0) {
+        $('#IspolList').children().show()
+        $('#PrServiceH thead tr th:eq(3)').show();
+        $('#PrServiceH thead tr th:eq(0)').text('Наименование направления')
+        $('#PrServiceH thead tr').each(function () {
+            $(this).children('th:eq(1),th:eq(2)').hide();
 
-                })
-                var text = $('.selectdrc').children('#drctName').children('label').text();
-                var directGuid = $('.selectdrc').attr('direct-guid');
-                $('#PrServiceH tbody').append('<tr><td >' + text + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="0" disabled="disabled"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+        })
+        var text = $('.selectdrc').children('#drctName').children('label').text();
+        var directGuid = $('.selectdrc').attr('direct-guid');
+        $('#PrServiceH tbody').append('<tr><td >' + text + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="0" disabled="disabled"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
 
 
 
-            }
-            CalculatTotaleCost();
-      //  }
-       
-   // }
+    }
+    CalculatTotaleCost();
+    //  }
+
+    // }
 
 
 }
@@ -6346,7 +6347,7 @@ function RemoveRow(e) {
         }
         totalcost = parseFloat(totalcost)
         $('#total').remove();
-        $('#PrServiceH').after('<label id="total" total-summ=\"' + totalcost.toFixed(2) +'\" style="float: right; display: block;">Итого: ' + totalcost.toFixed(2) + ' руб</label>');
+        $('#PrServiceH').after('<label id="total" total-summ=\"' + totalcost.toFixed(2) + '\" style="float: right; display: block;">Итого: ' + totalcost.toFixed(2) + ' руб</label>');
     })
 }
 function Open_Pop(e) {
@@ -6365,7 +6366,7 @@ function MakeCost(e) {
     dqCost = (dqCost.length == 0) ? 'Договорная' : dqCost
     $(e).parent().parent('td').find('a').text(dqCost);
     //$(e).closest('#').attr('onkeyup', 'multiPlaying(this,"' + dqCost + '")')
-  
+
     $(e).parent('#changeCost').hide(1000);
     CalculatTotaleCost();
 }
@@ -6481,7 +6482,7 @@ function MakeCheckCheckBox(e, d) {
             })
             $('#total').remove();
             totalCost = parseFloat(totalCost)
-            $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) +'\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
+            $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
             //if (totalCost == 0) {
             //    $('#total').hide();
             //}
@@ -6502,7 +6503,7 @@ function MakeCheckCheckBox(e, d) {
             }
             $('#total').remove();
             totalCost = parseFloat(totalCost)
-            $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) +'\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
+            $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
             //if (totalCost == 0) {
             //    $('#total').hide();
             //}
@@ -6703,7 +6704,7 @@ function selectDirectOnly(e) {
         totalCost = (isNaN(totalCost)) ? "0.00" : totalCost
     })
     totalCost = parseFloat(totalCost)
-    $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) +'\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
+    $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
 
 
 }
@@ -6830,7 +6831,7 @@ function getServices(e, d) {
         totalCost = (isNaN(totalCost)) ? "0.00" : totalCost
     })
     totalCost = parseFloat(totalCost)
-    $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) +'\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
+    $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
 
 
 
@@ -7015,7 +7016,7 @@ function GetRelatedDirects(selected, e, objId, resp, issearch) {
         totalCost = (isNaN(totalCost)) ? "0.00" : totalCost
     })
     totalCost = parseFloat(totalCost)
-    $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) +'\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
+    $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
 
 
 }
@@ -7061,7 +7062,7 @@ function getHasInds2(scr) {
         success: function (data) {
             var jsondata = JSON.parse(data.d);
             $('#IndList').empty();
-     
+
             if (jsondata.length != 1) {
                 $("#Ind").val("")
                 $("#Phn").val("")
@@ -7235,9 +7236,8 @@ function SearchServsForJsTree(e) {
     var value = $(e).val()
     $('#NewServs').jstree(true).search(value);
 }
-function GetKindOfRequest(selected)
-{
-    
+function GetKindOfRequest(selected) {
+
     $.ajax({
         type: "POST",
         url: "../Super_Disp/CreateDispRequest.aspx/GetKindOfRequest",
@@ -7260,7 +7260,7 @@ function GetKindOfRequest(selected)
                 //        if (jsondata_[i].WORK_KIND_GUID !='DFA3A95F-A678-4B56-B5F5-23F73B7BFEE1') {
                 //            $('#RequestKind').append('<option value=' + jsondata_[i].BaseDirectionGroupId + ' guid=' + jsondata_[i].WORK_KIND_GUID + '>' + jsondata_[i].BaseDirectionGroupTitle + '</option>')
                 //        }
-                    
+
                 //    }
                 //    else {
                 //        if (jsondata_[i].WORK_KIND_GUID == 'DFA3A95F-A678-4B56-B5F5-23F73B7BFEE1') {
@@ -7277,7 +7277,7 @@ function GetKindOfRequest(selected)
                 }
                 else {
                     $('#RequestKind').children('option[value="1"]').remove();
-                }     
+                }
             }
         }
     })

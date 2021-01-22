@@ -3,329 +3,505 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h2 id="hedrZ">Создание заявки</h2>
-    <%-- <img id="lstcmnt" src="../img/unlem.png" style="width:10%; display:none" />--%>
-    <i id="lstcmnt" class="fa fa-exclamation-circle" style="font-size: 300%; color: green; display: none"></i>
+ <div class="col-lg-9half col-sm-12 p-0 min-vh-100 bgLightGrey3  ">	
+		<span class="h90"></span>			
+			<div class="w-100 pt-2 bgWhite pl-2">
+				<ol class="list-inline list-unstyled mb-0">
+					<li class="list-inline-item">
+						<a href="te-metr.html">
+							<img src="img/btn-left.svg" class="w16 mt-n1 mr-1" alt="">
+						</a>
+					</li>
+					<li class="list-inline-item">
+							<p class="gray1 font18">Новая заявка</p>
+					</li>
+				</ol>
+			</div>
 
+<div class="p-4 ">
+	
+
+	
+
+<div class="bgWhite rounded16 mt-4 ml-3 p-4 shadow">
+	
+			<h3 class="font24 font-weight-bold pb-3 pt-3 w-100 flexHoriz " id="hedrZ">Создание заявки
+				<div class="ml-auto">
+							
+    <!--<img id="lstcmnt" src="../img/unlem.png" style="width:10%; display:block" /> -->
+    <i id="lstcmnt" class="fa fa-exclamation-circle" style="font-size: 300%; color: green; display: block"></i>
+	
+				</div>
+			</h3>
+
+	<style>
+		.errorMark {font-size: 75%; padding: 3.5rem 1rem 0 1rem; color: red; }
+		.errorMarkT {font-size: 75%; padding: 0 0 0 1rem; color: red; }
+	</style>
     <form>
-        <%--  <input id="chkem" type="checkbox" /><label class="checkBx">Аварийное обращение</label>--%>
-        <style>
-            .serviceDivs {
-                margin-left: -40px
-            }
-        </style>
-        <div style="width: 24%;">
-            <label class="checkBx" style="float: right;">Оплачено</label>
-            <input id="opl" type="checkbox" style="float: right;">
-            <input id="chkem" type="checkbox"><label id="lblEm" class="checkBx">Аварийное обращение</label>
+
+        <div class="flexHoriz mb-4">  
+			<label class="mr-4 w-auto " >
+				<input id="opl" type="checkbox" class="mr-1">
+				Оплачено
+			</label>
+			<label class="pr-2 w-auto ">
+				<input id="chkem" type="checkbox" class="mr-1">
+				Аварийное обращение
+			</label>
+		</div>
+		
+		<div class="posRel h56 rounded-lg mb-4">
+			
+			<select id="prjcts">
+				<option value="0">Выберите проект </option>
+			</select>
+			<label class="w-95" for="prjcts">Проект*</label>
+			
+			<span id="prjcts_S" class="errorMark" style="display: none">""</span>
         </div>
-        <span id="prjcts_S" style="float: right; font-weight: bold; color: red; display: none">""</span>
-        <label>Проект*</label>
-        <select id="prjcts">
-            <option value="0">Выберите проект </option>
-        </select>
-        <span id="adr_S" style="float: right; font-weight: bold; color: red; display: none">""</span>
-        <label>Адрес объекта*</label>
-        <label style="color: red; display: none;" id="objctZ_Sp">""</label>
+		
+		<div class="posRel h56 rounded-lg mb-4">
+			<span style="color: red; display: none;" id="objctZ_Sp">""</span>
+		  
+			<select id="objctZ">
+				<option value="0">Выберите адрес объекта </option>
+			</select>
+			<label class="w-95" for="objctZ">Адрес объекта*</label>
+			
+			<span id="adr_S" class="errorMark" style="display: none">""</span>
+		</div>
+		
+		
+		<input type="button" id="shServ" name="name" class="btn btn1 h48 mb-3" style="width: auto;" value="Выбрать Услугу" />
 
-        <select id="objctZ">
-            <option value="0">Выберите адрес объекта </option>
-        </select>
-        <label>Вид заявки*</label>
-        <select id="RequestKind">
-            <option value="0">Выберите вид заявки </option>
-        </select>
-        <input type="text" id="SerchService" onfocus="showResultArea(&quot;open&quot;)" onblur="showResultArea(&quot;close&quot;)" onkeyup="Search_Service(this)" placeholder="Поиск Услуг" style="display: none">
-        <span id="PrService_S" style="float: right; font-weight: bold; color: red; display: none">""</span>
-        <label id="listServiceH" style="display: none">Список услуг</label>
-        <%-- <input type="button" id="shServ" name="name" class="btn btn-default logBtn" style="width: 25%;" value="Выбрать Услугу" />--%>
+		<div class="mb-3" style="display:block">
 
-        <table class="formTable" id="PrServiceH" style="display: none">
-            <thead>
-                <tr>
-                    <th>Наименование услуг</th>
-                    <th>Кол-во</th>
-                    <th>Ед. изм</th>
-                    <th style="width: 120px;">Стоимость (руб.)</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        <br />
-        <span id="disps_S" style="float: right; font-weight: bold; color: red; display: none">""</span>
-        <label style="display: none">Диспетчеры*</label>
-        <select id="disps" style="display: none">
-        </select>
+			<table class="mngTable w-50" id="PrServiceH">
+				<thead>
+					<tr>
+						<th>Наименование&nbsp;услуг</th>
+						   <th>Кол-во</th>
+						<th>Ед.&nbsp;изм</th>
+						<th style="width: 120px;">Стоимость&nbsp;(руб.)</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			
+			
+			
+		<div class="flexHoriz mb-4 mt-4" style="display:block">
+			<div class="posRel h56 rounded-lg mb-0 w-50">
+				<input type="text" id="searchtxt" placeholder="Поиск по Услугам" >
+				<label class="w-95" for="searchtxt">Поиск</label> <!-- lblsearchtxt -->
+			</div>
+			<input type="button" value="Поиск услуг" id="SearchService" class="btn btn1 h56 ml-3">
+		</div>
+		
+		<div class="flexHoriz w-50 justify-content-between">
+			<div class="posRel h56 rounded-lg mb-4 w-48">
+				<select id="Sets" onchange="GetRelatedDirects(0,this)"><option value="0">Выберите Направление</option></select>
+				<label for="Sets" class="w-95">Направление*</label>
+			</div>
+			<div class="posRel h56 rounded-lg mb-4 w-48">
+				<select id="GServices">
+					<option value="0">Выберите группу услуг</option>
+				</select>
+				<label for="GServices" class="w-95">Группа услуг</label>
+			</div>
+		
 
-
-        <span id="Room_Type_S" style="float: right; font-weight: bold; color: red; display: none">""</span>
-        <label>Тип помещения*</label>
-        <select id="Room_Type">
-            <option value="0">Выберите тип помещения </option>
-        </select>
-        <span id="Room_S" style="float: right; font-weight: bold; color: red; display: none">""</span>
-        <div class="col-md-4">
-            <label>Номер помещения*</label><input type="text" id="Room" value="">
-        </div>
-        <div class="col-md-4">
-            <label>Подъезд</label><input type="text" id="Entrance" value="">
-        </div>
-        <div class="col-md-4">
-            <label>Этаж</label>
-            <input type="text" id="Floor" value="">
-        </div>
-        <%--  <label>Номер помещения*</label>
-        <%--<input id="Room" type="number" style="width: 100%;" /> 
-        <input type="text" id="Room" value="" />--%>
-        <span id="Acnum_S" style="float: right; font-weight: bold; color: red; display: none">""</span>
-        <label>Номер лицевого счета*</label>
-        <%--<input id="Room" type="number" style="width: 100%;" />--%>
-        <input type="text" id="Acnum" name="name" value="" />
-        <div id="AcnumList" style="display: none; border: 1px solid #000; box-shadow: 3px 4px 5px rgba(0,0,0,0.3); height: 150px; overflow: auto; width: 67.5%">
-        </div>
-        <%--<input type="text" id="adr" list="adrList">
-                    <datalist id="adrList">
-                   
-                    </datalist>--%>
-
-        <span id="Ind_S" style="float: right; font-weight: bold; color: red; display: none">""</span>
-        <label>Заявитель*</label>
-        <input id="Ind" type="text" />
-        <div id="IndList" style="border: 1px solid rgb(0, 0, 0); display: none; box-shadow: rgba(0, 0, 0, 0.3) 3px 4px 5px; height: 150px; overflow: auto; width: 67.5%;">
-        </div>
-        <span id="Phn_S" style="float: right; font-weight: bold; color: red; display: none">""</span>
-        <label>Номер телефона*</label>
-        <input id="Phn" onkeyup="MaskPhone(this)" type="text" />
-        <%-- <label style="display:none" id="lblsearchtxt">Поиск</label>
-        <input type="text" id="searchtxt" placeholder="Поиск по Услугам" style="width: 30%;display:none">--%>
-        <%--<input type="button" value="Поиск услуг" id="SearchService" class="btn genBtn" style="display:none">--%>
-        <%--  <label>Направление*</label>
-        <select id="Sets" onchange="GetRelatedDirects(0,this)"><option value="0">Выберите Направление</option></select>--%>
-        <%--<select id="GServices">
-           <option value="0">Выберите группу услуг</option>
-        </select>--%>
-
-        <%--   <div style="max-height: 200px; overflow: auto;">
-            <table id="PrService" class="formTable" style="display: none">
-            </table>
-        </div>--%>
-        <br />
-
-        <table class="formTable" id="AddedTable" style="display: none; width: calc(100% - 20px);">
-            <tr>
+		</div>
+		<div style="max-height: 200px; overflow: auto;">
+			<table id="PrService" class="mngTable w-50" style="display: block">
+		
+			</table>
+		</div>
+		
+        <table class="mngTable w-50" id="AddedTable" style="display: block; ">
+          <thead>  <tr>
                 <th style="width: 500px;">Наименование услуги/товара</th>
                 <th style="width: 70px">Кол-во</th>
-                <%-- <th style="width:120px;">Стоимость</th>--%>
+                <th style="width:120px;">Стоимость</th>
                 <th>Добавление в список</th>
-            </tr>
+            </tr></thead>
         </table>
-        <div style="max-height: 200px; overflow: auto;">
-            <table id="PrService2" class="formTable" style="margin-top: 0; border-top: none; display: none">
+        <div class="mb-3" style="max-height: 200px; overflow: auto;">
+            <table id="PrService2" class="mngTable w-50" style="display: block"> 
+		
+   
             </table>
         </div>
-        <%-- <button ></button>--%>
-        <%-- <input type="button" class="btn btn-default genBtn" name="name"  id="AddServices" disabled="disabled" style="margin-top:5px;" value="Добавить услугу / товар" />--%>
+    <!--  <button class="btn btn1"></button> -->
+	
+		<h3 id="listServiceH">Список услуг</h3>
+        <input type="button" class="btn btn1" name="name"  id="AddServices" disabled="disabled" value="Добавить услугу / товар" />
+			
+		
+	    	
+			
+		<span id="PrService_S" class="errorMarkT" style="display: none">""</span>
+	  
+		</div>
+		
+		<div class="posRel h56 rounded-lg mb-4" style="display:none">
+			<select id="disps">
+			   
+			</select>
+			<label class="w-95" for="disps" >Диспетчеры*</label>
+			<span id="disps_S" class="errorMark" style="display: none">""</span>
+        </div>
+		
+		<div class="posRel h56 rounded-lg mb-4">
+			<select id="Room_Type">
+				<option value="0">Выберите тип помещения </option>
+			</select>
+			<label class="w-95" for="Room_Type">Тип помещения*</label>
+			<span id="Room_Type_S" class="errorMark" style="display: none">""</span>
+		</div>
+		
+		<div class="flexHoriz justify-content-between w-100">
+			<div class="posRel h56 rounded-lg mb-4 w-32"> 
+				<!--<input id="Room" type="number" style="width: 100%;" />-->
+				<input type="text" id="Room" value="" />
+				<label class="w-95" for="Room">Номер помещения*</label>		
+				<span id="Room_S" class="errorMark" style="display: none">""</span>
+			</div>
+			<div class="posRel h56 rounded-lg mb-4 w-32"> 
+				<!--<input id="Room" type="number" style="width: 100%;" />-->
+				<input type="text" id="Block" value="" />
+				<label class="w-95" for="Block">Подъезд</label>		
+				<span id="Block_S" class="errorMark" style="display: none">""</span>
+			</div>			
+			<div class="posRel h56 rounded-lg mb-4 w-32"> 
+				<!--<input id="Room" type="number" style="width: 100%;" />-->
+				<input type="text" id="Floor" value="" />
+				<label class="w-95" for="Floor">Этаж</label>		
+				<span id="Floor_S" class="errorMark" style="display: none">""</span>
+			</div>				
+		</div>	
+		
+		<div class="posRel h56 rounded-lg mb-4"> 
+			<input type="text" id="Acnum" name="name" value="" />
+			<label class="w-95" for="Acnum">Номер лицевого счета*</label>
+			<span id="Acnum_S" class="errorMark" style="display: none">""</span>
+		</div>
+			
+			
+		<div id="AcnumList" class="posRel rounded-lg p-2 mb-4 border-1 shadow h-150 w-50 overflowY" style="display: none;"> 
+			  
+				<!--<input type="text" id="adr" list="adrList">
+                    <datalist id="adrList">
+                   
+                    </datalist>-->
+
+		</div>
+		
+		<div class="posRel h56 rounded-lg mb-4"> 
+			<input id="Ind" type="text" />
+				<div id="IndList" class="border-1 shadow h-150 w-50 overflowY" style="display: none">
+
+				</div> 
+			<label class="w-95" for="Ind">Заявитель*</label>
+			<span id="Ind_S" class="errorMark" style="display: none">""</span>
+		</div>
+		
+        <div class="posRel h56 rounded-lg mb-4"> 
+			<input id="Phn" onkeyup="MaskPhone(this)"  type="text" />
+			<label class="w-95" for="Phn">Номер телефона*</label>
+			<span id="Phn_S" class="errorMark" style="display: none">""</span>
+		</div>
+     
 
 
         <div style="clear: both;">&nbsp;</div>
 
-        <input id="dost" style="display: none" type="checkbox" /><label style="display: none" class="checkBx">Доставка</label>
-        <span id="TDost_S" style="float: right; font-weight: bold; color: red; display: none">""</span>
-        <label style="display: none">Тип доставки</label>
-        <select style="display: none" id="TDost" disabled="disabled">
-            <option value="0">Выберите Тип доставки</option>
-            <%-- <option>Самовывоз</option>--%>
-        </select>
 
 
-        <label style="display: none">Стоимость доставки</label>
-        <input style="display: none" id="StDost" disabled="disabled" type="text" value="" />
+			
+        <input id="dost" type="checkbox" value="false"/>
+		<label for="dost" class="pb-2 w-95">Доставка</label>
+		
+	<div class="flexHoriz justify-content-between w-100" style="display: block">		
+		
+		<div class="posRel h56 rounded-lg mb-4 w-32">
 
-        <label style="display: none">Итоговая стоимость</label>
-        <input style="display: none" disabled="disabled" id="ItCost" type="text" value="" />
-        <div class="row" id="planTime">
-            <div class="col-xs-3">
-                <label>Планируемая дата* </label>
+			<select id="TDost">
+				<option value="0">Выберите Тип доставки</option>
+				<!-- <option>Самовывоз</option>-->
+			</select>
+			<label class="w-95" for="TDost">Тип доставки</label>
+			<span id="TDost_S" class="errorMark" style="display: none">""</span>
+		</div>
+		<div class="posRel h56 rounded-lg mb-4 w-32">
+			
+			<input  id="StDost" type="text" value="" />
+			<label class="w-95" for="StDost">Стоимость доставки</label>
+		</div>
+		<div class="posRel h56 rounded-lg mb-4 w-32">
+			
+			 <input id="ItCost" type="text" value="" /> <!--disabled="disabled" -->
+			<label class="w-95" for="ItCost" >Итоговая стоимость</label>
+		</div>
+	</div>	
+
+	<div class="flexHoriz justify-content-between w-100" style="display: block">		
+		
+		<div class="posRel h56 rounded-lg mb-4 w-48">
+                
                 <input type="date" id="calen1" required="required" name="calendar" value="" />
-            </div>
-            <div class="col-xs-9">
-                <span id="tm_S" style="float: right; font-weight: bold; color: red; display: none">""</span>
-                <label>Планируемое время* </label>
+				<label class="w-95" for="calen1" >Планируемая дата* </label>
+        </div>
+		<div class="posRel h56 rounded-lg mb-4 w-48">
+               
+                
                 <input type="time" id="tm" required="required" name="time" value="12:00" />
-            </div>
-        </div>
-        <%--<div class="row" id="Rj" style="display: none">
-            <div class="col-xs-3">
-                <label>Предлагаемая дата с</label>
+				<label class="w-95" for="tm">Планируемое время* </label>
+				<span id="tm_S" class="errorMark" style="display: none">""</span>
+		</div>
+	</div>
+    
+	<div style="display: block">
+		<h3>Предлагаемая дата</h3>    
+		<div class="flexHoriz justify-content-between w-100 mt-4" >		
+			<div class="posRel h56 rounded-lg w-48">
                 <input type="date" id="calenOF" name="calendar" value="" />
-
+				<label class="w-95" for="calenOF">с</label>
             </div>
-            <div class="col-xs-9">
-                <span id="tmOF_S" style="float: right; font-weight: bold; color: red; display: none">""</span>
-                <label>Предлагаемая дата по</label>
-                <input type="date" id="calenOT" name="calendar" value="" />
+           <div class="posRel h56 rounded-lg w-48">
+				<input type="date" id="calenOT" name="calendar" value="" />
+                <label class="w-95" for="calenOT">по</label>
             </div>
-        </div>
-        <div class="row" id="RJ2" style="display: none">
-
-            <div class="col-xs-3">
-                <label>Предлагаемая время </label>
-                с
+			
+		</div><span id="tmOF_S" class="errorMarkT" style="display: block">Ошибка</span>
+	</div>	
+	<div style="display: block">
+		<h3>Предлагаемое время</h3>
+		<div class="mt-4 flexHoriz justify-content-between w-100" id="RJ2">
+			
+			<div class="posRel h56 rounded-lg w-48">
+                
                  <input type="time" id="tmOF1" name="calendar" value="" />
-                по
+				 <label class="w-95" for="tmOF1">с</label>
+			</div>	 
+			<div class="posRel h56 rounded-lg w-48">	 
+                <label class="w-95" for="tmOT1">по</label>
                  <input type="time" id="tmOT1" name="calendar" value="" />
+			</div>
+		</div>	
+		
+		<div class="flexHoriz justify-content-between w-100 mt-4" id="RJ2">	
+			<div class="posRel h56 rounded-lg w-48">
+				<input type="time" id="tmOF2" name="calendar" value="" />
+                <label class="w-95" for="tmOF2">с</label>
+            </div>	 
 
-            </div>
-
-            <div class="col-xs-9">
-
-                <span id="tmOT_S" style="float: right; font-weight: bold; color: red; display: none">""</span>
-                <label>Предлагаемая время</label>
-                с
-                   <input type="time" id="tmOF2" name="calendar" value="" />
-                по
+			<div class="posRel h56 rounded-lg w-48">  
                 <input type="time" id="tmOT2" name="calendar" value="" />
+				<label class="w-95" for="tmOT2">по</label>
             </div>
-        </div>--%>
+			
+		</div><span id="tmOT_S" class="errorMarkT" style="display: block">Ошибка</span>	
+    </div>
+	
+	
+	
         <br />
-        <%--          <label id="lblIspo">Исполнитель</label>
-                <em id="emIspo">Исполнитель по умолчанию – диспетчер.</em>
-                <input type="text" disabled="disabled" id="IspolFio" class="vfi" value="Введите ФИО исполнителя" />--%>
+		
+		<div class="posRel h56 rounded-lg mb-4 w-100">
+               
+				<input type="text" disabled="disabled" id="IspolFio" class="vfi" value="Введите ФИО исполнителя" />
+				<label class="w-95" id="lblIspo" for="IspolFio" >Исполнитель</label>
+		</div>
 
-        <label id="lblispol">Выберите исполнителя</label>
-        <span id="IspolList_S" style="float: right; font-weight: bold; color: red; display: none">""</span>
-        <select id="IspolList" onchange="ChangeToSend(this)">
-            <%-- <option value="0">Выберите исполнителю</option>--%>
-        </select>
-
-        <label>Ответственный по заявке</label>
-        <%--<input type="text" id="Otven" disabled="disabled" value="ФИО ответственного" />--%>
-        <select id="Otven"></select>
-        <span id="RText_S" style="float: right; font-weight: bold; color: red; display: none">""</span>
-        <label>Описание заявки</label>
-        <textarea class="opisanie" placeholder="Опишите кратко место проведения работ, а так же суть проблемы/задачи" id="RText"></textarea>
-
-        <label id="hstComh" style="display: none">История комментариев</label>
-        <div id="hstCom" style="display: none; border: dotted; overflow: auto; height: 190px; max-height: 190px;"><%--<h4>   - ""</h4>--%></div>
-        <br />
-        <label id="lblreqType">Тип заявки</label>
-        <select id="reqType">
-            <option value="0">Внутренняя</option>
-            <option value="1">Внешняя</option>
-        </select>
-        <br />
-        <input type="button" name="name" id="fileH_btn" value="Выбрать Файл" style="display: none" />
+     	<em id="emIspo">Исполнитель по умолчанию – диспетчер.</em>   
+		
+		<div class="posRel h56 rounded-lg mb-4 w-100">
+			<select id="IspolList" onchange="ChangeToSend(this)">
+				<!-- <option value="0">Выберите исполнителю</option>--> 
+			</select>
+			<label class="w-95" for="IspolList">Выберите исполнителя</label>
+			<span id="IspolList_S" class="errorMark" style="display: none">""</span>
+		</div>
+		
+		<div class="posRel h56 rounded-lg mb-4 w-100">
+			<label class="w-95" for="Otven">Ответственный по заявке</label>
+			<!--<input type="text" id="Otven" disabled="disabled" value="ФИО ответственного" />-->
+			<select id="Otven"  ></select>
+			
+			<span id="RText_S" class="errorMark" style="display: none">""</span>
+		</div>
+		
+	
+		<div class="border-gray rounded8 w-100 mt-3 mb-3">
+		
+			<textarea class=" rounded8 font16 w-100 h-150 border-0 pt-3 pl-3 " placeholder="Опишите кратко место проведения работ, а так же суть проблемы/задачи" id="RText"></textarea>
+		</div>
+		
+		<div class="mb-3" style="display: block">
+		
+			<h3 id="hstComh">История комментариев</h3> 
+		
+			<div id="hstCom" style="border-radius: 8px; border: 1px dotted #777777; overflow: auto; height: 190px; max-height: 190px;"><!--<h4>   - ""</h4>-->
+			</div>
+        </div>
+		
+		
+        <input type="button" name="name" id="fileH_btn" value="Выбрать Файл" style="display:block" />
         <input type="file" name="name" id="fileH" style="display: none" value="" />
-        <span id="RComment_S" style="float: right; font-weight: bold; color: red; display: none">""</span>
-        <label id="hComennt">Комментарий</label>
+        <span id="RComment_S" class="errorMark" style="display: none">""</span>
+        
+		<br/><br/><br/>
+		
+		
+		
+		<h3 id="hComennt">Комментарий</h3>
         <div id="himgs">
         </div>
-        <%--<img   id="HImg" data-url="0" src=" ../Files/upl.png" style="display:none;width:71px;float: right;margin-right:  52%;">--%>
-        <button id="SendComent" class="btn btn-default logBtn" type="button" style="width: auto; float: right; margin-right: 42%;">Отправить</button>
-        <textarea id="RComment" class="opisanie" style="height: 60px"></textarea>
-
-        <label id="hdPr">Прикрепить файл к заявке</label>
-        <div id="imgss">
-            <%--  <div class="col-xs-2" id="zImg">
-               <%-- <img class="foto-disp"  data-url="0" itemid="0" id="fotoDisp0" src="../Files/upl.png"> 
-            </div>--%>
-            <input type="button" name="name" id="file_btn" value="Выбрать Файл" /><br />
-            <input class="knop" style="display: none" id="files" itemid="0" type="file" /><%--<br /><br /><br /><br /><br />--%>
+ 		<textarea id="RComment" class="opisanie w-100 rounded8 " style="height: 60px"></textarea>     
+		
+	
+		 
+		<div class="flexHoriz w-100 mt-3">
+			 <input type="button" name="name" id="file_btn" value="" class="transp border-0 w32" 
+			style="background: url('img/attach.svg') no-repeat center center;"/>
+		 <!-- ../Files/upl.png -->
+		 
+			<button id="SendComent" class="ml-auto btn btn1 w-auto flexCenter" type="button">Отправить</button>
+       
+		</div>
+        
+   		<br/><br/><br/>    
+	
+		
+		<h3 id="hdPr">Прикрепить файл к заявке</h3>
+       
+		<div id="imgss">
+              <div class="col-xs-2" id="zImg">
+               <!-- <img class="foto-disp"  data-url="0" itemid="0" id="fotoDisp0" src="../Files/upl.png">  -->
+			   
+            </div>
+			
+            <input type="button" name="name" id="file_btn" value="" class="transp border-0 w32" style="background: url('img/attach.svg') no-repeat center center;"/>
+			
+			
+			<br />
+            <input class="knop" style="display:block" id="files" itemid="0" type="file" /><br />
         </div>
 
-        <%--<label id="hdPr2" style="display:none">Прикрепить файл к заявке</label>
-                    <div style="display:none" class="col-xs-2" id="zImg2">
-                <img class="foto-disp" data-url="0" id="fotoDisp1" src="../Files/upl.png">
-            </div>--%>
+	<div class="flexHoriz w-100 justify-items-start">
+		<div class="m-2" id="zImg2">
+            <img class="foto-disp" data-url="0" id="fotoDisp1" src="img/attach.svg">
+        </div>
+        <label id="hdPr2" class="w-auto mt-2">Прикрепить файл к заявке</label>
 
-        <%--  <input class="knop" id="files2" style="display:none;margin-left: 9vw;" type="file" /><br /><br /><br /><br /><br />
+	</div>
+        
+		<input class="knop ml-2" id="files2" type="file" /><br />
 
-               <label id="hdPr3" style="display:none">Прикрепить файл к заявке</label>
-                    <div style="display:none" class="col-xs-2" id="zImg3">
-                <img class="foto-disp" data-url="0" id="fotoDisp2" src="../Files/upl.png">
-            </div>--%>
+<br />
 
-        <%--<input class="knop" id="files3" style="display:none;margin-left: 9vw;" type="file" /><br /><br /><br /><br /><br />
+		<input class="knop" id="files3" style="display:none;margin-left: 9vw;" type="file" /><br />
 
-               <label id="hdPr4" style="display:none">Прикрепить файл к заявке</label>
-                    <div style="display:none" class="col-xs-2" id="zImg4">
-                <img class="foto-disp" data-url="0" id="fotoDisp3" src="../Files/upl.png"><br />
-            </div>--%>
 
-        <%--<input class="knop" id="files4" style="display:none;margin-left: 9vw;" type="file" /><br /><br />--%>
         <div style="clear: both"></div>
+		
+		
         <div class="buttons1">
-            <%-- <button  id="updateRequest" style="display:none" class="btn logBtn">Сохранить</button>--%>
-
-            <button id="SaveDD" data-status="1" class="btn btn-default logBtn" type="button" style="background-color: rgb(0,147,233); width: auto;">Принять в работу</button>
-            <button id="SaveMO" data-status="2" class="btn btn-default logBtn" type="button">Отправить</button>
-
-            <input type="button" id="updateRequest" style="" class="btn logBtn" value="Сохранить">
-            <button id="backUo" class="btn btn-default logBtn" type="button" style="background-color: rgb(149,153,156);">Отмена</button>
+           <button  id="updateRequest" style="display:block" class="h48 btn btn1 flexCenter">Сохранить</button>
+		   
+			<input type="button" id="updateRequest" style="" class="h48 btn btn1 flexCenter" value="Сохранить">
+            <button id="SaveDD" class="h48 btn btn1 flexCenter" type="button" style="background: rgb(0,147,233); ">Принять в работу</button>
+            <button id="SaveMO" class="h48 btn btn1 flexCenter" type="button" style="background: rgb(0,147,233); ">Отправить исполнителю</button>
+            <button id="backUo" class="h48 btn btn1 flexCenter outline shadow-none" type="button" >Отмена</button>
         </div>
+		
+		
+		
     </form>
-    <div id="myModal5" class="modal2" style="z-index: 1000; background-color: rgba(0,100,223,0.4);">
+	
+	
+	
+	<br/>
+	
+        <div id="myModal5" style="z-index: 1000;" class="modal2 shadow p-3 bgWhite rounded16 w-100">
 
         <!-- Modal content -->
         <div class="modal-content2" style="">
-            <div class="modal-header2" style="background-color: white">
-                <span class="close2" style="color: black" id="close_5">&times;</span>
-                <%-- <h2 id="mh3" style="text-align: left;color:white">Modal Header</h2>--%>
+            <div class="modal-header2 bgWhite">
+                <span class="close2 font24" style="color: black" id="close_6">&times;</span>
+                <h2 id="mh3"></h2>
             </div>
-            <div class="modal-body2" style="height: 100px; width: 100%; height: 100px; padding: 15px; /* min-width: 100px; */display: inline-block;">
-                <textarea style="width: 522px; height: 205px; max-width: 100%; min-width: 100%; max-height: 109px; min-height: 109px; margin: 0px;" id="cmntsts2">Все работы по данной заявке выполнены</textarea>
+            <div class="modal-body2" class="h-150 w-100 ">
+                <textarea class="w-100 h-100 m-0 border-grey p-2" id="cmntsts2">Все работы по данной заявке выполнены</textarea>
 
             </div>
             <hr />
-            <div class="modal-footer2" style="text-align: left; height: 80px; background-color: white">
+            <div class="modal-footer2 flexHoriz w-100 m-0 p-0" style="">
 
                 <input class="knop" id="f_iles2" style="width: 124px" type="file">
-                <input type="button" id="OkVipol" name="name" value="ОК" style="width: 25%; height: 37%; background-color: white; color: black; font-weight: 700; margin-left: 48%; margin-bottom: -26px;" />
-                <input type="button" id="Close_Ot" name="name" value="Отмена" style="width: 25%; height: 37%; background-color: white; color: black; font-weight: 700; margin-top: -20px;" />
+				
+				
+                <input type="button" id="OkVipol" name="name" value="ОК" class="ml-auto w-15 btn btn1 flexCenter" />
+                <input type="button" id="Close_Ot" name="name" value="Отмена" class="ml-3 w-15 btn btn1 outline shadow-none flexCenter mr-0" />
 
             </div>
         </div>
 
     </div>
-    <div id="myModal6" class="modal2" style="z-index: 1000; background-color: rgba(0,100,223,0.4);">
+	
+	<br/>
+	
+    <div id="myModal6" style="z-index: 1000;" class="modal2 shadow p-3 bgWhite rounded16 w-100">
 
         <!-- Modal content -->
-        <div class="modal-content2" style="">
-            <div class="modal-header2" style="background-color: white">
-                <span class="close2" style="color: black" id="close_6">&times;</span>
-                <%-- <h2 id="mh3" style="text-align: left;color:white">Modal Header</h2>--%>
+        <div class="modal-content2" >
+            <div class="modal-header2 position-relative" >
+                <span class="close2 font24" style="color: black" id="close_6">&times;</span>
+                <h2 id="mh3"></h2>
             </div>
-            <div class="modal-body2" style="height: 100px; height: 100px; padding: 15px; /* min-width: 100px; */display: inline-block;">
-                <p id="txt6" style="font-size: 23px;">Исполнитель:</p>
-                <p id="Ispolname" style="font-size: 23px;">Исполнитель ( по умолчанию Текущий исполнитель)</p>
-                <select id="ispol2">
-                    <option value="0">Выберите Исполнителя</option>
-                </select>
+            <div class="modal-body2">
+                <p id="txt6" class="font24">Исполнитель:</p>
+				
+				<div class="posRel h56 rounded-lg mb-4 w-100">
+					
+					<select id="ispol2">
+						<option value="0">Выберите Исполнителя</option>
+					</select>
+					<label class="w-95" id="Ispolname" for="ispol2">Исполнитель ( по умолчанию Текущий исполнитель)</label>
+				 </div>
             </div>
+			
             <hr />
-            <div class="modal-footer2" style="text-align: left; height: 80px; background-color: white">
+			
+            <div class="modal-footer2 flexHoriz w-100">
 
-
-
-                <input type="button" id="vrntVrabot" name="name" value="Вернуть в работу" style="float: right; width: 32%; height: 37%; background-color: white; color: black; font-weight: 700; margin-top: -20px;" />
+                <input type="button" id="vrntVrabot" name="name" value="Вернуть в работу" class="ml-auto w-32 btn btn1 outline shadow-none flexCenter" />
 
             </div>
 
         </div>
 
     </div>
-    <div id="DerModalFenster" style="display: none;">
-        <div style="padding: 20px; background: #fff; text-align: center; width: 300px; height: 150px;">
-            <label>Стоимость услуги</label>
-            <input type="text" />
-            <button id="okBtn" class="btn genBtn">ОК</button>
-            <button id="escBtn" class="btn genBtn" style="background: rgb(149,149,149);">Отмена</button>
-        </div>
+	<br/>
+	
+    <div id="DerModalFenster" style="display: block;" class="shadow p-3 bgWhite rounded16 w300 h-150">
+       
+			<div class="posRel h56 rounded-lg mb-4 w-100">
+				<label class="w-95" for="costServ">Стоимость услуги</label>
+				<input type="text" id="costServ"/>
+            </div>
+			<div class="flexHoriz justify-content-between">
+				<button id="okBtn" class="btn btn1 w-48 flexCenter">ОК</button>
+				<button id="escBtn" class="btn btn1 outline shadow-none w-48 flexCenter">Отмена</button>
+			</div>
+   
     </div>
-
-    <%-- <script type="text/javascript">
+     
+    <script type="text/javascript">
          function ifrPopup(e) {
              $("#mh8").text("");
              var dtdUrl = $(e).children('img').attr('data-url');
@@ -346,5 +522,13 @@
                  }
              }
          }
-     </script>--%>
+     </script>
+			
+			
+
+
+
+</div>	<!-- main block -->
+</div><!-- row -->
+
 </asp:Content>
