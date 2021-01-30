@@ -210,9 +210,13 @@ header .nav-link.btn  {color: #fff;}
 .nav .form-control {border: none;}
 .divider {margin: 0 1em 1em 0;}
 
-
-
 .subMenu {
+    height: 260px;
+    overflow: auto;
+    box-shadow: 4px 5px 10px 0 lightgrey;
+} 
+
+/*.subMenu {
 	position: absolute;  
 	z-index: 1000;
 	background-color: #fff;
@@ -220,7 +224,7 @@ header .nav-link.btn  {color: #fff;}
 	min-width: 15em; 
 	border-radius: 6px; 
 	box-shadow: 4px 5px 10px 0 rgba(0,0,0,0.2);
-	}
+	}*/
 .subMenu li {display: block; padding:1em; top:0;}
 .subMenu li:hover {background-color: #f3f3f3;}
 .subMenu a {font-weight: normal; text-decoration: none;}

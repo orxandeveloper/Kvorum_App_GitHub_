@@ -326,7 +326,8 @@ $(document).ready(function () {
                     totalCost = (isNaN(totalCost)) ? "0.00" : totalCost
                 })
                 totalCost = parseFloat(totalCost)
-                $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
+                   
+                $('#PrServiceH').after('<div class="totalh7" > <h7 id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</h7></div>')
                 //   $('#NewServs').jstree(true).destroy();
                 $('#NewServs').jstree("destroy").empty();
                 $('#NewServs').jstree("deselect_all");
@@ -360,7 +361,7 @@ $(document).ready(function () {
 
                     $('#PrServiceH').attr('data-s', id)
 
-                    $('#PrServiceH tbody').append('<tr><td data-s=' + id + '>' + text + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="0" onclick="RemoveSetRow(this)"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+                    $('#PrServiceH tbody').append('<tr><td data-s=' + id + '>' + text + '</td><td class="CostTd"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-url="0" onclick="RemoveSetRow(this)"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
                 }
                 if (level == "2") {
                     var id = selectedElms[0].id
@@ -376,7 +377,7 @@ $(document).ready(function () {
                     $('#temprorySet').remove();
                     //$("#PrServiceH").attr('data-d', directId);
                     //$("#PrServiceH tbody tr:eq(0)").remove();
-                    //$('#PrServiceH tbody').append('<tr><td data-d=' + directId + '>' + text + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-d=' + directId + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+                    //$('#PrServiceH tbody').append('<tr><td data-d=' + directId + '>' + text + '</td><td class="CostTd"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-d=' + directId + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
 
                 }
                 if (level == "3") {
@@ -404,7 +405,7 @@ $(document).ready(function () {
                         //var cost = selectedElms[j].original.COST
                         //var kolDis = (cost == 'Договорная') ? 'disabled="disabled"' : '';
 
-                        //var doqi = (cost == 'Договорная') ? '<a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div>' : '<a>' + cost + '</a>'
+                        //var doqi = (cost == 'Договорная') ? '<a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div>' : '<a>' + cost + '</a>'
 
                         //var edizm = selectedElms[j].original.UNIT_OF_MEASURE_NAME;
                         //var dtUrl = selectedElms[j].original.QUANTITY_IS
@@ -413,12 +414,12 @@ $(document).ready(function () {
                         //$('#PrServiceH thead tr th:eq(0)').text('Наименование услуг')
                         //if (dtUrl == "1") {
                         //    //onkeyup="multiPlaying(this,500)" <td><input type="text" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57" value="1"></td>
-                        //    $("#PrServiceH tbody").append('<tr data-d=' + d + '><td itemid="' + itemId + '"> ' + dataName + '</td><td><input type="text" ' + kolDis + '  onkeyup=multiPlaying(this,"' + cost + '")  onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57" value="1"></td><td>' + edizm + '</td><td  style="width:120px;text-align:center;">' + doqi + '</td><td><a itemid="' + itemId + '" data="' + dataName + '" onclick="RemoveRow(this)" data-url="' + dtUrl + '" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Удалить</a></td></tr>')
+                        //    $("#PrServiceH tbody").append('<tr data-d=' + d + '><td itemid="' + itemId + '"> ' + dataName + '</td><td><input type="text" ' + kolDis + '  onkeyup=multiPlaying(this,"' + cost + '")  onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57" value="1"></td><td>' + edizm + '</td><td  class="CostTd">' + doqi + '</td><td><a itemid="' + itemId + '" data="' + dataName + '" onclick="RemoveRow(this)" data-url="' + dtUrl + '" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Удалить</a></td></tr>')
                         //}
                         //if (dtUrl == "0") {
                         //    /*<tr><td style="width: 500px;" itemid="11">Доступ - Одноразовый пропуск</td><td><input disabled="disabled" type="text" value=""></td><td><button onclick="RemoveRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Удалить</button></td></tr>*/
                         //    //<td  ><input disabled="disabled" type="text" value=""></td>
-                        //    $("#PrServiceH tbody").append('*<tr data-d=' + d + '><td   itemid="' + itemId + '"> ' + dataName + '</td><td><input disabled="disabled" type="text" value=""></td><td>' + edizm + '</td><td style="width:120px;text-align:center;"><a onclick=Open_Pop(this) >' + cost + '</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="' + dtUrl + '" onclick="RemoveRow(this)" itemid="' + itemId + '" data="' + dataName + '"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Удалить</a></td></tr>')
+                        //    $("#PrServiceH tbody").append('*<tr data-d=' + d + '><td   itemid="' + itemId + '"> ' + dataName + '</td><td><input disabled="disabled" type="text" value=""></td><td>' + edizm + '</td><td class="CostTd"><a onclick=Open_Pop(this) >' + cost + '</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-url="' + dtUrl + '" onclick="RemoveRow(this)" itemid="' + itemId + '" data="' + dataName + '"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Удалить</a></td></tr>')
 
                         //}
 
@@ -553,6 +554,8 @@ $(document).ready(function () {
                 $('#SearchService').show();
                 $('#SendComent').hide();
                 $('#hedrZ').attr('Z_id', '0')
+                $('#SaveDD').attr('data-status', '1')
+                $('#SaveMO').attr('data-status', '2')
             }, 1000)
 
 
@@ -563,241 +566,17 @@ $(document).ready(function () {
                 var back = (loc.indexOf('Responsible') != -1) ? 'Resp_Requests.aspx' : (loc.indexOf('Manager') != -1) ? 'RequestsManager.aspx' : (loc.indexOf('Disp_Admin') != -1) ? 'RegisterRequest.aspx' : (loc.indexOf('Super_Disp') != -1) ? 'DispRequests.aspx' : 'SRequests.aspx'
                 window.location.href = back
             })
+          
             $(document).on('click', '#SaveDD', function () {
 
                 var successRequest = true;
 
-                var prjcts = $("#prjcts").val();
-                if (prjcts == 0) {
-                    successRequest = false;
-                    $("#prjcts_S").text("Необходимо выбрать адрес проект").show();
-
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#prjcts_S').hide(); }, 5000);
-                }
-
-
-                var slcObj = $("#objctZ").val();
-                if (slcObj == 0) {
-                    successRequest = false;
-                    $("#adr_S").text("Необходимо выбрать адрес объекта").show();
-
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#adr_S').hide(); }, 5000);
-                }
-                var RequestKind = $("#RequestKind").val();
-                if (RequestKind == 0) {
-                    $('#RequestKindr_S').remove();
-                    $("#RequestKind").after('<span id="RequestKindr_S" style="float: right; font-weight: bold; color: red; display: none">Необходимо выбрать вид заявку</span>')
-                    successRequest = false;
-                    // $("#adr_S").text("Необходимо выбрать адрес объекта").show();
-
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#adr_S').hide(); }, 5000);
-                }
-                var P_Services = [];
-                var ServicesLength = $('#PrServiceH tbody tr').length;
-                var ismc = "";
-                if (ServicesLength == 0) {
-                    $('#servicelbl').remove()
-                    $("#objctZ").after('<label id="servicelbl" style="color:red;font-weight: bold;float:left">Необходимо выбрать услуг</label>').show();
-                    successRequest = false;
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#servicelbl').remove(); }, 5000);// 
-                }
-                else {
-                    $('#PrServiceH tbody tr').each(function () {
-
-                        var SERVICE_NAME = $(this).attr('service-name')
-                        SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).attr('grup-name') : SERVICE_NAME;
-                        SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).children('td:eq(0)').text() : SERVICE_NAME;
-                        var SERVICE_GUID = ($(this).attr('service-guid') != undefined) ? $(this).attr('service-guid') : ($(this).attr('grup-guid') != undefined) ? $(this).attr('grup-guid') : $('.selectdrc').attr('guid')
-                        ismc = $(this).attr('ismc');
-                        var QUANTITY = $(this).children('td:eq(1)').children('input[type="text"]').val();
-                        QUANTITY = (QUANTITY == undefined) ? 0 : QUANTITY.replace(',', '.')
-
-                        var eq = ($('#PrServiceH thead tr th:eq(0)').text() == 'Наименование направления') ? 1 : 3
-                        var COST = $(this).children('td:eq(' + eq + ')').children('a').text()
-
-
-                        COST = (COST == undefined || COST == 'Договорная') ? '0.00' : COST
-
-                        P_Services.push({ COST: COST, QUANTITY: QUANTITY, SERVICE_GUID: SERVICE_GUID, SERVICE_NAME: SERVICE_NAME })
-
-                    })
-                }
-
-                var RESPONSIBLE_ID = (ismc == "True" || ismc == undefined) ? $('#Otven').val() : null
-                var RESPONSIBLE_EMAIL = (ismc == "True" || ismc == undefined) ? $('#Otven option:selected').attr('email') : null
-                var PERFORMER_EMAIL = $('#IspolList option:selected').attr('email')//(ismc == "True" || ismc == undefined) ? $('#IspolList option:selected').attr('email') : null
-                var ispol = $('#IspolList').val()// (ismc == "True" || ismc == undefined) ? $('#IspolList').val() : null
-
-                var rm_Type = $("#Room_Type").val();
-                if (rm_Type == 0) {
-                    successRequest = false;
-                    $("#Room_Type_S").text('Пожалуйста, выберите "Тип помещения"').show();
-                    // $("html, body").animate({ scrollTop: 50 }, "slow");
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#Room_Type_S').hide(); }, 5000);
-                }
-
-                var room_ = $("#Room").val();
-                if (room_.length == 0) {
-                    successRequest = false
-                    $("#Room_S").text("Необходимо заполнить поле \"Помещение\"").show();
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#Room_S').hide(); }, 5000);
-                }
-                var accnmbr = $("#Acnum").val();
-                if (accnmbr.length == 0) {
-                    successRequest = false
-                    $("#Acnum_S").text("Необходимо заполнить поле \"Номер лицевого счета\"").show();
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#Acnum_S').hide(); }, 5000);
-                }
-                var Ind = $("#Ind").val();
-                if (Ind.length == 0) {
-                    successRequest = false
-                    $("#Ind_S").text("Необходимо заполнить поле \"Заявитель\"").show();
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#Ind_S').hide(); }, 5000);
-                }
-
-                var Phn = $("#Phn").val();
-                if (Phn.length == 0) {
-                    successRequest = false
-                    $("#Phn_S").text("Необходимо заполнить поле \"Номер телефона\"").show();
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#Phn_S').hide(); }, 5000);
-                }
-
-
-                var Calendar = $("#calen1").val();
-                var time = $("#tm").val();
-
-                if (Calendar == "" || time == "") {
-                    successRequest = false;
-                    if (time == "") {
-                        $("#tm_S").text("Необходимо заполнить поле \"Планируемое время\"").show();
-
-                    }
-                    if (Calendar == "") {
-                        $("#tm_S").text("Необходимо заполнить поле \"Планируемая дата\"").show();
-
-                    }
-                    $("html, body").animate({ scrollTop: 500 }, "slow");
-                    window.setTimeout(function () { $('#tm_S').hide(); }, 5000);
-                }
-                else {
-
-
-                    var mindate = getDate();
-                    var mintime = getTime("");
-                    if (Calendar < mindate) {
-                        successRequest = false
-                        $("#calen1").val(Calendar)
-                        $("#tm").val(time);
-                        $("#tm_S").text("Необходимо указать дату  не ранее текущей ").show();
-                        $("html, body").animate({ scrollTop: 500 }, "slow");
-                        window.setTimeout(function () { $('#tm_S').hide(); }, 5000);
-
-                    }
-                    if (time <= mintime && Calendar == mindate) {
-                        successRequest = false
-                        $("#tm_S").text("Необходимо указать время  не ранее текущего").show();
-                        $("#calen1").val(Calendar)
-                        $("#tm").val(time);
-                        window.setTimeout(function () { $('#tm_S').hide(); }, 5000);
-                    }
-
-                }
-                var otvets = $("#Otven").attr('itemid');
-                var RText = $("#RText").val();
-                RText = encodeURIComponent(RText)
-                var indid = $("#Ind").attr("itemid");
-
-                slcObj = JSON.parse(slcObj)
-                var ObjId = $("#objctZ").val();
-                var sclObjName = $("#objctZ option:selected").text();
-                var indid = $("#Ind").attr("itemid")
-                var RComment = $('#RComment').val()
-                if (indid == undefined) {
-                    var objNotInd = [];
-                    objNotInd.push({ "Object_Adress": sclObjName, "Object_Id": ObjId, "room": room_, "indName": Ind, "phon": Phn, "score": $('#Acnum').val() })
-                    RComment = RComment + "|" + JSON.stringify(objNotInd)
-                    indid = 0;
-                    successRequest = false
-                    alert("Помещение не найдено в системе")
-                }
-
-                RComment = encodeURI(RComment)
-                var RImg = []; // $(".foto-disp").attr("data-url")
-                //for (var i = 0; i < 4; i++) {
-                //    RImg.push({ "REQUEST_COMMENT_": "=", "COMMENT_FILE": $("#fotoDisp" + i + "").attr("data-url"), "COMMENT_DATETIME": "++" });
-                //}
-                $("#imgss img").each(function () {
-                    var ImgSrc = $(this).attr("data-url")
-                    RImg.push({ "REQUEST_COMMENT_": "=", "COMMENT_FILE": ImgSrc, "COMMENT_DATETIME": "++" })
-                })
-                var em_ = $('#chkem').prop('checked')
-                em_ = "" + em_ + ""
-                var opl = $('#opl').prop('checked');
-                opl = "" + opl + ""
-                var request_type = $('#reqType').val()
-                var role = sessionStorage.getItem("role")
-                if (role == 15) {
-                    request_type = "1"
-                }
-                var SPECIATISTS = null
-                if (location.pathname == '/Responsible_Admin/CreateRequest.aspx' && $('.manysps').length != 0) {
-
-
-                    SPECIATISTS = Sps_json();//JSON.stringify(spesialists_)
-                    if (SPECIATISTS == false) {
-                        successRequest = false
-                    }
-                }
-                var obj = {
-                    'slcObj': slcObj,
-                    'IndId_': indid,
-                    'Lg': SLogId,
-                    'em': em_,
-                    'Pdate': Calendar,
-                    'Ptime': time,
-                    'spId': ispol,
-                    'Rt': RText,
-
-                    'Rc': RComment,
-
-                    'RoomT': rm_Type,
-                    'NUMBER': accnmbr,
-                    'opl': opl,
-                    'phn': Phn,
-                    'HReq': $('#hedrZ').attr('z_id'),
-                    'indName': $('#Ind').val(),
-                    'TOTAL_COST': $('#total').text(),
-                    'RESPONSIBLE_ID': RESPONSIBLE_ID,
-                    'RESPONSIBLE_EMAIL': RESPONSIBLE_EMAIL,
-                    'AUTHOR_COMMENT': $('#fiodsp').text(),
-                    'PERFORMER_EMAIL': PERFORMER_EMAIL,
-                    'STATUS_ID': $(this).attr('data-status'),
-                    'request_type': request_type,
-                    'RequestKind': $('#RequestKind option:selected').attr('guid'),
-                    'path': window.location.pathname
-
-
-
-                }
-                //   //console.log(JSON.stringify(obj));
-                //  ////console.log(JSON.stringify(P_Services));
-                //////console.log(JSON.stringify(RImg));
-                if (ismc == "True" && RequestKind == 1) {
-                    ismc = "False"
-                }
+                successRequest = checkControls().isSuccess
+                var ismc = checkControls($(this)).ismc
                 if (successRequest == true && ismc == "True") {
                     // alert(ok)
-                    $('.ui-loader-background,#loader').show()
-                    SaveRequest_Super(JSON.stringify(obj), JSON.stringify(P_Services), JSON.stringify(RImg), SPECIATISTS);
+                     $('.ui-loader-background,#loader').show()
+                    SaveRequest_Super(JSON.stringify(checkControls($(this)).obj), JSON.stringify(checkControls().P_Services), JSON.stringify(checkControls().RImg), null);
                 }
                 if (successRequest == true && ismc == "False") {
 
@@ -806,7 +585,7 @@ $(document).ready(function () {
                 }
 
 
-            })
+            })//SaveDD
             $(document).on('click', '#SaveMO', function () {
 
                 var successRequest = true;
@@ -2199,7 +1978,272 @@ $(document).ready(function () {
         }
     }
 })
+function GetSelectedServices() {
+    var P_Services = []
+    var ismc=""
+    $('#PrServiceH tbody tr').each(function () {
 
+        var SERVICE_NAME = $(this).attr('service-name')
+        SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).attr('grup-name') : SERVICE_NAME;
+        SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).children('td:eq(0)').text() : SERVICE_NAME;
+        var SERVICE_GUID = ($(this).attr('service-guid') != undefined) ? $(this).attr('service-guid') : ($(this).attr('grup-guid') != undefined) ? $(this).attr('grup-guid') : $('.selectdrc').attr('guid')
+        ismc = $(this).attr('ismc');
+        var QUANTITY = $(this).children('td:eq(1)').children('input[type="text"]').val();
+        QUANTITY = (QUANTITY == undefined) ? 0 : QUANTITY.replace(',', '.')
+
+      //  var eq = ($('#PrServiceH thead tr th:eq(0)').text() == 'Наименование направления') ? 1 : 3
+        var COST = $(this).children('td:eq(3)').children('a').text()
+
+
+        COST = (COST == undefined || COST == 'Договорная') ? '0.00' : COST
+
+        P_Services.push({ COST: COST, QUANTITY: QUANTITY, SERVICE_GUID: SERVICE_GUID, SERVICE_NAME: SERVICE_NAME })
+
+    })
+    return { 'P_Services': P_Services, 'ismc': ismc}
+}
+
+function ErrorForControls(e,text) {
+    $(e).attr('style', 'border-color:#f06d06;')
+    var position = $(e).offset().top//getOffset(e).top//e.position();
+    $("html, body").animate({ scrollTop: position }, "slow");
+    window.setTimeout(function () { $(e).removeAttr('style'); $('#servicelbl').remove()}, 5000);
+   
+    if (text != undefined) {
+        var originalText = $(e).next('label').text()
+        $(e).next('label').attr('style', 'color: red').text(text)
+        window.setTimeout(function () {
+            $(e).next('label').removeAttr('style').text(originalText)
+            
+        }, 5000);
+    }
+}
+function checkControls(e) {
+   var  isSuccess=true
+    var prjcts = $("#prjcts").val();
+    if (prjcts == 0) {
+        isSuccess = false;
+        ErrorForControls($("#prjcts"))
+    }
+    var slcObj = $("#objctZ").val();
+    if (isSuccess == true) {
+     
+        if (slcObj == 0) {
+            isSuccess=false
+            ErrorForControls($("#objctZ"))
+        }
+    }
+    var RequestKind = $("#RequestKind").val();
+    if (isSuccess==true) {
+    
+        if (RequestKind == 0) {
+            isSuccess=false
+            ErrorForControls($("#RequestKind"))
+        }
+    }
+    var P_Services = [];
+    if (isSuccess == true) {
+    
+        var ServicesLength = $('#PrServiceH tbody tr').length;
+       
+        if (ServicesLength == 0) {
+            isSuccess = false;
+            $('#servicelbl').remove()
+            $('#directions').before('<label id="servicelbl" style="color:red;font-weight: bold;float:left">Необходимо выбрать услуг</label>')
+            ErrorForControls($('#SerchService'));
+        }
+        else {
+            P_Services = GetSelectedServices().P_Services
+        }
+    }
+    var ismc = GetSelectedServices().ismc
+    var RESPONSIBLE_ID = (ismc == "True" || ismc == undefined) ? $('#Otven').val() : null
+    var RESPONSIBLE_EMAIL = (ismc == "True" || ismc == undefined) ? $('#Otven option:selected').attr('email') : null
+    var PERFORMER_EMAIL = $('#IspolList option:selected').attr('email')//(ismc == "True" || ismc == undefined) ? $('#IspolList option:selected').attr('email') : null
+    var ispol = $('#IspolList').val()// (ismc == "True" || ismc == undefined) ? $('#IspolList').val() : null
+
+    var rm_Type = $("#Room_Type").val();
+    if (isSuccess == true) {
+    
+        if (rm_Type == 0) {
+            isSuccess = false;
+            ErrorForControls($('#Room_Type'));
+        }
+    }
+    var room_ = $("#Room").val();
+    if (isSuccess == true) {
+    
+        if (room_.length == 0) {
+            isSuccess = false;
+            ErrorForControls($('#Room'));
+        }
+    }
+    var accnmbr = $("#Acnum").val();
+    if (isSuccess==true) {
+    
+        if (accnmbr.length == 0) {
+            isSuccess = false;
+            ErrorForControls($('#Acnum'));
+        }
+    }
+    var Ind = $("#Ind").val();
+    if (isSuccess == true) {
+     
+        if (Ind.length == 0) {
+            isSuccess = false;
+            ErrorForControls($('#Ind'));
+        }
+    }
+    var Phn = $("#Phn").val();
+    if (isSuccess == true) {
+
+        if (Phn.length == 0) {
+            isSuccess = false;
+            ErrorForControls($('#Ind'));
+        }
+    }
+
+
+   
+    var Calendar = $("#calen1").val();
+    var time = $("#tm").val();
+    if (isSuccess == true) {
+       
+     if (Calendar == "" || time == "") {
+        
+         if (time == "") {
+           
+             isSuccess = false;
+             ErrorForControls($('#tm'));
+            }
+            if (Calendar == "") {
+                isSuccess = false;
+                ErrorForControls($('#calen1'));
+
+            }
+           
+        }
+        else {
+
+
+            var mindate = getDate();
+            var mintime = getTime("");
+            if (Calendar < mindate) {
+                successRequest = false
+                $("#calen1").val(Calendar)
+                $("#tm").val(time);
+                isSuccess = false;
+                ErrorForControls($('#calen1'),'Необходимо указать дату  не ранее текущей ');
+
+            }
+            if (time <= mintime && Calendar == mindate) {
+                successRequest = false
+                $("#tm_S").text("Необходимо указать время  не ранее текущего").show();
+                $("#calen1").val(Calendar)
+                $("#tm").val(time);
+                isSuccess = false;
+                ErrorForControls($('#tm'), 'Необходимо указать время  не ранее текущего');
+            }
+
+        }
+    }
+    var otvets = $("#Otven").attr('itemid');
+    var RText = $("#RText").val();
+    RText = encodeURIComponent(RText)
+    var indid = $("#Ind").attr("itemid");
+
+    slcObj = JSON.parse(slcObj)
+    var ObjId = $("#objctZ").val();
+    var sclObjName = $("#objctZ option:selected").text();
+    var indid = $("#Ind").attr("itemid")
+    var RComment = $('#RComment').val()
+    if (isSuccess == true) {
+
+        if (indid == undefined) {
+            //var objNotInd = [];
+            //objNotInd.push({ "Object_Adress": sclObjName, "Object_Id": ObjId, "room": room_, "indName": Ind, "phon": Phn, "score": $('#Acnum').val() })
+            //RComment = RComment + "|" + JSON.stringify(objNotInd)
+            indid = 0;
+
+            // alert("Помещение не найдено в системе")
+            isSuccess = false;
+            ErrorForControls($('#Ind'), 'Помещение не найдено в системе');
+        }
+
+    }
+    RComment = encodeURI(RComment)
+    var RImg = []; // $(".foto-disp").attr("data-url")
+    //for (var i = 0; i < 4; i++) {
+    //    RImg.push({ "REQUEST_COMMENT_": "=", "COMMENT_FILE": $("#fotoDisp" + i + "").attr("data-url"), "COMMENT_DATETIME": "++" });
+    //}
+    $("#imgss img").each(function () {
+        var ImgSrc = $(this).attr("data-url")
+        RImg.push({ "REQUEST_COMMENT_": "=", "COMMENT_FILE": ImgSrc, "COMMENT_DATETIME": "++" })
+    })
+    var em_ = $('#chkem').prop('checked')
+    em_ = "" + em_ + ""
+    var opl = $('#opl').prop('checked');
+    opl = "" + opl + ""
+    var request_type = $('#reqType').val()
+    var role = sessionStorage.getItem("role")
+    if (role == 15) {
+        request_type = "1"
+    }
+    var SPECIATISTS = null
+    if (location.pathname == '/Responsible_Admin/CreateRequest.aspx' && $('.manysps').length != 0) {
+
+
+        //SPECIATISTS = Sps_json();//JSON.stringify(spesialists_)
+        //if (SPECIATISTS == false) {
+        //    successRequest = false
+        //}
+    }
+    var SLogId = sessionStorage.getItem("Log")
+    var obj = {
+        'slcObj': slcObj,
+        'IndId_': indid,
+        'Lg': SLogId,
+        'em': em_,
+        'Pdate': Calendar,
+        'Ptime': time,
+        'spId': ispol,
+        'Rt': RText,
+
+        'Rc': RComment,
+
+        'RoomT': rm_Type,
+        'NUMBER': accnmbr,
+        'opl': opl,
+        'phn': Phn,
+        'HReq': $('#hedrZ').attr('z_id'),
+        'indName': $('#Ind').val(),
+        'TOTAL_COST': $('#total').text(),
+        'RESPONSIBLE_ID': RESPONSIBLE_ID,
+        'RESPONSIBLE_EMAIL': RESPONSIBLE_EMAIL,
+        'AUTHOR_COMMENT': $('#fiodsp').text(),
+        'PERFORMER_EMAIL': PERFORMER_EMAIL,
+        'STATUS_ID': $(e).attr('data-status'),
+        'request_type': request_type,
+        'RequestKind': $('#RequestKind option:selected').attr('guid'),
+        'path': window.location.pathname
+
+
+
+    }
+    //console.log('json Object');
+    //console.log(JSON.stringify(obj));
+
+    //console.log('json P_Services');
+   // console.log(JSON.stringify(P_Services));
+
+  //  console.log('json RImg');
+   // console.log(JSON.stringify(RImg));
+    if (ismc == "True" && RequestKind == 1) {
+        ismc = "False"
+    }
+
+    return { 'isSuccess': isSuccess, 'ismc': ismc, 'P_Services': P_Services, 'obj': obj, 'RImg': RImg}
+}
 function checkmanysps(e) {
     var lastPerformerListSpsVal = $('.PerformerListSps:last').val()
     var disabled = $('#AddSpecialist').attr('disabled')
@@ -2902,8 +2946,8 @@ function GetAndSaveDatasSuppRequest(e, successRequest) {
         SERVICE_COUNT = $(this).children('td:eq(1)').children('input[type="text"]').val();
         SERVICE_COUNT = (SERVICE_COUNT == undefined) ? 0 : SERVICE_COUNT.replace(',', '.')
 
-        var eq = ($('#PrServiceH thead tr th:eq(0)').text() == 'Наименование направления') ? 1 : 3
-        SERVICE_COST = $(this).children('td:eq(' + eq + ')').children('a').text()
+        var eq = 3;// ($('#PrServiceH thead tr th:eq(0)').text() == 'Наименование направления') ? 1 : 3
+        SERVICE_COST = $(this).children('td:eq(3)').children('a').text()
 
         if (SERVICE_COST == undefined || SERVICE_COST == 'Договорная') {
             successRequest = false
@@ -2931,7 +2975,6 @@ function GetAndSaveDatasSuppRequest(e, successRequest) {
     var obj_ = {
         'tokenID': "",
         'LOGIN': accnmbr,
-
         'STATUS': $(e).attr('data-status'),
         'AUTHOR': $('#fiodsp').text(),
         'OBJECT': $('#objctZ option:selected').text(),
@@ -3016,14 +3059,14 @@ function SaveRequest_Super(jsonRequestString, prs_json, Cf_json, SPECIATISTS) {
     //
     //var obj = { 'jsonRequestString': jsonRequestString, 'prs_json': prs_json, 'Cf_json': Cf_json }
     var frmData = new FormData();
-    frmData.append('jsonRequestString', jsonRequestString);
+    frmData.set('jsonRequestString', jsonRequestString);
     frmData.append('prs_json', prs_json);
     frmData.append('Cf_json', Cf_json);
     frmData.append('SPECIATISTS', SPECIATISTS)
-    ////console.log(frmData)
+    console.log(frmData)
     $.ajax({
         type: "POST",
-        url: window.location.protocol + '//' + window.location.host + location.port + '/ProjectApi/Request_Fili/SaveRequest_Super',//"http://localhost:63362/Request_Fili/SaveRequest_Super",//
+        url:'http://172.20.20.115/ProjectApi/Request_Fili/SaveRequest_Super',// window.location.protocol + '//' + window.location.host + location.port + '/ProjectApi/Request_Fili/SaveRequest_Super',//"http://localhost:63362/Request_Fili/SaveRequest_Super",//
         error: function (t) { $('.ui-loader-background,#loader').show(); alert(t) },
         data: frmData,
         contentType: false,//"application/json; charset=utf-8",
@@ -3069,15 +3112,18 @@ function CalculatTotaleCost() {
     $('#total').remove();
 
     $('#PrServiceH tbody tr').each(function () {
-        var eq = ($('#PrServiceH thead tr th:eq(0)').text() == 'Наименование направления') ? 1 : 3
-        var servicecost = $(this).children('td:eq(' + eq + ')').children('a').text();
+      //  var eq = ($('#PrServiceH thead tr th:eq(0)').text() == 'Наименование направления') ? 1 : 3
+        var servicecost = $(this).children('td:eq(' + 3 + ')').children('a').text();
         servicecost = servicecost.replace(',', '.')
         servicecost = isNaN(servicecost) ? '0.00' : servicecost
         T_cost = parseFloat(T_cost) + parseFloat(servicecost)
 
     })
     T_cost = isNaN(T_cost) ? parseFloat('0.00') : T_cost
-    $('#PrServiceH').after('<label id="total" total-summ=\"' + T_cost.toFixed(2) + '\" style="float: right; display: block;">Итого: ' + T_cost.toFixed(2) + ' руб</label>');
+
+    $('.totalh7').remove()
+     $('#PrServiceH').after('<div class="totalh7" > <h7 id="total" total-summ=\"' + T_cost.toFixed(2) + '\" style="float: right">Итого: ' + T_cost.toFixed(2) + ' руб</h7></div>');
+   
 
 }
 function SelectFinded_K(e, SERVICE_GUID) {
@@ -3089,7 +3135,7 @@ function SelectFinded_K(e, SERVICE_GUID) {
 
     var grupGuid = SERVICE_GUID
     var serviceguid = $(e).attr('service-guid')
-    var service_cost = (edizm.length == 0) ? '<a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div>' : '<a>' + $(e).attr('service-cost') + '</a>'
+    var service_cost = (edizm.length == 0) ? '<a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div>' : '<a>' + $(e).attr('service-cost') + '</a>'
 
     var kolvo = (edizm.length == 0) ? "-" : '<input type="text" onkeyup=multiPlaying(this,\"' + $(e).attr('service-cost') + '\") onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value="1">';
     edizm = (edizm.length == 0) ? "-" : "";
@@ -3105,7 +3151,7 @@ function SelectFinded_K(e, SERVICE_GUID) {
         }
         serviceguid = (serviceguid == undefined) ? 'grup-guid="' + grupGuid + '"' : ' service-guid="' + serviceguid + '"'
 
-        $('#PrServiceH tbody').prepend('<tr supp-name=\"' + SuppName + '\" supp-guid=' + suppGuid + ' ' + serviceguid + ' grup-name=\"' + grupName + '\" title=\"' + SuppName + ' -> ' + grupName + ' -> ' + ServiceName + '\" ><td>' + SuppName + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + grupName + ServiceName + '</td><td>' + kolvo + '</td><td style="text-align:center">' + edizm + '</td><td style="width:120px;text-align:center;">' + service_cost + '</td><td><a guid=' + grupGuid + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+        $('#PrServiceH tbody').prepend('<tr supp-name=\"' + SuppName + '\" supp-guid=' + suppGuid + ' ' + serviceguid + ' grup-name=\"' + grupName + '\" title=\"' + SuppName + ' -> ' + grupName + ' -> ' + ServiceName + '\" ><td>' + SuppName + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + grupName + ServiceName + '</td><td>' + kolvo + '</td><td style="text-align:center">' + edizm + '</td><td class="CostTd">' + service_cost + '</td><td><a guid=' + grupGuid + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
 
 
         //checking suppguid, is different or not
@@ -3215,7 +3261,7 @@ function SelectFinded_K(e, SERVICE_GUID) {
             var text = $('.selectdrc').children('#drctName').children('label').text();
 
             if ($('.selectdrc').length != 0) {
-                $('#PrServiceH tbody').append('<tr><td >' + text + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="0" disabled="disabled"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+                $('#PrServiceH tbody').append('<tr><td >' + text + '</td><td class="CostTd"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-url="0" disabled="disabled"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
             }
             else {
                 calculate = false
@@ -3239,14 +3285,16 @@ function Search_Service(e) {
     var SText = $(e).val().toLowerCase();
     if (SText.length != 0) {
 
-        $('#subMenuSearch').empty();
+        $('#subMenuSearch .mngTable tbody').empty();
         var j = $('body').data('search');
 
         var jsondata = j.filter(function (srv) {
 
             return srv.SEARCH_STRING.indexOf(SText) > -1
         })
-        console.log(jsondata)
+      //  console.log('SearchResult')
+
+       // console.log(jsondata)
         for (var i = 0; i < jsondata.length; i++) {
             var grupOrService = (jsondata[i].PARENT_GUID == 0) ? 'grup-guid="' + jsondata[i].SERVICE_GUID + '"' : 'service-guid="' + jsondata[i].SERVICE_GUID + '"'
             var onlyGrupGuid = (jsondata[i].PARENT_GUID == 0) ? jsondata[i].SERVICE_GUID : jsondata[i].PARENT_GUID
@@ -3259,18 +3307,20 @@ function Search_Service(e) {
                 //guid-direction=\"' + DIRECTION_GUID + '\"
                 //' + jsondata[i].SERVICE_SUPPLIER + '<i class="	glyphicon glyphicon-arrow-right SuppGrupRelations"></i>
                 if (role == 17) {
-                    $('#subMenuSearch').prepend('<div ><input type="checkbox" class="chkGrups"  grup-guid=\"' + jsondata[i].SERVICE_GUID + '\" ismc=\"' + jsondata[i].IS_MC + '\"   onclick="selectGrupOnly_K(this)"><div Id="grup" supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  class="accMenu" style="display:none" grup-guid=\"' + jsondata[i].SERVICE_GUID + '\">' + jsondata[i].SERVICE_NAME + '</div><div>' + jsondata[i].SERVICE_NAME + '</div></div>')
+                    //$('#subMenuSearch').prepend('<div ><input type="checkbox" class="chkGrups"  grup-guid=\"' + jsondata[i].SERVICE_GUID + '\" ismc=\"' + jsondata[i].IS_MC + '\"   onclick="selectGrupOnly_K(this)"><div Id="grup" supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  class="accMenu" style="display:none" grup-guid=\"' + jsondata[i].SERVICE_GUID + '\">' + jsondata[i].SERVICE_NAME + '</div><div>' + jsondata[i].SERVICE_NAME + '</div></div>')
+
+                    $('#subMenuSearch .mngTable tbody').append('<tr title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\" ><td><div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\"  class="col-md-12" ><input type="checkbox"  grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label   itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_NAME + '</label></div></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_COST + '</label></td></tr>')
                 }
 
 
                 if (role == 15) {
                     if (suppguid == jsondata[i].SUPPLIER_GUID) {
-                        $('#subMenuSearch').prepend('<div ><input type="checkbox" class="chkGrups"  grup-guid=\"' + jsondata[i].SERVICE_GUID + '\" ismc=\"' + jsondata[i].IS_MC + '\"   onclick="selectGrupOnly_K(this)"><div Id="grup" supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  class="accMenu" style="display:none" grup-guid=\"' + jsondata[i].SERVICE_GUID + '\">' + jsondata[i].SERVICE_NAME + '</div><div>' + jsondata[i].SERVICE_NAME + '</div></div>')
+                        $('#subMenuSearch .mngTable tbody').append('<tr title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\" ><td><div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\"  class="col-md-12" ><input type="checkbox"  grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label   itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_NAME + '</label></div></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_COST + '</label></td></tr>')
                     }
                 }
                 if (role == 16) {
                     if (jsondata[i].IS_MC == "True") {
-                        $('#subMenuSearch').prepend('<div ><input type="checkbox" class="chkGrups"  grup-guid=\"' + jsondata[i].SERVICE_GUID + '\" ismc=\"' + jsondata[i].IS_MC + '\"   onclick="selectGrupOnly_K(this)"><div Id="grup" supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  class="accMenu" style="display:none" grup-guid=\"' + jsondata[i].SERVICE_GUID + '\">' + jsondata[i].SERVICE_NAME + '</div><div>' + jsondata[i].SERVICE_NAME + '</div></div>')
+                        $('#subMenuSearch .mngTable tbody').append('<tr title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\" ><td><div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\"  class="col-md-12" ><input type="checkbox"  grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label   itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_NAME + '</label></div></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_COST + '</label></td></tr>')
                     }
                 }
 
@@ -3284,19 +3334,23 @@ function Search_Service(e) {
                 }
                 //' + jsondata[i].SERVICE_SUPPLIER + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>
                 if (role == 17 || role == 3) {
-                    $('#subMenuSearch').prepend('<div grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12 serviceDivs" ><input type="checkbox" grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + ' </i></label><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label><label   itemid="' + jsondata[i].SERVICE_GUID + '" style="display:none" class="serviceName">' + jsondata[i].SERVICE_NAME + '</label><div>' + jsondata[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</div></div><br/>')
+                    //$('#subMenuSearch').prepend('<div grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12 serviceDivs" ><input type="checkbox" grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + ' </i></label><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label><label   itemid="' + jsondata[i].SERVICE_GUID + '" style="display:none" class="serviceName">' + jsondata[i].SERVICE_NAME + '</label><div>' + jsondata[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</div></div><br/>')
+                    $('#subMenuSearch .mngTable tbody').append('<tr title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" ><td><div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12" ><input type="checkbox"  grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label   itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_GROUP +'<i class="fa fa-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</label></div></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_COST + '</label></td></tr>')
                 }
 
                 if (role == 15) {
                     if (suppguid == jsondata[i].SUPPLIER_GUID) {
-                        $('#subMenuSearch').prepend('<div grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12 serviceDivs" ><input type="checkbox" grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + ' </i></label><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label><label   itemid="' + jsondata[i].SERVICE_GUID + '" style="display:none" class="serviceName">' + jsondata[i].SERVICE_NAME + '</label><div>' + jsondata[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</div></div><br/>')
+                        //$('#subMenuSearch').prepend('<div grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12 serviceDivs" ><input type="checkbox" grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + ' </i></label><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label><label   itemid="' + jsondata[i].SERVICE_GUID + '" style="display:none" class="serviceName">' + jsondata[i].SERVICE_NAME + '</label><div>' + jsondata[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</div></div><br/>')
+                        $('#subMenuSearch .mngTable tbody').append('<tr title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" ><td><div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12" ><input type="checkbox"  grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label   itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_GROUP + '<i class="fa fa-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</label></div></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_COST + '</label></td></tr>')
 
                     }
                 }
 
                 if (role == 16) {
                     if (jsondata[i].IS_MC == "True") {
-                        $('#subMenuSearch').prepend('<div grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12 serviceDivs" ><input type="checkbox" grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + ' </i></label><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label><label   itemid="' + jsondata[i].SERVICE_GUID + '" style="display:none" class="serviceName">' + jsondata[i].SERVICE_NAME + '</label><div>' + jsondata[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</div></div><br/>')
+                        //$('#subMenuSearch').prepend('<div grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12 serviceDivs" ><input type="checkbox" grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + ' </i></label><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label><label   itemid="' + jsondata[i].SERVICE_GUID + '" style="display:none" class="serviceName">' + jsondata[i].SERVICE_NAME + '</label><div>' + jsondata[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</div></div><br/>')
+
+                        $('#subMenuSearch .mngTable tbody').append('<tr title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" ><td><div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12" ><input type="checkbox"  grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label   itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_GROUP + '<i class="fa fa-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</label></div></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_COST + '</label></td></tr>')
 
                     }
                 }
@@ -3304,6 +3358,7 @@ function Search_Service(e) {
 
             }
         }
+
         $('#PrServiceH tbody tr').each(function () {
             var service_guid = $(this).attr('service-guid')
             var grup_guid = $(this).attr('grup-guid')
@@ -3318,22 +3373,29 @@ function Search_Service(e) {
         })
     }
     else {
-        $('#subMenuSearch').empty();
+        $('#subMenuSearch .mngTable tbody').empty();
     }
 
 }
 function showResultArea(text) {
     if (text == "open") {
         if ($('#subMenuSearch').length == 0) {
-            $('#SerchService').after('<div id="subMenuSearch" style="display:none" class="subMenu"></div>')
             $('#subMenuSearch').empty();
+            $('#SerchService').parent().after('<div id="subMenuSearch" class="w-100 rounded8 border-1 mt-4 mb-4 grups subMenu" style="display:none"><table class="mngTable border-0  w-100" id="Services_" grup-guid="E27FB1E9-7714-4105-B8ED-7D6BEED09A28"><thead class="bgLightGrey rad-top16"><tr><th>Наименование услуг</th><th>Ед.изм</th><th style="width: 120px;">Стоимость(руб.)</th></tr></thead><tbody></tbody></table></div>')
+           
             $('#subMenuSearch').show('1000')
         }
     }
     else {
 
         if ($('#SerchService').val().length == 0) {
-            $('#subMenuSearch').remove();
+            //$('#subMenuSearch').hide('1000')
+            //setTimeout(function () {
+               
+            //        $('#subMenuSearch').remove();
+              
+            //}, 1500);
+           
         }
     }
 }
@@ -3409,13 +3471,14 @@ function getDirection_K(selected, PROJECT_GUID, otv, RequestKind) {
         dataType: "json",
         success: function (data) {
 
-            $('#directions').remove();
+            //  $('#directions').remove();
+            $('#directions').empty();
             $('#grups').remove();
             var j = JSON.parse(data.d)
             //  ////console.log(selected)
-            $('#SerchService').after('<div id="directions" class="col-md-12"></div>')
+            $('#SerchService').parent().after('<div id="directions" class="w-100 flexHoriz flex-wrap justify-content-between"></div>')
             for (var i = 0; i < j.length; i++) {
-                var class_ = 'class="col-md-3 drct"'
+                var class_ = 'class="col-md-3 drct w-24 drct border-1 rounded8 text-center"'//
 
                 if (selected != "") {
                     var SERVICE_GUID_s = selected[0].SERVICE_GUID
@@ -3432,7 +3495,7 @@ function getDirection_K(selected, PROJECT_GUID, otv, RequestKind) {
 
                         })
                         var text = j[i].NAME
-                        $('#PrServiceH tbody').append('<tr><td >' + text + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">' + selected[0].COST + '</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="0" disabled="disabled"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+                        $('#PrServiceH tbody').append('<tr><td >' + text + '</td><td class="CostTd"><a onclick="Open_Pop(this)">' + selected[0].COST + '</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-url="0" disabled="disabled"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
                         GetRelatedGroups_K("", PROJECT_GUID, selected[0].SERVICE_GUID, otv)
                     }
                     else {
@@ -3445,7 +3508,7 @@ function getDirection_K(selected, PROJECT_GUID, otv, RequestKind) {
 
                 }
                 //remail=\"' + j[i].E_MAIL + '\" rvalue=\"' + j[i].RESPONSIBLE_ID + '\" rname=\"' + j[i].ACCOUNT_NAME + '\"
-                $('#directions').append('<div id="drct" onclick="SelectDirect(this)"  guid=' + j[i].GUID + ' ' + class_ + '><img src=\"' + j[i].ICON + '\"><div id="drctName" class="drctName"><label>' + j[i].NAME + '</label></div></div>')
+                $('#directions').append('<div id="drct" onclick="SelectDirect(this)"  guid=' + j[i].GUID + ' ' + class_ + '><img src=\"' + j[i].ICON + '\" class="w-50"><div id="drctName" class="drctName font18b"><label>' + j[i].NAME + '</label></div></div>')
                 //if (selected=="") {
                 //    if (loc_ == '/Responsible_Admin/CreateRequest.aspx') {
                 //        $('.drct').not('div[rvalue="' + respid + '"]').remove()
@@ -3476,6 +3539,7 @@ function selectGrupOnly_K(e, otv) {
     var grupGuid = $(e).next('#grup').attr('grup-guid');
     var SuppName = $(e).next('#grup').attr('supp-name');
     var ismc = $(e).attr('ismc');
+    
     if (selected == true) {
         var sameGrup = true;
         var preservices = $('#PrServiceH thead tr th:eq(0)').text()
@@ -3486,7 +3550,7 @@ function selectGrupOnly_K(e, otv) {
         //  $('#PrServiceH tbody').empty();
         //  $('#subMenu,#grups').find('input[type="checkbox"]').prop('checked', false).not($(e))
         //' + SuppName + '<i class="	glyphicon glyphicon-arrow-right SuppGrupRelations"></i>
-        $('#PrServiceH tbody').prepend('<tr isgrup="true" grup-name=\"' + grupName + '\" supp-name=\"' + SuppName + '\" ismc=\"' + ismc + '\" supp-guid=' + suppGuid + ' grup-name=\"' + grupName + '\" grup-guid=' + grupGuid + ' title=\"' + SuppName + ' -> ' + grupName + '\" ><td>' + grupName + '</td><td>-</td><td>-</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a guid=' + grupGuid + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+        $('#PrServiceH tbody').prepend('<tr isgrup="true" grup-name=\"' + grupName + '\" supp-name=\"' + SuppName + '\" ismc=\"' + ismc + '\" supp-guid=' + suppGuid + ' grup-name=\"' + grupName + '\" grup-guid=' + grupGuid + ' title=\"' + SuppName + ' -> ' + grupName + '\" ><td>' + grupName + '</td><td>-</td><td>-</td><td class="CostTd"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a guid=' + grupGuid + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
 
 
         //checking suppguid, is different or not
@@ -3604,13 +3668,13 @@ function selectGrupOnly_K(e, otv) {
             $('#IspolList').children('option[supp-guid!=' + suppGuid + ']').not('option[value="0"]').show()
             $('#PrServiceH thead tr th:eq(3)').show();
             $('#PrServiceH thead tr th:eq(0)').text('Наименование направления')
-            $('#PrServiceH thead tr').each(function () {
-                $(this).children('th:eq(1),th:eq(2)').hide();
+            //$('#PrServiceH thead tr').each(function () {
+            //    $(this).children('th:eq(1),th:eq(2)').hide();
 
-            })
+            //})
             var text = $('.selectdrc').children('#drctName').children('label').text();
             var directGuid = $('.selectdrc').attr('direct-guid');
-            $('#PrServiceH tbody').append('<tr><td >' + text + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="0" disabled="disabled"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+            $('#PrServiceH tbody').append('<tr><td >' + text + '</td><td>-</td><td>-</td><td class="CostTd"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-url="0" disabled="disabled"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
 
 
 
@@ -3653,9 +3717,11 @@ function GetRelatedGroups_K(selected, PROJECT_GUID, DIRECTION_GUID, otv) {
             //}
             var j = JSON.parse(data.d)
             j = JSON.parse(j.SERVICE_GROUPS)
-            // ////console.log(j)
+            console.log('Groups')
+
+         console.log(j)
             $('#grups').remove();
-            $('#directions').after('<div id="grups" class="col-md-12 grups"></div>')
+            $('#directions').after('<div id="grups" class="w-100 rounded8 border-1 mt-4 mb-4 grups"></div>')
             for (var i = 0; i < j.length; i++) {
 
                 //   ////console.log(j[i]);
@@ -3668,8 +3734,8 @@ function GetRelatedGroups_K(selected, PROJECT_GUID, DIRECTION_GUID, otv) {
                         checkedGrup = 'checked="checked"'
                     }
                 })
-
-                $('#grups').append('<div guid-direction=\"' + DIRECTION_GUID + '\"><input type="checkbox" ' + checkboxDissable + ' ismc="' + j[i].IS_MC + '" class="chkGrups" ' + checkedGrup + ' grup-guid=\"' + j[i].SERVICE_GUID + '\"   onclick="selectGrupOnly_K(this)"><div Id="grup" supp-name=\"' + j[i].NAME + '\" supp-guid=\"' + j[i].GUID + '\" onclick=getServices_K(this,\"' + j[i].SERVICE_GUID + '\",0) data-active="on" class="accMenu" grup-guid=\"' + j[i].SERVICE_GUID + '\"> <img src=\"' + j[i].ICON + '" class="icon">' + j[i].SERVICE_NAME + '<i class="fa fa-chevron-down GrupOpenIcon" aria-hidden="true"> </i></div></div>')
+                //' + checkboxDissable + '
+                $('#grups').append('<div guid-direction=\"' + DIRECTION_GUID + '\"><div class="p-3 flexHoriz" ><input type="checkbox"  ismc="' + j[i].IS_MC + '" class="chkGrups mr-3" ' + checkedGrup + ' grup-guid=\"' + j[i].SERVICE_GUID + '\"   onclick="selectGrupOnly_K(this)"><div Id="grup" supp-name=\"' + j[i].NAME + '\" supp-guid=\"' + j[i].GUID + '\"  onclick=getServices_K(this,\"' + j[i].SERVICE_GUID + '\",0) data-active="on" class="accMenu" grup-guid=\"' + j[i].SERVICE_GUID + '\"> <img src=\"' + j[i].ICON + '" class="icon mr-2">' + j[i].SERVICE_NAME + '<i class="fa fa-chevron-down GrupOpenIcon ml-3" aria-hidden="true"> </i></div></div></div>')
 
                 //  }
             }
@@ -3719,7 +3785,7 @@ function GetRelatedGroups_K(selected, PROJECT_GUID, DIRECTION_GUID, otv) {
                         $('#lblSupp,#nameSup').remove();
                     }
                     if (selected[k].parent_id == 0) {
-                        $('#PrServiceH tbody').prepend('<tr supp-name=\"' + selected[k].SERVICE_SUPPLIER + '\" ismc=\"' + selected[k].IS_MC + '\" supp-guid=' + selected[k].SUPPLIER_GUID + ' grup-name=\"' + selected[k].SERVICE_NAME + '\" grup-guid=\"' + selected[k].SERVICE_GUID + '\" title=\"' + selected[k].SERVICE_SUPPLIER + ' -> ' + selected[k].SERVICE_NAME + '\" ><td>' + selected[k].SERVICE_SUPPLIER + '<i class="	glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + selected[k].SERVICE_NAME + '</td><td>-</td><td>-</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">' + selected[k].COST + '</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a guid=' + selected[k].SERVICE_GUID + ' ' + checkboxDissable + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+                        $('#PrServiceH tbody').prepend('<tr supp-name=\"' + selected[k].SERVICE_SUPPLIER + '\" ismc=\"' + selected[k].IS_MC + '\" supp-guid=' + selected[k].SUPPLIER_GUID + ' grup-name=\"' + selected[k].SERVICE_NAME + '\" grup-guid=\"' + selected[k].SERVICE_GUID + '\" title=\"' + selected[k].SERVICE_SUPPLIER + ' -> ' + selected[k].SERVICE_NAME + '\" ><td>' + selected[k].SERVICE_SUPPLIER + '<i class="	glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + selected[k].SERVICE_NAME + '</td><td>-</td><td>-</td><td class="CostTd"><a onclick="Open_Pop(this)">' + selected[k].COST + '</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a guid=' + selected[k].SERVICE_GUID + ' ' + checkboxDissable + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
                         $('#PrServiceH').show()
                     }
                     else {
@@ -3768,10 +3834,11 @@ function GetRelatedGroups_K(selected, PROJECT_GUID, DIRECTION_GUID, otv) {
 }
 function getServices_K(e, SERVICE_GUID, selected, otv) {
     var data_active = $(e).attr('data-active')
+    
     $('.ui-loader-background,#loader').show()
     if ($(e).attr('data-active') == 'on') {
-        $(e).parent().children('div').children('.fa').attr('class', 'fa fa-chevron-down GrupOpenIcon')
-        $(e).children('.fa').attr('class', 'fa fa-chevron-up GrupOpenIcon')
+        $(e).parent().children('div').children('.fa').attr('class', 'fa fa-chevron-down GrupOpenIcon ml-3')
+        $(e).children('.fa').attr('class', 'fa fa-chevron-up GrupOpenIcon ml-3')
         $(e).attr('data-active', 'off')
         $('.subMenu').remove();
         var DIRECTION_GUID = $('.selectdrc').attr('guid');
@@ -3798,7 +3865,9 @@ function getServices_K(e, SERVICE_GUID, selected, otv) {
                 for (var i = 0; i < RESPONSIBLES.length; i++) {
                     $('#Otven').append('<option email=\"' + RESPONSIBLES[i].E_MAIL + '\" value="' + RESPONSIBLES[i].LOG_IN_ID + '">' + RESPONSIBLES[i].ACCOUNT_NAME + '</option>')
                 }
-                $(e).parent().next('#subMenu').empty();
+                $(e).next('#subMenu').empty();
+                console.log('Services')
+                console.log(jsondata)
                 for (var i = 0; i < jsondata.length; i++) {
                     if (selected != 0 && $('#subMenu[data-d="' + SERVICE_GUID + '"]').length == 0) {
                         $(e).after('<div id="subMenu" data-d=' + SERVICE_GUID + ' class="subMenu"  ></div>')
@@ -3814,7 +3883,13 @@ function getServices_K(e, SERVICE_GUID, selected, otv) {
                     if ($.isNumeric(jsondata[i].SERVICE_COST)) {
                         SCost = jsondata[i].SERVICE_COST + ' <i class="glyphicon glyphicon-ruble" ></i>'
                     }
-                    $(e).next('#subMenu').append('<div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + SERVICE_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\"  class="col-md-12" ><input type="checkbox" ' + checkedService + ' ' + checkboxDissable + ' grup-name=\"' + $(e).text().trim() + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + '</label><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label><label   itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_NAME + '</label></div><br/>')
+                    if (i == 0) {
+                        $('#subMenu').append('<table class="mngTable border-0  w-100" id="Services_" grup-guid="' + SERVICE_GUID + '" ><thead class="bgLightGrey rad-top16"><tr><th>Наименование услуг</th><th>Ед.изм</th><th style="width: 120px;">Стоимость(руб.)</th></tr></thead><tbody></tbody></table>')
+                    }
+
+                    $('.mngTable[grup-guid="' + SERVICE_GUID + '"] tbody').append('<tr title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + SERVICE_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\" ><td><div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + SERVICE_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\"  class="col-md-12" ><input type="checkbox" ' + checkedService + ' ' + checkboxDissable + ' grup-name=\"' + $(e).text().trim() + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label   itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_NAME + '</label></div></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + '</label></td></tr>')
+
+                     
 
 
                 }
@@ -3879,7 +3954,7 @@ function getServices_K(e, SERVICE_GUID, selected, otv) {
 
 
 
-                                $('#PrServiceH tbody').prepend('<tr service-name=\"' + selected[i].SERVICE_NAME + '\" service-guid=' + selected[i].SERVICE_GUID + ' ismc=\"' + selected[i].IS_MC + '\" supp-name=\"' + selected[i].SERVICE_SUPPLIER + '\" supp-guid=' + selected[i].SUPPLIER_GUID + ' grup-name=\"' + selected[i].SERVICE_GROUP + '\" grup-guid=' + selected[i].PARENT_GUID + ' title=\"' + selected[i].SERVICE_SUPPLIER + ' -> ' + selected[i].SERVICE_GROUP + ' -> ' + selected[i].SERVICE_NAME + '\" ><td>' + selected[i].SERVICE_SUPPLIER + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + selected[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + selected[i].SERVICE_NAME + '</td><td><input type="text" ' + disabled + ' onkeyup=multiPlaying(this,\"' + cost_forOne.trim() + '\") onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value=\"' + selected[i].QUANTITY + '\"></td><td style="text-align:center">' + edizm + '</td><td style="width:120px;text-align:center;">' + costTd + '<div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a guid=' + selected[i].SERVICE_GUID + ' ' + checkboxDissable + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+                                $('#PrServiceH tbody').prepend('<tr service-name=\"' + selected[i].SERVICE_NAME + '\" service-guid=' + selected[i].SERVICE_GUID + ' ismc=\"' + selected[i].IS_MC + '\" supp-name=\"' + selected[i].SERVICE_SUPPLIER + '\" supp-guid=' + selected[i].SUPPLIER_GUID + ' grup-name=\"' + selected[i].SERVICE_GROUP + '\" grup-guid=' + selected[i].PARENT_GUID + ' title=\"' + selected[i].SERVICE_SUPPLIER + ' -> ' + selected[i].SERVICE_GROUP + ' -> ' + selected[i].SERVICE_NAME + '\" ><td>' + selected[i].SERVICE_SUPPLIER + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + selected[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + selected[i].SERVICE_NAME + '</td><td><input type="text" ' + disabled + ' onkeyup=multiPlaying(this,\"' + cost_forOne.trim() + '\") onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value=\"' + selected[i].QUANTITY + '\"></td><td style="text-align:center">' + edizm + '</td><td class="CostTd">' + costTd + '<div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a guid=' + selected[i].SERVICE_GUID + ' ' + checkboxDissable + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
                             }
                         }
                         $('#PrServiceH').show();
@@ -3900,16 +3975,18 @@ function getServices_K(e, SERVICE_GUID, selected, otv) {
             }
         })
 
-        $(e).after('<div id="subMenu" data-d=' + SERVICE_GUID + ' class="subMenu"  ></div>')
+        $(e).parent().after('<div id="subMenu" data-d=' + SERVICE_GUID + ' class="subMenu"  ></div>')
+
     }
     else {
-        $(e).children('.fa').attr('class', 'fa fa-chevron-down GrupOpenIcon')
+        $(e).children('.fa').attr('class', 'fa fa-chevron-down GrupOpenIcon ml-3')
         $(e).attr('data-active', 'on')
-        $(e).next('#subMenu').remove();
+        $(e).parent().next('#subMenu').remove();
         $('.ui-loader-background,#loader').hide()
     }
 
 }
+
 function SelectService_K(e, SERVICE_GUID, otv) {
     var selected = $(e).prop('checked');
     var suppGuid = $(e).attr('supp-guid');
@@ -3947,16 +4024,16 @@ function SelectService_K(e, SERVICE_GUID, otv) {
         //  $('#subMenu,#grups').find('input[type="checkbox"]').prop('checked', false).not($(e))
         //  $('#PrServiceH tbody').empty();
         //' + SuppName + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>
-        $('#PrServiceH tbody').prepend('<tr title="' + title + '" service-name="' + ServiceName + '" supp-name=\"' + SuppName + '\" grup-guid=\"' + grupGuid + '\" ismc=\"' + ismc + '\" supp-guid=' + suppGuid + ' grup-name=\"' + grupName + '\" service-guid=' + SERVICE_GUID + ' title=\"' + SuppName + ' -> ' + grupName + ' -> ' + ServiceName + '\" ><td>' + grupName + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + ServiceName + '</td><td><input type="text" onkeyup=multiPlaying(this,\"' + multiPlayVal + '\") onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value="1"></td><td style="text-align:center">' + edizm + '</td><td style="width:120px;text-align:center;">' + service_cost + '<div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a guid=' + SERVICE_GUID + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+        $('#PrServiceH tbody').prepend('<tr title="' + title + '" service-name="' + ServiceName + '" supp-name=\"' + SuppName + '\" grup-guid=\"' + grupGuid + '\" ismc=\"' + ismc + '\" supp-guid=' + suppGuid + ' grup-name=\"' + grupName + '\" service-guid=' + SERVICE_GUID + ' title=\"' + SuppName + ' -> ' + grupName + ' -> ' + ServiceName + '\" ><td>' + grupName + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + ServiceName + '</td><td><input type="text" onkeyup=multiPlaying(this,\"' + multiPlayVal + '\") onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value="1"></td><td style="text-align:center">' + edizm + '</td><td class="CostTd">' + service_cost + '<div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a guid=' + SERVICE_GUID + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
 
-        var grup_guid = $(e).parent().parent('#subMenu').attr('data-d')
+        //var grup_guid = $('#subMenu').attr('data-d')//$(e).parent().parent('#subMenu').attr('data-d')
         //checking suppguid, is different or not
         if ($('#PrServiceH tbody tr').length != 0) {
 
             $('#PrServiceH tbody tr').each(function () {
 
                 var trgrupGuid = $(this).attr('grup-guid')
-                if (grup_guid != trgrupGuid) {
+                if (grupGuid != trgrupGuid) {
                     sameGrup = $(this).attr('grup-name');
                 }
                 //var trgrupName = $(this).attr('grup-name').trim();
@@ -4064,13 +4141,13 @@ function SelectService_K(e, SERVICE_GUID, otv) {
             $('#IspolList').children('option[supp-guid!=' + suppGuid2 + ']').not('option[value="0"]').show()
             $('#PrServiceH thead tr th:eq(3)').show();
             $('#PrServiceH thead tr th:eq(0)').text('Наименование направления')
-            $('#PrServiceH thead tr').each(function () {
-                $(this).children('th:eq(1),th:eq(2)').hide();
+            //$('#PrServiceH thead tr').each(function () {
+            //    $(this).children('th:eq(1),th:eq(2)').hide();
 
-            })
+            //})
             var text = $('.selectdrc').children('#drctName').children('label').text();
             var directGuid = $('.selectdrc').attr('direct-guid');
-            $('#PrServiceH tbody').append('<tr><td >' + text + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="0" disabled="disabled"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+            $('#PrServiceH tbody').append('<tr><td >' + text + '</td><td>-</td><td>-</td><td class="CostTd"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-url="0" disabled="disabled"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
 
 
 
@@ -4103,8 +4180,8 @@ function getSpesicalisetsBySupplierGuid(sup) {
 }
 
 function SelectDirect(e) {
-    $('.drct').attr('class', 'col-md-3 drct');
-    $(e).attr('class', 'col-md-3 drct selectdrc');
+    $('.drct').attr('class', 'col-md-3 drct w-24 border-1 rounded8 text-center');
+    $(e).attr('class', 'col-md-3 drct selectdrc w-24 border-1 rounded8 text-center');
     $('.ui-loader-background,#loader').show()
     GetRelatedGroups_K("", $('#prjcts').children('option:selected').attr('guid'), $(e).attr('guid'))
     //if ($('#PrServiceH tbody tr').length==0) {
@@ -4112,14 +4189,14 @@ function SelectDirect(e) {
     $('#PrServiceH tbody').empty();
     $('#PrServiceH thead tr th:eq(3)').show();
     $('#PrServiceH thead tr th:eq(0)').text('Наименование направления')
-    $('#PrServiceH thead tr').each(function () {
-        $(this).children('th:eq(1),th:eq(2)').hide();
+    //$('#PrServiceH thead tr').each(function () {
+    //    $(this).children('th:eq(1),th:eq(2)').hide();
 
-    })
+    //})
 
     var text = $(e).children('#drctName').children('label').text();
 
-    $('#PrServiceH tbody').append('<tr><td >' + text + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="0" disabled="disabled"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+    $('#PrServiceH tbody').append('<tr><td >' + text + '</td><td>-</td><td>-</td><td class="CostTd"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-url="0" disabled="disabled"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
     // }
     var rvalue = $(e).attr('rvalue')
     var rname = $(e).attr('rname');
@@ -4139,7 +4216,7 @@ function SelectDirect(e) {
     else {
         //   $('#Otven').val(rvalue);
     }
-
+    CalculatTotaleCost()
 
 }
 function ChangeToSend(e) {
@@ -5338,7 +5415,8 @@ function GetRequesByR(R) {
                     //GetGroupOfServices(jsondata_[0].SERVICE_GROUP_ID, jsondata_[0].ADRESS)
 
                 }
-                $('#PrServiceH').after('<label id="total" total-summ=\"' + jsondata_[0].TOTAL_COST + '\" style="float: right; display: block;">' + jsondata_[0].TOTAL_COST + '</label>');
+               
+                $('#PrServiceH').after(' <div class="totalh7"><h7 id="total" total-summ=\"' + jsondata_[0].TOTAL_COST + '\" style="float: right;">' + jsondata_[0].TOTAL_COST + '</h7></div>');
             }
             else {
                 //    var lg = sessionStorage.getItem("Log");
@@ -5567,8 +5645,8 @@ function GetSuppRequesByR(R) {
                 //GetGroupOfServices(jsondata_[0].SERVICE_GROUP_ID, jsondata_[0].ADRESS)
 
             }
-
-            $('#PrServiceH').after('<label id="total" total-summ=\"' + jsondata_[0].TOTAL_COST + '\" style="float: right; display: block;">' + jsondata_[0].TOTAL_COST + '</label>');
+          
+            $('#PrServiceH').after('<div class="totalh7"><h7 id="total" total-summ=\"' + jsondata_[0].TOTAL_COST + '\" style="float: right">' + jsondata_[0].TOTAL_COST + '</h7></div>');
 
 
         }
@@ -5973,12 +6051,12 @@ function readURLSuper(input, imgName) {
 
             $.ajax({
                 type: "POST",
-                url: window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/UploadFile",
+                url: window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/UploadFile",//
                 data: formData,
                 type: 'POST',
                 contentType: "multipart/form-data",
-                processData: false,
-                // async: false,
+             processData: false,
+                async: false,
                 success: function (result) {
 
                     //alert("OK. See Console -  press F12");
@@ -5987,7 +6065,21 @@ function readURLSuper(input, imgName) {
                     //var jsondata_1 = JSON.stringify(result)
                     // var jsondata_1 = JSON.parse(result)
                     //  $("#files").hide();
+
+                    var F_ile = result.URL
+                    var extention = F_ile.substr(F_ile.indexOf(".") + 1)
                     var imgslenght = $("#imgss").find("img").length;
+                    /* if (imgslenght == 5) {
+                        $("#files,#file_btn").hide();
+
+                    } else {
+                        var src = (extention.toLowerCase() == 'jpg' || extention.toLowerCase() == 'png') ? result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/") : window.location.protocol + '//' + window.location.host + '/' + 'img/' + extention.toLowerCase() + '.png'
+                        $('#imgss').prepend('<div class="m-2" id="zImg"><img class="foto-disp" id="fotoDisp' + imgslenght + '" itemid=' + imgslenght + '  data-url="0"  src="' + src + '"><br><span style="font-size: 20px;">' + imgName + '</span></div>')
+                        //$("#files").val("");
+                    }
+                     
+                     */
+
                     if (imgslenght != 5) {
                         imgslenght++
                         //  var lastImgItem = $("#imgss").find("img:last").attr("itemid");
@@ -6030,6 +6122,7 @@ function readURLSuper(input, imgName) {
                         $('#fotoDisp' + imgslenght + '').parent().prepend('<i class="fa fa-close" onclick=removeF(' + imgslenght + ') aria-hidden="true" style="color:red;"></i>')
                         $('#fotoDisp' + imgslenght + '').after('<span style="font-size: 20px;">' + imgName + '</span>')
                     }
+
                     //$("#hdPr2").show()
                     //$("#zImg2").show()
                     //$("#files2").show()
@@ -6043,10 +6136,10 @@ function readURLSuper(input, imgName) {
 
                     ////console.log("AJAX error in request: " + JSON.stringify(datas, null, 2));
 
-                    var filePath = $('#files').val();
-                    var index = filePath.lastIndexOf("\\") + 1;
-                    var filename = filePath.substr(index);
-                    readURLSuper(input, filename)
+                    //var filePath = $('#files').val();
+                    //var index = filePath.lastIndexOf("\\") + 1;
+                    //var filename = filePath.substr(index);
+                    //readURLSuper(input, filename)
                     /*
  
     
@@ -6233,21 +6326,24 @@ function RemoveDirectRow(e) {
 
     ///  if (rid != null) {
     // if (rid.indexOf('disp_') != -1) {
-
+  
     var trGrupGuid = $(e).attr('guid')
-    $('.grups').children('div').children('input:checkbox:checked').each(function () {
-        var checkedGrupGuid = $(this).next('#grup').attr('grup-guid')
-        if (trGrupGuid == checkedGrupGuid) {
-            $(this).prop('checked', false);
-        }
+    $('.chkGrups[grup-guid="' + trGrupGuid + '"]').prop('checked', false);
+    $('.chkServc[service-guid="' + trGrupGuid + '"]').prop('checked', false);
+    //$('.grups').children('div').children('div').children('input:checkbox:checked').each(function () {
+    //    var checkedGrupGuid = $(this).next('#grup').attr('grup-guid')
+    //    if (trGrupGuid == checkedGrupGuid) {
+    //        $(this).prop('checked', false);
+    //    }
 
-    })
-    $('.subMenu').children('div').children('input:checkbox:checked').each(function () {
-        var checkedServiceGuid = $(this).attr('service-guid')
-        if (trGrupGuid == checkedServiceGuid) {
-            $(this).prop('checked', false);
-        }
-    })
+    //})
+   
+    //$('.subMenu').children('.mngTable tbody tr').children('td:eq(0) div input:checkbox:checked').each(function () {
+    //    var checkedServiceGuid = $(this).attr('service-guid')
+    //    if (trGrupGuid == checkedServiceGuid) {
+    //        $(this).prop('checked', false);
+    //    }
+    //})
     //var guidsps = ($(e).parent().parent().attr('service-guid') != undefined) ? 'service-guid="' + $(e).parent().parent().attr('service-guid') + '"' : ($(e).parent().parent().attr('grup-guid') != undefined) ? 'grup-guid="' + $(e).parent().parent().attr('grup-guid') + '"' : 'guid="' + $('.selectdrc').attr('guid') + '"'
     // removeFromSps()
     $(e).parent().parent().remove();
@@ -6256,13 +6352,13 @@ function RemoveDirectRow(e) {
         $('#IspolList').children().show()
         $('#PrServiceH thead tr th:eq(3)').show();
         $('#PrServiceH thead tr th:eq(0)').text('Наименование направления')
-        $('#PrServiceH thead tr').each(function () {
-            $(this).children('th:eq(1),th:eq(2)').hide();
+        //$('#PrServiceH thead tr').each(function () {
+        //    $(this).children('th:eq(1),th:eq(2)').hide();
 
-        })
+        //})
         var text = $('.selectdrc').children('#drctName').children('label').text();
         var directGuid = $('.selectdrc').attr('direct-guid');
-        $('#PrServiceH tbody').append('<tr><td >' + text + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="0" disabled="disabled"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+        $('#PrServiceH tbody').append('<tr><td >' + text + '</td><td>-</td><td>-</td><td class="CostTd"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-url="0" disabled="disabled"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
 
 
 
@@ -6293,7 +6389,7 @@ function RemoveSetRow(e) {
         var sid = $('#Sets').val();
         $('#PrServiceH').attr('data-s', sid)
         //$('#PrServiceH').hide();
-        $('#PrServiceH tbody').append('<tr><td data-s=' + $('#Sets').val() + '>' + $('#Sets').children(':selected').text() + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="0" onclick="RemoveSetRow(this)"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+        $('#PrServiceH tbody').append('<tr><td data-s=' + $('#Sets').val() + '>' + $('#Sets').children(':selected').text() + '</td><td class="CostTd"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-url="0" onclick="RemoveSetRow(this)"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
 
     }
 }
@@ -6330,7 +6426,7 @@ function RemoveRow(e) {
         var sid = $('#Sets').val();
         $('#PrServiceH').attr('data-s', sid)
         //$('#PrServiceH').hide();
-        $('#PrServiceH tbody').append('<tr><td data-s=' + $('#Sets').val() + '>' + $('#Sets').children(':selected').text() + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="0" onclick="RemoveSetRow(this)"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+        $('#PrServiceH tbody').append('<tr><td data-s=' + $('#Sets').val() + '>' + $('#Sets').children(':selected').text() + '</td><td class="CostTd"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-url="0" onclick="RemoveSetRow(this)"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
 
     }
     $('#PrServiceH tbody tr').each(function () {
@@ -6347,7 +6443,8 @@ function RemoveRow(e) {
         }
         totalcost = parseFloat(totalcost)
         $('#total').remove();
-        $('#PrServiceH').after('<label id="total" total-summ=\"' + totalcost.toFixed(2) + '\" style="float: right; display: block;">Итого: ' + totalcost.toFixed(2) + ' руб</label>');
+        
+        $('#PrServiceH').after('<div class="totalh7"><h7 id="total" total-summ=\"' + totalcost.toFixed(2) + '\" style="float: right">Итого: ' + totalcost.toFixed(2) + ' руб</label></div>');
     })
 }
 function Open_Pop(e) {
@@ -6436,19 +6533,19 @@ function MakeCheckCheckBox(e, d) {
             var dataName = $(e).attr("value");
             var itemId = $(e).attr("itemid");
             var cost = $(e).next('label').text();
-            var doqi = (cost == 'Договорная') ? '<a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div>' : '<a>' + cost + '</a>'
+            var doqi = (cost == 'Договорная') ? '<a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div>' : '<a>' + cost + '</a>'
             var edizm = $(e).attr('data-edizm');
             $('#PrServiceH').show();
             var kolDis = (cost == 'Договорная') ? 'disabled="disabled"' : '';
             //$('#listServiceH').show()
             if (dtUrl == 1) {
                 //onkeyup="multiPlaying(this,500)" <td><input type="text" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57" value="1"></td>
-                $("#PrServiceH tbody").append('<tr data-d=' + d + '><td itemid="' + itemId + '"> ' + dataName + '</td><td><input type="text" ' + kolDis + '  onkeyup=multiPlaying(this,"' + cost + '")  onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value="1"></td><td>' + edizm + '</td><td  style="width:120px;text-align:center;">' + doqi + '</td><td><a itemid="' + itemId + '" data="' + dataName + '" onclick="RemoveRow(this)" data-url="' + dtUrl + '" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Удалить</a></td></tr>')
+                $("#PrServiceH tbody").append('<tr data-d=' + d + '><td itemid="' + itemId + '"> ' + dataName + '</td><td><input type="text" ' + kolDis + '  onkeyup=multiPlaying(this,"' + cost + '")  onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value="1"></td><td>' + edizm + '</td><td  class="CostTd">' + doqi + '</td><td><a itemid="' + itemId + '" data="' + dataName + '" onclick="RemoveRow(this)" data-url="' + dtUrl + '" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Удалить</a></td></tr>')
             }
             if (dtUrl == 0) {
                 /*<tr><td style="width: 500px;" itemid="11">Доступ - Одноразовый пропуск</td><td><input disabled="disabled" type="text" value=""></td><td><button onclick="RemoveRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Удалить</button></td></tr>*/
                 //<td  ><input disabled="disabled" type="text" value=""></td>
-                $("#PrServiceH tbody").append('*<tr data-d=' + d + '><td   itemid="' + itemId + '"> ' + dataName + '</td><td><input disabled="disabled" type="text" value=""></td><td>' + edizm + '</td><td style="width:120px;text-align:center;"><a onclick=Open_Pop(this) >' + cost + '</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="' + dtUrl + '" onclick="RemoveRow(this)" itemid="' + itemId + '" data="' + dataName + '"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Удалить</a></td></tr>')
+                $("#PrServiceH tbody").append('*<tr data-d=' + d + '><td   itemid="' + itemId + '"> ' + dataName + '</td><td><input disabled="disabled" type="text" value=""></td><td>' + edizm + '</td><td class="CostTd"><a onclick=Open_Pop(this) >' + cost + '</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-url="' + dtUrl + '" onclick="RemoveRow(this)" itemid="' + itemId + '" data="' + dataName + '"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Удалить</a></td></tr>')
 
             }
             $('#left,#right').children('div').each(function () {
@@ -6482,7 +6579,8 @@ function MakeCheckCheckBox(e, d) {
             })
             $('#total').remove();
             totalCost = parseFloat(totalCost)
-            $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
+                
+            $('#PrServiceH').after('<div class="totalh7" > <h7 id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</h7></div>')
             //if (totalCost == 0) {
             //    $('#total').hide();
             //}
@@ -6503,7 +6601,8 @@ function MakeCheckCheckBox(e, d) {
             }
             $('#total').remove();
             totalCost = parseFloat(totalCost)
-            $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
+                
+            $('#PrServiceH').after('<div class="totalh7" > <h7 id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</h7></div >')
             //if (totalCost == 0) {
             //    $('#total').hide();
             //}
@@ -6534,7 +6633,7 @@ function MakeCheckCheckBox(e, d) {
             var sid = $('#Sets').val();
             $('#PrServiceH').attr('data-s', sid)
             //$('#PrServiceH').hide();
-            $('#PrServiceH tbody').append('<tr><td data-s=' + $('#Sets').val() + '>' + $('#Sets').children(':selected').text() + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="0" onclick="RemoveSetRow(this)"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+            $('#PrServiceH tbody').append('<tr><td data-s=' + $('#Sets').val() + '>' + $('#Sets').children(':selected').text() + '</td><td class="CostTd"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-url="0" onclick="RemoveSetRow(this)"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
 
         }
     }
@@ -6566,8 +6665,8 @@ function selectDirectOnly(e) {
             var DName = $(e).parent().text();
             $('#PrServiceH tbody').empty();
             $('#PrServiceH').show().attr('data-d', dataD);
-            $('#PrServiceH thead tr th:eq(0)').text('Наименование группа услуг')
-            $('#PrServiceH thead tr th:eq(1),#PrServiceH thead tr th:eq(2)').hide()
+            //$('#PrServiceH thead tr th:eq(0)').text('Наименование группа услуг')
+            //$('#PrServiceH thead tr th:eq(1),#PrServiceH thead tr th:eq(2)').hide()
             //if ($('#PrServiceH tbody tr').length != 0) {
             //    $('#PrServiceH tbody tr').each(function ()
             //    {
@@ -6577,7 +6676,7 @@ function selectDirectOnly(e) {
             $('#PrServiceH tbody tr').each(function () {
                 $(this).children('td:eq(1),td:eq(2)').hide();
             })
-            $('#PrServiceH tbody').append('<tr><td data-d=' + dataD + '>' + DName + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-d=' + dataD + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+            $('#PrServiceH tbody').append('<tr><td data-d=' + dataD + '>' + DName + '</td><td>-</td><td>-<td><td class="CostTd"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-d=' + dataD + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
             $('#left,#right').children('div').each(function () {
 
                 $(this).children('input[type="checkbox"]').prop('checked', false)
@@ -6641,7 +6740,7 @@ function selectDirectOnly(e) {
                     $('#PrServiceH tbody tr').each(function () {
                         $(this).children('td:eq(1),td:eq(2)').hide();
                     })
-                    $('#PrServiceH tbody').append('<tr><td data-d=' + dataD + '>' + DName + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-d=' + dataD + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+                    $('#PrServiceH tbody').append('<tr><td data-d=' + dataD + '>' + DName + '</td><td class="CostTd"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-d=' + dataD + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
                     $('#left,#right').children('div').each(function () {
 
                         $(this).children('input[type="checkbox"]').prop('checked', false)
@@ -6693,7 +6792,7 @@ function selectDirectOnly(e) {
         var sid = $('#Sets').val();
         $('#PrServiceH').attr('data-s', sid)
         //$('#PrServiceH').hide();
-        $('#PrServiceH tbody').append('<tr><td data-s=' + $('#Sets').val() + '>' + $('#Sets').children(':selected').text() + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="0" onclick="RemoveSetRow(this)"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+        $('#PrServiceH tbody').append('<tr><td data-s=' + $('#Sets').val() + '>' + $('#Sets').children(':selected').text() + '</td><td>-</td><td>-<td><td class="CostTd"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-url="0" onclick="RemoveSetRow(this)"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
 
     }
     $('#total').remove();
@@ -6704,7 +6803,8 @@ function selectDirectOnly(e) {
         totalCost = (isNaN(totalCost)) ? "0.00" : totalCost
     })
     totalCost = parseFloat(totalCost)
-    $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
+         
+    $('#PrServiceH').after('< div class="totalh7" > <h7 id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</h7></div>')
 
 
 }
@@ -6819,7 +6919,7 @@ function getServices(e, d) {
             var sid = $('#Sets').val();
             $('#PrServiceH').attr('data-s', sid)
             //$('#PrServiceH').hide();
-            $('#PrServiceH tbody').append('<tr><td data-s=' + $('#Sets').val() + '>' + $('#Sets').children(':selected').text() + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="0" onclick="RemoveSetRow(this)"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+            $('#PrServiceH tbody').append('<tr><td data-s=' + $('#Sets').val() + '>' + $('#Sets').children(':selected').text() + '</td><td class="CostTd"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-url="0" onclick="RemoveSetRow(this)"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
 
         }
     }
@@ -6831,7 +6931,8 @@ function getServices(e, d) {
         totalCost = (isNaN(totalCost)) ? "0.00" : totalCost
     })
     totalCost = parseFloat(totalCost)
-    $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
+        
+    $('#PrServiceH').after('< div class="totalh7" > <h7 id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</h7></div>')
 
 
 
@@ -6996,7 +7097,7 @@ function GetRelatedDirects(selected, e, objId, resp, issearch) {
             $('#PrServiceH').attr('data-s', $(e).val())
         }
 
-        $('#PrServiceH tbody').append('<tr><td data-s=' + $(e).val() + '>' + $(e).children(':selected').text() + '</td><td style="width:120px;text-align:center;"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" style="display:none;background-color: lightgray;height: 65px;"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" style="background-color: aliceblue;"><input type="button" onclick="MakeCost(this)" value="OK" style="float: left;width: 47px;background-color: aliceblue;"></div></td><td><a data-url="0" onclick="RemoveSetRow(this)"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+        $('#PrServiceH tbody').append('<tr><td data-s=' + $(e).val() + '>' + $(e).children(':selected').text() + '</td><td class="CostTd"><a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-url="0" onclick="RemoveSetRow(this)"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
     }
     else {
         $(e).next().remove();
@@ -7016,7 +7117,8 @@ function GetRelatedDirects(selected, e, objId, resp, issearch) {
         totalCost = (isNaN(totalCost)) ? "0.00" : totalCost
     })
     totalCost = parseFloat(totalCost)
-    $('#PrServiceH').after('<label id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</label>')
+      
+    $('#PrServiceH').after('<div class="totalh7" > <h7 id="total" total-summ=\"' + totalCost.toFixed(2) + '\" style="float: right;">Итого: ' + totalCost.toFixed(2) + '  руб</h7></div>')
 
 
 }
@@ -7064,8 +7166,8 @@ function getHasInds2(scr) {
             $('#IndList').empty();
 
             if (jsondata.length != 1) {
-                $("#Ind").val("")
-                $("#Phn").val("")
+                $("#Ind").val("").next('label').attr('class', 'transp backLab')
+                $("#Phn").val("").next('label').attr('class', 'transp backLab')
                 //$("#Ind").val(jsondata[0].FIRST_NAME).attr("itemid", jsondata[0].INDIVIDUAL_ID)
                 //$("#Phn").val(jsondata[0].PHONE)
                 //$("#Room").val(jsondata[0].ROOM_NUMBER)
@@ -7078,8 +7180,8 @@ function getHasInds2(scr) {
             }
             else {
                 $('#IndList').empty().hide();
-                $("#Ind").empty().val(jsondata[0].FIRST_NAME).attr("itemid", jsondata[0].INDIVIDUAL_ID)
-                $("#Phn").empty().val(jsondata[0].PHONE)
+                $("#Ind").empty().val(jsondata[0].FIRST_NAME).attr("itemid", jsondata[0].INDIVIDUAL_ID).next().next('label').attr('class', 'transp backLab')
+                $("#Phn").empty().val(jsondata[0].PHONE).next('label').attr('class', 'transp backLab')
             }
 
 
@@ -7102,8 +7204,8 @@ function getInddata(sObj, rm, r_t) {
                 //$("#Ind").val(jsondata[0].FIRST_NAME).attr("itemid", jsondata[0].INDIVIDUAL_ID)
                 //$("#Phn").val(jsondata[0].PHONE)//
                 //$("#Room_Type").val(jsondata[0].ROOM_TYPE_ID)
-                $('#Floor').val(jsondata[0].FLOOR)
-                $('#Entrance').val(jsondata[0].ENTRANCE)
+                $('#Floor').val(jsondata[0].FLOOR).next('label').attr('class','transp backLab')
+                $('#Entrance').val(jsondata[0].ENTRANCE).next('label').attr('class', 'transp backLab')
                 if (jsondata.length != 1) {
                     for (var i = 0; i < jsondata.length; i++) {
                         $("#AcnumList").append('<label style="color: black;position:  relative;left: 1%;" onclick=selectAcc(this)>' + jsondata[i].NUMBER + ' </label>').show();
@@ -7112,7 +7214,7 @@ function getInddata(sObj, rm, r_t) {
 
                 }
                 else {
-                    $("#Acnum").val(jsondata[0].NUMBER)
+                    $("#Acnum").val(jsondata[0].NUMBER).next('label').attr('class', 'transp backLab')
                     $("#AcnumList").hide();
                     getHasInds2(jsondata[0].NUMBER)
                 }
