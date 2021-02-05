@@ -532,6 +532,7 @@ $(document).ready(function () {
         $('#hstComh').after('<label id="attention_hstComh" style="color:red">Внимание! Комментарий не будет отображаться в приложении для жителей.</label>')
         if (R_id == "" || R_id == undefined || R_id == null) {
             // $('#Otven').removeAttr('disabled', 'disabled');
+          
             $('#updateRequest').hide();
             $(document).on('click', '#Close_Ot', function () {
                 modal.style.display = "none";
