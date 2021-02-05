@@ -20,7 +20,7 @@ namespace Kvorum_App.Disp_Admin
         protected void Page_Load(object sender, EventArgs e)
         {
             #region newStructure
-            string adressUrl = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + "/Super_Disp/CreateDispRequest.aspx";
+            string adressUrl = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + ":"+ HttpContext.Current.Request.Url.Port+ "/Super_Disp/CreateDispRequest.aspx";
 
 
 

@@ -3,7 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <style>
+   
+    <div class="col-lg-9half col-sm-12 p-0 min-vh-100 bgLightGrey3  " id="contentRegister">
+         <style>
         .close2{
             cursor:pointer
         }
@@ -90,7 +92,6 @@
             height: 35px !important;
         }
     </style>
-    <div class="col-lg-9half col-sm-12 p-0 min-vh-100 bgLightGrey3  ">
         <span class="h90"></span>
         <div class="w-100 pt-2 bgWhite pl-2">
             <ol class="list-inline list-unstyled mb-0">

@@ -298,7 +298,9 @@ $(function () {
 })
 //document.write('<' + 'script type="../Disp_Admin/Script/date-de.js"></' + 'script>')
 function GotoCreateFunction() {
-    window.location.href ="CreateDispRequest.aspx"
+    var loc = window.location.pathname
+    var Page = (loc.indexOf('Disp_Admin') != -1) ? 'CreateRequest.aspx' : (loc.indexOf('Super_Disp') != -1) ?'CreateDispRequest.aspx' : ''
+    window.location.href = Page//"CreateDispRequest.aspx"
 }
 function makefilter(objfilt, lg, role, all) {
     var obj = { "flt": objfilt, "Log": lg, "role":role,"all":all }
