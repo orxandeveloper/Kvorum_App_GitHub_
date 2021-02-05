@@ -590,236 +590,16 @@ $(document).ready(function () {
 
                 var successRequest = true;
 
-                var prjcts = $("#prjcts").val();
-                if (prjcts == 0) {
-                    successRequest = false;
-                    $("#prjcts_S").text("Необходимо выбрать адрес проект").show();
-
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#prjcts_S').hide(); }, 5000);
-                }
-
-
-                var slcObj = $("#objctZ").val();
-                if (slcObj == 0) {
-                    successRequest = false;
-                    $("#adr_S").text("Необходимо выбрать адрес объекта").show();
-
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#adr_S').hide(); }, 5000);
-                }
-                var RequestKind = $("#RequestKind").val();
-                if (RequestKind == 0) {
-                    $('#RequestKindr_S').remove();
-                    $("#RequestKind").after('<span id="RequestKindr_S" style="float: right; font-weight: bold; color: red; display: none">Необходимо выбрать вид заявку</span>')
-                    successRequest = false;
-                    // $("#adr_S").text("Необходимо выбрать адрес объекта").show();
-
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#adr_S').hide(); }, 5000);
-                }
-                var P_Services = [];
-                var ServicesLength = $('#PrServiceH tbody tr').length;
-                var ismc = "";
-                if (ServicesLength == 0) {
-                    $('#servicelbl').remove()
-                    $("#objctZ").after('<label id="servicelbl" style="color:red;font-weight: bold;float:left">Необходимо выбрать услуг</label>').show();
-                    successRequest = false;
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#servicelbl').remove(); }, 5000);// 
-                }
-                else {
-                    $('#PrServiceH tbody tr').each(function () {
-
-                        var SERVICE_NAME = $(this).attr('service-name')
-                        SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).attr('grup-name') : SERVICE_NAME;
-                        SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).children('td:eq(0)').text() : SERVICE_NAME;
-                        var SERVICE_GUID = ($(this).attr('service-guid') != undefined) ? $(this).attr('service-guid') : ($(this).attr('grup-guid') != undefined) ? $(this).attr('grup-guid') : $('.selectdrc').attr('guid')
-                        ismc = $(this).attr('ismc');
-                        var QUANTITY = $(this).children('td:eq(1)').children('input[type="text"]').val();
-                        QUANTITY = (QUANTITY == undefined) ? 0 : QUANTITY.replace(',', '.')
-
-                        var eq = ($('#PrServiceH thead tr th:eq(0)').text() == 'Наименование направления') ? 1 : 3
-                        var COST = $(this).children('td:eq(' + eq + ')').children('a').text()
-
-
-                        COST = (COST == undefined || COST == 'Договорная') ? '0.00' : COST
-
-                        P_Services.push({ COST: COST, QUANTITY: QUANTITY, SERVICE_GUID: SERVICE_GUID, SERVICE_NAME: SERVICE_NAME })
-
-                    })
-                }
-
-                var RESPONSIBLE_ID = (ismc == "True" || ismc == undefined) ? $('#Otven').val() : null
-                var RESPONSIBLE_EMAIL = (ismc == "True" || ismc == undefined) ? $('#Otven option:selected').attr('email') : null
-                var PERFORMER_EMAIL = (ismc == "True" || ismc == undefined) ? $('#IspolList option:selected').attr('email') : null
-                var ispol = (ismc == "True" || ismc == undefined) ? $('#IspolList').val() : null
-
-                var rm_Type = $("#Room_Type").val();
-                if (rm_Type == 0) {
-                    successRequest = false;
-                    $("#Room_Type_S").text('Пожалуйста, выберите "Тип помещения"').show();
-                    // $("html, body").animate({ scrollTop: 50 }, "slow");
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#Room_Type_S').hide(); }, 5000);
-                }
-
-                var room_ = $("#Room").val();
-                if (room_.length == 0) {
-                    successRequest = false
-                    $("#Room_S").text("Необходимо заполнить поле \"Помещение\"").show();
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#Room_S').hide(); }, 5000);
-                }
-                var accnmbr = $("#Acnum").val();
-                if (accnmbr.length == 0) {
-                    successRequest = false
-                    $("#Acnum_S").text("Необходимо заполнить поле \"Номер лицевого счета\"").show();
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#Acnum_S').hide(); }, 5000);
-                }
-                var Ind = $("#Ind").val();
-                if (Ind.length == 0) {
-                    successRequest = false
-                    $("#Ind_S").text("Необходимо заполнить поле \"Заявитель\"").show();
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#Ind_S').hide(); }, 5000);
-                }
-
-                var Phn = $("#Phn").val();
-                if (Phn.length == 0) {
-                    successRequest = false
-                    $("#Phn_S").text("Необходимо заполнить поле \"Номер телефона\"").show();
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                    window.setTimeout(function () { $('#Phn_S').hide(); }, 5000);
-                }
-
-
-                var Calendar = $("#calen1").val();
-                var time = $("#tm").val();
-
-                if (Calendar == "" || time == "") {
-                    successRequest = false;
-                    if (time == "") {
-                        $("#tm_S").text("Необходимо заполнить поле \"Планируемое время\"").show();
-
-                    }
-                    if (Calendar == "") {
-                        $("#tm_S").text("Необходимо заполнить поле \"Планируемая дата\"").show();
-
-                    }
-                    $("html, body").animate({ scrollTop: 500 }, "slow");
-                    window.setTimeout(function () { $('#tm_S').hide(); }, 5000);
-                }
-                else {
-
-
-                    var mindate = getDate();
-                    var mintime = getTime("");
-                    if (Calendar < mindate) {
-                        successRequest = false
-                        $("#calen1").val(Calendar)
-                        $("#tm").val(time);
-                        $("#tm_S").text("Необходимо указать дату  не ранее текущей ").show();
-                        $("html, body").animate({ scrollTop: 500 }, "slow");
-                        window.setTimeout(function () { $('#tm_S').hide(); }, 5000);
-
-                    }
-                    if (time <= mintime && Calendar == mindate) {
-                        successRequest = false
-                        $("#tm_S").text("Необходимо указать время  не ранее текущего").show();
-                        $("#calen1").val(Calendar)
-                        $("#tm").val(time);
-                        window.setTimeout(function () { $('#tm_S').hide(); }, 5000);
-                    }
-
-                }
-                var otvets = $("#Otven").attr('itemid');
-                var RText = $("#RText").val();
-                RText = encodeURIComponent(RText)
-                var indid = $("#Ind").attr("itemid");
-
-                slcObj = JSON.parse(slcObj)
-                var ObjId = $("#objctZ").val();
-                var sclObjName = $("#objctZ option:selected").text();
-                var indid = $("#Ind").attr("itemid")
-                var RComment = $('#RComment').val()
-                if (indid == undefined) {
-                    var objNotInd = [];
-                    objNotInd.push({ "Object_Adress": sclObjName, "Object_Id": ObjId, "room": room_, "indName": Ind, "phon": Phn, "score": $('#Acnum').val() })
-                    RComment = RComment + "|" + JSON.stringify(objNotInd)
-                    indid = 0;
-                    successRequest = false
-                    alert("Помещение не найдено в системе")
-                }
-
-                RComment = encodeURI(RComment)
-                var RImg = []; // $(".foto-disp").attr("data-url")
-                //for (var i = 0; i < 4; i++) {
-                //    RImg.push({ "REQUEST_COMMENT_": "=", "COMMENT_FILE": $("#fotoDisp" + i + "").attr("data-url"), "COMMENT_DATETIME": "++" });
-                //}
-                $("#imgss img").each(function () {
-                    var ImgSrc = $(this).attr("data-url")
-                    RImg.push({ "REQUEST_COMMENT_": "=", "COMMENT_FILE": ImgSrc, "COMMENT_DATETIME": "++" })
-                })
-                var em_ = $('#chkem').prop('checked')
-                em_ = "" + em_ + ""
-                var opl = $('#opl').prop('checked');
-                opl = "" + opl + ""
-                var request_type = $('#reqType').val()
-                var role = sessionStorage.getItem("role")
-                if (role == 15) {
-                    request_type = "1"
-                }
-                var SPECIATISTS = null
-                if (location.pathname == '/Responsible_Admin/CreateRequest.aspx' && $('.manysps').length != 0) {
-
-
-                    SPECIATISTS = Sps_json();//JSON.stringify(spesialists_)
-                    if (SPECIATISTS == false) {
-                        successRequest = false
-                    }
-                }
-                var obj = {
-                    'slcObj': slcObj,
-                    'IndId_': indid,
-                    'Lg': SLogId,
-                    'em': em_,
-                    'Pdate': Calendar,
-                    'Ptime': time,
-                    'spId': ispol,
-                    'Rt': RText,
-
-                    'Rc': RComment,
-
-                    'RoomT': rm_Type,
-                    'NUMBER': accnmbr,
-                    'opl': opl,
-                    'phn': Phn,
-                    'HReq': $('#hedrZ').attr('z_id'),
-                    'indName': $('#Ind').val(),
-                    'TOTAL_COST': $('#total').text(),
-                    'RESPONSIBLE_ID': RESPONSIBLE_ID,
-                    'RESPONSIBLE_EMAIL': RESPONSIBLE_EMAIL,
-                    'AUTHOR_COMMENT': $('#fiodsp').text(),
-                    'PERFORMER_EMAIL': PERFORMER_EMAIL,
-                    'STATUS_ID': $(this).attr('data-status'),
-                    'request_type': request_type,
-                    'RequestKind': $('#RequestKind option:selected').attr('guid'),
-                    'path': window.location.pathname
-
-
-                }
-                //   //console.log(JSON.stringify(obj));
-                //  ////console.log(JSON.stringify(P_Services));
-                //////console.log(JSON.stringify(RImg));
+                successRequest = checkControls().isSuccess
+                var ismc = checkControls($(this)).ismc
+              
                 if (ismc == "True" && RequestKind == 1) {
                     ismc = "False"
                 }
                 if (successRequest == true && ismc == "True") {
                     // alert(ok)
                     $('.ui-loader-background,#loader').show()
-                    SaveRequest_Super(JSON.stringify(obj), JSON.stringify(P_Services), JSON.stringify(RImg), SPECIATISTS);
+                    SaveRequest_Super(JSON.stringify(checkControls($(this)).obj), JSON.stringify(checkControls().P_Services), JSON.stringify(checkControls().RImg), null);
                 }
                 if (successRequest == true && ismc == "False") {
 
@@ -863,7 +643,7 @@ $(document).ready(function () {
                 //}, 1000);
                 // $('#hstCom').scroll($('#hstCom')[0].scrollHeight);
                 //$('#hstCom').animate({ scrollTop: $('#hstCom h4:last-child').position().top }, 'slow');
-
+                
                 if ($.isNumeric(R_id)) {
                     GetRequesByR(R_id)
                 }
@@ -874,10 +654,11 @@ $(document).ready(function () {
                 }
                 var st = urlParam('st')// Rid_st.st//appDatas.RId//localStorage.getItem("st")
                 $('#file_btn').hide();
+                $('.w-95').attr('class','transp backLab')
                 if (st == 2) {
                     $('#SearchService').show();
 
-
+                    $('#updateRequest').attr('data-status',st)
                     $(document).click(function (s) {
                         var class_ = s.target.className;
                         if (class_ == "btn delBtn" || class_ == "accMenu" || class_ == "col-md-1" || class_ == "checkBx" || class_ != "") {
@@ -919,144 +700,29 @@ $(document).ready(function () {
                     $('#Otven').removeAttr('disabled')
                     $("#backUo").text("Отменить заявку")
                     $(document).on('click', '#SaveDD', function () {
-
                         var successRequest = true;
-
-
-
-
-                        var P_Services = [];
-                        var ServicesLength = $('#PrServiceH tbody tr').length;
-                        var ismc = "";
-                        var RequestKind = $("#RequestKind").val();
-                        if (RequestKind == 0) {
-                            $('#RequestKindr_S').remove();
-                            $("#RequestKind").after('<span id="RequestKindr_S" style="float: right; font-weight: bold; color: red; display: none">Необходимо выбрать вид заявку</span>')
-                            successRequest = false;
-                            // $("#adr_S").text("Необходимо выбрать адрес объекта").show();
-
-                            $("html, body").animate({ scrollTop: 50 }, "slow");
-                            window.setTimeout(function () { $('#adr_S').hide(); }, 5000);
-                        }
-                        if (ServicesLength == 0) {
-                            $('#servicelbl').remove()
-                            $("#objctZ").after('<label id="servicelbl" style="color:red;font-weight: bold;float:left">Необходимо выбрать услуг</label>').show();
-                            successRequest = false;
-                            $("html, body").animate({ scrollTop: 50 }, "slow");
-                            window.setTimeout(function () { $('#servicelbl').remove(); }, 5000);// 
-                        }
-                        else {
-                            $('#PrServiceH tbody tr').each(function () {
-
-                                var SERVICE_NAME = $(this).attr('service-name')
-                                SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).attr('grup-name') : SERVICE_NAME;
-                                SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).children('td:eq(0)').text() : SERVICE_NAME;
-                                var SERVICE_GUID = ($(this).attr('service-guid') != undefined) ? $(this).attr('service-guid') : ($(this).attr('grup-guid') != undefined) ? $(this).attr('grup-guid') : $('.selectdrc').attr('guid')
-                                ismc = $(this).attr('ismc');
-                                var QUANTITY = $(this).children('td:eq(1)').children('input[type="text"]').val();
-                                QUANTITY = (QUANTITY == undefined) ? 0 : QUANTITY.replace(',', '.')
-
-                                var eq = ($('#PrServiceH thead tr th:eq(0)').text() == 'Наименование направления') ? 1 : 3
-                                var COST = $(this).children('td:eq(' + eq + ')').children('a').text()
-
-
-                                //   COST = (COST == undefined || COST == 'Договорная') ? '0.00' : COST
-                                if (COST == undefined || COST == 'Договорная') {
-                                    successRequest = false
-                                    $('#costErr').remove()
-                                    $(this).children('td:eq(' + eq + ')').children('a').after('<label id="costErr" style="color:red">Необходимо указать сумму</label>')
-                                    $("html, body").animate({ scrollTop: 500 }, "slow");
-                                    window.setTimeout(function () { $('#costErr').remove(); }, 5000);
-                                }
-                                P_Services.push({ COST: COST, QUANTITY: QUANTITY, SERVICE_GUID: SERVICE_GUID, SERVICE_NAME: SERVICE_NAME })
-
-                            })
-                        }
-
-                        var RESPONSIBLE_ID = (ismc == "True" || ismc == undefined) ? $('#Otven').val() : null
-                        var RESPONSIBLE_EMAIL = (ismc == "True" || ismc == undefined) ? $('#Otven option:selected').attr('email') : null
-                        var PERFORMER_EMAIL = $('#IspolList option:selected').attr('email') //(ismc == "True" || ismc == undefined) ? $('#IspolList option:selected').attr('email') : null
-                        var ispol = $('#IspolList').val() //(ismc == "True" || ismc == undefined) ? $('#IspolList').val() : null
-                        var em_ = $('#chkem').prop('checked')
-                        em_ = "" + em_ + ""
-                        var opl = $('#opl').prop('checked');
-                        opl = "" + opl + ""
-
-                        var Calendar = $("#calen1").val();
-                        var time = $("#tm").val();
-
-                        if (Calendar == "" || time == "") {
-                            successRequest = false;
-                            if (time == "") {
-                                $("#tm_S").text("Необходимо заполнить поле \"Планируемое время\"").show();
-
-                            }
-                            if (Calendar == "") {
-                                $("#tm_S").text("Необходимо заполнить поле \"Планируемая дата\"").show();
-
-                            }
-                            $("html, body").animate({ scrollTop: 500 }, "slow");
-                            window.setTimeout(function () { $('#tm_S').hide(); }, 5000);
-                        } else {
-
-
-                            var mindate = getDate();
-                            var mintime = getTime("");
-                            if (Calendar < mindate) {
-                                successRequest = false
-                                $("#calen1").val(Calendar)
-                                $("#tm").val(time);
-                                $("#tm_S").text("Необходимо указать дату  не ранее текущей ").show();
-                                $("html, body").animate({ scrollTop: 500 }, "slow");
-                                window.setTimeout(function () { $('#tm_S').hide(); }, 5000);
-
-                            }
-                            if (time <= mintime && Calendar == mindate) {
-                                successRequest = false
-                                $("#tm_S").text("Необходимо указать время  не ранее текущего").show();
-                                $("#calen1").val(Calendar)
-                                $("#tm").val(time);
-                                window.setTimeout(function () { $('#tm_S').hide(); }, 5000);
-                            }
-
-                        }
-                        var request_type = $('#reqType').val()
-                        var role = sessionStorage.getItem("role")
-                        if (role == 15) {
-                            request_type = "1"
-                        }
-                        var SPECIATISTS = null
-                        if (location.pathname == '/Responsible_Admin/CreateRequest.aspx' && $('.manysps').length != 0) {
-
-                            SPECIATISTS = Sps_json();//JSON.stringify(spesialists_)
-                            if (SPECIATISTS == false) {
-                                successRequest = false
-                            }
-                        }
-
-
-
+                        successRequest = checkControls().isSuccess
                         if (successRequest == true) {
                             var obj =
                             {
                                 'Rid': $('#hedrZ').attr('z_id'),
-                                'prs': P_Services,
-                                'opl': opl,
-                                'login_id': SLogId,
-                                'em': em_,
-                                'Pdate': Calendar,
-                                'Ptime': time,
-                                'SpId': (ispol == undefined) ? null : ispol,
-                                'RESPONSIBLE_ID': RESPONSIBLE_ID,
-                                'TOTAL_COST': $('#total').text(),
-                                'RESPONSIBLE_EMAIL': RESPONSIBLE_EMAIL,
-                                'PERFORMER_EMAIL': (PERFORMER_EMAIL == undefined) ? null : PERFORMER_EMAIL,
-                                'AUTHOR': $('#fiodsp').text(),
-                                'StatusId': $(this).attr('data-status'),
+                                'prs': checkControls().P_Services,
+                                'opl': checkControls().obj.opl,
+                                'login_id': checkControls().obj.Lg,
+                                'em': checkControls().obj.em,
+                                'Pdate': checkControls().obj.Pdate,
+                                'Ptime': checkControls().obj.Ptime,
+                                'SpId': (checkControls().obj.spId == undefined) ? null : checkControls().obj.spId,
+                                'RESPONSIBLE_ID': checkControls().obj.RESPONSIBLE_ID,
+                                'TOTAL_COST': checkControls().obj.TOTAL_COST,
+                                'RESPONSIBLE_EMAIL': checkControls().obj.RESPONSIBLE_EMAIL,
+                                'PERFORMER_EMAIL': (checkControls().obj.PERFORMER_EMAIL == undefined) ? null : checkControls().obj.PERFORMER_EMAIL,
+                                'AUTHOR': checkControls().obj.AUTHOR_COMMENT,
+                                'StatusId': checkControls($(this)).obj.STATUS_ID,
                                 'path': window.location.pathname,
-                                'SPECIATISTS_': SPECIATISTS,
-                                'request_type': request_type,
-                                'RequestKind': $('#RequestKind option:selected').attr('guid')
+                                'SPECIATISTS_': null,
+                                'request_type': checkControls().obj.request_type,
+                                'RequestKind': checkControls().obj.RequestKind
 
 
                             }
@@ -1073,20 +739,13 @@ $(document).ready(function () {
                     $(document).on('click', '#SaveMO', function () {
 
                         $('#updateRequest').click();
-                        //if ($.isNumeric(R_id)) {
-                        //   // $("#SaveDD").click()
-                        //    var imgs = [];
-
-                        //}
-                        //else {
-                        //    $('#updateRequest').click();
-                        //}
+                     
 
                     })
                     $(document).on('click', '#backUo', function () {
                         var successOtmen = true
 
-                        var objOt = { "Rid": R_id, 'login_id': SLogId, 'path': window.location.pathname }
+                        var objOt = { "Rid": checkControls().obj.HReq, 'login_id': checkControls().obj.Lg, 'path': checkControls().obj.path }
                         if (successOtmen == true) {
                             $('#myModal5').show();
                             $('#reasonlbl').remove();
@@ -1095,7 +754,7 @@ $(document).ready(function () {
                             $('#f_iles2').attr('onchange', 'FileForOtmen(this)')
                             $('#OkVipol').click(function () {
                                 var imgs = []
-                                $('#myModal5 .modal-body2').children('img').each(function () {
+                                $('#myModal5 .modal-body2').find('img').each(function () {
                                     imgs.push({ "ImgAdres": $(this).attr('data-url') })
                                 })
                                 if (imgs.length != 0) {
@@ -1139,238 +798,34 @@ $(document).ready(function () {
 
                     })
                     $(document).on('click', '#updateRequest', function () {
-                        var successRequest = true;
-
-                        var prjcts = $("#prjcts").val();
-                        if (prjcts == 0) {
-                            successRequest = false;
-                            $("#prjcts_S").text("Необходимо выбрать адрес проект").show();
-
-                            $("html, body").animate({ scrollTop: 50 }, "slow");
-                            window.setTimeout(function () { $('#prjcts_S').hide(); }, 5000);
-                        }
-
-
-                        var slcObj = $("#objctZ").val();
-                        if (slcObj == 0) {
-                            successRequest = false;
-                            $("#adr_S").text("Необходимо выбрать адрес объекта").show();
-
-                            $("html, body").animate({ scrollTop: 50 }, "slow");
-                            window.setTimeout(function () { $('#adr_S').hide(); }, 5000);
-                        }
-                        var RequestKind = $("#RequestKind").val();
-                        if (RequestKind == 0) {
-                            $('#RequestKindr_S').remove();
-                            $("#RequestKind").after('<span id="RequestKindr_S" style="float: right; font-weight: bold; color: red; display: none">Необходимо выбрать вид заявку</span>')
-                            successRequest = false;
-                            // $("#adr_S").text("Необходимо выбрать адрес объекта").show();
-
-                            $("html, body").animate({ scrollTop: 50 }, "slow");
-                            window.setTimeout(function () { $('#adr_S').hide(); }, 5000);
-                        }
-                        var P_Services = [];
-                        var ServicesLength = $('#PrServiceH tbody tr').length;
-                        var ismc = "";
-                        if (ServicesLength == 0) {
-                            $('#servicelbl').remove()
-                            $("#objctZ").after('<label id="servicelbl" style="color:red;font-weight: bold;float:left">Необходимо выбрать услуг</label>').show();
-                            successRequest = false;
-                            $("html, body").animate({ scrollTop: 50 }, "slow");
-                            window.setTimeout(function () { $('#servicelbl').remove(); }, 5000);// 
-                        }
-                        else {
-                            $('#PrServiceH tbody tr').each(function () {
-                                var SERVICE_GUID = ($(this).attr('service-guid') != undefined) ? $(this).attr('service-guid') : ($(this).attr('grup-guid') != undefined) ? $(this).attr('grup-guid') : $('.selectdrc').attr('guid')
-                                var QUANTITY = $(this).children('td:eq(1)').children('input[type="text"]').val();
-                                QUANTITY = (QUANTITY == undefined) ? 0 : QUANTITY.replace(',', '.')
-                                ismc = $(this).attr('ismc');
-                                var eq = ($('#PrServiceH thead tr th:eq(0)').text() == 'Наименование направления') ? 1 : 3
-                                var COST = $(this).children('td:eq(' + eq + ')').children('a').text()
-
-
-                                // COST = (COST == undefined || COST == 'Договорная') ? '0.00' : COST
-                                if (COST == undefined || COST == 'Договорная') {
-                                    successRequest = false
-                                    $('#costErr').remove()
-                                    $(this).children('td:eq(' + eq + ')').children('a').after('<label id="costErr" style="color:red">Необходимо указать сумму</label>')
-                                    $("html, body").animate({ scrollTop: 500 }, "slow");
-                                    window.setTimeout(function () { $('#costErr').remove(); }, 5000);
-                                }
-                                SERVICE_NAME = $(this).attr('service-name')
-                                SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).attr('grup-name') : SERVICE_NAME;
-                                SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).children('td:eq(0)').text() : SERVICE_NAME;
-                                P_Services.push({ COST: COST, QUANTITY: QUANTITY, SERVICE_GUID: SERVICE_GUID, SERVICE_NAME: SERVICE_NAME })
-
-                            })
-                        }
-
-                        var RESPONSIBLE_ID = (ismc == "True" || ismc == undefined) ? $('#Otven').val() : null
-                        var RESPONSIBLE_EMAIL = (ismc == "True" || ismc == undefined) ? $('#Otven option:selected').attr('email') : null
-                        var PERFORMER_EMAIL = $('#IspolList option:selected').attr('email') //(ismc == "True" || ismc == undefined) ? $('#IspolList option:selected').attr('email') : null
-                        var ispol = $('#IspolList').val()//(ismc == "True" || ismc == undefined) ?  : null
-
-                        var rm_Type = $("#Room_Type").val();
-                        if (rm_Type == 0) {
-                            successRequest = false;
-                            $("#Room_Type_S").text('Пожалуйста, выберите "Тип помещения"').show();
-                            // $("html, body").animate({ scrollTop: 50 }, "slow");
-                            $("html, body").animate({ scrollTop: 50 }, "slow");
-                            window.setTimeout(function () { $('#Room_Type_S').hide(); }, 5000);
-                        }
-
-                        var room_ = $("#Room").val();
-                        if (room_.length == 0) {
-                            successRequest = false
-                            $("#Room_S").text("Необходимо заполнить поле \"Помещение\"").show();
-                            $("html, body").animate({ scrollTop: 50 }, "slow");
-                            window.setTimeout(function () { $('#Room_S').hide(); }, 5000);
-                        }
-                        var accnmbr = $("#Acnum").val();
-                        if (accnmbr.length == 0) {
-                            successRequest = false
-                            $("#Acnum_S").text("Необходимо заполнить поле \"Номер лицевого счета\"").show();
-                            $("html, body").animate({ scrollTop: 50 }, "slow");
-                            window.setTimeout(function () { $('#Acnum_S').hide(); }, 5000);
-                        }
-                        var Ind = $("#Ind").val();
-                        if (Ind.length == 0) {
-                            successRequest = false
-                            $("#Ind_S").text("Необходимо заполнить поле \"Заявитель\"").show();
-                            $("html, body").animate({ scrollTop: 50 }, "slow");
-                            window.setTimeout(function () { $('#Ind_S').hide(); }, 5000);
-                        }
-
-                        var Phn = $("#Phn").val();
-                        if (Phn.length == 0) {
-                            successRequest = false
-                            $("#Phn_S").text("Необходимо заполнить поле \"Номер телефона\"").show();
-                            $("html, body").animate({ scrollTop: 50 }, "slow");
-                            window.setTimeout(function () { $('#Phn_S').hide(); }, 5000);
-                        }
-
-
-                        var Calendar = $("#calen1").val();
-                        var time = $("#tm").val();
-
-                        if (Calendar == "" || time == "") {
-                            successRequest = false;
-                            if (time == "") {
-                                $("#tm_S").text("Необходимо заполнить поле \"Планируемое время\"").show();
-
-                            }
-                            if (Calendar == "") {
-                                $("#tm_S").text("Необходимо заполнить поле \"Планируемая дата\"").show();
-
-                            }
-                            $("html, body").animate({ scrollTop: 700 }, "slow");
-                            window.setTimeout(function () { $('#tm_S').hide(); }, 5000);
-                        } else {
-
-
-                            var mindate = getDate();
-                            var mintime = getTime("");
-                            if (Calendar < mindate) {
-                                successRequest = false
-                                $("#calen1").val(Calendar)
-                                $("#tm").val(time);
-                                $("#tm_S").text("Необходимо указать дату  не ранее текущей ").show();
-                                $("html, body").animate({ scrollTop: 500 }, "slow");
-                                window.setTimeout(function () { $('#tm_S').hide(); }, 500);
-
-                            }
-                            if (time <= mintime && Calendar == mindate) {
-                                successRequest = false
-                                $("#tm_S").text("Необходимо указать время  не ранее текущего").show();
-                                $("#calen1").val(Calendar)
-                                $("#tm").val(time);
-                                $("html, body").animate({ scrollTop: 500 }, "slow");
-                                window.setTimeout(function () { $('#tm_S').hide(); }, 5000);
-                            }
-
-                        }
-                        var otvets = $("#Otven").attr('itemid');
-                        var RText = $("#RText").val();
-                        RText = encodeURIComponent(RText)
-                        var indid = $("#Ind").attr("itemid");
-
-                        slcObj = JSON.parse(slcObj)
-                        var ObjId = $("#objctZ").val();
-                        var sclObjName = $("#objctZ option:selected").text();
-                        var indid = $("#Ind").attr("itemid")
-                        var RComment = $('#RComment').val()
-                        if (indid == undefined) {
-                            var objNotInd = [];
-                            objNotInd.push({ "Object_Adress": sclObjName, "Object_Id": ObjId, "room": room_, "indName": Ind, "phon": Phn, "score": $('#Acnum').val() })
-                            RComment = RComment + "|" + JSON.stringify(objNotInd)
-                            indid = 0;
-                            successRequest = false
-                            alert("Помещение не найдено в системе")
-                        }
-
-                        RComment = encodeURI(RComment)
-                        var RImg = []; // $(".foto-disp").attr("data-url")
-                        //for (var i = 0; i < 4; i++) {
-                        //    RImg.push({ "REQUEST_COMMENT_": "=", "COMMENT_FILE": $("#fotoDisp" + i + "").attr("data-url"), "COMMENT_DATETIME": "++" });
-                        //}
-                        $("#imgss img").each(function () {
-                            var ImgSrc = $(this).attr("data-url")
-                            RImg.push({ "REQUEST_COMMENT_": "=", "COMMENT_FILE": ImgSrc, "COMMENT_DATETIME": "++" })
-                        })
-                        var em_ = $('#chkem').prop('checked')
-                        em_ = "" + em_ + ""
-                        var opl = $('#opl').prop('checked');
-                        opl = "" + opl + ""
-                        if (location.pathname == '/Responsible_Admin/CreateRequest.aspx' && $('.manysps').length != 0) {
-
-
-                            SPECIATISTS = Sps_json();//JSON.stringify(spesialists_)
-                            if (SPECIATISTS == false) {
-                                successRequest = false
-                            }
-                        }
-                        //  var ispol = $('#IspolList').val();
-
-                        var SPECIATISTS = null
-                        if (location.pathname == '/Responsible_Admin/CreateRequest.aspx' && $('.manysps').length != 0) {
-
-                            SPECIATISTS = Sps_json();//JSON.stringify(spesialists_)
-                            if (SPECIATISTS == false) {
-                                successRequest = false
-                            }
-                        }
-                        var request_type = $('#reqType').val()
-                        var role = sessionStorage.getItem("role")
-                        if (role == 15) {
-                            request_type = "1"
-                        }
-                        var SLogId = sessionStorage.getItem("Log")
+                        var successRequest = checkControls().isSuccess;
+                      
                         var obj = {
-                            'slcObj': slcObj,
-                            'IndId_': indid,
-                            'Lg': SLogId,
-                            'em': em_,
-                            'Pdate': Calendar,
-                            'Ptime': time,
-                            'spId': ispol,
-                            'Rt': RText,
+                            'slcObj': checkControls().obj.slcObj,
+                            'IndId_': checkControls().obj.IndId_,
+                            'Lg': checkControls().obj.Lg,
+                            'em': checkControls().obj.em,
+                            'Pdate': checkControls().obj.Pdate,
+                            'Ptime': checkControls().obj.Ptime,
+                            'spId': checkControls().obj.spId,
+                            'Rt': checkControls().obj.Rt,
 
-                            'Rc': RComment,
+                            'Rc': checkControls().obj.Rc,
 
-                            'RoomT': rm_Type,
-                            'NUMBER': accnmbr,
-                            'opl': opl,
-                            'phn': Phn,
-                            'HReq': $('#hedrZ').attr('z_id'),
-                            'indName': $('#Ind').val(),
-                            'TOTAL_COST': $('#total').text(),
-                            'RESPONSIBLE_ID': RESPONSIBLE_ID,
-                            'RESPONSIBLE_EMAIL': RESPONSIBLE_EMAIL,
-                            'AUTHOR_COMMENT': $('#fiodsp').text(),
-                            'PERFORMER_EMAIL': PERFORMER_EMAIL,
+                            'RoomT': checkControls().obj.RoomT,
+                            'NUMBER': checkControls().obj.NUMBER,
+                            'opl': checkControls().obj.opl,
+                            'phn': checkControls().obj.phn,
+                            'HReq': checkControls().obj.HReq,
+                            'indName': checkControls().obj.indName,
+                            'TOTAL_COST': checkControls().obj.TOTAL_COST,
+                            'RESPONSIBLE_ID': checkControls().obj.RESPONSIBLE_ID,
+                            'RESPONSIBLE_EMAIL': checkControls().obj.RESPONSIBLE_EMAIL,
+                            'AUTHOR_COMMENT': checkControls().obj.AUTHOR_COMMENT,
+                            'PERFORMER_EMAIL': checkControls().obj.PERFORMER_EMAIL,
                             'STATUS_ID': 0,
-                            'request_type': request_type,
-                            'RequestKind': $('#RequestKind option:selected').attr('guid'),
+                            'request_type': checkControls().obj.request_type,
+                            'RequestKind': checkControls().obj.RequestKind,
                             'path': window.location.pathname
 
 
@@ -1382,11 +837,11 @@ $(document).ready(function () {
                             if ($.isNumeric(R_id)) {
 
                                 $('.ui-loader-background,#loader').show()
-                                SaveRequest_Super(JSON.stringify(obj), JSON.stringify(P_Services), JSON.stringify(RImg), SPECIATISTS);
+                                SaveRequest_Super(JSON.stringify(obj), JSON.stringify(checkControls().P_Services), JSON.stringify(checkControls().RImg), null);
                             }
                             else {
                                 $('.ui-loader-background,#loader').show()
-                                Save_SUPPLIER_Request_Super(JSON.stringify(obj), JSON.stringify(P_Services));
+                                Save_SUPPLIER_Request_Super(JSON.stringify(obj), JSON.stringify(checkControls().P_Services));
                             }
                         }
 
@@ -1397,7 +852,7 @@ $(document).ready(function () {
                 }
                 if (st == 1) {
 
-
+                    $('#updateRequest').attr('data-status', st)
                     $(document).click(function (s) {
                         var class_ = s.target.className;
                         if (class_ == "btn delBtn" || class_ == "accMenu" || class_ == "col-md-1" || class_ == "checkBx" || class_ != "") {
@@ -1443,25 +898,9 @@ $(document).ready(function () {
                     $('#SaveDD').text("Работа выполнена")
                     $("#backUo").text("Отменить заявку")
                     $(document).on('click', '#SaveDD', function () {
-                        var successVipol = true;
-                        var RequestKind = $("#RequestKind").val();
-                        if (RequestKind == 0) {
-                            $('#RequestKindr_S').remove();
-                            $("#RequestKind").after('<span id="RequestKindr_S" style="float: right; font-weight: bold; color: red; display: none">Необходимо выбрать вид заявку</span>')
-                            successVipol = false;
-                            // $("#adr_S").text("Необходимо выбрать адрес объекта").show();
-
-                            $("html, body").animate({ scrollTop: 50 }, "slow");
-                            window.setTimeout(function () { $('#adr_S').hide(); }, 5000);
-                        }
-                        var SPECIATISTS = null
-                        if (location.pathname == '/Responsible_Admin/CreateRequest.aspx' && $('.manysps').length != 0) {
-
-                            SPECIATISTS = Sps_json();//JSON.stringify(spesialists_)
-                            if (SPECIATISTS == false) {
-                                successVipol = false
-                            }
-                        }
+                        var successVipol = checkControls().isSuccess;
+                       
+                     
                         if (successVipol == true) {
 
                             RabotVipolSuper(R_id)
@@ -1597,7 +1036,7 @@ $(document).ready(function () {
                             $('#OkVipol').click(function () {
                                 $('.ui-loader-background,#loader').show()
                                 var imgs = []
-                                $('#myModal5 .modal-body2').children('img').each(function () {
+                                $('#myModal5 .modal-body2').find('img').each(function () {
                                     imgs.push({ "ImgAdres": $(this).attr('data-url') })
                                 })
                                 if (imgs.length != 0) {
@@ -1976,6 +1415,7 @@ $(document).ready(function () {
             $('#planTime').next('br').after('<label id="lblSupp">Наименование поставщика</label><input type="text" disabled="disabled"   id="nameSup">')
 
         }
+        
     }
 })
 function GetSelectedServices() {
@@ -2000,7 +1440,43 @@ function GetSelectedServices() {
         P_Services.push({ COST: COST, QUANTITY: QUANTITY, SERVICE_GUID: SERVICE_GUID, SERVICE_NAME: SERVICE_NAME })
 
     })
-    return { 'P_Services': P_Services, 'ismc': ismc}
+    var suppServices=[]
+    $('#PrServiceH tbody tr').each(function () {
+        SERVICE_GUID = ($(this).attr('service-guid') != undefined) ? $(this).attr('service-guid') : ($(this).attr('grup-guid') != undefined) ? $(this).attr('grup-guid') : $('.selectdrc').attr('guid')
+        ismc = $(this).attr('ismc');
+        SERVICE_NAME = $(this).attr('service-name')
+        SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).attr('grup-name') : SERVICE_NAME;
+        SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).children('td:eq(0)').text() : SERVICE_NAME;
+        SERVICE_COUNT = $(this).children('td:eq(1)').children('input[type="text"]').val();
+        SERVICE_COUNT = (SERVICE_COUNT == undefined) ? 0 : SERVICE_COUNT.replace(',', '.')
+
+        var eq = 3;// ($('#PrServiceH thead tr th:eq(0)').text() == 'Наименование направления') ? 1 : 3
+        SERVICE_COST = $(this).children('td:eq(3)').children('a').text()
+
+        if (SERVICE_COST == undefined || SERVICE_COST == 'Договорная') {
+            successRequest = false
+            $('#costErr').remove()
+            $(this).children('td:eq(' + eq + ')').children('a').after('<label id="costErr" style="color:red">Необходимо указать сумму</label>')
+            $("html, body").animate({ scrollTop: 500 }, "slow");
+            window.setTimeout(function () { $('#costErr').remove(); }, 5000);
+        }
+        // SERVICE_COST = (SERVICE_COST == undefined || SERVICE_COST == 'Договорная') ? '0.00' : SERVICE_COST
+
+        // P_Services.push({ COST: COST, QUANTITY: QUANTITY, SERVICE_GUID: SERVICE_GUID })
+        suppServices.push({
+            "SERVICE_GUID": SERVICE_GUID,
+            "SERVICE_NAME": SERVICE_NAME,
+            //  "MASTER_GUID": GUID,
+            "SERVICE_COST": SERVICE_COST,
+            "SERVICE_COUNT": SERVICE_COUNT,
+            "SERVICE_END_COST": SERVICE_COST,
+            "SERVICE_PERCENT": "",
+            "SERVICE_SHOP_ID": "",
+            "SERVICE_COMMENT": "",
+            "SERVICE_CUSTOM": ""
+        })
+    })
+    return { 'P_Services': P_Services, 'ismc': ismc, 'suppServices': suppServices}
 }
 
 function ErrorForControls(e,text) {
@@ -2126,7 +1602,7 @@ function checkControls(e) {
         else {
 
 
-            var mindate = getDate();
+            var mindate = getDateForCheck();
             var mintime = getTime("");
             if (Calendar < mindate) {
                 successRequest = false
@@ -2179,6 +1655,18 @@ function checkControls(e) {
     $("#imgss img").each(function () {
         var ImgSrc = $(this).attr("data-url")
         RImg.push({ "REQUEST_COMMENT_": "=", "COMMENT_FILE": ImgSrc, "COMMENT_DATETIME": "++" })
+    })
+    var ImgSrc = "";
+     $("#imgss img").each(function (i) {
+
+        if (i == 0) {
+            ImgSrc = $(this).attr("data-url")
+        }
+        else {
+            ImgSrc = ImgSrc + "," + $(this).attr("data-url")
+        }
+
+        // RImg.push({ "REQUEST_COMMENT_": "=", "COMMENT_FILE": ImgSrc, "COMMENT_DATETIME": "++" })
     })
     var em_ = $('#chkem').prop('checked')
     em_ = "" + em_ + ""
@@ -2242,7 +1730,7 @@ function checkControls(e) {
         ismc = "False"
     }
 
-    return { 'isSuccess': isSuccess, 'ismc': ismc, 'P_Services': P_Services, 'obj': obj, 'RImg': RImg}
+    return { 'isSuccess': isSuccess, 'ismc': ismc, 'P_Services': P_Services, 'obj': obj, 'RImg': RImg, 'RImgM': ImgSrc, 'suppServices': GetSelectedServices().suppServices}
 }
 function checkmanysps(e) {
     var lastPerformerListSpsVal = $('.PerformerListSps:last').val()
@@ -2510,104 +1998,64 @@ function RabotVipolSuper(R_id) {
         if (imgsCount == 0) {
             imgs.push({ "ImgAdres": 0 });
         }
-        var P_Services = [];
-        var ServicesLength = $('#PrServiceH tbody tr').length;
-        var ismc = "";
-        if (ServicesLength == 0) {
-            $('#servicelbl').remove()
-            $("#objctZ").after('<label id="servicelbl" style="color:red;font-weight: bold;float:left">Необходимо выбрать услуг</label>').show();
-            successRequest = false;
-            $("html, body").animate({ scrollTop: 50 }, "slow");
-            window.setTimeout(function () { $('#servicelbl').remove(); }, 5000);// 
-        }
-        else {
-
-            $('#PrServiceH tbody tr').each(function () {
-                var SERVICE_NAME = $(this).attr('service-name')
-                SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).attr('grup-name') : SERVICE_NAME;
-                SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).children('td:eq(0)').text() : SERVICE_NAME;
-                var SERVICE_GUID = ($(this).attr('service-guid') != undefined) ? $(this).attr('service-guid') : ($(this).attr('grup-guid') != undefined) ? $(this).attr('grup-guid') : $('.selectdrc').attr('guid')
-                ismc = $(this).attr('ismc');
-                var QUANTITY = $(this).children('td:eq(1)').children('input[type="text"]').val();
-                QUANTITY = (QUANTITY == undefined) ? 0 : QUANTITY.replace(',', '.')
-
-                var eq = ($('#PrServiceH thead tr th:eq(0)').text() == 'Наименование направления') ? 1 : 3
-                var COST = $(this).children('td:eq(' + eq + ')').children('a').text()
-
-
-                COST = (COST == undefined || COST == 'Договорная') ? '0.00' : COST
-
-                P_Services.push({ COST: COST, QUANTITY: QUANTITY, SERVICE_GUID: SERVICE_GUID, SERVICE_NAME: SERVICE_NAME })
-
-            })
-        }
-
-        var RESPONSIBLE_ID = (ismc == "True" || ismc == undefined) ? $('#Otven').val() : null
-        var RESPONSIBLE_EMAIL = (ismc == "True" || ismc == undefined) ? $('#Otven option:selected').attr('email') : null
-        var PERFORMER_EMAIL = $('#IspolList option:selected').attr('email') //(ismc == "True" || ismc == undefined) ? $('#IspolList option:selected').attr('email') : null
-        var ispol = $('#IspolList').val()//(ismc == "True" || ismc == undefined) ? $('#IspolList').val() : null
-        var opl = $('#opl').prop('checked');
-        opl = "" + opl + ""
-        //var lg_id = $('#lgId').text()
-        //var grupservis = $('#PrServiceH tbody').children('tr:eq(0)').attr('data-d')//($('#subMenu').attr('data-d') == undefined) ? 0 : $('#subMenu').attr('data-d')
+        var P_Services = checkControls().P_Services;
+         
         $('.ui-loader-background,#loader').show();
         var SLog_id = sessionStorage.getItem("Log")
-        var rid = $('#hedrZ').attr('z_id')
-        var SPECIATISTS = null
+        var rid = checkControls().obj.HReq//$('#hedrZ').attr('z_id')
+        //var SPECIATISTS = null
         var role = sessionStorage.getItem("role")
-        var request_type = $('#reqType').val()
+        //var request_type = $('#reqType').val()
         var role = sessionStorage.getItem("role")
-        if (role == 15) {
-            request_type = "1"
-        }
-        if (location.pathname == '/Responsible_Admin/CreateRequest.aspx' && $('.manysps').length != 0) {
-            SPECIATISTS = Sps_json()
-        }
+        var SuccessVipol = checkControls().isSuccess
 
-        var objV = {
-            "Rid": $('#hedrZ').attr('z_id'),
-            "rsf": JSON.stringify(imgs),
-            "rst": $("#cmntsts2").val(),
-            'opl': opl,
-            'login_id': SLog_id,
-            "ispol": (ispol == undefined) ? null : ispol,
-            "ispolEmail": (PERFORMER_EMAIL == undefined) ? null : ispol,
-            "RESPONSIBLE_ID": RESPONSIBLE_ID,
-            "RESPONSIBLE_EMAIL": RESPONSIBLE_EMAIL,
-            'TOTAL_COST': $('#total').text(),
-            "prs_json": JSON.stringify(P_Services),
-            "Pdate": $('#calen1').val(),
-            "Ptime": $('#tm').val(),
-            'path': window.location.pathname,
-            'SPECIATISTS_': SPECIATISTS,
-            'request_type': request_type,
-            'RequestKind': $('#RequestKind option:selected').attr('guid'),
-        }
-        var Url;
-        if ($.isNumeric(R_id)) {
-            Url = "../Super_Disp/CreateDispRequest.aspx/makeVipol"
-        }
-        else {
-            Url = "../Super_Disp/CreateDispRequest.aspx/makeVipolSupp"
-        }
-        $.ajax({
-            type: "POST",
-            url: Url,//http://localhost:64339/
-            data: JSON.stringify(objV),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {//Заявка по работе <Номер заявки> выполнена
-                var mn = $('#hedrZ').attr('mn')
-                SaveFCM('Заявки', 'Заявка получила статус «Выполнена»', 'По заявке № ' + mn + ' работа выполнена.', '', $('#Acnum').val(), SLog_id, 'CreateDispRequest.aspx', rid)
-                //  SaveLog_S("Работа выполнена", "Важное", "Диспетчер", "Диспетчеризация", "Работа по заявке < " + rid + " > выполнена", SLog_id);
-                //window.location.href = "DispRequests.aspx"
-                var loc = window.location.pathname
-                var back = (loc.indexOf('Responsible') != -1) ? 'Resp_Requests.aspx' : (loc.indexOf('Manager') != -1) ? 'RequestsManager.aspx' : (loc.indexOf('Disp_Admin') != -1) ? 'RegisterRequest.aspx' : (loc.indexOf('Super_Disp') != -1) ? 'DispRequests.aspx' : 'SRequests.aspx'
-                window.location.href = back
-                //parent.history.back();
+        if (SuccessVipol == true) {
+
+            var objV = {
+                "Rid": checkControls().obj.HReq, //$('#hedrZ').attr('z_id'),
+                "rsf": JSON.stringify(imgs),
+                "rst": $("#cmntsts2").val(),
+                'opl': checkControls().obj.opl,
+                'login_id': checkControls().obj.Lg,//SLog_id,
+                "ispol": (checkControls().obj.spId == undefined) ? null : checkControls().obj.spId,
+                "ispolEmail": (checkControls().obj.PERFORMER_EMAIL == undefined) ? null : checkControls().obj.PERFORMER_EMAIL,
+                "RESPONSIBLE_ID": checkControls().obj.RESPONSIBLE_ID,
+                "RESPONSIBLE_EMAIL": checkControls().obj.RESPONSIBLE_EMAIL,
+                'TOTAL_COST': checkControls().obj.TOTAL_COST,//$('#total').text(),
+                "prs_json": JSON.stringify(P_Services),
+                "Pdate": checkControls().obj.Pdate,// $('#calen1').val(),
+                "Ptime": checkControls().obj.Ptime,// $('#tm').val(),
+                'path': checkControls().obj.path,//window.location.pathname,
+                'SPECIATISTS_': null,
+                'request_type': checkControls().obj.request_type,
+                'RequestKind': checkControls().obj.RequestKind// $('#RequestKind option:selected').attr('guid'),
             }
-        })
+            var Url;
+            if ($.isNumeric(R_id)) {
+                Url = "../Super_Disp/CreateDispRequest.aspx/makeVipol"
+            }
+            else {
+                Url = "../Super_Disp/CreateDispRequest.aspx/makeVipolSupp"
+            }
+            $.ajax({
+                type: "POST",
+                url: Url,//http://localhost:64339/
+                data: JSON.stringify(objV),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {//Заявка по работе <Номер заявки> выполнена
+                    var mn = $('#hedrZ').attr('mn')
+                    SaveFCM('Заявки', 'Заявка получила статус «Выполнена»', 'По заявке № ' + mn + ' работа выполнена.', '', $('#Acnum').val(), SLog_id, 'CreateDispRequest.aspx', rid)
+                    //  SaveLog_S("Работа выполнена", "Важное", "Диспетчер", "Диспетчеризация", "Работа по заявке < " + rid + " > выполнена", SLog_id);
+                    //window.location.href = "DispRequests.aspx"
+                    var loc = window.location.pathname
+                    var back = (loc.indexOf('Responsible') != -1) ? 'Resp_Requests.aspx' : (loc.indexOf('Manager') != -1) ? 'RequestsManager.aspx' : (loc.indexOf('Disp_Admin') != -1) ? 'RegisterRequest.aspx' : (loc.indexOf('Super_Disp') != -1) ? 'DispRequests.aspx' : 'SRequests.aspx'
+                    window.location.href = back
+                    //parent.history.back();
+                }
+            })
 
+        }
 
     })
     //$("#OkVipol").click(function () {
@@ -2616,222 +2064,34 @@ function RabotVipolSuper(R_id) {
     //})
 }
 function UpdateRequest(e) {
-    var successRequest = true;
+    var successRequest = checkControls().isSuccess;
 
-    var prjcts = $("#prjcts").val();
-    if (prjcts == 0) {
-        successRequest = false;
-        $("#prjcts_S").text("Необходимо выбрать адрес проект").show();
-
-        $("html, body").animate({ scrollTop: 50 }, "slow");
-        window.setTimeout(function () { $('#prjcts_S').hide(); }, 5000);
-    }
-
-
-    var slcObj = $("#objctZ").val();
-    if (slcObj == 0) {
-        successRequest = false;
-        $("#adr_S").text("Необходимо выбрать адрес объекта").show();
-
-        $("html, body").animate({ scrollTop: 50 }, "slow");
-        window.setTimeout(function () { $('#adr_S').hide(); }, 5000);
-    }
-    var P_Services = [];
-    var ServicesLength = $('#PrServiceH tbody tr').length;
-    var ismc = "";
-    if (ServicesLength == 0) {
-        $('#servicelbl').remove()
-        $("#objctZ").after('<label id="servicelbl" style="color:red;font-weight: bold;float:left">Необходимо выбрать услуг</label>').show();
-        successRequest = false;
-        $("html, body").animate({ scrollTop: 50 }, "slow");
-        window.setTimeout(function () { $('#servicelbl').remove(); }, 5000);// 
-    }
-    else {
-
-        $('#PrServiceH tbody tr').each(function () {
-            var SERVICE_GUID = ($(this).attr('service-guid') != undefined) ? $(this).attr('service-guid') : ($(this).attr('grup-guid') != undefined) ? $(this).attr('grup-guid') : $('.selectdrc').attr('guid')
-            var QUANTITY = $(this).children('td:eq(1)').children('input[type="text"]').val();
-            QUANTITY = (QUANTITY == undefined) ? 0 : QUANTITY.replace(',', '.')
-            ismc = $(this).attr('ismc');
-            var eq = ($('#PrServiceH thead tr th:eq(0)').text() == 'Наименование направления') ? 1 : 3
-            var COST = $(this).children('td:eq(' + eq + ')').children('a').text()
-
-
-            // COST = (COST == undefined || COST == 'Договорная') ? '0.00' : COST
-            if (COST == undefined || COST == 'Договорная') {
-                successRequest = false
-                $('#costErr').remove()
-                $(this).children('td:eq(' + eq + ')').children('a').after('<label id="costErr" style="color:red">Необходимо указать сумму</label>')
-                $("html, body").animate({ scrollTop: 500 }, "slow");
-                window.setTimeout(function () { $('#costErr').remove(); }, 5000);
-            }
-            SERVICE_NAME = $(this).attr('service-name')
-            SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).attr('grup-name') : SERVICE_NAME;
-            SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).children('td:eq(0)').text() : SERVICE_NAME;
-            P_Services.push({ COST: COST, QUANTITY: QUANTITY, SERVICE_GUID: SERVICE_GUID, SERVICE_NAME: SERVICE_NAME })
-
-
-        })
-    }
-
-    var RESPONSIBLE_ID = (ismc == "True" || ismc == undefined) ? $('#Otven').val() : null
-    var RESPONSIBLE_EMAIL = (ismc == "True" || ismc == undefined) ? $('#Otven option:selected').attr('email') : null
-    var PERFORMER_EMAIL = $('#IspolList option:selected').attr('email')  //(ismc == "True" || ismc == undefined) ?: null
-    var ispol = $('#IspolList').val()//(ismc == "True" || ismc == undefined) ?  : null
-
-
-    var rm_Type = $("#Room_Type").val();
-    if (rm_Type == 0) {
-        successRequest = false;
-        $("#Room_Type_S").text('Пожалуйста, выберите "Тип помещения"').show();
-        // $("html, body").animate({ scrollTop: 50 }, "slow");
-        $("html, body").animate({ scrollTop: 50 }, "slow");
-        window.setTimeout(function () { $('#Room_Type_S').hide(); }, 5000);
-    }
-
-    var room_ = $("#Room").val();
-    if (room_.length == 0) {
-        successRequest = false
-        $("#Room_S").text("Необходимо заполнить поле \"Помещение\"").show();
-        $("html, body").animate({ scrollTop: 50 }, "slow");
-        window.setTimeout(function () { $('#Room_S').hide(); }, 5000);
-    }
-    var accnmbr = $("#Acnum").val();
-    if (accnmbr.length == 0) {
-        successRequest = false
-        $("#Acnum_S").text("Необходимо заполнить поле \"Номер лицевого счета\"").show();
-        $("html, body").animate({ scrollTop: 50 }, "slow");
-        window.setTimeout(function () { $('#Acnum_S').hide(); }, 5000);
-    }
-    var Ind = $("#Ind").val();
-    if (Ind.length == 0) {
-        successRequest = false
-        $("#Ind_S").text("Необходимо заполнить поле \"Заявитель\"").show();
-        $("html, body").animate({ scrollTop: 50 }, "slow");
-        window.setTimeout(function () { $('#Ind_S').hide(); }, 5000);
-    }
-
-    var Phn = $("#Phn").val();
-    if (Phn.length == 0) {
-        successRequest = false
-        $("#Phn_S").text("Необходимо заполнить поле \"Номер телефона\"").show();
-        $("html, body").animate({ scrollTop: 50 }, "slow");
-        window.setTimeout(function () { $('#Phn_S').hide(); }, 5000);
-    }
-
-
-    var Calendar = $("#calen1").val();
-    var time = $("#tm").val();
-
-    if (Calendar == "" || time == "") {
-        successRequest = false;
-        if (time == "") {
-            $("#tm_S").text("Необходимо заполнить поле \"Планируемое время\"").show();
-
-        }
-        if (Calendar == "") {
-            $("#tm_S").text("Необходимо заполнить поле \"Планируемая дата\"").show();
-
-        }
-        $("html, body").animate({ scrollTop: 700 }, "slow");
-        window.setTimeout(function () { $('#tm_S').hide(); }, 5000);
-    } else {
-
-
-        var mindate = getDate();
-        var mintime = getTime("");
-        if (Calendar < mindate) {
-            successRequest = false
-            $("#calen1").val(Calendar)
-            $("#tm").val(time);
-            $("#tm_S").text("Необходимо указать дату  не ранее текущей ").show();
-            $("html, body").animate({ scrollTop: 500 }, "slow");
-            window.setTimeout(function () { $('#tm_S').hide(); }, 500);
-
-        }
-        if (time <= mintime && Calendar == mindate) {
-            successRequest = false
-            $("#tm_S").text("Необходимо указать время  не ранее текущего").show();
-            $("#calen1").val(Calendar)
-            $("#tm").val(time);
-            $("html, body").animate({ scrollTop: 500 }, "slow");
-            window.setTimeout(function () { $('#tm_S').hide(); }, 5000);
-        }
-
-    }
-    var otvets = $("#Otven").attr('itemid');
-    var RText = $("#RText").val();
-    RText = encodeURIComponent(RText)
-    var indid = $("#Ind").attr("itemid");
-
-    slcObj = JSON.parse(slcObj)
-    var ObjId = $("#objctZ").val();
-    var sclObjName = $("#objctZ option:selected").text();
-    var indid = $("#Ind").attr("itemid")
-    var RComment = $('#RComment').val()
-    if (indid == undefined) {
-        var objNotInd = [];
-        objNotInd.push({ "Object_Adress": sclObjName, "Object_Id": ObjId, "room": room_, "indName": Ind, "phon": Phn, "score": $('#Acnum').val() })
-        RComment = RComment + "|" + JSON.stringify(objNotInd)
-        indid = 0;
-        successRequest = false
-        alert('Помещение не найдено в системе')
-    }
-
-    RComment = encodeURI(RComment)
-    var RImg = []; // $(".foto-disp").attr("data-url")
-    //for (var i = 0; i < 4; i++) {
-    //    RImg.push({ "REQUEST_COMMENT_": "=", "COMMENT_FILE": $("#fotoDisp" + i + "").attr("data-url"), "COMMENT_DATETIME": "++" });
-    //}
-    $("#imgss img").each(function () {
-        var ImgSrc = $(this).attr("data-url")
-        RImg.push({ "REQUEST_COMMENT_": "=", "COMMENT_FILE": ImgSrc, "COMMENT_DATETIME": "++" })
-    })
-    var em_ = $('#chkem').prop('checked')
-    em_ = "" + em_ + ""
-    var opl = $('#opl').prop('checked');
-    opl = "" + opl + ""
-    var SPECIATISTS = null
-    if (location.pathname == '/Responsible_Admin/CreateRequest.aspx' && $('.manysps').length != 0) {
-
-        SPECIATISTS = Sps_json();//JSON.stringify(spesialists_)
-        if (SPECIATISTS == false) {
-            successRequest = false
-        }
-    }
-
-
-    var SLogId = sessionStorage.getItem("Log")
-    var role = sessionStorage.getItem("role")
-    var request_type = $('#reqType').val()
-    if (role == 15) {
-        request_type = "1"
-    }
     var obj = {
-        'slcObj': slcObj,
-        'IndId_': indid,
-        'Lg': SLogId,
-        'em': em_,
-        'Pdate': Calendar,
-        'Ptime': time,
-        'spId': ispol,
-        'Rt': RText,
+        'slcObj': checkControls().obj.slcObj,
+        'IndId_': checkControls().obj.IndId_,
+        'Lg': checkControls().obj.Lg,
+        'em': checkControls().obj.em,
+        'Pdate': checkControls().obj.Pdate,
+        'Ptime': checkControls().obj.Ptime,
+        'spId': checkControls().obj.spId,
+        'Rt': checkControls().obj.Rt,
 
-        'Rc': RComment,
+        'Rc': checkControls().obj.Rc,
 
-        'RoomT': rm_Type,
-        'NUMBER': accnmbr,
-        'opl': opl,
-        'phn': Phn,
-        'HReq': $('#hedrZ').attr('z_id'),
-        'indName': $('#Ind').val(),
-        'TOTAL_COST': $('#total').text(),
-        'RESPONSIBLE_ID': RESPONSIBLE_ID,
-        'RESPONSIBLE_EMAIL': RESPONSIBLE_EMAIL,
-        'AUTHOR_COMMENT': $('#fiodsp').text(),
-        'PERFORMER_EMAIL': PERFORMER_EMAIL,
+        'RoomT': checkControls().obj.RoomT,
+        'NUMBER': checkControls().obj.NUMBER,
+        'opl': checkControls().obj.opl,
+        'phn': checkControls().obj.phn,
+        'HReq': checkControls().obj.HReq,
+        'indName': checkControls().obj.indName,
+        'TOTAL_COST': checkControls().obj.TOTAL_COST,
+        'RESPONSIBLE_ID': checkControls().obj.RESPONSIBLE_ID,
+        'RESPONSIBLE_EMAIL': checkControls().obj.RESPONSIBLE_EMAIL,
+        'AUTHOR_COMMENT': checkControls().obj.AUTHOR_COMMENT,
+        'PERFORMER_EMAIL': checkControls().obj.PERFORMER_EMAIL,
         'STATUS_ID': e,
-        'request_type': request_type,
+        'request_type': checkControls().obj.request_type,
+        'RequestKind': checkControls().obj.RequestKind,
         'path': window.location.pathname
 
     }
@@ -2843,10 +2103,10 @@ function UpdateRequest(e) {
         var R_id = urlParam('RId')
         R_id = R_id.replace("disp_", "");
         if ($.isNumeric(R_id)) {
-            SaveRequest_Super(JSON.stringify(obj), JSON.stringify(P_Services), JSON.stringify(RImg), SPECIATISTS);
+            SaveRequest_Super(JSON.stringify(obj), JSON.stringify(checkControls().P_Services), JSON.stringify(checkControls().RImg), null);
         }
         else {
-            Save_SUPPLIER_Request_Super(JSON.stringify(obj), JSON.stringify(P_Services));
+            Save_SUPPLIER_Request_Super(JSON.stringify(obj), JSON.stringify(checkControls().P_Services));
         }
     }
 }
@@ -2912,23 +2172,7 @@ function GetAndSaveDatasSuppRequest(e, successRequest) {
     var plusTwoOurs = (parseInt(hm[0]) >= 23 ? 0 : parseInt(hm[0])) + 2
     plusTwoOurs = plusTwoOurs + ":" + hm[1]
 
-    var ImgSrc = "";
-    $("#imgss img").each(function (i) {
-
-        if (i == 0) {
-            ImgSrc = $(this).attr("data-url")
-        }
-        else {
-            ImgSrc = ImgSrc + "," + $(this).attr("data-url")
-        }
-
-        // RImg.push({ "REQUEST_COMMENT_": "=", "COMMENT_FILE": ImgSrc, "COMMENT_DATETIME": "++" })
-    })
-
-    var SERVICE_GUID = ""
-    var SERVICE_NAME = ""
-    var SERVICE_COST = ""
-    var SERVICE_COUNT = ""
+    var ImgSrc = checkControls().RImgM;
     var request_type = $('#reqType').val()
     var role = sessionStorage.getItem("role")
     if (role == 15) {
@@ -2936,42 +2180,9 @@ function GetAndSaveDatasSuppRequest(e, successRequest) {
     }
     var PERFORMER_EMAIL = $('#IspolList option:selected').attr('email')
     var ispol = $('#IspolList').val()
-    var suppServices = [];
-    $('#PrServiceH tbody tr').each(function () {
-        SERVICE_GUID = ($(this).attr('service-guid') != undefined) ? $(this).attr('service-guid') : ($(this).attr('grup-guid') != undefined) ? $(this).attr('grup-guid') : $('.selectdrc').attr('guid')
-        ismc = $(this).attr('ismc');
-        SERVICE_NAME = $(this).attr('service-name')
-        SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).attr('grup-name') : SERVICE_NAME;
-        SERVICE_NAME = (SERVICE_NAME == undefined) ? $(this).children('td:eq(0)').text() : SERVICE_NAME;
-        SERVICE_COUNT = $(this).children('td:eq(1)').children('input[type="text"]').val();
-        SERVICE_COUNT = (SERVICE_COUNT == undefined) ? 0 : SERVICE_COUNT.replace(',', '.')
+    var suppServices = checkControls().suppServices;
+   
 
-        var eq = 3;// ($('#PrServiceH thead tr th:eq(0)').text() == 'Наименование направления') ? 1 : 3
-        SERVICE_COST = $(this).children('td:eq(3)').children('a').text()
-
-        if (SERVICE_COST == undefined || SERVICE_COST == 'Договорная') {
-            successRequest = false
-            $('#costErr').remove()
-            $(this).children('td:eq(' + eq + ')').children('a').after('<label id="costErr" style="color:red">Необходимо указать сумму</label>')
-            $("html, body").animate({ scrollTop: 500 }, "slow");
-            window.setTimeout(function () { $('#costErr').remove(); }, 5000);
-        }
-        // SERVICE_COST = (SERVICE_COST == undefined || SERVICE_COST == 'Договорная') ? '0.00' : SERVICE_COST
-
-        // P_Services.push({ COST: COST, QUANTITY: QUANTITY, SERVICE_GUID: SERVICE_GUID })
-        suppServices.push({
-            "SERVICE_GUID": SERVICE_GUID,
-            "SERVICE_NAME": SERVICE_NAME,
-            //  "MASTER_GUID": GUID,
-            "SERVICE_COST": SERVICE_COST,
-            "SERVICE_COUNT": SERVICE_COUNT,
-            "SERVICE_END_COST": SERVICE_COST,
-            "SERVICE_PERCENT": "",
-            "SERVICE_SHOP_ID": "",
-            "SERVICE_COMMENT": "",
-            "SERVICE_CUSTOM": ""
-        })
-    })
     var obj_ = {
         'tokenID': "",
         'LOGIN': accnmbr,
@@ -2988,6 +2199,7 @@ function GetAndSaveDatasSuppRequest(e, successRequest) {
         'SUPPLIER': SUPPLIER,
         'SUPPLIER_GUID': SUPPLIER_GUID,
         'COMMENTS': "",
+        'cmnt': $('#RComment').val(),
         'CUSTOM': "",
         'spId': ispol,
         'WORKDATE': Calendar,
@@ -2998,25 +2210,7 @@ function GetAndSaveDatasSuppRequest(e, successRequest) {
         'lg': sessionStorage.getItem("Log"),
         'path': window.location.pathname
     }
-    //var suppServices = {
-    //    "SERVICE_GUID": SERVICE_GUID,
-    //    "SERVICE_NAME": SERVICE_NAME,
-    //    //  "MASTER_GUID": GUID,
-    //    "SERVICE_COST": SERVICE_COST,
-    //    "SERVICE_COUNT": SERVICE_COUNT,
-    //    "SERVICE_END_COST": SERVICE_COST,
-    //    "SERVICE_PERCENT": "",
-    //    "SERVICE_SHOP_ID": "",
-    //    "SERVICE_COMMENT": "",
-    //    "SERVICE_CUSTOM": ""
-    //}
-    //var  i=0 
-
-    // console.log("images: " + ImgSrc)
-    // console.log(suppServices)
-    //console.log('suppServices-----------------------------------')
-    //console.log(obj_)
-    // console.log('suppRequest-----------------------------------')
+  
     if (successRequest == true) {
         $('.ui-loader-background,#loader').show()
         Add_Supplier_request(obj_, suppServices)
@@ -3066,7 +2260,7 @@ function SaveRequest_Super(jsonRequestString, prs_json, Cf_json, SPECIATISTS) {
     console.log(frmData)
     $.ajax({
         type: "POST",
-        url:'http://172.20.20.115/ProjectApi/Request_Fili/SaveRequest_Super',// window.location.protocol + '//' + window.location.host + location.port + '/ProjectApi/Request_Fili/SaveRequest_Super',//"http://localhost:63362/Request_Fili/SaveRequest_Super",//
+        url: window.location.protocol + '//' + window.location.host + location.port + '/ProjectApi/Request_Fili/SaveRequest_Super',//"http://localhost:63362/Request_Fili/SaveRequest_Super",//
         error: function (t) { $('.ui-loader-background,#loader').show(); alert(t) },
         data: frmData,
         contentType: false,//"application/json; charset=utf-8",
@@ -3484,16 +2678,16 @@ function getDirection_K(selected, PROJECT_GUID, otv, RequestKind) {
                     var SERVICE_GUID_s = selected[0].SERVICE_GUID
                     var guid_j = j[i].GUID
                     if (selected[0].SERVICE_GUID == j[i].GUID) {
-                        class_ = 'class="col-md-3 drct selectdrc"'
+                        class_ = 'class="col-md-3 drct selectdrc w-24 drct border-1 rounded8 text-center"'
 
                         $('#PrServiceH').show()
                         $('#PrServiceH tbody').empty();
                         $('#PrServiceH thead tr th:eq(3)').show();
                         $('#PrServiceH thead tr th:eq(0)').text('Наименование направления')
-                        $('#PrServiceH thead tr').each(function () {
-                            $(this).children('th:eq(1),th:eq(2)').hide();
+                        //$('#PrServiceH thead tr').each(function () {
+                        //    $(this).children('th:eq(1),th:eq(2)').hide();
 
-                        })
+                        //})
                         var text = j[i].NAME
                         $('#PrServiceH tbody').append('<tr><td >' + text + '</td><td class="CostTd"><a onclick="Open_Pop(this)">' + selected[0].COST + '</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a data-url="0" disabled="disabled"   class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
                         GetRelatedGroups_K("", PROJECT_GUID, selected[0].SERVICE_GUID, otv)
@@ -3899,7 +3093,11 @@ function getServices_K(e, SERVICE_GUID, selected, otv) {
                         //////console.log(selected[i].SERVICE_SUPPLIER)
                         //console.log(selected)
                         if (selected[i].PARENT_GUID != 0) {
-                            $('#subMenu').children('div[grup-guid=\"' + selected[i].PARENT_GUID + '\"]').children('input[type="checkbox"][service-guid=\"' + selected[i].SERVICE_GUID + '\"]').prop('checked', true)
+                            //$('#subMenu #Services_ tbody').children('tr[grup-guid=\"' + selected[i].PARENT_GUID + '\"]').children('td:eq(0)').children('div[grup-guid=\"' + selected[i].PARENT_GUID + '\"]').children('input[type="checkbox"][service-guid=\"' + selected[i].SERVICE_GUID + '\"]').prop('checked', true)
+
+
+                            //$('#subMenu #Services_ tbody tr[grup-guid=\"' + selected[i].PARENT_GUID + '\"] td:eq(0) div[grup-guid=\"' + selected[i].PARENT_GUID + '\"]').children('input[type="checkbox"][service-guid=\"' + selected[i].SERVICE_GUID + '\"]').prop('checked', true)
+                            $('input[type="checkbox"][service-guid=\"' + selected[i].SERVICE_GUID + '\"]').prop('checked', true)
                             $('#PrServiceH thead tr th:eq(0)').text('Наименование услуг')
                             var edizm = selected[i].SERVICE_UNIT
 
@@ -4965,7 +4163,7 @@ function readU_RLOtmenSuper(input, imgName) {
             //////console.log(formData);
             $.ajax({
                 type: "POST",
-                url: window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/UploadFile",
+                url: window.location.protocol + '//' + window.location.host +"/WCFServices/Constructor_API.svc/UploadFile",//
                 data: formData,
                 type: 'POST',
                 contentType: "multipart/form-data",
@@ -4993,22 +4191,22 @@ function readU_RLOtmenSuper(input, imgName) {
                     // FileName = FileName.substr(FileName.lastIndexOf("\\",))  <h4 itemid="' + itemnum2 + '" class="titleF">' + imgName + '</h4>
                     var extention = F_ile.substr(F_ile.indexOf(".") + 1)
                     if (extention != "docx" && extention != "doc" && extention != "xls" && extention != "xlsx" && extention != "pdf" && extention != "PDF" && extention != "txt" && extention != "TXT") {
-                        $("#cmntsts2").after('<br><img itemid="' + itemnum2 + '" data-url=' + result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/") + '  src=' + result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/") + ' style="width:71px" /><i class="fa fa-close removing2" onclick="removeF3(this,' + itemnum2 + ')"   aria-hidden="true"></i>')
+                        $("#cmntsts2").after('<div class="f_Otmen"><img itemid="' + itemnum2 + '" data-url=' + result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/") + '  src=' + result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/") + ' style="width:71px" /><i class="fa fa-close removing2" onclick="removeF3(this,' + itemnum2 + ')"   aria-hidden="true"></i></div>')
                     }
                     if (extention == "docx" || extention == "doc") {
-                        $("#cmntsts2").after('<br><h4 itemid="' + itemnum2 + '" class="titleF">' + imgName + '</h4><img itemid="' + itemnum2 + '" data-url=' + result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/") + ' src="' + window.location.protocol + '//' + window.location.host + '/img/word.png"style="width:71px" /><i class="fa fa-close removing2" onclick="removeF3(this,' + itemnum2 + ')"   aria-hidden="true"></i>')
+                        $("#cmntsts2").after('<div class="f_Otmen"><h4 itemid="' + itemnum2 + '" class="titleF">' + imgName + '</h4><img itemid="' + itemnum2 + '" data-url=' + result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/") + ' src="' + window.location.protocol + '//' + window.location.host + '/img/word.png"style="width:71px" /><i class="fa fa-close removing2" onclick="removeF3(this,' + itemnum2 + ')"   aria-hidden="true"></i></div>')
 
                     }
                     if (extention == "xlsx" || extention == "xls") {
-                        $("#cmntsts2").after('<br><h4 itemid="' + itemnum2 + '" itemid="' + itemnum2 + '" class="titleF">' + imgName + '</h4><img itemid="' + itemnum2 + '" data-url=' + result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/") + ' src="' + window.location.protocol + '//' + window.location.host + '/img/excel.png"style="width:71px" /><i class="fa fa-close removing2" onclick="removeF3(this,' + itemnum2 + ')"   aria-hidden="true"></i>')
+                        $("#cmntsts2").after('<div class="f_Otmen"><h4 itemid="' + itemnum2 + '" itemid="' + itemnum2 + '" class="titleF">' + imgName + '</h4><img itemid="' + itemnum2 + '" data-url=' + result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/") + ' src="' + window.location.protocol + '//' + window.location.host + '/img/excel.png"style="width:71px" /><i class="fa fa-close removing2" onclick="removeF3(this,' + itemnum2 + ')"   aria-hidden="true"></i></div>')
 
                     }
                     if (extention == "pdf" || extention == "PDF") {
-                        $("#cmntsts2").after('<br><h4 itemid="' + itemnum2 + '" class="titleF">' + imgName + '</h4><img itemid="' + itemnum2 + '" data-url=' + result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/") + ' src="' + window.location.protocol + '//' + window.location.host + '/img/pedefe.png" style="width:71px" /><i class="fa fa-close removing2" onclick="removeF3(this,' + itemnum2 + ')"   aria-hidden="true"></i>')
+                        $("#cmntsts2").after('<div class="f_Otmen"><h4 itemid="' + itemnum2 + '" class="titleF">' + imgName + '</h4><img itemid="' + itemnum2 + '" data-url=' + result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/") + ' src="' + window.location.protocol + '//' + window.location.host + '/img/pedefe.png" style="width:71px" /><i class="fa fa-close removing2" onclick="removeF3(this,' + itemnum2 + ')"   aria-hidden="true"></i></div>')
 
                     }
                     if (extention == "txt" || extention == "TXT") {
-                        $("#cmntsts2").after('<br><h4 itemid="' + itemnum2 + '" class="titleF">' + imgName + '</h4><img itemid="' + itemnum2 + '" data-url=' + result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/") + ' src="' + window.location.protocol + '//' + window.location.host + '/img/texete.png"style="width:71px" /><i class="fa fa-close removing2" onclick="removeF3(this,' + itemnum2 + ')"   aria-hidden="true"></i>')
+                        $("#cmntsts2").after('<div class="f_Otmen"><h4 itemid="' + itemnum2 + '" class="titleF">' + imgName + '</h4><img itemid="' + itemnum2 + '" data-url=' + result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/") + ' src="' + window.location.protocol + '//' + window.location.host + '/img/texete.png"style="width:71px" /><i class="fa fa-close removing2" onclick="removeF3(this,' + itemnum2 + ')"   aria-hidden="true"></i></div>')
 
                     }
                     var allOfImgs = $('.modal-body2 > img').length;
@@ -5244,10 +4442,9 @@ function readURLHSuper(input, imgName) {
     }
 }
 function removeF2(e, num) {
-    $(e).remove();
-    $(".HistImg[itemid='" + num + "']").remove();
-    $(".titleF2[itemid='" + num + "']").remove();
-    $('#fileH_btn').show();
+    $(e).parent().remove();
+ 
+    $('#f_iles2').show().val('');
 }
 function removeF3(e, num) {
     $(e).remove();
@@ -5847,7 +5044,7 @@ function gtCommenst(selectedSetId, Rid_) {
                         $("#hstCom").append('<h4 style="margin-bottom:  -6px;">' + jsondata_[i].AUTHOR + ' :  ' + comment + '</h4> (' + date_ + ')').show();
                     }
 
-                    $("#hstCom").show().css("height", "190px");
+                    $("#hstCom").parent().show()//.css("height", "190px");
 
                 }
                 else {
@@ -5886,7 +5083,7 @@ function gtCommenst(selectedSetId, Rid_) {
                         var date_ = jsondata_[i].COMMENT_DATETIME
                         $("#hstCom").append('<h4 style="margin-bottom:  -6px;">' + jsondata_[i].AUTHOR + ' : ' + jsondata_[i].REQUEST_COMMENT + '<h4/> (' + date_ + ')').show();
                     }
-                    $("#hstCom").show().css("height", "130px");
+                    $("#hstCom").parent().show()//.css("height", "130px");
                     $("#imgLink").attr("href", jsondata_[i].COMMENT_FILE)
                     $("#imgdwnl").attr("src", jsondata_[i].COMMENT_FILE)
                 }
@@ -6870,6 +6067,45 @@ function GetProductN(e, obj, gs) {
             sessionStorage.removeItem("finded")
         }
     })
+}
+function getDateForCheck() {
+    var dtToday = new Date();
+
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+
+    if (month < 10)
+        month = '0' + month.toString();
+    if (day < 10)
+        day = '0' + day.toString();
+
+    var maxDate = year + '-' + month + '-' + day;
+    // $('#calen').attr('max', maxDate);
+    $('#calen1').attr('min', maxDate);
+    return maxDate;
+}
+function getDate() {
+    var dtToday = new Date();
+
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+
+    if (month < 10)
+        month = '0' + month.toString();
+    if (day < 10)
+        day = '0' + day.toString();
+
+    var maxDate = year + '-' + month + '-' + day;
+    // $('#calen').attr('max', maxDate);
+    $('#calen1').attr('min', maxDate);
+    $('#calen1').val(maxDate);
+    // $("#calen").
+
+    return maxDate;
+
+
 }
 function getServices(e, d) {
     //var st = sessionStorage.getItem("st");

@@ -4,9 +4,35 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <style>
-        .foto-disp{
-            width:70px
+        .close2{
+            cursor:pointer
         }
+        .removing2{
+            color:red
+        }
+        .modal-content2 {
+            width: 50% !important;
+            position: fixed;
+                margin-top: 160em;
+        }
+
+        .modal2 {
+            display:none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 215em !important;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 10000;
+        }
+
+        .foto-disp {
+            width: 70px
+        }
+
         #hstCom {
             border-radius: 8px;
             border: 1px dotted #777777;
@@ -108,7 +134,7 @@
                         color: red;
                     }
                 </style>
-              <form>
+                <form>
                     <div class="flexHoriz mb-4">
                         <label class="mr-4 w-auto ">
                             <input id="opl" type="checkbox" class="mr-1">
@@ -324,11 +350,11 @@
                         <button id="SendComent" class="ml-auto btn btn1 w-auto flexCenter" type="button">Отправить</button>
 
                     </div>
-                    <div  id="imgss"class="flexHoriz w-100 justify-items-start">
-                           <input class="knop ml-2" id="files" type="file" /><br />
+                    <div id="imgss" class="flexHoriz w-100 justify-items-start">
+                        <input class="knop ml-2" id="files" type="file" /><br />
                     </div>
 
-                 
+
 
                     <br />
 
@@ -342,40 +368,12 @@
                         <%--  <button id="updateRequest" style="display: block" class="h48 btn btn1 flexCenter">Сохранить</button>--%>
 
                         <input type="button" id="updateRequest" style="" class="h48 btn btn1" value="Сохранить">
-                        <button id="SaveDD" class="h48 btn btn1" type="button" style="background: rgb(0,147,233);">Принять в работу</button>
-                        <button id="SaveMO" class="h48 btn btn1" type="button" style="background: rgb(0,147,233);">Отправить</button>
+                        <button id="SaveDD" data-status="1" class="h48 btn btn1" type="button" style="background: rgb(0,147,233);">Принять в работу</button>
+                        <button id="SaveMO" data-status="2" class="h48 btn btn1" type="button" style="background: rgb(0,147,233);">Отправить</button>
                         <button id="backUo" class="h48 btn btn1 outline shadow-none" type="button">Отмена</button>
                     </div>
-                  </form>
-                <br />
+                </form>
 
-                <div id="myModal5" style="z-index: 1000; display: none" class="modal2 shadow p-3 bgWhite rounded16 w-100">
-
-                    <!-- Modal content -->
-                    <div class="modal-content2" style="">
-                        <div class="modal-header2 bgWhite">
-                            <span class="close2 font24" style="color: black" id="close_6">&times;</span>
-                            <h2 id="mh3"></h2>
-                        </div>
-                        <div class="h-150 w-100 modal-body2">
-                            <textarea class="w-100 h-100 m-0 border-grey p-2" id="cmntsts2">Все работы по данной заявке выполнены</textarea>
-
-                        </div>
-                        <hr />
-                        <div class="modal-footer2 flexHoriz w-100 m-0 p-0" style="">
-
-                            <input class="knop" id="f_iles2" style="width: 124px" type="file">
-
-
-                            <input type="button" id="OkVipol" name="name" value="ОК" class="ml-auto w-15 btn btn1 flexCenter" />
-                            <input type="button" id="Close_Ot" name="name" value="Отмена" class="ml-3 w-15 btn btn1 outline shadow-none flexCenter mr-0" />
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <br />
 
                 <div id="myModal6" style="z-index: 1000; display: none" class="modal2 shadow p-3 bgWhite rounded16 w-100">
 
@@ -452,6 +450,31 @@
 
             </div>
             <!-- main block -->
+            <div id="myModal5" style="display: none" class="modal2">
+
+                <!-- Modal content -->
+                <div class="modal-content2  dialog w-400 pt-2">
+                    <div class="modal-header2 bgWhite">
+                        <span class="close2 font24" style="color: black" id="close_5">&times;</span>
+                        <h2 id="mh3"></h2>
+                    </div>
+                    <div class="modal-body2">
+                        <textarea class="w-100 h-100 m-0 border-grey p-2" id="cmntsts2">Все работы по данной заявке выполнены</textarea>
+
+                    </div>
+                    <hr />
+                    <div class="modal-footer2 flexHoriz w-100 m-0 p-0" style="">
+
+                        <input class="knop" id="f_iles2" style="width: 100%" type="file">
+
+
+                        <input type="button" id="OkVipol" name="name" value="ОК" class="ml-auto w-15 btn btn1 flexCenter" />
+                        <input type="button" id="Close_Ot" name="name" value="Отмена" class="ml-3 w-15 btn btn1 outline shadow-none flexCenter mr-0" />
+
+                    </div>
+                </div>
+
+            </div>
         </div>
         <!-- row -->
     </div>
