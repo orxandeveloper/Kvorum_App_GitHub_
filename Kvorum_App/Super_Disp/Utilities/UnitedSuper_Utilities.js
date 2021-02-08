@@ -264,6 +264,15 @@ $(function () {
             sessionStorage.removeItem("REQUEST_STATUS")
            // $('#createR').hide();
         }
+        if (loc == '/Disp_Admin/RegisterRequest.aspx') {
+            $('#RegisterRequest,#allRequests').removeClass('active')
+            $('#RegisterRequest').addClass('active')
+        }
+        if (loc == '/Disp_Admin/AllRequsts.aspx') {
+
+            $('#RegisterRequest,#allRequests').removeClass('active')
+            $('#allRequests').addClass('active')
+        }
     })
     
     //setTimeout(function () {
@@ -299,7 +308,7 @@ $(function () {
 //document.write('<' + 'script type="../Disp_Admin/Script/date-de.js"></' + 'script>')
 function GotoCreateFunction() {
     var loc = window.location.pathname
-    var Page = (loc.indexOf('Disp_Admin') != -1) ? 'CreateRequest.aspx' : (loc.indexOf('Super_Disp') != -1) ?'CreateDispRequest.aspx' : ''
+    var Page = (loc.indexOf('Disp_Admin') != -1) ? 'CreateRequest.aspx' : (loc.indexOf('Super_Disp') != -1) ? 'CreateDispRequest.aspx' : (loc.indexOf('Responsible_Admin') != -1) ? 'CreateRequest.aspx' :''
     window.location.href = Page//"CreateDispRequest.aspx"
 }
 function makefilter(objfilt, lg, role, all) {

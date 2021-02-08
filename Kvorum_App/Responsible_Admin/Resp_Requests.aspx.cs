@@ -18,7 +18,7 @@ namespace Kvorum_App.Responsible_Admin
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            string adressUrl = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + "/Super_Disp/DispRequests.aspx";
+            string adressUrl = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + ":"+ HttpContext.Current.Request.Url.Port+ "/Super_Disp/DispRequests.aspx";
 
             registerRequest.InnerHtml = Mydb.LoadPageToAnotherPage(adressUrl, "//div[@id='contentRegister']");
         }

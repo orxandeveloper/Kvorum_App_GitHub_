@@ -53,9 +53,9 @@
                     </a></li>
                 <li class="nav-item">
                     <ul class=" list-unstyled list-inline pl-2 mt-2 crumbs">
-                        <li class="list-inline-item"><a href="/" class="font-weight-bold font18 green-text">Супер Диспетчерская</a> </li>
+                        <li class="list-inline-item"><a href="/" class="font-weight-bold font18 green-text">Диспетчерская</a> </li>
                         <li class="list-inline-item reddish font-weight-bold font18 ">
-                            <img src="../img/ellipse.svg" class="greenerSvg mr-2" alt="">Информационно-справочная служба<</li>
+                            <img src="../img/ellipse.svg" class="greenerSvg mr-2" alt="">Информационно-справочная служба</li>
                     </ul>
                 </li>
                 <li class="nav-item ml-auto mr-4">
@@ -207,11 +207,14 @@
                 <ol class="navbar-nav mt-3 show-desktop">
 
 
-                    <li class="nav-link active"><a href="#" class="flexHoriz">
+                    <li class="nav-link active" id="RegisterRequest"><a href="RegisterRequest.aspx" class="flexHoriz">
                         <img src="../img/tasks-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font-weight-bold mb-0">Заявки</p>
                     </a></li>
-
+                      <li class="nav-link" id="allRequests"><a href="AllRequsts.aspx" class="flexHoriz">
+                        <img src="../img/tasks-ic-bl.svg" class="w24 mr-3" alt="" />
+                        <p class="font-weight-bold mb-0">Все Заявки</p>
+                    </a></li>
 
                 </ol>
 

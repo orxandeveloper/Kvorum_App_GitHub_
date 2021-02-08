@@ -8,5 +8,5 @@
  </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-       <div id="registerRequest" runat="server"></div>
+       <div id="registerRequest"  class="col-lg-9half col-sm-12 p-0 min-vh-100 bgLightGrey3" runat="server"></div>
 </asp:Content>

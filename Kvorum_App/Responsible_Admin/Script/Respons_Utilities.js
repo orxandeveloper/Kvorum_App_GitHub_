@@ -197,25 +197,25 @@
     //});
     //getVersion
 
-    $.ajax({
-        type: "POST",
-        url: window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/GetVersion",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            //res = result;
-            //console.log(result);
-            var jsondata = JSON.stringify(result.ResultData)
-            var jsondata_ = JSON.parse(jsondata)
-            $("#vers").text("Версия: " + jsondata_.VERSION);
-        },
-        error: function (r) {
-            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-        },
-        failure: function (r) {
-            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-        }
-    });
+    //$.ajax({
+    //    type: "POST",
+    //    url: window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/GetVersion",
+    //    contentType: "application/json; charset=utf-8",
+    //    dataType: "json",
+    //    success: function (result) {
+    //        //res = result;
+    //        //console.log(result);
+    //        var jsondata = JSON.stringify(result.ResultData)
+    //        var jsondata_ = JSON.parse(jsondata)
+    //        $("#vers").text("Версия: " + jsondata_.VERSION);
+    //    },
+    //    error: function (r) {
+    //        console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+    //    },
+    //    failure: function (r) {
+    //        console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+    //    }
+    //});
     $("#searchLog").keyup(function () {
         var srhvLog = $(this).val();
         srhvLog = (srhvLog.indexOf(":") > -1) ? srhvLog.replace(":", "|") : srhvLog;
@@ -428,18 +428,7 @@
             alertOtcet("orx", "a", "n")
             //   getDate2();
         })
-     //   sessionStorage.removeItem("RId");
-      //  sessionStorage.removeItem("st")
-       // $('#requestNumber').keypress(validateNumber);
-        //$('#rmNum').keypress(validasteNumber);
-        //$("#flt").click(function ()
-        //{sssca
-        //   // alert("awd")
-        //  alertMessage("sef", "awd", "awd");
-        //    //alertWithButton("assss","asss","aasfesg")
-
-        //})
-        //gtCounts(LogId);
+   
 
         $('#dgrm').click(function () {
             var dgrmvsbl = $("#dgrm_").css("display");
