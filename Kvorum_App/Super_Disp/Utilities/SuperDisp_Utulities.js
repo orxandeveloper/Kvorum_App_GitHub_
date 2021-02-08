@@ -2585,12 +2585,12 @@ function showResultArea(text) {
     else {
 
         if ($('#SerchService').val().length == 0) {
-            //$('#subMenuSearch').hide('1000')
-            //setTimeout(function () {
+            $('#subMenuSearch').hide('1000')
+            setTimeout(function () {
                
-            //        $('#subMenuSearch').remove();
+                    $('#subMenuSearch').remove();
               
-            //}, 1500);
+            }, 1500);
            
         }
     }
@@ -2836,15 +2836,15 @@ function selectGrupOnly_K(e, otv) {
         })
 
 
-        var SubMenuCount = $(e).parent('div').children('#subMenu').length
+        var SubMenuCount = $(e).parent('div').parent('div').children('#subMenu').length
         if (SubMenuCount != 0) {
-            var SubMenuChildren = $('#subMenu').children('div').length
+            var SubMenuChildren = $('#subMenu').children('#Services_').children('tbody').children('tr').length
             if (SubMenuChildren == 1) {
 
                 $('#PrServiceH tbody').children('tr[isgrup="true"]').remove();
-                var is_Checked = $('#subMenu').children('div').children('input[type="checkbox"]').prop('checked')
+                var is_Checked = $('#subMenu').children('#Services_').children('tbody').children('tr').children('td:eq(0)').children('div').children('input[type="checkbox"]').prop('checked')
                 if (is_Checked == false) {
-                    $('#subMenu').children('div').children('input[type="checkbox"]').trigger('click');
+                    $('#subMenu').children('#Services_').children('tbody').children('tr').children('td:eq(0)').children('div').children('input[type="checkbox"]').trigger('click')
                 }
 
             }
@@ -2876,15 +2876,15 @@ function selectGrupOnly_K(e, otv) {
 
         }
         $('.ui-loader-background,#loader').hide()
-        var SubMenuCount = $(e).parent('div').children('#subMenu').length
+        var SubMenuCount = $(e).parent('div').parent('div').children('#subMenu').length
         if (SubMenuCount != 0) {
-            var SubMenuChildren = $('#subMenu').children('div').length
+            var SubMenuChildren = $('#subMenu').children('#Services_').children('tbody').children('tr').length
             if (SubMenuChildren == 1) {
 
-                $('#PrServiceH tbody').empty()
-                var is_Checked = $('#subMenu').children('div').children('input[type="checkbox"]').prop('checked')
+                $('#PrServiceH tbody').children('tr[isgrup="true"]').remove();
+                var is_Checked = $('#subMenu').children('#Services_').children('tbody').children('tr').children('td:eq(0)').children('div').children('input[type="checkbox"]').prop('checked')
                 if (is_Checked == true) {
-                    $('#subMenu').children('div').children('input[type="checkbox"]').trigger('click');
+                    $('#subMenu').children('#Services_').children('tbody').children('tr').children('td:eq(0)').children('div').children('input[type="checkbox"]').trigger('click')
                 }
 
             }
@@ -3308,7 +3308,7 @@ function SelectService_K(e, SERVICE_GUID, otv) {
                 $('#lblSupp,#nameSup').remove();
             }
         })
-        var SubMenuChildren = $('#subMenu').children('div').length
+        var SubMenuChildren = $('#Services_').children('tbody').children('tr').length
         if (SubMenuChildren == 1) {
             var Is_checked = $('input[type="checkbox"][grup-guid="' + grupGuid + '"]').prop('checked')
 
@@ -3318,7 +3318,7 @@ function SelectService_K(e, SERVICE_GUID, otv) {
         }
     }
     else {
-        var SubMenuChildren = $('#subMenu').children('div').length
+        var SubMenuChildren = $('#Services_').children('tbody').children('tr').length
         if (SubMenuChildren == 1) {
             var Is_checked = $('input[type="checkbox"][grup-guid="' + grupGuid + '"]').prop('checked')
 
