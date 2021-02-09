@@ -308,7 +308,7 @@ $(function () {
 //document.write('<' + 'script type="../Disp_Admin/Script/date-de.js"></' + 'script>')
 function GotoCreateFunction() {
     var loc = window.location.pathname
-    var Page = (loc.indexOf('Disp_Admin') != -1) ? 'CreateRequest.aspx' : (loc.indexOf('Super_Disp') != -1) ? 'CreateDispRequest.aspx' : (loc.indexOf('Responsible_Admin') != -1) ? 'CreateRequest.aspx' :''
+    var Page = (loc.indexOf('Disp_Admin') != -1) ? 'CreateRequest.aspx' : (loc.indexOf('Super_Disp') != -1) ? 'CreateDispRequest.aspx' : (loc.indexOf('Responsible_Admin') != -1) ? 'CreateRequest.aspx' : (loc.indexOf('Supplier_Admin') != -1) ? 'CreateDispRequest.aspx' : ''
     window.location.href = Page//"CreateDispRequest.aspx"
 }
 function makefilter(objfilt, lg, role, all) {
@@ -724,7 +724,15 @@ function GetSuppRequests(lg, rl, all)
                     //    "sortAscending": ": активировать для сортировки столбца по возрастанию",
                     //    "sortDescending": ": активировать для сортировки столбца по убыванию"
                     //}
+                },
+               
+                "initComplete": function (settings, json) {
+                    changeDatatableElementStructures()
+
+
+                    // console.log ('bitti2')
                 }
+
             })
             $('.ui-loader-background,#loader').hide()
         }

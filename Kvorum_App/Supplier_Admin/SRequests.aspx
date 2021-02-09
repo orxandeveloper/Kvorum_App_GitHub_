@@ -2,137 +2,114 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <style>
-       .NewRequest {
+  <div class="col-lg-9half col-sm-12 p-0 min-vh-100 bgLightGrey3  " id="contentRegister">
+          <style>
+        .NewRequest {
             background: rgb(232,232,232) !important
         }
-  </style>
-     <div class="button">
-            <a class="create" href="CreateDispRequest.aspx"><i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;Создать</a>
-        </div>
-    <div class="filter">
-    
-           <%-- <button id="flt" class="btn genBtn">Фильтр</button>--%> <br />
-        <br />
-           <%-- <script>
-                document.getElementById('t').addEventListener('click', toggle);
-                function toggle() {
-                    var filter = document.getElementById('filter1');
-                    filter.style.display = filter.style.display == 'none' ? 'block' : 'none';
-                }
-            </script>--%>
-
-        <div class="filter-boxes" id="filter1" style="display:none">
-<div class="row">
-    <div class="col-xs-5 col1">
-          <label for="requestNumber">Номер заявки</label>
-                <input type="text" id="requestNumber" style="width:60%"/>
-        <br style="clear:both;"/>
-          <label style="display:inline; padding-right:10px;">Номер помещения</label>
-                <input id="rmNum" style="width: 45px; float:none; margin-left:10px;" type="text" />
-             <div style="clear:both;font-size:5px;">&nbsp;</div>
-        <label for="object">Объект</label>
-                <select id="object">
-                    <option value="0">Выбрать все</option>
-                    <%--<option>Объект 1</option>
-                    <option>Объект 2 длинное название </option>
-                    <option>Объект 3</option>--%>
-                </select> 
-         <div style="clear:both;font-size:5px;">&nbsp;</div>
-       <%--  <label style="">Тип помещения</label>
-                <select id="rt"  >
-                    <option value="0"> Выбрать все</option>
-                    
-                </select>--%>
-    </div>
-    <div class="col-xs-7">
-        <label for="nameClient">ФИО заявителя</label>
-                <input id="frstname" type="text"/>
-        <br style="clear:both;"/>
-        <label for="startTime" style="display:inline;">Период создания с</label>
-        <input id="startTime" type="date" name="calendar" value="" />        
-        <label for="endTime">по</label>                
-        <input id="endTime" type="date" name="calendar" value="" style="float:right;"/>
-        
-        <div style="clear:both;font-size:5px;">&nbsp;</div>
-
-        <label>Статус</label>
-                <select id="sts">
-                    <option value="0">Выбрать все </option>
-           
-                </select><br />
-     
-</div><!-- row -->
-     <div style="clear:both">&nbsp;</div>
-             <div class="filterButtons">
-                <button id="sbrflt" class="btn dtn-default genBtn" style="background:rgb(149,149,149)" >Сбросить фильтр</button>
-                <button  id="filtering" class="btn dtn-default genBtn">Применить фильтр</button> </div>
-        </div>
-</div><!-- filter-boxes-->
-
-       <%-- <div style="float:right;">
-        
-         <input type="search" placeholder="Поиск" class="shortSearch"/><button id="search" class="btn btn-default genBtn" style="min-width:50px;">Найти</button>
-         </div>--%>
-
-         <a href="1" class="genBtn tableBtn" style="color:#000;display:none; background:#fff;float: right;">Посмотреть на карте</a>
-        <%-- <a href="#" id="dgrm" class="genBtn tableBtn" style="color:#000; background:#fff;float: right;">Диаграммы</a>
-         <button id="otchet" class="btn btn-default genBtn tableBtn" style="float: right;"> Отчет</button><hr />--%>
-     <div id="dgrm_" style="display:none" class="row">
-         <div class="container">
-             <a href="#" onclick="DownKol()"  style="width: 80px;color: white;background-color: rgb(0,100,223);text-align:  center;text-decoration:  unset;">Скачать</a><br />
-              <a href="#" onclick="DownVseqo()"   style="width: 80px;color: white;background-color: rgb(0,100,223);text-align:  center;text-decoration:  unset;margin-left:  31vw;margin-top:  -2vw;margin-bottom:  -0.5vw;">Скачать</a><br />
-             <div id="piechart" style="width: 500px; height: 500px;" class="col-md-6 col-xs-12"></div>
        
-             <div id="vis_div" style="width: 600px; height: 400px;" class="col-md-6 col-xs-12"></div>
-             
-             </div>
-     </div>
-        <hr />
+    </style>
+        <span class="h90"></span>
+     
+
+
+
+
         
 
-</div> <!-- filter -->
-                    <table id="DispSRequestTables" class="formTable">
-                     
-                         <thead>
-                             <tr>
-                            <th> № Заявки </th>
-                            <th>Заявитель</th>
-                            <th>Адрес</th>
-                                  <th>№ помещения</th>
-                            <%-- <th>
-                                <label class="adir">Тип помещения</label>
-                                </th>--%>
-                            <th>Дата создания</th>
-                            <th>Обращение абонента</th>
-                            <%--<th>Исполнитель</th>--%>
-                            <th>Планируемая дата</th>
-                          <%--  <th>
-                                <label>Услуга/товар</label>
-                                    </th>--%>
-                            <th>Статус</th>
-                            <th>Оплата</th>
-                        </tr>
-                             </thead>
-                        <tbody>
+        <script>
+            $(document).ready(function () {
 
+                var swiper = new Swiper(".swiper-container3", {
+                    slidesPerView: 'auto',
+                    loop: false,
+                    spaceBetween: 20
+                }
+                );
+            });
+        </script>
+
+
+        <%--</div>--%>
+
+
+        <div class="bgWhite row w-100 m-0 ">
+            <div class="col-sm-12 p-0">
+
+                <div id="TableTools" class="flexHoriz w-100 m-0 p-3 justify-content-between flexHoriz">
+                    <div id="ListLength" class="posRel w-15 mb-0 mr-3">
+                        <%--<select id="jk" class="h56 pt-0 mr-3 border  font-weight-normal">
+                            <option value="0" selected>Показывать 20 записей</option>
+                            <option value="1">Показывать 30 записей</option>
+                        </select>--%>
+                    </div>
+                    <form id="SearchForTable" class="shadow-in border-wh mb-0 text-left w200 h56 te-posrel rounded-lg bgLightGrey3">
+                        <div class="ml-2 pl-2 transp border-0">
+                            <img src="../../img/search-ic.svg" class="w18" alt="">
+                        </div>
+                        <%-- <input class="w-100 transp border-0 ml-2 pr-2 pt-1" type="search" placeholder="Поиск заявки" aria-label="Search">--%>
+                    </form>
+                    <!--	<div class="flex-grow-1">&nbsp;</div> -->
+                    <%-- <div class="ml-auto mb-0  posRel mr-3 w-15">
+                        <select id="reg" class="h56 pt-0 border font-weight-normal">
+                            <option value="0" selected>Красота и здоровье</option>
+                        </select>
+                        <!--<label for="reg" class="w-95">Статус</label> -->
+                    </div>--%>
+                    <%-- <div class="posRel mb-0  mr-3 w-15">
+                        <select id="tip" class="h56 pt-0 border font-weight-normal">
+                            <option value="0" selected>Услуга 1</option>
+
+                        </select>
+                        <label for="tip" class="w-95">Услуги</label>
+                    </div>--%>
+                    <%--  <div class="posRel mb-0 mr-3 w-15 ">
+                        <select id="task" class="h56 border font-weight-normal">
+                            <option value="0" selected>Группа услуг 1</option>
+
+                        </select>
+                        <label for="task" class="w-95">Группа услуг</label>
+                    </div>--%>
+                 <%--   <button class="btn2 btn1 mb-0 mr-3 outline shadow-none w56 h56 flexCenter ">
+                        <img src="../../img/upload.svg" class="w16 reddishSvg" alt="" /></button>--%>
+                       <button onclick="GotoCreateFunction()" class="btn2 btn1 mb-0 outline shadow-none w56 h56 flexCenter ">
+                        <img src="../../img/ic-plus.svg" class="w16 reddishSvg" alt="" /></button>
+                    <!--	<button class="btn btn1 outline shadow-none w42 h42 flexCenter">
+					<img src="../../img/dreidots2.svg" class="" alt=""/></button>				-->
+                </div>
+                <div class="w-100 overflowX pt-1 pb-4">
+                    <table class="mngTable w-100" id="DispSRequestTables">
+
+                        <thead class="bgLightGrey">
+                            <tr>
+                                <th>№ Заявки </th>
+                                <th>Заявитель</th>
+                                <th>Адрес</th>
+                                <th>№ помещения</th>
+                                <th>Дата создания</th>
+                                <th>Обращение абонента</th>
+                                <th>Планируемая дата</th>
+                                <th>Тип Заявок</th>
+                                <th>Статус</th>
+                                <th>Ответственный</th>
+                                <th>Оплата</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
                         </tbody>
                     </table>
-    <div id="vraboteP" style="display:none"></div>
-    <div id="vraboteC" style="display:none"></div>
+                </div>
+                <div class="p-5 intern">
+                </div>
+                <!-- p-5 -->
 
-    <div id="vpolnenP" style="display:none"></div>
-    <div id="vpolneneC" style="display:none"></div>
 
-    <div id="OtmenP" style="display:none"></div>
-    <div id="OtmenC" style="display:none"></div>
 
-    <div id="zakritP" style="display:none"></div>
-    <div id="zakritC" style="display:none"></div>
-    <div id="Alloff" style="display:none"></div>
-    <a href="#" id="svc" style="display:none"></a>
-    <%--<script src="Script/canvasjs.min.js"></script>--%>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="../Disp_Admin/Script/download2.js"></script>
-   <%-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>--%>
+            </div>
+            <!-- main block -->
+        </div>
+        <!-- row -->
+        </div>
 </asp:Content>
