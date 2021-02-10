@@ -30,6 +30,7 @@ $(function () {
 
     $('#OutD').click(function ()
     {
+        sessionStorage.clear();
         window.location.href = '../HomePage.aspx';
     })
     $(".logoMain2,.logoImgSmall").click(function () {

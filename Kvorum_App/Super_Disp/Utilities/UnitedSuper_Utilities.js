@@ -92,6 +92,7 @@ $(function () {
         success: function (result) {
             var jsondata_2 = JSON.parse(result.d)
             $("#fiodsp").text(jsondata_2[0].ACCOUNT_NAME).attr('email', jsondata_2[0].E_MAIL);
+            $("#fiodsp").parent().prev('span').attr('style', 'background: #eaeaea url("' + jsondata_2[0].ICON+'") center center; background-size: cover;')
         }
     })
     var loc = window.location.pathname;

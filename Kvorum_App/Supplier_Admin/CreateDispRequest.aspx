@@ -96,11 +96,11 @@
             <ol class="list-inline list-unstyled mb-0">
                 <li class="list-inline-item">
                     <a href="te-metr.html">
-                        <img src="../img/btn-left.svg" class="w16 mt-n1 mr-1" alt="">
+                        
                     </a>
                 </li>
                 <li class="list-inline-item">
-                    <p class="gray1 font18">Новая заявка</p>
+                    
                 </li>
             </ol>
         </div>

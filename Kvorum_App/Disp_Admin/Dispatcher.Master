@@ -94,13 +94,13 @@
                                     <!-- <span class="circle0 w42 h42">&nbsp;</span> -->
                                     <img src="../img/user.svg" class="w42 mt-n2" alt="" />
                                 </button>
-                                <span id="fiodsp" style="display:none">Руслан Амиров</span>
+                                <span id="" style="display:none"></span>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <%--<a class="dropdown-item" href="#">
                                         <img src="../img/profile.svg" class="w16 mr-3" alt="" />Мой профиль</a>
                                     <a class="dropdown-item" href="#">
                                         <img src="../img/settings.svg" class="w16 mr-3" alt="" />Настройки</a>--%>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" id="OutD" href="#">
                                         <img src="../img/logout.svg" class="w16 mr-3" alt="" />Выход</a>
                                 </div>
                             </div>
@@ -179,29 +179,21 @@
                 <span class="h90"></span>
 
                 <ol class="navbar-nav pt-3 w-100 shadow-menu ">
-                    <li class="nav-link flexHoriz ml-2">
+					<li class="nav-link flexHoriz ml-2">
 
-                        <span class="d-block w48 h48 rounded8 flex-shrink-0 mr-3" style="background: white url('') center center; background-size: cover;">&nbsp;</span><%--../img/hand.png--%>
-
-                        <div class="">
-                            <strong id="" class="font15 darkGreen"></strong>
-                            <p class="font14 m-0" id=""></p>
-                        </div>
-                        <button class="ml-auto mr-2 transp border-0 flexCenter">
-                            <%--	<img src="../img/chevron-up.svg" class="w16 mt-n1" alt=""/>--%>
-                        </button>
-                    </li>
-                    <li class="dividerH ml-4 mr-4"></li>
-                    <li class="nav-link flexHoriz ml-2">
-                        <span class="flexCenter flex-shrink-0 mr-3 position-relative">
-
-                            <span class="w24 rounded-pill">&nbsp;</span><%--bgLightGrey--%>
-                            <%--	<img src="../img/plus-ic-bl.svg" class="w12 reddishSvg position-absolute" alt=""/>--%>
-                        </span>
-                        <div class="font14">
-                        </div>
-                    </li>
-                </ol>
+						<span class="d-block w48 h48 rounded8 flex-shrink-0 mr-3" style="background: #eaeaea url('') center center; background-size: cover;">&nbsp;</span>
+					
+						<div class="">
+							<strong id="fiodsp" class="font15 darkGreen"></strong>
+							<p class="font14 m-0" id="lgId"></p>
+						</div>
+						<button class="ml-auto mr-2 transp border-0 flexCenter">
+							<img src="" class="w16 mt-n1" alt="">
+						</button>
+					</li>
+					<li class="dividerH ml-4 mr-4"></li>
+				 
+			</ol>
 
 
                 <ol class="navbar-nav mt-3 show-desktop">

@@ -131,6 +131,7 @@ $(document).ready(function () {
         success: function (result) {
             var jsondata_2 = JSON.parse(result.d)
             $("#fiodsp").text(jsondata_2[0].ACCOUNT_NAME).attr('email', jsondata_2[0].E_MAIL).attr('supp-guid', jsondata_2[0].SUPP_GUID);
+            $("#fiodsp").parent().prev('span').attr('style', 'background: #eaeaea url("' + jsondata_2[0].ICON + '") center center; background-size: cover;')
         }
     })
 
@@ -1512,8 +1513,11 @@ function checkControls(e) {
         }
     }
     var RequestKind = $("#RequestKind").val();
+    var role = sessionStorage.getItem("role")
     if (isSuccess==true) {
-    
+        if (role=="15") {
+            RequestKind=1
+        }
         if (RequestKind == 0) {
             isSuccess=false
             ErrorForControls($("#RequestKind"))
@@ -1675,7 +1679,7 @@ function checkControls(e) {
     var opl = $('#opl').prop('checked');
     opl = "" + opl + ""
     var request_type = $('#reqType').val()
-    var role = sessionStorage.getItem("role")
+   
     if (role == 15) {
         request_type = "1"
     }
@@ -2631,6 +2635,7 @@ function getCurrentDispObject(selected, lg) {
         success: function (result) {
             var j = JSON.parse(result.d)
             // console.log(j);
+            $('#RequestKind').parent().hide()
             $('#objctZ').attr('onchange', "GetAllServicesAndRelationalDirection(this)")
             for (var i = 0; i < j.length; i++) {
                 $('#objctZ').append('<option value=' + j[i].Object_Id + ' proj-guid=\"' + j[i].PROJECT_GUID + '\">' + j[i].ObjectAdress + '</option>')
@@ -2644,7 +2649,8 @@ function getCurrentDispObject(selected, lg) {
 function GetAllServicesAndRelationalDirection(e) {
     var projectGuid = $(e).children('option:selected').attr('proj-guid')
     GetAllServicesOfProject(projectGuid);
-    getDirection_K("", projectGuid);
+    var RequestKind = '1'//$('#RequestKind').val()
+    getDirection_K("", projectGuid,0, RequestKind);
     $('#prjcts').children('option[guid="' + projectGuid + '"]').attr('selected', 'selected')
 }
 function getDirection_K(selected, PROJECT_GUID, otv, RequestKind) {

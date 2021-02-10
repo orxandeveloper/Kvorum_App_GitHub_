@@ -391,7 +391,7 @@
     if (loc == "/Responsible_Admin/Resp_Requests.aspx") {
         sessionStorage.setItem('changes', null)
         $('.ui-loader-background,#loader').remove();
-        $('a[href="Resp_Requests.aspx"]').css('background-color', '#FFDEAD')
+      //  $('a[href="Resp_Requests.aspx"]').css('background-color', '#FFDEAD')
         sessionStorage.setItem("All", "Notall");
         $("#flt").click(function () {
             var fltdisplay = $("#filter1").css("display")
