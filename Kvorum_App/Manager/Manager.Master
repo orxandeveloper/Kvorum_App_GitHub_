@@ -28,6 +28,7 @@
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/design.js"></script>
     <style>
+       
         .h2New {
             color: #095C68 !important;
             margin-top: 25px;
