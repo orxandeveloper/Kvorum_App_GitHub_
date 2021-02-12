@@ -478,5 +478,7 @@
             </div>
         </div>
         <!-- row -->
+        <link href="../Super_Disp/Utilities/select2.css" rel="stylesheet" />
+        <script src="../Super_Disp/Utilities/select2.full.js"></script>
     </div>
 </asp:Content>

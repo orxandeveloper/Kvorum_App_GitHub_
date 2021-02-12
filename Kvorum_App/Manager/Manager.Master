@@ -5,27 +5,35 @@
 <html>
 <head runat="server">
 
-    <!-- Meta -->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="" />
+    <meta charset="utf-8">
+    <meta name="keywords" content="Управбот: Жителям: Главная">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="format-detection" content="telephone=no">
     <title>Профиль управляющего</title>
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Favicons -->
-    <link rel="shortcut icon" href="../img/favicon.ico">
 
-    <!-- CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet" />
-
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link href="../css/styles.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+
+    <!-- Favicons 
+    <link rel="shortcut icon" href="../img/favicon.ico"> 
+	-->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../css/swiper.min.css">
+    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="../js/swiper.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/design.js"></script>
     <style>
+        .h2New {
+            color: #095C68 !important;
+            margin-top: 25px;
+            margin-left: 25px;
+        }
+
         .box {
             background: rgba(0, 0, 0, 0.3);
         }
@@ -33,38 +41,47 @@
             .box.selected {
                 box-shadow: 0 0 0 99999px rgba(0, 0, 0, .5);
             }
+
         .lc_E,
         .typeProp_E,
         .LiveSq_E,
         .LiveSqB_E,
         .AmRoom_E,
-        .dols,.emails,.tels {
-        
-        color:red;
-        padding: 0px 0;
+        .dols, .emails, .tels {
+            color: red;
+            padding: 0px 0;
         }
-        #loader2 {
-            display: none;
-            position: fixed;
-            top: 25%;
-            left: 30%;
-            width: 700px;
-            height: 150px;
-            z-index: 2000500
+
+        #loader {
+          
+               position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 20000;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border: 16px solid white;
+    border-radius: 50%;
+    border-top: 16px solid #D11B25;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
         }
 
         .modal2 {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
+            z-index: 10000 !important; /* Sit on top */
             padding-top: 100px; /* Location of the box */
             left: 0;
             top: 0;
             width: 100%; /* Full width */
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(255,0,0,0.4); /* Black w/ opacity */
+             
+            background-color:rgba(0, 0, 0, 0.3); /* Black w/ opacity */
         }
 
         /* Modal Content */
@@ -449,135 +466,209 @@
 
 </head>
 <body>
-    <div class="ui-loader-background" style="display: none"></div>
-    <div id="loader" style="position: fixed"></div>
-    <%--<div class="w3-container" id="loader2" style="display:none">
-        <div class="w3-light-grey">
-            <div class="w3-blue" style="height: 24px; width: 75%"><label id="lblloader" style="color:white"></label></div>
-        </div>
-    </div>--%>
-    <div class="row fonDark">
-        <div class="container fonDark" style="text-align: right;">
-            <div class="col-xs-12">
-                             &nbsp;
 
-            </div>
-        </div>
-    </div>
-    <div class="row" style="height: 50px;">
-        <div class="container">
-            <div class="col-xs-5 col-sm-3">
-         <a href="../HomePage.aspx" id="lg1"><img src="/img/app-logo.png" class="logoImg"></a>
-            </div>
-            <div class="col-xs-5 col-sm-7 header">
-                <h1>Профиль управляющего</h1>
-            </div>
-            <div class="col-xs-2">
-                <button class="btn log_out" id="Out" type="button"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Выход</button>
-            </div>
-        </div>
-   
-    </div>
-    <div class="row">
-        <div class="main-panel">
-            <div class="container">
-                <div class="col-sm-12">
-                    <ul class="main-menu" style="float: right;">
-                         <li ><a href="Users_.aspx">Пользователи</a></li>
-                        <li ><a href="Services.aspx">Добавить Сервис</a></li>
-                        <%--<li><a href="NewsRegister.aspx">Новости</a></li>--%>
-                        <li><a href="#">Новости и Опросы</a>
-                            <ul class="sub-menu">
-                                <li><a href="NewsRegister.aspx">Новости</a></li>
-                                <li><a href="CreatePoll.aspx">Опросы</a></li>
 
-                            </ul>
-                        </li>
-                        <li><a href="Apartments.aspx">Помещения и лицевые счета</a></li>
-                        <li><a href="Counters.aspx">Счетчики</a></li>
-                          <li style="display:none"><a href="RequestsManager.aspx">Заявки</a>
-                     <%--   <li>
-                            <a>Начисления и платежи</a>
-                            <ul class="sub-menu">
-                                <li id="UplKvart"><a style="cursor: pointer;">Загрузить из Квартплаты</a></li>
-                                <li id="UplPayment"><a style="cursor: pointer;">Загрузить по шаблону</a></li>
-                            </ul>
-                        </li>--%>
-                        <%-- <li><a href="#">Страница дома</a>
-                    <ul class="sub-menu">
-                      <li><a href="#">Перейти на страницу дома</a></li>
-                      
-                      
-                          
+    <header class="internal1 h90">
+        <div class="headerWrapper">
+            <ul class="nav h-100 ml-3 w-100">
+                <li class="nav-item">
+                    <a class="collapsed" data-toggle="collapse" href="#collapse0">
+                        <span class="if-collapsed">
+                            <img src="../img/menu.svg" class=" w16 mt-1 mr-2" alt="" /></span>
+                        <span class="if-not-collapsed">
+                            <img src="../img/menu-close.svg" class="w16 mt-1 mr-2" alt="" /></span>
+                    </a>
+                </li>
+                <li class="nav-item col-lg-2half">
+                    <a class="" href="te-main.html">
+                        <img src="../img/app-logo.png" class="d-block mt-n1 w100 h48" alt="УправБот">
+                    </a></li>
+                <li class="nav-item">
+                    <ul class=" list-unstyled list-inline pl-2 mt-2 crumbs">
+                        <li class="list-inline-item"><a href="/" class="font-weight-bold font18 green-text">Профиль управляющего</a> </li>
+                        <li class="list-inline-item reddish font-weight-bold font18 ">
+                            <img src="../img/ellipse.svg" class="greenerSvg mr-2" alt="">ЖК Весна</li>
                     </ul>
                 </li>
-                <li><a href="#">Помещения и лицевые счета</a></li>
-                <li><a href="#">Счетчики</a></li>
-                <li><a href="#">Начисления и платежи</a></li>
-                <!--<li><a href="#">Услуги</a></li>-->
-                <li><a href="#">Настройки</a></li>--%>
-                        <li>
+                <li class="nav-item ml-auto mr-4">
+                    <ul class="nav w-100">
+                        <li class="nav-item"></li>
+                        <li class="nav-item p-0 w300 mr-2">
+                            <form class="shadow-in mt-2 mb-0 text-left w-100 te-posrel rounded-lg bgLightGrey3">
+                                <button class="ml-2 pl-1 transp border-0" type="submit">
+                                    <img src="../img/search-ic.svg" class="w16" alt="" /></button>
+                                <input class="w-100 transp border-0 pl-2 pt-2 pr-2 pb-1" type="search" placeholder="Поиск" aria-label="Search">
+                            </form>
+                        </li>
+                        <!--	<li class="nav-item p-0">
+					<a class="nav-link phone transp" href="tel:+79646274444">
+						<i class="fa fa-phone" aria-hidden="true"></i> +7 964 627-44-44</a>
+				</li> -->
+                        <li class="nav-item p-0">
+                            <a class="nav-link transp">
+                                <img src="../img/mail.svg" class="reddishSvg w24" alt="" /></a>
+                        </li>
+                        <li class="divider40"></li>
+                        <li class="nav-item p-0">
+                            <a class="nav-link position-relative transp" href="#">
+                                <img src="../img/comments.svg" class="reddishSvg w24" alt="" />
+                                <span class="flexCenter position-absolute ml-n3">
+                                    <span class="green2 rounded-pill w24">&nbsp;</span>
+                                    <span class="font12 white position-absolute">99</span>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item login">
+
+                            <div class="dropdown mt-2">
+                                <button class="nav-link transp border-0" onfocus="this.blur();" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <!-- <span class="circle0 w42 h42">&nbsp;</span> -->
+                                    <img src="../img/user.svg" class="w42 mt-n2" alt="" />
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <a class="dropdown-item" href="#">
+                                        <img src="../img/profile.svg" class="w16 mr-3" alt="" />Мой профиль</a>
+                                    <a class="dropdown-item" href="#">
+                                        <img src="../img/settings.svg" class="w16 mr-3" alt="" />Настройки</a>
+                                    <a class="dropdown-item" href="#">
+                                        <img src="../img/logout.svg" class="w16 mr-3" alt="" />Выход</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="collapse show-mobile" id="collapse0">
+            <ul class="mobileMenu mm-top">
+                <li class="nav-item mt-5 mr-5 mb-0">
+                    <form class="text-left w-100 posRel border-0 rounded-lg">
+                        <input class="border-0 p-3 rounded-lg w-95" type="search" placeholder="Поиск" aria-label="Search">
+                        <button class="searchIcon transp border-0 mt-3" type="submit">
+                            <i class="fa white fa-search" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                    <hr class="h-0 w-100" />
+                </li>
+
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/home-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font-weight-bold mb-0">Главная</p>
+                </a></li>
+                <li><a href="#" class="flexHoriz">
+                    <img src="../img/news-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font-weight-bold mb-0">Новости</p>
+                </a></li>
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/key-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font-weight-bold mb-0">Помещения и&nbsp;лицевые счета</p>
+                </a></li>
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/user-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font-weight-bold mb-0">Собственники и&nbsp;пользователи</p>
+                </a></li>
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/meter-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font-weight-bold mb-0">Приборы учета</p>
+                </a>
+                </li>
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/stores-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font-weight-bold mb-0">Услуги</p>
+                </a></li>
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/tasks-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font-weight-bold mb-0">Заявки</p>
+                </a></li>
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/permit-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font-weight-bold mb-0">Пропуск</p>
+                </a></li>
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/polls-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font-weight-bold mb-0">Опросы и голосования</p>
+                </a></li>
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/star-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font-weight-bold mb-0">Отзывы жителей</p>
+                </a></li>
+
+
+            </ul>
+        </div>
+
+    </header>
+
+    <main class="te p-0">
+        <div class="ui-loader-background"></div>
+        <div id="loader" style="position: fixed;display: block;"></div>
+        <div class="row m-0 h-100">
+            <div class="col-lg-2half col-sm-12 p-0 bgWhite shadow-line">
+                <span class="h90"></span>
+
+                <ol class="navbar-nav pt-3 w-100 shadow-menu ">
+                    <li class="nav-link flexHoriz ml-2">
+
+                        <span class="d-block w48 h48 rounded8 flex-shrink-0 mr-3" style="background: #eaeaea url('../img/hand.png') center center; background-size: cover;">&nbsp;</span>
+
+                        <div class="">
+                            <strong id="fiodsp" class="font15 darkGreen"></strong>
+                            <p class="font14 m-0" id="idk"></p>
+                           
+                        </div>
+                        <button class="ml-auto mr-2 transp border-0 flexCenter">
+                            <img src="../img/chevron-up.svg" class="w16 mt-n1" alt="" />
+                        </button>
+                    </li>
+                    <li class="dividerH ml-4 mr-4"></li>
+                    <li class="nav-link flexHoriz ml-2">
+                       
+                        <div class="font14">
                             <select id="objsM" style="padding: 0; width: auto">
                                 <option value="0">Выберите объект</option>
-                            </select></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="container">
-            <div class="aside col-xs-12 col-sm-3">
-                <span>Роль: Управляющий</span>
-                <br />
-                <em id="idk"></em>
-                <br />
-                <br />
-                <span id="fiodsp"></span>
-              
-                <%--  <a href="#">Обращения <span class="circQty">5</span></a>--%>
-                <br>
-                <br />
-                <%--   <a href="#">Заказы <span class="circQty">10</span></a>--%>
-                <br>
-                <br />
-                <%--  <a href="#">Уведомления <span class="circQty">3</span></a>--%>
-                <br>
-                <br />
-                <%-- <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;Написать в тех. поддержку</a><br />--%>
-                <a href="#"><i class="fa fa-phone" aria-hidden="true"></i>+7 (495) 452-44-44</a>
-            </div>
+                            </select>
+                        </div>
+                    </li>
+                </ol>
 
-            <div class="col-xs-12 col-sm-9" id="body">
-                <!-- main -->
-                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                </asp:ContentPlaceHolder>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="container">
-            <div style="display: block; width: 50%; height: 150px;">&nbsp;</div>
-            <div class="layout">
-                <div class="tabs-layout">
-                    <ul>
 
-                        <li class="current"><a href="#">Профиль управляющего</a></li>
+                <ol class="navbar-nav mt-3 show-desktop">
 
-                    </ul>
-                </div>
-                <div class="search-layout">
-                    <input class="lenta-search" id="serchUpro" type="search" placeholder="Введите данные для поиска…" />
-                </div>
-                <br>
-                <div class="lenta" style="overflow-y: scroll;">
-                    <ul id="lgs_">
-                    </ul>
-                </div>
+                    <li class="nav-link active"><a href="Apartments.aspx" class="flexHoriz">
+                        <img src="../img/home-ic-bl.svg" class="w24 mr-3" alt="" />
+                        <p class="font-weight-bold mb-0">Помещения и лицевые счета</p>
+                    </a></li>
+                    <li class="nav-link"><a href="#" class="flexHoriz">
+                        <img src="../img/news-ic-bl.svg" class="w24 mr-3" alt="" />
+                        <p class="font-weight-bold mb-0">Новости</p>
+                    </a></li>
+                    <li class="nav-link"><a href="CreatePoll.aspx" class="flexHoriz">
+                        <img src="../img/tasks-ic-bl.svg" class="w24 mr-3" alt="" />
+                        <p class="font-weight-bold mb-0">Опросы</p>
+                    </a></li>
+                    <li class="nav-link"><a href="Counters.aspx" class="flexHoriz">
+                        <img src="../img/meter-ic-bl.svg" class="w24 mr-3" alt="" />
+                        <p class="font-weight-bold mb-0">Счетчики</p>
+                    </a></li>
+                   
+                    <li class="nav-link"><a href="#" class="flexHoriz">
+                        <img src="../img/user-ic-bl.svg" class="w24 mr-3" alt="" />
+                        <p class="font-weight-bold mb-0">Пользователи</p>
+                    </a></li> 
+
+                </ol>
+                <hr />
+
             </div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
         </div>
-    </div>
-    <div id="myModal2" class="modal2" style="z-index: 3000; background-color: rgba(9, 118, 255,0.4)">
+    </main>
+
+    <div id="myModal2" class="modal2" style="">
 
         <!-- Modal content -->
         <div class="modal-content2" style="">
@@ -597,7 +688,7 @@
         </div>
 
     </div>
-    <div id="myModal4" class="modal2" style="z-index: 1000; background-color: rgba(0, 100, 223, 0.4); display: none;">
+    <div id="myModal4" class="modal2" >
 
         <!-- Modal content -->
         <div class="modal-content2" style="width: 17%;">
@@ -622,7 +713,7 @@
             <div class="modal-footer2" id="modal-footer4" style="text-align: left; height: 150px; background-color: white; margin-top: 0px; color: black;">
 
                 <input type="checkbox" id="sms" style="margin-right: 15px;">Сделать смс-рассылку<br>
-                  <input type="checkbox" id="em" style="margin-right: 15px;">Сделать рассылку на электронную почту
+                <input type="checkbox" id="em" style="margin-right: 15px;">Сделать рассылку на электронную почту
                 <br>
                 <button style="margin-left: 26%; margin-top: 3%; width: 47%; font-size: 16px;" onclick="GetValuesG(this)" id="GENER" class="btn genBtn">ОК</button>
                 <label style="font-style: italic; font-weight: 100; width: 100%; float: left;">
@@ -631,7 +722,7 @@
         </div>
 
     </div>
-    <div id="GenPass" class="modal2" style="z-index: 2000; background-color: rgba(9, 118, 255, 0.4); display: none;">
+    <div id="GenPass" class="modal2" >
 
         <!-- Modal content -->
         <div class="modal-content2" style="width: 40%">
@@ -650,7 +741,7 @@
                         <%--<input type="number" value="7" id="psExp1" style="width: 8%; float: right; text-align: center; margin-right: 60%;">
 
                         <label>Срок действия пароля в днях</label>--%>
-                        <div  >
+                        <div>
                             <br>
                             <input type="checkbox" id="sms2" data-ras="no" style="margin-right: 15px;">Сделать смс-рассылку
                         <br>
@@ -675,7 +766,7 @@
                                 <th>ЛС</th>
                                 <th>Назначение помещения</th>
                                 <th>Тип помещения</th>
-                                <th>№помещения</th> 
+                                <th>№помещения</th>
                                 <th>Собственник</th>
                             </tr>
                         </thead>
@@ -815,32 +906,30 @@
         </div>
 
     </div>
-
-    <script src="../js/jquery-1.12.4.min.js"></script>
-    <%--<script src="http://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>--%>
+   
+    <script src="../js/jquery.min.js"></script>
+ 
     <script src="../Supplier_Admin/Utilities/jquery.mask.min.js"></script>
-    <%--   <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>--%>
+
     <script src="../Supplier_Office/js/jquery.inputmask.bundle.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <%-- <script type="text/javascript" src="http://davidstutz.de/bootstrap-multiselect/dist/js/bootstrap-multiselect.js"></script>--%>
-    <script src="js/bootstrap-multiselect.js"></script>
+
     <link href="../css/jquery.dataTables.css" rel="stylesheet" />
     <script src="js/jquery.dataTables.js"></script>
-    <script src="../css/ckeditor/ckeditor.js"></script>
-   <script src="../Disp_Admin/Script/date-de.js"></script>
+    <%--<script src="css/ckeditor/ckeditor.js"></script>--%>
+    <script src="../Disp_Admin/Script/date-de.js"></script>
     <script src="../Disp_Admin/Script/natural.js"></script>
-    <%--<script src="js/Manager_Utilities.js"></script>--%>
-       
-     <script type='text/javascript'>
-         document.write('<' + 'script type="text/javascript" src="js/Manager_Utilities.js"></' + 'script>')//?' + Math.random() + '
-         document.write('<' + 'script type="text/javascript" src="../scripts/logger.js?' + Math.random() + '"></' + 'script>')
-         var isNeed=(window.location.pathname=='/Manager/AddUsers_.aspx')?true:false
-         if (isNeed) {
-              document.write('<' + 'script type="text/javascript"  src="js/UserCard.js"></' + 'script>')//?' + Math.random() + '
-         }
-</script>
+    <script src="../Super_Disp/Utilities/select2.full.js"></script>
+    <link href="../Super_Disp/Utilities/select2.css" rel="stylesheet" />
+    <script type='text/javascript'>
+        document.write('<' + 'script type="text/javascript" src="js/Manager_Utilities.js"></' + 'script>')//?' + Math.random() + '
+        document.write('<' + 'script type="text/javascript" src="../scripts/logger.js?' + Math.random() + '"></' + 'script>')
+        var isNeed = (window.location.pathname == '/Manager/AddUsers_.aspx') ? true : false
+        if (isNeed) {
+            document.write('<' + 'script type="text/javascript"  src="js/UserCard.js"></' + 'script>')//?' + Math.random() + '
+        }
+    </script>
 
 
-   <%-- <script src="../scripts/logger.js"></script>--%>
+    <%-- <script src="../scripts/logger.js"></script>--%>
 </body>
 </html>

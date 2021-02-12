@@ -35,7 +35,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
    
-     <h2>Помещения и лицевые счета</h2>
+    
+     
+<div class="col-lg-9half col-sm-12 p-0 min-vh-100 bgWhite  ">	<!-- bgLightGrey3 -->
+		<span class="h90"></span>	
+     <h2 class="h2New">Помещения и лицевые счета</h2>
 
       <div style="padding:20px;">
         <a id="myBtn1" class="btn genBtn" href="AddApartment.aspx">Добавить помещение</a>
@@ -44,61 +48,55 @@
           <a id="PassGen" class="btn genBtn" href="#">СГЕНЕРИРОВАТЬ ПАРОЛИ</a>
           <a id="qr" class="btn genBtn qr" href="#" >Распечатать QR-коды</a>
       </div>
-     
+			<!--<div class="w-100 bgWhite m-0 pl-2">
+				<ol class="flexHoriz p-0 m-0">
+					<li class="list-inline-item">
+						<a href="te-metr.html">
+							<img src="../img/btn-left.svg" class="w16 mr-1 ml-2" alt="">
+						</a>
+					</li>
+					<li class="divider-bread m-0"></li>
+					<li class="list-inline-item">
+							<span class="ml-3"> 567483119</span>
+					</li>
+				</ol>
+			</div> -->
+<div class="row w-100 m-0 min-vh-100">
+	<div class="col-sm-12 p-0">
+		
+<div class="flexHoriz w-100 m-0 p-3">
+				<div class=" w-15 mr-3">
+					<select id="jk" class="pl-2 pr-2 border w-100 h56  rounded-lg">
+						<option value="0" selected>Показать 20 записей</option>
+						<option value="1">Показать 30 записей<</option>		  
+					</select>
+				
+				</div>
 
-  <h4 style="padding-left:20px;">Фильтр</h4>
-    <div class="row" style="padding-left:20px;margin-right: -15px;">
-        <div class="col-md-6 col-xs-12">
-                <label for="appPurp">Назначение помещения</label>
-             <%--   <select id="appPurp" multiple="multiple">
-                    <%--<option value="0">Выберите Назначение помещения</option>--%>
-    <%--                <option>Квартира</option>
-                    <option>Обособленное нежилое помещение</option>
-                    <option>Жилое помещение</option>
-                    <option>Помещение общего пользования</option> 
-                </select>--%>
-            <div id="appPurp" class="rmFOr" ></div>
-                <br />
-   
-                <label for="appType">Тип помещения</label>
-              <%--  <select id="appType" multiple="multiple">
-                    <%--<option value="0">Выберите Тип помещения</option>--%>
-                  <%--  <option>Квартира</option>
-                    <option>Апартаменты</option>
-                    <option>Машиноместо</option>
-                    <option>Нежилое </option>
-                    <option>Офис</option> 
-                </select>--%>
-             <div id="appType" class="rmFOr" >
+				
+				
+				<form class="shadow-in border-wh mb-0 text-left w-25 h56 te-posrel rounded-lg bgLightGrey3">
+					<button class="ml-2 pl-2 transp border-0" type="submit"><img src="../img/search-ic.svg" class="w18" alt=""/></button>
+					<input class="w-100 transp border-0 ml-2 pt-1 pr-2 pb-1" type="search" placeholder="Поиск заявки" aria-label="Search">
+				</form>
+		
 
-             </div>
-                <br />
+				<div class="ml-auto mb-0  w-15 h56">
+					<%--<select id="place" class="border pl-2 pr-2 rounded8 h56">
+						<option value="0" selected>Физические лица</option>
+						<option value="1">Юрики</option>
+					</select>--%>
 
-                <label for="appNum">Номер помещения</label>
-               <%-- <select id="appNum" multiple="multiple">
-                 <%--   <option value="0">Выберите Номер помещения</option> 
-                    
-                </select>--%>
-            <input type="text" id="appNum" name="name" value="" />
+				</div>	
+			
+				<button class="btn btn1 outline shadow-none w56 h56 mr-3 flexCenter">
+					<img src="../img/ic-plus.svg" class="w18 reddishSvg" alt=""/></button>		
 
-        </div>
-        <div class="col-md-6 col-xs-12">
-                <label for="fio">ФИО собственника:</label>
-                <input type="text" id="fio" value=""/>
-                <br />
+				<%--<button class="btn btn1 outline shadow-none w56 h56 mr-3 flexCenter">
+					<img src="../img/ic-sobs.svg" class="w18 reddishSvg" alt=""/></button>--%>
 
-                <label for="persAcc">Номер ЛС:</label>
-                <input type="text" id="persAcc" value=""/>
-                  <div style="clear:both;">&nbsp;</div>
-            <div class="button" style="top:0;">
-                <button class="btn genBtn" id="fltr">Применить фильтр</button>
-                
-                 <button class="btn genBtn" id="sbros">Сбросить результаты</button>
-            </div> <!-- button-->
-        </div>
-    </div> <!-- row -->
-    <div style="clear:both;">&nbsp;</div> 
-    
+</div>
+	<div class="overflowX w-100">
     
     <table id="ScoresAndRooms">
         <thead><tr>
@@ -115,8 +113,8 @@
         <tbody id="rooms">
         </tbody>
     </table>
-
-    <br /><hr /><br />
+</div>
+     
 
     <%--<div id="loadNA">
          <h2>Загрузка номеров помещений</h2>
@@ -180,13 +178,16 @@
             
     </div>--%>
 
-    <br /><hr /><br />
+  
 
     
 
+        </div>
+    </div>
+    </div>
+   
 
-
-    <div style="clear:both; display:block; height:30px;">&nbsp;</div>
+    
     <div id="UploadAcc" class="modal2" style="z-index: 2000;background-color:rgba(9, 118, 255,0.4);min-width:110%">
 
   <!-- Modal content -->
@@ -200,7 +201,7 @@
         
         <div style="padding-left:20px;">
             <p>Пожалуйста, выбирайте только те типы и назначения помещений, которые указаны в форме загрузки</p> 
-            <a href="../img/Форма загрузки ЛС.xlsx" download title="Скачать форму">Форма загрузки лицевых счетов</a>
+            <a href="../../img/Форма загрузки ЛС.xlsx" download title="Скачать форму">Форма загрузки лицевых счетов</a>
             <br />
             <br />
    

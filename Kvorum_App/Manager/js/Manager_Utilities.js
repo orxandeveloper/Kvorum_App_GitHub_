@@ -79,6 +79,7 @@
         success: function (result) {
             var jsondata_2 = JSON.parse(result.d)
             $("#fiodsp").text(jsondata_2[0].ACCOUNT_NAME).attr('email', jsondata_2[0].E_MAIL)
+            $("#fiodsp").parent().prev('span').attr('style', 'background: #eaeaea url("' + jsondata_2[0].ICON + '") center center; background-size: cover;')
         }
     })
     getlog2(Log, "Manager");
@@ -375,6 +376,8 @@
     //    var objId = $('#objsM').val();
     //    SavePaymentsFromExcel(Log, fileName, objId);
     //})
+    var MainHeight = $('body').height()
+    $('.ui-loader-background,.modal2,.modalBnp,.modalkvart,modalSs').height(MainHeight)
     var loc = window.location.pathname;
     if (loc == '/Manager/Payments.aspx') {
         $('#loadPmnt').click(function () {
@@ -10013,6 +10016,13 @@ function getRoomBYO_ID(l, o) {
                         "sortDescending": ": активировать для сортировки столбца по убыванию"
                     }
                 }
+                ,
+                "initComplete": function (settings, json) {
+                    changeDatatableElementStructures($('#ScoresAndRooms'))
+
+
+                    // console.log ('bitti2')
+                }
             })
             $('.ui-loader-background').hide();
             $('#loader').hide();
@@ -13072,6 +13082,12 @@ function getRoom(lg) {
                         "sortAscending": ": активировать для сортировки столбца по возрастанию",
                         "sortDescending": ": активировать для сортировки столбца по убыванию"
                     }
+                },
+                "initComplete": function (settings, json) {
+                    changeDatatableElementStructures($('#ScoresAndRooms'))
+
+
+                    // console.log ('bitti2')
                 }
             })
 
@@ -13082,6 +13098,21 @@ function getRoom(lg) {
 
         }
     })
+}
+function changeDatatableElementStructures(e) {
+    var E_id = $(e).attr('id')
+    var Tablewrapper = '#'+E_id + '_wrapper'
+    var TableLength = E_id + '_length'
+    var TableFilter = '#' + E_id + '_filter'
+    $(Tablewrapper).prepend($('#TableTools'))
+    $('#ListLength').append($('select[name="' + TableLength+'"]'))
+    $('select[name="' + TableLength+'"]').children('option').each(function () {
+        // .text('Показывать ' + $(this).val() + ' записей')
+        $(this).text('Показывать ' + $(this).val() + ' записей')
+    })
+    $('#' + TableLength).remove();
+    $('#SearchForTable').append($(TableFilter).children('label').children('input[type="search"]').attr('class', 'w-100 transp border-0 ml-2 pr-2 pt-1').attr('placeholder', 'Поиск заявки'))
+    $(TableFilter).remove();
 }
 function deltab(itm, e) {
     if (e == undefined) {
@@ -13159,7 +13190,9 @@ function getObjectForMaster(lg_) {
                 else if (jsondata_1[i].STOP_CNTR !== null && jsondata_1[i].STOP_CNTR !== 0) {
                     objectstatus = "Показания приборов учета принимаются по " + jsondata_1[i].STOP_CNTR + " число текущего  месяца ";
                 }
-                $("#objsM").append('<option data-status="' + objectstatus + '"  value="' + jsondata_1[i].Object_Id + '">' + jsondata_1[i].ObjectAdress + '</option>')
+                $("#objsM").append('<option data-status="' + objectstatus + '"  value="' + jsondata_1[i].Object_Id + '">' + jsondata_1[i].ObjectAdress + '</option>').select2({
+                    containerCssClass: "wrap"
+                })
             }
 
 
@@ -13167,7 +13200,7 @@ function getObjectForMaster(lg_) {
             if (SMAsterObj == null) {
                 SMAsterObj = 0
             }
-            $('#objsM').val(SMAsterObj)
+            $('#objsM').val(SMAsterObj).select2('val', SMAsterObj)
 
         }
     })

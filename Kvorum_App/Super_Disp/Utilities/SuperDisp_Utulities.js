@@ -533,8 +533,16 @@ $(document).ready(function () {
         var R_id = urlParam('RId')//Rid_st.RId //appDatas.RId //localStorage.getItem("RId")
         $('#hstComh').after('<label id="attention_hstComh" style="color:red">Внимание! Комментарий не будет отображаться в приложении для жителей.</label>')
         if (R_id == "" || R_id == undefined || R_id == null) {
-            // $('#Otven').removeAttr('disabled', 'disabled');
-          
+
+            $('label[class="w-95"],label[class="transp backLab"]').remove()
+
+            $('select').select2({
+                containerCssClass: "wrap"
+            })
+            $('#RequestKind').select2({
+                minimumResultsForSearch: "Infinity"
+            })
+            
             $('#updateRequest').hide();
             $(document).on('click', '#Close_Ot', function () {
                 modal.style.display = "none";
@@ -623,6 +631,11 @@ $(document).ready(function () {
         }
 
         if (R_id != "" && R_id != undefined && R_id != null) {
+            //$('label[class="w-95"]').remove()
+
+            $('#IspolList').select2({
+                containerCssClass: "wrap"
+            })
             $(document).ready(function () {
                 R_id = R_id.replace("disp_", "");
                 $(document).on('click', '#fileH_btn', function () {
@@ -1482,10 +1495,20 @@ function GetSelectedServices() {
     return { 'P_Services': P_Services, 'ismc': ismc, 'suppServices': suppServices}
 }
 
-function ErrorForControls(e,text) {
-    $(e).attr('style', 'border-color:#f06d06;')
+function ErrorForControls(e, text) {
+    var e_class = $(e).attr('class')
+    if (e_class == 'select2-hidden-accessible') {
+        $(e).parent().find('.select2-selection').attr('style', 'border-color:#f06d06 !important') 
+        window.setTimeout(function () {
+            $(e).parent().find('.select2-selection').removeAttr('style')
+        }, 5000);
+    }
+    else {
+        $(e).attr('style', 'border-color:#f06d06;')
+    }
     var position = $(e).offset().top//getOffset(e).top//e.position();
     $("html, body").animate({ scrollTop: position }, "slow");
+    
     window.setTimeout(function () { $(e).removeAttr('style'); $('#servicelbl').remove()}, 5000);
    
     if (text != undefined) {
