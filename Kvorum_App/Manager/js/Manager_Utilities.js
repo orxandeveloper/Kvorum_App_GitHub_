@@ -378,6 +378,10 @@
     //})
     var MainHeight = $('body').height()
     $('.ui-loader-background,.modal2,.modalBnp,.modalkvart,modalSs').height(MainHeight)
+    $('select').select2({
+        containerCssClass: "wrap"
+    })
+   
     var loc = window.location.pathname;
     if (loc == '/Manager/Payments.aspx') {
         $('#loadPmnt').click(function () {
@@ -525,7 +529,14 @@
 
         $('#rnum').keyup(function () {
             var number = $(this).val().replace('=', '')
-            $(this).val(number)
+            let pattern = /[\u0400-\u04FF]/;
+            if (pattern.test($('input#rnum').val())) {
+                $('input#rnum').val("") 
+                ErrorForControls($('#rnum'), 'Только латинские буквы');
+            }
+            else {
+                $(this).val(number)
+            }
         })
         // $('[onkeyup="hideErrsMessage2(this)"]').keypress(validateNumber)
         // $('div[class="tab-pane fade active in"] .row:last-child:nth-last-child(0)').keypress(validateNumber)
@@ -3685,6 +3696,12 @@
 
 
 })
+function OpenTab(countTab, e) {
+    $(e).parent('ol').children('li').attr('class', 'w200 mr-3 h-100 m-0')
+    $(e).attr('class', 'w200 mr-3 h-100 m-0 active')
+    $('div[data-tapid="1"],div[data-tapid="2"]').attr('style', 'display:none !important')
+    $('div[data-tapid="' + countTab + '"]').attr('style', 'display:flex !important')
+}
 function GetRoomTypesFor_QRCodes(lg, obj) {
     var objJ = { lg: lg, obj: obj }
     $.ajax({
@@ -7284,6 +7301,48 @@ function removeTD(e) {
         $('#tblBnp tr:eq(' + i + ') td:eq(3)').css("color", "black").css("font-weight", "")
     }
 }
+function ErrorForControls(e, text) {
+    var e_class = $(e).attr('class')
+    if (e_class == 'select2-hidden-accessible') {
+        $(e).parent().find('.select2-selection').attr('style', 'border-color:#f06d06 !important')
+
+        if (text != undefined) {
+            var originalText = $(e).next().next('label').text()
+            $(e).next().next('label').attr('style', 'color: red').text(text)
+            var select2Id = $(e).attr('id');
+            var spanId = '#select2-' + select2Id + '-container'
+            var original_title = $(spanId).attr('title')
+            $(spanId).attr('title', text)
+            window.setTimeout(function () {
+                $(e).removeAttr('title'),
+                    $(spanId).attr('title', original_title)
+                $(e).next().next('label').removeAttr('style').text(originalText)
+
+            }, 5000);
+        }
+        window.setTimeout(function () {
+            $(e).parent().find('.select2-selection').removeAttr('style')
+        }, 5000);
+    }
+    else {
+        $(e).attr('style', 'border-color:#f06d06;')
+    }
+    var position = $(e).offset().top//getOffset(e).top//e.position();
+    $("html, body").animate({ scrollTop: position }, "slow");
+
+    window.setTimeout(function () { $(e).removeAttr('style'); $('#servicelbl').remove() }, 5000);
+
+    if (text != undefined) {
+        var originalText = $(e).next('label').text()
+        $(e).next('label').attr('style', 'color: red').text(text)
+        $(e).attr('title', text)
+        window.setTimeout(function () {
+            $(e).removeAttr('title')
+            $(e).next('label').removeAttr('style').text(originalText)
+               
+        }, 5000);
+    }
+}
 function CHeck_Obj_RMF_RMT_RMN(e, OBJECT_ID, ROOM_FOR_ID, ROOM_TYPE_ID, ROOM_NUMBER, LOG_IN_ID, FLOOR) {
     var obj = { "OBJECT_ID": OBJECT_ID, "ROOM_FOR_ID": ROOM_FOR_ID, "ROOM_TYPE_ID": ROOM_TYPE_ID, "ROOM_NUMBER": ROOM_NUMBER, "LOG_IN_ID": LOG_IN_ID, 'FLOOR': FLOOR }
     $.ajax({
@@ -7299,7 +7358,8 @@ function CHeck_Obj_RMF_RMT_RMN(e, OBJECT_ID, ROOM_FOR_ID, ROOM_TYPE_ID, ROOM_NUM
             if (j.result != "0") {
 
                 if ($('#' + ids + 'E').length == 0) {
-                    $('#' + ids + 'H').after('<label id="' + ids + 'E" style="color:red">Помещение с таким назначением, этажом,номером и типом уже есть на данном объекте! </label>')
+                    //$('#' + ids + 'H').after('<label id="' + ids + 'E" style="color:red">Помещение с таким назначением, этажом,номером и типом уже есть на данном объекте! </label>')
+                    ErrorForControls(e,'Помещение с таким назначением, этажом,номером и типом уже есть на данном объекте! ')
                 }
             }
             else {

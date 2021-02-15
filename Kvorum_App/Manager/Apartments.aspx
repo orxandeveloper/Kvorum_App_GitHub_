@@ -188,7 +188,7 @@
    
 
     
-    <div id="UploadAcc" class="modal2" style="z-index: 2000;background-color:rgba(9, 118, 255,0.4);min-width:110%">
+    <div id="UploadAcc" class="modal2" style="min-width:110%">
 
   <!-- Modal content -->
   <div class="modal-content2" style="width:75%">

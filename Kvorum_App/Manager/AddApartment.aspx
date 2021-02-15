@@ -2,66 +2,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .removingNac,#removingNac {
-        
-        float: right;
-        color:red;
-        font-size:20px;
-        font-weight:900;
-        }
-        .period {
-        width: 15%
-        }
-        .Servc {
-        
-    margin-left: 20%;
-
-        }
-        .onbegin {
-      
-    width: 16%;
-        }
-        .onend {
-         width: 11%;
-        }
-        .red_Placeholder::placeholder {
-            /* Chrome, Firefox, Opera, Safari 10.1+ */
-            color: red;
-            opacity: 1; /* Firefox */
-        }
-
-        label {
-            line-height: 1em;
-            padding: 10px 0;
-        }
-
-        #tr1 {
-            background: #fff;
-        }
-
-            #tr1:hover {
-                background: #f3f3f3;
-            }
-        .GosTab {
-        width:20%
-        }
-        .bordering {
-            border-left: 1px solid #ddd;
-            border-bottom: 1px solid #ddd;
-            border-right: 1px solid #ddd;
-            margin-left: 0px;
-            border-top: 1px solid #ddd;
-        }
-        .arrowDiv {
-        margin-top: 70px;
-        text-align: center;
-        }
-        .arrows {
-        font-size: 50px;
-        color: rgb(0,100,223);
-        }
-    </style>
-    <style>
         .modalVn {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
@@ -165,8 +105,7 @@
             font-weight: 700;
             margin-left: 38%;
         }
-    </style>
-    <style>
+
         .modalVp {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
@@ -271,157 +210,309 @@
             font-weight: 700;
             margin-left: 38%;
         }
+
+        .removingNac, #removingNac {
+            float: right;
+            color: red;
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .period {
+            width: 15%
+        }
+
+        .Servc {
+            margin-left: 20%;
+        }
+
+        .onbegin {
+            width: 16%;
+        }
+
+        .onend {
+            width: 11%;
+        }
+
+        .red_Placeholder::placeholder {
+            /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: red;
+            opacity: 1; /* Firefox */
+        }
+
+        label {
+            line-height: 1em;
+            padding: 10px 0;
+        }
+
+        #tr1 {
+            background: #fff;
+        }
+
+            #tr1:hover {
+                background: #f3f3f3;
+            }
+
+        .GosTab {
+            width: 20%
+        }
+
+        .bordering {
+            border-left: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            margin-left: 0px;
+            border-top: 1px solid #ddd;
+        }
+
+        .arrowDiv {
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        .arrows {
+            font-size: 50px;
+            color: rgb(0,100,223);
+        }
     </style>
-    <%-- <script src="https://raw.githubusercontent.com/igorescobar/jQuery-Mask-Plugin/master/src/jquery.mask.js"></script>--%>
-    <%-- <script src="js/jquery.mask.js"></script>--%>
-    <%--    <script src="https://unpkg.com/jquery-input-mask-phone-number@1.0.0/dist/jquery-input-mask-phone-number.js"></script>--%>
+
+
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h2>Новое помещение</h2>
-    <div>
+    <div class="col-lg-9half col-sm-12 p-0 min-vh-100  bgLightGrey3 ">
+        <!--  -->
+        <span class="h90"></span>
+
+
+        <div class="row w-100 m-0">
+            <div class="col-sm-5 m-0">
+                <!-- 1st block -->
+
+
+                <div class="bgWhite rounded16 mt-4 ml-3 p-4 shadow">
+                    <div>
         <button class="btn genBtn" id="backAppart" style="background: #ccc">Назад</button>
-        <button id="SaveUp" class="btn genBtn">Редактировать / Сохранить</button>
+        <button id="SaveUp" class="btn genBtn">Сохранить</button>
         <div class="button">
             <a id="DeletePOM" href="#" role="button" class="create" style="display: none;"><i class="fa fa-times-circle" aria-hidden="true"></i>&nbsp;Удалить</a>
         </div>
     </div>
 
-    <div style="clear: both; height: 21px;">&nbsp;</div>
-    <div class="row">
-        <div class="col-md-6 col-xs-12">
-            <label id="objsH">Объект:</label>
-
-            <select id="objs">
-                <option value="0">Выберите объект</option>
-            </select>
-
-            <label id="entrH">Подъезд:</label>
-
-            <input id="entr" placeholder="Введите номер подъезда" />
-
-            <label id="floorH">Этаж:</label>
-
-            <input id="floor" placeholder="Введите номер этажа" />
-
-            <label id="rnumH">Номер помещения:</label>
-
-            <input id="rnum" placeholder="Введите номер помещения" />
-        </div>
-        <div class="col-md-6 col-xs-12">
-            <label id="RoomFH">Назначение помещения:</label>
-
-            <select id="RoomF" style="width: 100%;">
-                <option value="0">Выберите Назначение помещения</option>
-
-            </select>
-
-            <label id="r_tH">Тип помещения:</label>
-
-            <select id="r_t" style="width: 100%;">
-                <option value="0">Выберите Тип помещения</option>
-
-            </select>
-            <label id="countRH" style="display: inline-block;">Количество комнат:</label>
-            <input id="countR" onkeyup="hideErrsMessage2(this)" placeholder="Введите количество комнат" />
-
-            <div style="clear: both; height: 8px; font-size: 1px;">&nbsp;</div>
-
-            <label id="GenSH" style="display: inline-block;">Общая площадь, м<sup>2</sup>:</label>
-            <input id="GenS" onkeyup="hideErrsMessage2(this)" placeholder="Введите общую площадь" />
-
-            <div style="clear: both; height: 8px; font-size: 1px;">&nbsp;</div>
-
-            <label id="LiveSH" style="display: inline-block;">Жилая площадь, м<sup>2</sup>:</label>
-            <input id="LiveS" onkeyup="hideErrsMessage2(this)" placeholder="Введите жилую площадь" />
-            <br />
-            <button id="QRGenerate" onclick="GenerateQr_For_Room(this)" style="display:none" class="btn genBtn">Распечатать QR-код помещения</button>
-        </div>
-    </div>
-    <h3>Лицевые счета:</h3>
-    <ul class="nav nav-tabs" id="nav-tab">
-        <li itemid="0" class="active"><i class="fa fa-close removing3" itemid="0" onclick="deltab(0)" style="display: none" aria-hidden="true"></i><a data-toggle="tab" href="#tab0">Новый лицевой счет</a></li>
-        <li id="plus"><a href="#tab1">+</a></li>
-    </ul>
-    <div class="tab-content">
-        <div id="tab0" data-tab="0" class="tab-pane fade in active">
-            <div class="row">
-                <div class="col-md-8 col-xs-12">
-                    <label for="lc">Номер лицевого счета:</label>
-                    <input onkeyup="hideErrsMessage2(this)" type="text" id="lc">
-                    <label for="lc">Пароль:</label>
-                    <input disabled="disabled" onkeyup="hideErrsMessage2(this)" type="text" id="pss" style="width: 71%;">
-                    <button style="margin-left: 3px" onclick="Generate(this)" id="GENER" class="btn genBtn">СГЕНЕРИРОВАТЬ</button>
+                    <h3 class="font24 font-weight-bold p-3 w-100">Помещение и лицевой счет
+	
+			
+                    </h3>
 
 
-                    <label for="typeProp">Тип собственности:</label>
-
-                    <select id="typeProp">
-                        <option value="0">Выберите собственность</option>
-
-                    </select>
-                    <div id="itms">
-                        <div class="col-xs-6 col-md-3" style="padding: 0 0 0 15px;">
-                            <label id="sobsH" style="display: none">Собственник</label>
-
-                        </div>
-                        <div class="col-xs-6 col-md-3" style="padding: 0px 10px 0px 15px; display: block;">
-                            <label id="dolH" style="display: none">Доля</label>
-
-                        </div>
-                        <div class="col-xs-6 col-md-3" style="padding: 0 5px;">
-                            <label id="telH" style="display: none" for="telH">Номер&nbsp;телефона</label>
-
-                        </div>
-                        <div class="col-xs-6 col-md-3" style="padding: 0 0 0 10px;">
-                            <label id="emailH" style="display: none">E-mail</label>
-
-                        </div>
-
-                        <%--  <div class="row" itemid="0">
-                            <div class="col-xs-8 col-lg-4" style="padding:0 0 0 15px;">
-                                <label id="sobsH" style="display:none">Собственник</label>
-                                <%--<input type="text" id="sobs" itemid="0" style="display:none"  placeholder="Иванов Андрей Витальевич" /> 
-                            </div>
-                            <div class="col-xs-4 col-lg-2" style="padding:0 10px 0 15px;">
-                                <label id="dolH" style="display:none">Доля</label>
-                                <%--<input id="dol" type="text" itemid="0" style="display:none" placeholder="1/2" /> 
-                            </div>
-                            <div class="col-xs-6 col-lg-3" style="padding:0 5px;">
-                                <label id="telH" style="display:none" for="telH">Номер&nbsp;телефона</label>
-                               <%-- <input id="tel" type="tel" itemid="0" placeholder="+79853452674" style="width:100%;display:none" /> 
-                            </div>
-                            <div class="col-xs-6 col-lg-3" style="padding:0 0 0 10px;">
-                                <label id="emailH" style="display:none">E-mail</label>
-                               <%-- <input id="email" type="email" placeholder="pochta@mail.ru" itemid="0" style="width:100%;display:none" /> 
-                            </div>
-                        </div>--%>
-                        <!-- row -->
+                    <div class="posRel h56 rounded-lg mb-3">
+                        <select id="objs">
+                            <option value="0">Выберите объект</option>
+                        </select>
+                        <label for="obj" class="w-95 transp backLab">Объект</label>
                     </div>
-                    <button style="display: none" id="Adding" class="btn genBtn">Добавить</button>
-                </div>
-                <div class="col-md-4 col-xs-12">
-                    <label>Жилая площадь по данному л/с, м<sup>2</sup></label>
-                    <input id="LiveSq" type="number" min="0" style="width: 50%;" onchange="hideErrsMessage2(this)" onkeyup="hideErrsMessage2(this)" />
 
-                    <label>Общая площадь по данному л/с, м<sup>2</sup></label>
-                    <input id="GenSq" type="number" min="0" style="width: 50%;" onchange="hideErrsMessage2(this)" onkeyup="hideErrsMessage2(this)" />
 
-                    <label>Общая площадь без летних зон по данному л/с, м<sup>2</sup></label>
-                    <input id="LiveSqB" type="number" min="0" style="width: 50%;" onchange="hideErrsMessage2(this)" onkeyup="hideErrsMessage2(this)" />
+                    <div class="flexHoriz justify-content-between mb-2">
 
-                    <label>Количество комнат</label>
-                    <input type="number" min="0" onchange="hideErrsMessage2(this)" onkeyup="hideErrsMessage2(this)" id="AmRoom" />
+                        <div class="posRel h56 rounded-lg w-48">
+                            <input id="rnum" >
+                            <label for="rnum" class="w-95 transp backLab">Номер помещения</label>
+                        </div>
+                        <div class="posRel h56 rounded-lg  w-48">
+                            <input id="countR" onkeyup="hideErrsMessage2(this)" >
+                            <label for="countR" class="w-95 transp backLab">Количество комнат</label>
+                        </div>
+                    </div>
+
+                    <div class="flexHoriz justify-content-between mb-2">
+                        <div class="posRel h56 rounded-lg w-48">
+                            <input id="entr" >
+                            <label for="entr" class="w-95 transp backLab">Подъезд</label>
+                        </div>
+
+                        <div class="posRel h56 rounded-lg w-48">
+                            <input id="floor">
+                            <label for="floor" class="w-95 transp backLab">Этаж</label>
+                        </div>
+                    </div>
+
+
+
+                 
+                    <div class="flexHoriz justify-content-between mb-2">
+                        <div class="posRel h56 rounded-lg w-48">
+                            <input id="LiveS" onkeyup="hideErrsMessage2(this)">
+                            <label for="LiveS" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label>
+                        </div>
+                        <div class="posRel h56 rounded-lg w-48">
+                            <input id="GenS" onkeyup="hideErrsMessage2(this)" >
+                            <label for="GenS" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label>
+                        </div>
+                    </div>
+
+                    <div class="flexHoriz justify-content-between mb-2">
+                        <div class="posRel h56 rounded-lg w-48">
+                            <select id="RoomF" style="width: 100%;">
+                                <option value="0">Выберите Назначение помещения</option>
+
+                            </select>
+                            <label for="naznS" class="w-95 transp backLab">Назначение помещения</label>
+                        </div>
+                        <div class="posRel h56 rounded-lg  w-48">
+                            <select id="r_t" style="width: 100%;">
+                                <option value="0">Выберите Тип помещения</option>
+
+                            </select>
+                            <label for="r_t" class="w-95 transp backLab">Тип помещения</label>
+                        </div>
+
+                    </div>
+
+
+
+
+                 
+
+                    <div class="flexHoriz justify-content-between mb-2">
+
+                     
+                        <div style="display:none"class="posRel h56 rounded-lg w-48">
+                            <input id="regDt" class="" value="2012-02-30" type="date">
+                            <label for="regDt" class="w-95 transp backLab">Зарегистрирована</label>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- row-->
+             
+            <div class="col-lg-7 m-0">
+
+
+                <div class=" h60 w-100 bgWhite shadow rounded16 pl-3 mt-4 pr-3 ">
+                    <ol class="list-unstyled list-inline flexHoriz te-menu m-0 h-100 ">
+                        <li onclick="OpenTab(1,this)" class="w200 mr-3 h-100 m-0  ">
+                            <a class=" font-weight-bold" href="#">Лицевые&nbsp;счета</a>
+                        </li>
+                        <li onclick="OpenTab(2,this)" class="w200 mr-3 h-100 m-0 active">
+                            <a class=" font-weight-bold" href="#">Собственники</a>
+                        </li>
+                      
+                       
+                        <li onclick="OpenTab(2,this)" style="display:none" class="w200 mr-3 h-100 m-0 ">
+                            <a class=" font-weight-bold" href="#">Начисления&nbsp;и&nbsp;платежи</a>
+                        </li>
+                    </ol>
+                </div>
+
+
+
+                <div  data-tapId="2"  class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
+
+
+                    <div class="posRel h56 rounded-lg  w-100">
+                            <select id="typeProp">
+                                <option value="0">Выберите собственность</option>
+
+                            </select>
+                            <label for="typeProp" class="w-95 transp backLab">Тип собственности</label>
+                        </div>
+                    
+                    <div class="row mb-3 mr-2 ml-1 w-30 p-0 border-1 rounded8">
+                        <div class="col-md-10 m-0 p-0">
+                            <div class="posRel m-0 p-0">
+                                <input id="sobs2" class="border-0"  type="text">
+                                <label for="sobs2" class="w-95 transp backLab">Собственник</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8">
+                        <div class="col-md-10 m-0 p-0">
+                            <div class="posRel m-0 p-0">
+                                <input id="sobs2" class="border-0"  type="text">
+                                <label for="sobs2" class="w-95 transp backLab">Доля</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8">
+                        <div class="col-md-10 m-0 p-0">
+                            <div class="posRel m-0 p-0">
+                                <input id="sobs2" class="border-0"  type="text">
+                                <label for="sobs2" class="w-95 transp backLab">Номер телефона</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8">
+                        <div class="col-md-10 m-0 p-0">
+                            <div class="posRel m-0 p-0">
+                                <input id="sobs2" class="border-0"  type="text">
+                                <label for="sobs2" class="w-95 transp backLab">E-mail</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="transp border-0 flexCenter mt-n3">
+                        <span class="bgLightGrey w24 rounded-pill"></span>
+                        <img src="../img/ic-plus.svg" class="w12 reddishSvg position-absolute" alt="">
+                    </button>
+                </div>
+           
+            <div data-tapId="1" style="display:none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
+
+
+                 
+
+                    <div class="row mb-3 mr-2 ml-1 w-100 p-0 rounded8">
+                        <div class="col-md-12 m-0 p-0">
+                           <div class="posRel h56 rounded-lg mb-3">
+                        <input onkeyup="hideErrsMessage2(this)" type="text" id="lc">
+                        <label for="lc" class="w-95 transp backLab">Лицевой счет</label>
+                    </div>
+                        </div>
+                        
+                         <div class="flexHoriz justify-content-between mb-2 w-100">
+                        <div class="posRel h56 rounded-lg w-48 m-0">
+                           <input disabled="disabled" onkeyup="hideErrsMessage2(this)" type="text" id="pss" style="width: 71%;">
+                            <label for="pss" class="w-95 transp backLab">Пароль</label>
+                        </div>
+
+                        <button onclick="Generate(this)" id="GENER" class="btn btn1 outline shadow-none m-0 rounded-lg w-48 h56">
+                            <span>
+                                <img src="../img/ic-pass.svg" class="mr-2" alt="" />
+                                <span class="text-truncate">Сгенерировать</span>
+                            </span>
+                        </button>
+                    </div>
+                  
+                   <div class="flexHoriz justify-content-between mb-2 w-100">
+                        <div class="posRel h56 rounded-lg w-48">
+                            <input id="LiveSq" onkeyup="hideErrsMessage2(this)">
+                            <label for="LiveSq" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label>
+                        </div>
+                        <div class="posRel h56 rounded-lg w-48">
+                            <input id="GenSq" onkeyup="hideErrsMessage2(this)">
+                            <label for="GenSq" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label>
+                        </div>
+                    </div>
+                          <div class="flexHoriz justify-content-between mb-2 w-100">
+                        <div class="posRel h56 rounded-lg w-48">
+                            <input id="LiveSqB" onkeyup="hideErrsMessage2(this)">
+                            <label for="LiveSq" class="w-95 transp backLab">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label>
+                        </div>
+                        <div class="posRel h56 rounded-lg w-48">
+                            <input id="AmRoom" onkeyup="hideErrsMessage2(this)">
+                            <label for="AmRoom" class="w-95 transp backLab">Количество комнат<sup>2</sup></label>
+                        </div>
+                    </div>
+                    </div>
+
+                  
+                </div>    
+            </div>
+            <!-- 2 block -->
         </div>
-        <!-- tab1 -->
-
-
+        <!-- row -->
     </div>
-    <!-- tab-content -->
-    <div style="clear: both; height: 20px;">&nbsp;</div>
 
 
     <div id="myModalVn" class="modalVn">
@@ -438,7 +529,7 @@
                     <div class="col-md-1 period">
                         <label>Период:</label><input type="text" id="Period" onkeyup="AddingNac(this)" value="" style="width: 100%;">
                     </div>
-                    <div class="col-md-1 onbegin" >
+                    <div class="col-md-1 onbegin">
                         <label style="">Остаток на начало периода:</label><input id="ONBEGIN" onkeyup="AddingNac(this)" onchange="AddingNac(this)" type="number" value="0.00" style="width: 100%;">
                     </div>
 
@@ -449,7 +540,7 @@
                     <%--<div class="col-md-1 Volume">
                         <label>Объем услуг</label><input id="VOLUME" onkeyup="AddingNac(this)" onchange="AddingNac(this)" type="number" value="0.00" style="width: 100%;">
                     </div>--%>
-                   <%-- <div class="col-md-1 edizm">
+                    <%-- <div class="col-md-1 edizm">
                         <label>Ед.изм.</label>
                         <select id="UNITS">
                             <option>-</option>
@@ -467,19 +558,19 @@
                         </select>
                     </div>--%>
 
-                  <%--  <div class="col-md-1 tarif">
+                    <%--  <div class="col-md-1 tarif">
                         <label>Тариф руб/ед.</label><input id="TARIFF" onkeyup="AddingNac(this)" onchange="AddingNac(this)" type="number" value="0.00" style="width: 100%;">
                     </div>--%>
                     <div class="col-md-1 overall">
                         <label>Начислено:</label><input id="OVERALL" onkeyup="AddingNac(this)" onchange="AddingNac(this)" type="number" value="0.00" style="width: 100%;">
                     </div>
-                 <%--   <div class="col-md-1 lgot">
+                    <%--   <div class="col-md-1 lgot">
                         <label>Льготы субсидии</label><input id="LGOTA" onkeyup="AddingNac(this)" onchange="AddingNac(this)" type="number" value="0.00" style="width: 100%;">
                     </div>--%>
-                   <%-- <div class="col-md-1 recalc">
+                    <%-- <div class="col-md-1 recalc">
                         <label>Перерасчеты (+/-)</label><input id="RECALC" onkeyup="AddingNac(this)" onchange="AddingNac(this)" type="number" value="0.00" style="width: 100%;">
                     </div>--%>
-                   <%-- <div class="col-md-1 overall2">
+                    <%-- <div class="col-md-1 overall2">
                         <label>Итого Начислено</label><input id="OVERALL2" onkeyup="AddingNac(this)" onchange="AddingNac(this)" type="number" value="0.00" style="width: 100%;">
                     </div>--%>
                     <div class="col-md-1 onend">

@@ -1499,6 +1499,20 @@ function ErrorForControls(e, text) {
     var e_class = $(e).attr('class')
     if (e_class == 'select2-hidden-accessible') {
         $(e).parent().find('.select2-selection').attr('style', 'border-color:#f06d06 !important') 
+        if (text != undefined) {
+            var originalText = $(e).next().next('label').text()
+            $(e).next().next('label').attr('style', 'color: red').text(text)
+            var select2Id = $(e).attr('id');
+            var spanId = '#select2-' + select2Id + '-container'
+            var original_title = $(spanId).attr('title')
+            $(spanId).attr('title', text)
+            window.setTimeout(function () {
+                $(e).removeAttr('title'),
+                    $(spanId).attr('title', original_title)
+                $(e).next().next('label').removeAttr('style').text(originalText)
+
+            }, 5000);
+        }
         window.setTimeout(function () {
             $(e).parent().find('.select2-selection').removeAttr('style')
         }, 5000);
@@ -4882,7 +4896,14 @@ function GetSuppRequesByR(R) {
     })
 }
 function DocumentsTenants(files, AUTHOR) {
-    var img_s = files.split(',')
+    console.log(files)
+    var img_s = ""
+    if (files.indexOf('prev') == -1) {
+        img_s = files.split(',')
+    }
+    else {
+        img_s = ParseForProff(files)
+    }
     console.log(img_s)
     for (var i = 0; i < img_s.length; i++) {
 
@@ -4992,6 +5013,14 @@ function getCommentFiles(r) {
             dataType: "json",
             success: function (data) {
                 var jsondata_ = JSON.parse(data.d);
+                if (jsondata_[0].COMMENT_FILE.indexOf('prev') != -1) {
+
+                    var filesProff = ParseForProff(jsondata_[0].COMMENT_FILE)
+                    jsondata_ = []
+                    for (var k = 0; k < filesProff.length; k++) {
+                        jsondata_.push({ "COMMENT_FILE": filesProff[k] })
+                    }
+                }
                 for (var i = 0; i < jsondata_.length; i++) {
                     if (jsondata_[i].COMMENT_FILE != null && jsondata_[i].COMMENT_FILE != "" && jsondata_[i].COMMENT_FILE != " ") {
                         $("#imgss").append('<div class="col-xs-2" id="zImg"><img class="foto-disp" id="fotoDisp' + i + '"  data-url="0"  src="../Files/upl.png"></div>')
@@ -6600,6 +6629,26 @@ function getObjectByProjectId(selected, prj) {
 
         }
     })
+}
+function ParseForProff(files) {
+    var img_s = ""
+    if (files.indexOf('|') != -1) {
+        img_s = files.split('|')
+        for (var k = 0; k < img_s.length; k++) {
+            var img_child = img_s[k].split(';')
+            img_child = img_child.splice(!img_child.indexOf('prev'), 1)
+            img_s[k] = img_child[0]
+        }
+    }
+    else {
+        img_s = files.split('|')
+        for (var k = 0; k < img_s.length; k++) {
+            var img_child = img_s[k].split(';')
+            img_child = img_child.splice(!img_child.indexOf('prev'), 1)
+            img_s[k] = img_child[0]
+        }
+    }
+    return img_s;
 }
 function SearchServsForJsTree(e) {
     var value = $(e).val()

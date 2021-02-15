@@ -27,10 +27,40 @@
     <script src="../js/design.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-
+    <style>
+        .ui-loader-background {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            margin: 0;
+            background: rgba(0, 0, 0, 0.3);
+            display: none;
+            position: fixed;
+            z-index: 10001;
+        }
+         #loader {
+          
+               position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 20000;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border: 16px solid white;
+    border-radius: 50%;
+    border-top: 16px solid #D11B25;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+        }
+    </style>
 
 </head>
 <body>
+     <div class="ui-loader-background"></div>
+        <div id="loader" style="position: fixed;display: block;"></div>
     <header class="internal1 h90">
         <div class="headerWrapper">
             <ul class="nav h-100 ml-3 w-100">

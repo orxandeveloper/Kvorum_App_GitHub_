@@ -605,7 +605,7 @@
 
     <main class="te p-0">
         <div class="ui-loader-background"></div>
-        <div id="loader" style="position: fixed;display: block;"></div>
+        <div id="loader" style="position: fixed;display: none;"></div>
         <div class="row m-0 h-100">
             <div class="col-lg-2half col-sm-12 p-0 bgWhite shadow-line">
                 <span class="h90"></span>
