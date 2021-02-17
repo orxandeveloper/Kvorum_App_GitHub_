@@ -3466,10 +3466,7 @@ function typePropChange(e) {
     var tel0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="tel0" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="tel0" class="transp backLab">Номер телефона</label> </div> </div> </div>'
     var email0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="email0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" class="border-0" type="text"> <label for="email0" class="transp backLab">E-mail</label></div></div></div>'
     var AddElem = '<button onclick="AddElem(this)" class="transp border-0 flexCenter mt-n3"> <span class="bgLightGrey w24 rounded-pill"></span> <img src="../img/ic-plus.svg" class="w12 reddishSvg position-absolute" alt=""> </button>'
-    //var clone_sobs0 = $(e).parent().parent().children('#sobs0').parent().parent().parent();
-    //var clone_dol0 = $('#dol0').parent().parent().parent();
-    //var clone_email0 = $('#email0').parent().parent().parent();
-    //var clone_tel0 = $('#tel0').parent().parent().parent();
+   //s
     if (typPropeval != 0) {
         $(e).parent('div').parent('div').children('.inds').remove();
         $('button[onclick="AddElem(this)"],span[onclick="delElem(this)"]').remove()
