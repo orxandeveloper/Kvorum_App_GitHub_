@@ -381,7 +381,7 @@
     $('select').select2({
         containerCssClass: "wrap"
     })
-   
+
     var loc = window.location.pathname;
     if (loc == '/Manager/Payments.aspx') {
         $('#loadPmnt').click(function () {
@@ -531,7 +531,7 @@
             var number = $(this).val().replace('=', '')
             let pattern = /[\u0400-\u04FF]/;
             if (pattern.test($('input#rnum').val())) {
-                $('input#rnum').val("") 
+                $('input#rnum').val("")
                 ErrorForControls($('#rnum'), 'Только латинские буквы');
             }
             else {
@@ -631,625 +631,387 @@
             }
         })
         getOwnerShip();
-        $(document).on('change', '.active #typeProp', function () {
-            var val = $(this).val();
-            var tabnumber = $(this).parent().parent().parent().attr('data-tab');
-            $('.active #sobsH').text('Собственник')
-            $(".active #itms .row").remove()
 
-            // $("#Adding").hide()
-            if (val != 0) {
-                var asd = '#tab' + tabnumber + ' .row  #typeProp_E'
-                $(asd).remove();
-                $('#typeProp_E').remove();
-                $(".active #itms #sobsH").show();
-                $(".active #itms #dolH").show();
-                $(".active #itms #telH").show();
-                $(".active #itms #emailH").show();
-
-                var lastItem = $(".active #itms .row:last").attr('itemid');
-
-                if (val == 2) {
-
-                    //$("#sobs").show();
-                    //$("#dol").show();
-                    //$("#tel").show();
-                    //$("#email").show();
-                    //$('#dolH').hide();
-                    // $('#dolH').parent().removeAttr('class')
-                    $(".active #itms #dolH").parent().removeAttr('class');
-                    $(".active #itms #dolH").hide();
-                    if (lastItem == undefined) {
-                        lastItem = 0
-
-                        //$(".active #itms #emailH").parent().after('<div class="row" itemid="' + lastItem + '"><div class="col-xs-6 col-md-3"><input type="text" onkeyup="hideErrsMessage2(this)" id="sobs' + lastItem + '" itemid="' + lastItem + '"   /> </div><div class="col-xs-6 col-md-3" style="padding:0 10px 0 15px; display:none"><input onkeyup="hideErrsMessage2(this)" id="dol' + lastItem + '" type="text" itemid="' + lastItem + '"   /></div><div class="col-xs-6 col-lg-3" ><input onkeyup="hideErrsMessage2(this)" id="tel' + lastItem + '" type="tel" itemid="' + lastItem + '"/></div> <div class="col-xs-6 col-lg-3""><input onkeyup="hideErrsMessage2(this)" id="email' + lastItem + '" type="email"  itemid="' + lastItem + '"/></div></div>')
-                        $(".active #itms #emailH").parent().after('<div class="row" itemid="' + lastItem + '"><div class="col-xs-8 col-md-3"><input type="text" onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="sobs' + lastItem + '" itemid="' + lastItem + '"   /> </div><div class="col-xs-4 col-md-3" style="display:none"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" id="dol' + lastItem + '" type="text" itemid="' + lastItem + '"   /></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="tel' + lastItem + '" type="tel" itemid="' + lastItem + '"/></div> <div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="email' + lastItem + '" type="email"  itemid="' + lastItem + '"/></div></div>')
-                    }
-                    // $(".active #Adding").hide();]
-                    $(this).parent().find('#Adding').remove();
-
-                }
-                if (val == 1) {
-                    //  var lastItem = $("#itms .row:last").attr('itemid');
-
-                    if (lastItem == undefined) {
-                        lastItem = 0
-                        $(".active #itms #dolH").parent().hide();
-                        //$(".active #itms #emailH").parent().after('<div class="row" itemid="' + lastItem + '"><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)"type="text" id="sobs' + lastItem + '" itemid="' + lastItem + '"></div><div class="col-xs-6 col-lg-3"><input onkeyup="hideErrsMessage2(this)" id="tel' + lastItem + '" type="tel" itemid="' + lastItem + '"></div><div class="col-xs-6 col-lg-3""><input onkeyup="hideErrsMessage2(this)" id="email' + lastItem + '" type="email" itemid="' + lastItem + '" style="width:100%; "></div></div>')//<i class="fa fa-close removing" onclick=delElem(this,' + lastItem + ',"sovs") aria-hidden="true"></i>
-
-                        $(".active #itms #emailH").parent().after('<div class="row" itemid="' + lastItem + '"><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text" id="sobs' + lastItem + '" itemid="' + lastItem + '"></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="tel' + lastItem + '" type="tel" itemid="' + lastItem + '"></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="email' + lastItem + '" type="email" itemid="' + lastItem + '"></div></div>')//<i class="fa fa-close removing" onclick=delElem(this,' + lastItem + ',"sovs") aria-hidden="true"></i>
-
-                    }
-                    var nextItem = parseInt(lastItem) + 1;
-                    //$(".active #itms .row:last").after('<div class="row" itemid="' + nextItem + '"><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" type="text" id="sobs' + nextItem + '" itemid="' + nextItem + '"></div><div class="col-xs-6 col-lg-3"><input id="tel' + nextItem + '" onkeyup="hideErrsMessage2(this)" type="tel" itemid="' + nextItem + '"></div><div class="col-xs-6 col-lg-3""><input onkeyup="hideErrsMessage2(this)" id="email' + nextItem + '" type="email" itemid="' + nextItem + '" style="width:100%; "></div></div>')//<i class="fa fa-close removing" onclick=delElem(this,' + nextItem + ',"sovs") aria-hidden="true"></i>
-
-                    $(".active #itms .row:last").after('<div class="row" itemid="' + nextItem + '"><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text" id="sobs' + nextItem + '" itemid="' + nextItem + '"></div><div class="col-xs-6 col-md-3"><input id="tel' + nextItem + '" onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="tel" itemid="' + nextItem + '"></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="email' + nextItem + '" type="email" itemid="' + nextItem + '" style="width:100%; "></div></div>')//<i class="fa fa-close removing" onclick=delElem(this,' + nextItem + ',"sovs") aria-hidden="true"></i>
-                    var totalItm = $(".active #itms .row").length;
-                    $(".active #Adding").hide();
-                    //  $(".active #Adding").show().attr('onclick', 'AddElem("sovs",' + totalItm + ')')
-                    //  $(".active #Adding").removeAttr('disabled').attr('class', 'btn genBtn')
-                    //if ($(".active #Adding").length == 0) {
-                    //    $('.active #itms').after('<button onclick=AddElem("sovs",' + totalItm + ') id="Adding" class="btn genBtn">Добавить</button>')
-                    //}
-                    //else {
-                    //    $(".active #Adding").show().attr('onclick', 'AddElem("sovs",' + totalItm + ')')
-                    //}
-                    // $(this).parent().find('#Adding').show().attr('onclick', 'AddElem("sovs",' + totalItm + ')')
-                    $(this).parent().find('#Adding').removeAttr('disabled').attr('class', 'btn genBtn')
-                }
-                //else {
-                //    $("#sobs [itemid=" + lastItem + "]").hide();
-                //    $("#dol [itemid=" + lastItem + "]").hide();
-                //    $("#tel [itemid=" + lastItem + "]").hide();
-                //    $("#email[itemid=" + lastItem + "]").hide();
-                //   }
-                if (val == 3) {
-                    $(".active #itms #sosbH").parent().attr('class', 'col-xs-6 col-md-3')
-                    $(".active #itms #dolH").parent().attr('class', 'col-xs-6 col-md-3')
-                    $(".active #itms #dolH").css('text-align', 'center')
-                    $(".active #itms #dolH").parent().show();
-
-                    if (lastItem == undefined) {
-                        lastItem = 0
-                        // $("#dolH").parent().hide();
-                        //$(".active #itms #emailH").parent().after('<div class="row" itemid="' + lastItem + '"><div class="col-xs-6 col-md-3"><input type="text" onkeyup="hideErrsMessage2(this)" id="sobs' + lastItem + '" itemid="' + lastItem + '"></div><div class="col-xs-6 col-md-3" style="padding:0 10px 0 15px;"><input onkeyup="hideErrsMessage2(this)" id="dol' + lastItem + '" type="text" itemid="' + lastItem + '"></div><div class="col-xs-6 col-lg-3"><input onkeyup="hideErrsMessage2(this)" id="tel' + lastItem + '" type="tel" itemid="' + lastItem + '"></div><div class="col-xs-6 col-lg-3""><i class="fa fa-close" onclick=delElem(this,' + lastItem + ',"doleva") style="float:right;color:red" aria-hidden="true"></i><input onkeyup="hideErrsMessage2(this)" id="email' + lastItem + '" type="email" itemid="' + lastItem + '"></div></div>')
-
-                        $(".active #itms #emailH").parent().after('<div class="row" itemid="' + lastItem + '"><div class="col-xs-6 col-md-3"><input type="text" onkeyup="hideErrsMessage2(this)"  onchange="hideErrsMessage2(this)" id="sobs' + lastItem + '" itemid="' + lastItem + '"></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" id="dol' + lastItem + '" type="text" itemid="' + lastItem + '"></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="tel' + lastItem + '" type="tel" itemid="' + lastItem + '" ></div><div class="col-xs-6 col-md-3"><i class="fa fa-close" onclick=delElem(this,' + lastItem + ',"doleva") style="float:right;color:red" aria-hidden="true"></i><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="email' + lastItem + '" type="email" itemid="' + lastItem + '"></div></div>')
-
-                    }
-                    var nextItem = parseInt(lastItem) + 1;
-                    //$(".active #itms .row:last").after('<div class="row" itemid="' + nextItem + '"><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" type="text" id="sobs' + nextItem + '" itemid="' + nextItem + '"></div><div class="col-xs-6 col-md-3" style="padding:0 10px 0 15px;"><input onkeyup="hideErrsMessage2(this)" id="dol' + nextItem + '" type="text" itemid="' + nextItem + '"></div><div class="col-xs-6 col-lg-3"><input onkeyup="hideErrsMessage2(this)" id="tel' + nextItem + '" type="tel" itemid="' + nextItem + '"></div><div class="col-xs-6 col-lg-3""><i class="fa fa-close" onclick=delElem(this,' + nextItem + ',"doleva") style="float:right;color:red" aria-hidden="true"></i><input onkeyup="hideErrsMessage2(this)" id="email' + nextItem + '" type="email" itemid="' + nextItem + '"></div> </div>')
-
-                    $(".active #itms .row:last").after('<div class="row" itemid="' + nextItem + '"><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text" id="sobs' + nextItem + '" itemid="' + nextItem + '"></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" id="dol' + nextItem + '" type="text" itemid="' + nextItem + '"></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="tel' + nextItem + '" type="tel" itemid="' + nextItem + '"></div><div class="col-xs-6 col-md-3""><i class="fa fa-close" onclick=delElem(this,' + nextItem + ',"doleva") style="float:right;color:red" aria-hidden="true"></i><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="email' + nextItem + '" type="email" itemid="' + nextItem + '"></div> </div>')
-                    var totalItm = $(".active #itms .row").length;
-                    if ($(".active #Adding").length == 0) {
-                        $('.active #itms').after('<button onclick=AddElem("doleva",' + totalItm + ') id="Adding"  class="btn genBtn">Добавить</button>')
-                    }
-                    else {
-                        $(".active #Adding").show().attr('onclick', 'AddElem("doleva",' + totalItm + ')')
-                    }
-                    //
-                    $(".active #Adding").removeAttr('disabled').attr('class', 'btn genBtn')
-
-                }
-                if (val == 4) {
-
-                    //$(".active #itms #dolH").parent().show();
-
-                    $(".active #itms #dolH").parent().removeAttr('class');
-                    $(".active #itms #dolH").hide();
-                    if (lastItem == undefined) {
-                        lastItem = 0
-                        // $("#dolH").parent().hide();
-                        $(".active #itms #emailH").parent().after('<div class="row" itemid="' + lastItem + '"><div class="col-xs-6 col-md-3"><input  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text" id="sobs' + lastItem + '" itemid="' + lastItem + '"></div><div class="col-xs-6 col-md-3" style="padding:0 10px 0 15px;display:none"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" id="dol' + lastItem + '" type="text" itemid="' + lastItem + '"></div><div class="col-xs-6 col-lg-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="tel' + lastItem + '" type="tel" itemid="' + lastItem + '"></div><div class="col-xs-6 col-lg-3""><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="email' + lastItem + '" type="email" itemid="' + lastItem + '"></div></div>')
-
-                    }
-
-                    $('.active #itms #sobsH').text('Наниматель')
-                    $(".active #Adding").hide();
-                }
-            }
-            else {
-                $(".active #itms #sobsH").hide();
-                $(".active #itms #dolH").hide();
-                $(".active #itms #telH").hide();
-                $(".active #itms #emailH").hide();
-
-                $(".active #itms #sobs0").remove();
-                $(".active #itms #dol0").remove();
-                $(".active #itms #tel0").remove();
-                $(".active #itms #email0").remove();
-            }
-        })
         $('#backAppart').click(function () {
             window.location.href = "Apartments.aspx";
-            //  $(".tab-pane fade in active #typeProp").val();
-            // (".active #typeProp").val()
-            /*lc ler
-            $(".tab-content input[id=lc]").each(function() {
-                var lc = $(this).val()
-                if (lc.length == 0) {
-                    var errorLabel = $(this).next('#lc_E').length
-                    if (errorLabel == 0) {
-                        $(this).after('<label id="lc_E" style="color:red;padding: 0px 0;">Необходимо заполнить поле "Номер лицевого счета"</label><br/>')
-                       
-                    }
-                    $("#nav-tab li").attr('class', '');
-                    var li_item = $(this).parent().parent().parent().attr('data-tab')
-                    $('#nav-tab li[itemid=' + li_item + ']').attr('class', 'active');
-                    
-                    $(".tab-content").children().attr("class", "tab-pane fade");
-                    $(this).parent().parent().parent().attr('class', 'tab-pane fade active in')
-                    //$("#tab" + i + "").attr('class', 'tab-pane fade active in')
-                }
-            })
-            */
-            /*typeProp ler
-            $(".tab-content select[id=typeProp]").each(function() {
-                var typeProp = $(this).val()
-                if (typeProp == 0) {
-                    var errorLabel = $(this).next('#typeProp_E').length
-                    if (errorLabel == 0) {
-                        $(this).after('<label id="typeProp_E" style="color:red;padding: 0px 0;">Пожалуйста, Выберите собственность</label><br/>')
 
-                    }
-                    $("#nav-tab li").attr('class', '');
-                    var li_item = $(this).parent().parent().parent().attr('data-tab')
-                    $('#nav-tab li[itemid=' + li_item + ']').attr('class', 'active');
-
-                    $(".tab-content").children().attr("class", "tab-pane fade");
-                    $(this).parent().parent().parent().attr('class', 'tab-pane fade active in')
-                    //$("#tab" + i + "").attr('class', 'tab-pane fade active in')
-                }
-            })
-           */
-            /*LiveSq ler
-            $(".tab-content input[id=LiveSq]").each(function() {
-                var LiveSq = $(this).val()
-                if (LiveSq.length == 0) {
-                    var errorLabel = $(this).next('#LiveSq_E').length
-                    if (errorLabel == 0) {
-                        $(this).after('<label id="LiveSq_E" style="color:red;padding: 0px 0;">Необходимо заполнить поле "Жилая площадь по данному"</label><br/>')
-
-                    }
-                    $("#nav-tab li").attr('class', '');
-                    var li_item = $(this).parent().parent().parent().attr('data-tab')
-                    $('#nav-tab li[itemid=' + li_item + ']').attr('class', 'active');
-
-                    $(".tab-content").children().attr("class", "tab-pane fade");
-                    $(this).parent().parent().parent().attr('class', 'tab-pane fade active in')
-                    //$("#tab" + i + "").attr('class', 'tab-pane fade active in')
-                }
-            })
-*/
-            /*GenSq lervv
-            $(".tab-content input[id=GenSq]").each(function() {
-                var GenSq = $(this).val()
-                if (GenSq.length == 0) {
-                    var errorLabel = $(this).next('#GenSq_E').length
-                    if (errorLabel == 0) {
-                        $(this).after('<label id="GenSq_E" style="color:red;padding: 0px 0;">Необходимо заполнить поле "Общая площадь по данному"</label><br/>')
-
-                    }
-                    $("#nav-tab li").attr('class', '');
-                    var li_item = $(this).parent().parent().parent().attr('data-tab')
-                    $('#nav-tab li[itemid=' + li_item + ']').attr('class', 'active');
-
-                    $(".tab-content").children().attr("class", "tab-pane fade");
-                    $(this).parent().parent().parent().attr('class', 'tab-pane fade active in')
-                    //$("#tab" + i + "").attr('class', 'tab-pane fade active in')
-                }
-            })
-            */
-            /*LiveSqB ler
-            $(".tab-content input[id=LiveSqB]").each(function() {
-                var LiveSqB = $(this).val()
-                if (LiveSqB.length == 0) {
-                    var errorLabel = $(this).next('#LiveSqB_E').length
-                    if (errorLabel == 0) {
-                        $(this).after('<label id="LiveSqB_E" style="color:red;padding: 0px 0;">Необходимо заполнить поле "Жилая площадь без летних зон по данному "</label><br/>')
-
-                    }
-                    $("#nav-tab li").attr('class', '');
-                    var li_item = $(this).parent().parent().parent().attr('data-tab')
-                    $('#nav-tab li[itemid=' + li_item + ']').attr('class', 'active');
-
-                    $(".tab-content").children().attr("class", "tab-pane fade");
-                    $(this).parent().parent().parent().attr('class', 'tab-pane fade active in')
-                    //$("#tab" + i + "").attr('class', 'tab-pane fade active in')
-                }
-            })
-            */
-            /* AmRoom 
-            $(".tab-content input[id=AmRoom]").each(function() {
-                var LiveSqB = $(this).val()
-                if (LiveSqB.length == 0) {
-                    var errorLabel = $(this).next('#AmRoom_E').length
-                    if (errorLabel == 0) {
-                        $(this).after('<label id="AmRoom_E" style="color:red;padding: 0px 0;">Необходимо заполнить поле "Количество комнат"</label><br/>')
-
-                    }
-                    $("#nav-tab li").attr('class', '');
-                    var li_item = $(this).parent().parent().parent().attr('data-tab')
-                    $('#nav-tab li[itemid=' + li_item + ']').attr('class', 'active');
-
-                    $(".tab-content").children().attr("class", "tab-pane fade");
-                    $(this).parent().parent().parent().attr('class', 'tab-pane fade active in')
-                    //$("#tab" + i + "").attr('class', 'tab-pane fade active in')
-                }
-            })
-            lar*/
 
             var tabCount3 = $('#nav-tab li:nth-last-child(2)').attr('itemid');
-            // //console.log(JSON.stringify(txtDatas))
+
         })
         $("#SaveUp").click(function () {
-            var objs = $("#objs").val();
-            if (objs != 0) {
-                var entr = ($("#entr").val().length == 0) ? 0 : $("#entr").val();
-                if (entr.length != 0) {
-                    var floor = ($("#floor").val().length == 0) ? 0 : $("#floor").val();//$("#floor").val();
-                    if (floor.length != 0) {
-                        var rnum = $("#rnum").val();
-                        if (rnum.length != 0) {
-                            var RoomF = $('#RoomF').val();
-                            if (RoomF != 0) {
-                                var r_t = $('#r_t').val();
-                                if (r_t != 0) {
-                                    var countR = ($("#countR").val().length == 0) ? 0 : $("#countR").val(); //$("#countR").val();
-                                    if (countR.length != 0) {
-                                        var GenS = ($("#GenS").val().length == 0) ? 0 : $("#GenS").val();//$("#GenS").val();
-                                        if (GenS.length != 0) {
-                                            var LiveS = ($("#LiveS").val().length == 0) ? 0 : $("#LiveS").val();//$("#LiveS").val();
-                                            if (LiveS.length != 0) {
-                                                var txtDatas = []
-                                                var success = true
-                                                $('.tab-pane').each(function () {
-                                                    var data_tab = $(this).attr('data-tab')
-                                                    var lc = $(this).children().find('#lc').val().trim();
-                                                    var ID_lc = $(this).children().find('#lc').attr('data-id')//scoreGuid
-                                                    var pass = $(this).children().find('#pss').val().trim();
-                                                    var typeProp = $(this).children().find('#typeProp').val();
-
-                                                    var LiveSq = $(this).children().find('#LiveSq').val().trim()
-                                                    LiveSq = (LiveSq.length == 0) ? " " : LiveSq
-
-                                                    var GenSq = $(this).children().find('#GenSq').val().trim();
-                                                    GenSq = (GenSq.length == 0) ? " " : GenSq
-
-                                                    var LiveSqB = $(this).children().find('#LiveSqB').val().trim();
-                                                    LiveSqB = (LiveSqB.length == 0) ? " " : LiveSqB
-
-                                                    var AmRoom = $(this).children().find('#AmRoom').val().trim();
-                                                    AmRoom = (AmRoom.length == 0) ? " " : AmRoom
-                                                    var data_sms = "";
-                                                    var data_em = "";
-                                                    var data_exp = "";
-                                                    ID_lc = (ID_lc == undefined) ? '0' : ID_lc
-
-                                                    if (lc != undefined && lc.length == 0) {
-                                                        $('#lc_E+br').remove()
-                                                        $('#lc_E').remove()
-                                                        $(this).children().find('#lc').after('<label id="lc_E" class="lc_E">Необходимо заполнить поле "Номер лицевого счета"</label><br/>')
-                                                        success = false
-                                                        $('.tab-pane').attr('class', 'tab-pane fade')
-                                                        $(this).attr('class', 'tab-pane fade active in')
-
-                                                        $('#nav-tab').children('li').attr('class', '');
-                                                        $('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                                                        return false;
-                                                    }
-                                                    //console.log('lc: '+lc)
-                                                    if (pass != undefined && pass.length != 0) {
-                                                        data_sms = $(this).children().find('#pss').attr('data-sms')
-                                                        data_sms = (data_sms == undefined) ? "" : data_sms
-
-                                                        data_em = $(this).children().find('#pss').attr('data-em')
-                                                        data_em = (data_em == undefined) ? "" : data_em
-
-                                                        data_exp = $(this).children().find('#pss').attr('data-exp')
-                                                        data_exp = (data_exp == undefined) ? "" : data_exp
-                                                    }
-                                                    lc = lc + "|" + pass + "|" + data_sms + "|" + data_em + "|" + data_exp
-                                                    //console.log('pass: '+pass)
-                                                    //console.log('data_sms: '+data_sms)
-                                                    //console.log('data_em: '+data_em)
-                                                    //console.log('data_exp: ' + data_exp)
-                                                    if (typeProp != undefined && typeProp == 0) {
-                                                        //$('#typeProp_E').remove()
-                                                        //$('#typeProp_E+br').remove()
-                                                        //$(this).children().find('#typeProp').after('<label id="typeProp_E" class="typeProp_E">Пожалуйста, Выберите собственность</label><br/>')
-
-                                                        //success = false
-                                                        //$('.tab-pane').attr('class', 'tab-pane fade')
-                                                        //$(this).attr('class', 'tab-pane fade active in')
-
-                                                        //$('#nav-tab').children('li').attr('class', '');
-                                                        //$('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                                                        //break;
-                                                    }
-                                                    //console.log('typeProp: ' + typeProp)
-                                                    if (LiveSq != undefined && LiveSq.length == 0) {
-                                                        LiveSq = " "
-                                                        //$('#LiveSq_E').remove()
-                                                        //    $('#LiveSq_E+br').remove()
-                                                        //  $(this).children().find('#LiveSq').after('<label id="LiveSq_E"  class="LiveSq_E">Необходимо заполнить поле "Жилая площадь по данному"</label><br/>')
-                                                        //success = false
-                                                        //$('.tab-pane').attr('class', 'tab-pane fade')
-                                                        //$(this).attr('class', 'tab-pane fade active in')
-
-                                                        //$('#nav-tab').children('li').attr('class', '');
-                                                        //$('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                                                        // return break;
-
-                                                    }
-                                                    //console.log('LiveSq 1 : ' + LiveSq)
-                                                    if (GenSq != undefined && GenSq.length == 0) {
-                                                        //   $('#GenSq_E').remove();
-                                                        //$('#GenSq_E+br').remove();
-                                                        //   $(this).children().find('#GenSq').after('<label id="GenSq_E" class="GenSq_E">Необходимо заполнить поле "Общая площадь по данному"</label><br/>')
-
-                                                        //success = false
-                                                        //$('.tab-pane').attr('class', 'tab-pane fade')
-                                                        //$(this).attr('class', 'tab-pane fade active in')
-
-                                                        //$('#nav-tab').children('li').attr('class', '');
-                                                        //$('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                                                        // return break;
-                                                        GenSq = " ";
-                                                    }
-                                                    //console.log("GenSq 2 : " + GenSq)
-                                                    if (LiveSqB != undefined && LiveSqB.length == 0) {
-
-                                                        //$('#LiveSqB_E+br').remove()
-                                                        //$('#LiveSqB_E').remove()
-                                                        //$(this).children().find('#LiveSqB').after('<label id="LiveSqB_E" class="LiveSqB_E">Необходимо заполнить поле "Общая площадь без летних зон по данному "</label><br/>')
-                                                        //success = false
-                                                        //$('.tab-pane').attr('class', 'tab-pane fade')
-                                                        //$(this).attr('class', 'tab-pane fade active in')
-
-                                                        //$('#nav-tab').children('li').attr('class', '');
-                                                        //$('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                                                        // return  break;
-                                                        LiveSqB = " ";
-                                                    }
-                                                    //console.log("LiveSqB 3 : " + LiveSqB)
-
-                                                    if (AmRoom != undefined && AmRoom.length == 0) {
-
-                                                        //$('#AmRoom_E+br').remove()
-                                                        //$('#AmRoom_E').remove()
-                                                        //$(this).children().find('#AmRoom').after('<label id="AmRoom_E" class="AmRoom_E">Необходимо заполнить поле "Количество комнат"</label><br/>')
-                                                        //success = false
-                                                        //$('.tab-pane').attr('class', 'tab-pane fade')
-                                                        //$(this).attr('class', 'tab-pane fade active in')
-
-                                                        //$('#nav-tab').children('li').attr('class', '');
-                                                        //$('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                                                        // return break;
-                                                        AmRoom = " ";
-                                                    }
-                                                    // //console.log("AmRoom 4 : " + AmRoom)
-
-                                                    var itms = $(this).children().find('#itms')
-                                                    var itmsS = []
-                                                    $(itms).children('.row').each(function () {
-                                                        var itemid = $(this).attr('itemid');
-                                                        var sobs = $(this).children().find('#sobs' + itemid + '').val().trim()
-                                                        var dol = "";
-                                                        var tel = $(this).children().find('#tel' + itemid + '').val().trim()
-                                                        var email = $(this).children().find('#email' + itemid + '').val().trim()
-                                                        if (sobs == undefined) {
-                                                            spobs = "";
-                                                        }
-                                                        //console.log('sobs 1: ' + sobs)
-                                                        if (typeProp == 3) {
-                                                            dol = $(this).children().find('#dol' + itemid + '').val().trim();
-                                                            if (dol.length == 0) {
-                                                                // $('dol' + itemid + '_E').remove()
-                                                                // $('dol' + itemid + '_E+br').remove()
-                                                                $('.dols+br').remove();
-                                                                $('.dols').remove();
-                                                                $(this).children().find('#dol' + itemid + '').after('<label id="dol_E" class="dols">Необходимо заполнить поле "Доля"</label><br/>')
-
-                                                                success = false
-                                                                $('.tab-pane').attr('class', 'tab-pane fade')
-                                                                // $(this).parent().find('.tab-pane').attr('class', 'tab-pane fade active in')
-                                                                $('#tab' + data_tab + '').attr('class', 'tab-pane fade active in')
-                                                                $('#nav-tab').children('li').attr('class', '');
-                                                                $('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                                                                return false;
-                                                            }
-                                                            else {
-                                                                var dol_ = dol.replace(',', '.')
-                                                                var dol_ = (dol_)
-                                                                if (dol_ <= 0 || dol_ >= 1) {
-                                                                    $('.dols+br').remove();
-                                                                    $('.dols').remove();
-                                                                    $(this).children().find('#dol' + itemid + '').after('<label id="dol_E" class="dols">Некорректное значение</label><br/>')
-
-                                                                    success = false
-                                                                    $('.tab-pane').attr('class', 'tab-pane fade')
-                                                                    // $(this).parent().find('.tab-pane').attr('class', 'tab-pane fade active in')
-                                                                    $('#tab' + data_tab + '').attr('class', 'tab-pane fade active in')
-                                                                    $('#nav-tab').children('li').attr('class', '');
-                                                                    $('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                                                                    return false;
-                                                                }
-                                                            }
-                                                        }
-                                                        //console.log('dol 2: ' + dol)
-                                                        if (tel != undefined) {
-                                                            if (pass.length != 0 && data_sms == "has" && tel.length == 0) {
-                                                                //    $('.tels+br').remove()
-                                                                //  $('.tels').remove()
-                                                                $(this).children().find('#tel' + itemid + '').after('<label id="tel_E"  class="tels">Для рассылки пароля не хватает следующих данных "Номер телефона"</label><br/>')
-
-                                                                success = false
-                                                                $('.tab-pane').attr('class', 'tab-pane fade')
-                                                                $('#tab' + data_tab + '').attr('class', 'tab-pane fade active in')
-                                                                // $(this).parent().find('.tab-pane').attr('class', 'tab-pane fade active in')
-
-                                                                $('#nav-tab').children('li').attr('class', '');
-                                                                $('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                                                                return false;
-
-                                                            }
-                                                            else {
-                                                                tel = (tel.length == 0) ? "" : tel;
-                                                            }
-                                                        }
-                                                        else {
-                                                            tel = "";
-                                                        }
-
-                                                        //console.log('tel 3: ' + tel)
-                                                        if (email != undefined) {
-                                                            if (pass.length != 0 && data_em == "has" && email.length == 0) {
-                                                                //   $('.emails+br').remove()
-                                                                //   $('.emails').remove()
-                                                                $(this).children().find('#email' + itemid + '').after('<label id="email_E" class="emails" style="color:red;padding: 0px 0;">Для рассылки пароля не хватает следующих данных: "E-mail"</label><br/>')
-
-                                                                success = false
-                                                                $('.tab-pane').attr('class', 'tab-pane fade')
-                                                                //  $(this).parent().find('.tab-pane').attr('class', 'tab-pane fade active in')
-                                                                $('#tab' + data_tab + '').attr('class', 'tab-pane fade active in')
-                                                                $('#nav-tab').children('li').attr('class', '');
-                                                                $('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                                                                return false;
-                                                            }
-                                                            else {
-                                                                email = (email.length == 0) ? "" : email;
-                                                            }
-
-                                                        }
-                                                        else {
-                                                            email = "";
-                                                        }
-
-                                                        //console.log('email 4: ' + tel)
-                                                        itmsS.push({ "FIRST_NAME": sobs, "SHARE": dol, "PHONE": tel, "EMAIL": email })
-
-                                                    })
-                                                    if (lc != undefined && typeProp != undefined && LiveSq != undefined && GenSq != undefined && LiveSqB != undefined && AmRoom != undefined) {
-                                                        txtDatas.push({ "NUMBER": lc, "OWNERSHIP_TYPE_ID": typeProp, "LIVE_SQUARE": LiveSq, "GEN_SQUARE": GenSq, "WITHOUT_SUMMER_SQUARE": LiveSqB, "ROOM_QUANT": AmRoom, "A_D": itmsS, "ID": ID_lc })
-                                                    }
-                                                })
-                                                console.log(txtDatas)
-                                                //var lc_e = $('#lc_E').length;
-                                                //if (lc_e != 0) {
-                                                //    success = false
-
-                                                //}
-                                                //if ($('#emailV_E').length != 0) {
-                                                //    success = false
-                                                //}
-                                                //if ($('#PhoneV_E').length != 0) {
-                                                //    success = false
-                                                //}
-                                                //if ($('#LiveS_E').length != 0) {
-                                                //    success = false
-                                                //}
-                                                //if ($('#LiveSq_E').length != 0) {
-                                                //    success = false
-                                                //}
-                                                //if ($('#GenS_E').length != 0) {
-                                                //    success = false
-                                                //}
-                                                //if ($('#GenSq_E').length != 0) {
-                                                //    success = false
-                                                //}
-                                                //if ($('#countRErr').length != 0 && $('#LiveSqBErr').length == 0 && $('#GenSErrA').length == 0 && $('#countRErrA').length != 0 && $('#LiveS_').length != 0) {
-                                                //    success = false
-                                                //    
-                                                //}
+            var SuccesResult = checkControlsM().Issuccess
 
 
 
-                                                if (success == true) {
-                                                    //--Saving
+            if (true) {
+                //var objs = $("#objs").val();
+                //           if (objs != 0) {
+                //               var entr = ($("#entr").val().length == 0) ? 0 : $("#entr").val();
+                //               if (entr.length != 0) {
+                //                   var floor = ($("#floor").val().length == 0) ? 0 : $("#floor").val();//$("#floor").val();
+                //                   if (floor.length != 0) {
+                //                       var rnum = $("#rnum").val();
+                //                       if (rnum.length != 0) {
+                //                           var RoomF = $('#RoomF').val();
+                //                           if (RoomF != 0) {
+                //                               var r_t = $('#r_t').val();
+                //                               if (r_t != 0) {
+                //                                   var countR = ($("#countR").val().length == 0) ? 0 : $("#countR").val(); //$("#countR").val();
+                //                                   if (countR.length != 0) {
+                //                                       var GenS = ($("#GenS").val().length == 0) ? 0 : $("#GenS").val();//$("#GenS").val();
+                //                                       if (GenS.length != 0) {
+                //                                           var LiveS = ($("#LiveS").val().length == 0) ? 0 : $("#LiveS").val();//$("#LiveS").val();
+                //                                           if (LiveS.length != 0) {
+                //                                               var txtDatas = []
+                //                                               var success = true
+                //                                               $('.tab-pane').each(function () {
+                //                                                   var data_tab = $(this).attr('data-tab')
+                //                                                   var lc = $(this).children().find('#lc').val().trim();
+                //                                                   var ID_lc = $(this).children().find('#lc').attr('data-id')//scoreGuid
+                //                                                   var pass = $(this).children().find('#pss').val().trim();
+                //                                                   var typeProp = $(this).children().find('#typeProp').val();
 
-                                                    ////console.log(obj)
-                                                    if (apartId == "null") {
-                                                        var obj = { "OBJECT_ID": objs, "ENTRANCE": entr, "FLOOR": floor, "ROOM_NUMBER": rnum, "ROOM_FOR_ID": RoomF, "ROOM_TYPE_ID": r_t, "CHAMB_AMOUNT": countR, "GEN_SQUARE": GenS, "LIVE_SQUARE": LiveS, "adbs": txtDatas };
-                                                        $('.ui-loader-background').show();
-                                                        $('#loader').show();
-                                                        SaveApart(obj, Log)
-                                                        //alert('Ok')
-                                                    }
-                                                    else {
-                                                        //var IDROom = sessionStorage.getItem("ID")
-                                                        var objUp = { "ROOM_ID": apartId, "OBJECT_ID": objs, "ENTRANCE": entr, "FLOOR": floor, "ROOM_NUMBER": rnum, "ROOM_FOR_ID": RoomF, "ROOM_TYPE_ID": r_t, "CHAMB_AMOUNT": countR, "GEN_SQUARE": GenS, "LIVE_SQUARE": LiveS, "adbs": txtDatas };
-                                                        var roomtype = $("#r_t option:selected").text();
-                                                        $('.ui-loader-background').show();
-                                                        $('#loader').show();
-                                                        UpdateApart(objUp, Log, rnum, roomtype);
-                                                    }
+                //                                                   var LiveSq = $(this).children().find('#LiveSq').val().trim()
+                //                                                   LiveSq = (LiveSq.length == 0) ? " " : LiveSq
 
-                                                }
+                //                                                   var GenSq = $(this).children().find('#GenSq').val().trim();
+                //                                                   GenSq = (GenSq.length == 0) ? " " : GenSq
 
-                                            }
-                                            else {
-                                                if ($('#LiveSE').length == 0) {
-                                                    $("#LiveS").after('<label id= "LiveSE" class="errs">Необходимо заполнить поле "Жилая площадь"</label>')
-                                                }
+                //                                                   var LiveSqB = $(this).children().find('#LiveSqB').val().trim();
+                //                                                   LiveSqB = (LiveSqB.length == 0) ? " " : LiveSqB
 
-                                            }
-                                        }
-                                        else {
-                                            if ($('#GenSE').length == 0) {
-                                                $("#GenS").after('<label id= "GenSE" class="errs">Необходимо заполнить поле "Общая площадь"</label>')
-                                            }
+                //                                                   var AmRoom = $(this).children().find('#AmRoom').val().trim();
+                //                                                   AmRoom = (AmRoom.length == 0) ? " " : AmRoom
+                //                                                   var data_sms = "";
+                //                                                   var data_em = "";
+                //                                                   var data_exp = "";
+                //                                                   ID_lc = (ID_lc == undefined) ? '0' : ID_lc
 
-                                        }
-                                    }
-                                    else {
-                                        if ($('#countRE').length == 0) {
-                                            $("#countR").after('<label id= "countRE" class="errs">Необходимо заполнить поле "Количество комнат"</label>')
-                                        }
+                //                                                   if (lc != undefined && lc.length == 0) {
+                //                                                       $('#lc_E+br').remove()
+                //                                                       $('#lc_E').remove()
+                //                                                       $(this).children().find('#lc').after('<label id="lc_E" class="lc_E">Необходимо заполнить поле "Номер лицевого счета"</label><br/>')
+                //                                                       success = false
+                //                                                       $('.tab-pane').attr('class', 'tab-pane fade')
+                //                                                       $(this).attr('class', 'tab-pane fade active in')
 
-                                    }
-                                }
-                                else {
-                                    if ($('#r_tE').length == 0) {
-                                        $("#r_tH").after('<label id= "r_tE" class="errs">Необходимо выбрать "Тип помещения"</label>')
-                                    }
+                //                                                       $('#nav-tab').children('li').attr('class', '');
+                //                                                       $('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
+                //                                                       return false;
+                //                                                   }
+                //                                                   //console.log('lc: '+lc)
+                //                                                   if (pass != undefined && pass.length != 0) {
+                //                                                       data_sms = $(this).children().find('#pss').attr('data-sms')
+                //                                                       data_sms = (data_sms == undefined) ? "" : data_sms
 
-                                }
-                            }
-                            else {
-                                if ($('#RoomFE').length == 0) {
-                                    $("#RoomFH").after('<label id= "RoomFE" class="errs">Необходимо выбрать "Назначение помещения"</label>')
-                                }
+                //                                                       data_em = $(this).children().find('#pss').attr('data-em')
+                //                                                       data_em = (data_em == undefined) ? "" : data_em
 
-                            }
-                        }
-                        else {
-                            if ($('#rnumE').length == 0) {
-                                $("#rnumH").after('<label id= "rnumE" class="errs">Необходимо заполнить поле "Номер помещения"</label>')
-                            }
+                //                                                       data_exp = $(this).children().find('#pss').attr('data-exp')
+                //                                                       data_exp = (data_exp == undefined) ? "" : data_exp
+                //                                                   }
+                //                                                   lc = lc + "|" + pass + "|" + data_sms + "|" + data_em + "|" + data_exp
+                //                                                   //console.log('pass: '+pass)
+                //                                                   //console.log('data_sms: '+data_sms)
+                //                                                   //console.log('data_em: '+data_em)
+                //                                                   //console.log('data_exp: ' + data_exp)
+                //                                                   if (typeProp != undefined && typeProp == 0) {
+                //                                                       //$('#typeProp_E').remove()
+                //                                                       //$('#typeProp_E+br').remove()
+                //                                                       //$(this).children().find('#typeProp').after('<label id="typeProp_E" class="typeProp_E">Пожалуйста, Выберите собственность</label><br/>')
 
-                        }
-                    }
-                    else {
-                        if ($('#floorE').length == 0) {
-                            $("#floorH").after('<label id= "floorE" class="errs">Необходимо заполнить поле "Этаж"</label>')
-                        }
+                //                                                       //success = false
+                //                                                       //$('.tab-pane').attr('class', 'tab-pane fade')
+                //                                                       //$(this).attr('class', 'tab-pane fade active in')
 
-                    }
-                }
-                else {
-                    if ($('#entrE').length == 0) {
-                        $("#entrH").after('<label id= "entrE" class="errs">Необходимо заполнить поле "Подъезд"</label>')
-                    }
+                //                                                       //$('#nav-tab').children('li').attr('class', '');
+                //                                                       //$('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
+                //                                                       //break;
+                //                                                   }
+                //                                                   //console.log('typeProp: ' + typeProp)
+                //                                                   if (LiveSq != undefined && LiveSq.length == 0) {
+                //                                                       LiveSq = " "
+                //                                                       //$('#LiveSq_E').remove()
+                //                                                       //    $('#LiveSq_E+br').remove()
+                //                                                       //  $(this).children().find('#LiveSq').after('<label id="LiveSq_E"  class="LiveSq_E">Необходимо заполнить поле "Жилая площадь по данному"</label><br/>')
+                //                                                       //success = false
+                //                                                       //$('.tab-pane').attr('class', 'tab-pane fade')
+                //                                                       //$(this).attr('class', 'tab-pane fade active in')
 
-                }
-            }
-            else {
-                if ($('#objsE').length == 0) {
-                    $("#objsH").after('<label id= "objsE" class="errs">Необходимо выбрать объект</label>')
-                }
+                //                                                       //$('#nav-tab').children('li').attr('class', '');
+                //                                                       //$('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
+                //                                                       // return break;
 
+                //                                                   }
+                //                                                   //console.log('LiveSq 1 : ' + LiveSq)
+                //                                                   if (GenSq != undefined && GenSq.length == 0) {
+                //                                                       //   $('#GenSq_E').remove();
+                //                                                       //$('#GenSq_E+br').remove();
+                //                                                       //   $(this).children().find('#GenSq').after('<label id="GenSq_E" class="GenSq_E">Необходимо заполнить поле "Общая площадь по данному"</label><br/>')
+
+                //                                                       //success = false
+                //                                                       //$('.tab-pane').attr('class', 'tab-pane fade')
+                //                                                       //$(this).attr('class', 'tab-pane fade active in')
+
+                //                                                       //$('#nav-tab').children('li').attr('class', '');
+                //                                                       //$('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
+                //                                                       // return break;
+                //                                                       GenSq = " ";
+                //                                                   }
+                //                                                   //console.log("GenSq 2 : " + GenSq)
+                //                                                   if (LiveSqB != undefined && LiveSqB.length == 0) {
+
+                //                                                       //$('#LiveSqB_E+br').remove()
+                //                                                       //$('#LiveSqB_E').remove()
+                //                                                       //$(this).children().find('#LiveSqB').after('<label id="LiveSqB_E" class="LiveSqB_E">Необходимо заполнить поле "Общая площадь без летних зон по данному "</label><br/>')
+                //                                                       //success = false
+                //                                                       //$('.tab-pane').attr('class', 'tab-pane fade')
+                //                                                       //$(this).attr('class', 'tab-pane fade active in')
+
+                //                                                       //$('#nav-tab').children('li').attr('class', '');
+                //                                                       //$('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
+                //                                                       // return  break;
+                //                                                       LiveSqB = " ";
+                //                                                   }
+                //                                                   //console.log("LiveSqB 3 : " + LiveSqB)
+
+                //                                                   if (AmRoom != undefined && AmRoom.length == 0) {
+
+                //                                                       //$('#AmRoom_E+br').remove()
+                //                                                       //$('#AmRoom_E').remove()
+                //                                                       //$(this).children().find('#AmRoom').after('<label id="AmRoom_E" class="AmRoom_E">Необходимо заполнить поле "Количество комнат"</label><br/>')
+                //                                                       //success = false
+                //                                                       //$('.tab-pane').attr('class', 'tab-pane fade')
+                //                                                       //$(this).attr('class', 'tab-pane fade active in')
+
+                //                                                       //$('#nav-tab').children('li').attr('class', '');
+                //                                                       //$('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
+                //                                                       // return break;
+                //                                                       AmRoom = " ";
+                //                                                   }
+                //                                                   // //console.log("AmRoom 4 : " + AmRoom)
+
+                //                                                   var itms = $(this).children().find('#itms')
+                //                                                   var itmsS = []
+                //                                                   $(itms).children('.row').each(function () {
+                //                                                       var itemid = $(this).attr('itemid');
+                //                                                       var sobs = $(this).children().find('#sobs' + itemid + '').val().trim()
+                //                                                       var dol = "";
+                //                                                       var tel = $(this).children().find('#tel' + itemid + '').val().trim()
+                //                                                       var email = $(this).children().find('#email' + itemid + '').val().trim()
+                //                                                       if (sobs == undefined) {
+                //                                                           spobs = "";
+                //                                                       }
+                //                                                       //console.log('sobs 1: ' + sobs)
+                //                                                       if (typeProp == 3) {
+                //                                                           dol = $(this).children().find('#dol' + itemid + '').val().trim();
+                //                                                           if (dol.length == 0) {
+                //                                                               // $('dol' + itemid + '_E').remove()
+                //                                                               // $('dol' + itemid + '_E+br').remove()
+                //                                                               $('.dols+br').remove();
+                //                                                               $('.dols').remove();
+                //                                                               $(this).children().find('#dol' + itemid + '').after('<label id="dol_E" class="dols">Необходимо заполнить поле "Доля"</label><br/>')
+
+                //                                                               success = false
+                //                                                               $('.tab-pane').attr('class', 'tab-pane fade')
+                //                                                               // $(this).parent().find('.tab-pane').attr('class', 'tab-pane fade active in')
+                //                                                               $('#tab' + data_tab + '').attr('class', 'tab-pane fade active in')
+                //                                                               $('#nav-tab').children('li').attr('class', '');
+                //                                                               $('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
+                //                                                               return false;
+                //                                                           }
+                //                                                           else {
+                //                                                               var dol_ = dol.replace(',', '.')
+                //                                                               var dol_ = (dol_)
+                //                                                               if (dol_ <= 0 || dol_ >= 1) {
+                //                                                                   $('.dols+br').remove();
+                //                                                                   $('.dols').remove();
+                //                                                                   $(this).children().find('#dol' + itemid + '').after('<label id="dol_E" class="dols">Некорректное значение</label><br/>')
+
+                //                                                                   success = false
+                //                                                                   $('.tab-pane').attr('class', 'tab-pane fade')
+                //                                                                   // $(this).parent().find('.tab-pane').attr('class', 'tab-pane fade active in')
+                //                                                                   $('#tab' + data_tab + '').attr('class', 'tab-pane fade active in')
+                //                                                                   $('#nav-tab').children('li').attr('class', '');
+                //                                                                   $('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
+                //                                                                   return false;
+                //                                                               }
+                //                                                           }
+                //                                                       }
+                //                                                       //console.log('dol 2: ' + dol)
+                //                                                       if (tel != undefined) {
+                //                                                           if (pass.length != 0 && data_sms == "has" && tel.length == 0) {
+                //                                                               //    $('.tels+br').remove()
+                //                                                               //  $('.tels').remove()
+                //                                                               $(this).children().find('#tel' + itemid + '').after('<label id="tel_E"  class="tels">Для рассылки пароля не хватает следующих данных "Номер телефона"</label><br/>')
+
+                //                                                               success = false
+                //                                                               $('.tab-pane').attr('class', 'tab-pane fade')
+                //                                                               $('#tab' + data_tab + '').attr('class', 'tab-pane fade active in')
+                //                                                               // $(this).parent().find('.tab-pane').attr('class', 'tab-pane fade active in')
+
+                //                                                               $('#nav-tab').children('li').attr('class', '');
+                //                                                               $('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
+                //                                                               return false;
+
+                //                                                           }
+                //                                                           else {
+                //                                                               tel = (tel.length == 0) ? "" : tel;
+                //                                                           }
+                //                                                       }
+                //                                                       else {
+                //                                                           tel = "";
+                //                                                       }
+
+                //                                                       //console.log('tel 3: ' + tel)
+                //                                                       if (email != undefined) {
+                //                                                           if (pass.length != 0 && data_em == "has" && email.length == 0) {
+                //                                                               //   $('.emails+br').remove()
+                //                                                               //   $('.emails').remove()
+                //                                                               $(this).children().find('#email' + itemid + '').after('<label id="email_E" class="emails" style="color:red;padding: 0px 0;">Для рассылки пароля не хватает следующих данных: "E-mail"</label><br/>')
+
+                //                                                               success = false
+                //                                                               $('.tab-pane').attr('class', 'tab-pane fade')
+                //                                                               //  $(this).parent().find('.tab-pane').attr('class', 'tab-pane fade active in')
+                //                                                               $('#tab' + data_tab + '').attr('class', 'tab-pane fade active in')
+                //                                                               $('#nav-tab').children('li').attr('class', '');
+                //                                                               $('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
+                //                                                               return false;
+                //                                                           }
+                //                                                           else {
+                //                                                               email = (email.length == 0) ? "" : email;
+                //                                                           }
+
+                //                                                       }
+                //                                                       else {
+                //                                                           email = "";
+                //                                                       }
+
+                //                                                       //console.log('email 4: ' + tel)
+                //                                                       itmsS.push({ "FIRST_NAME": sobs, "SHARE": dol, "PHONE": tel, "EMAIL": email })
+
+                //                                                   })
+                //                                                   if (lc != undefined && typeProp != undefined && LiveSq != undefined && GenSq != undefined && LiveSqB != undefined && AmRoom != undefined) {
+                //                                                       txtDatas.push({ "NUMBER": lc, "OWNERSHIP_TYPE_ID": typeProp, "LIVE_SQUARE": LiveSq, "GEN_SQUARE": GenSq, "WITHOUT_SUMMER_SQUARE": LiveSqB, "ROOM_QUANT": AmRoom, "A_D": itmsS, "ID": ID_lc })
+                //                                                   }
+                //                                               })
+                //                                               console.log(txtDatas)
+                //                                               //var lc_e = $('#lc_E').length;
+                //                                               //if (lc_e != 0) {
+                //                                               //    success = false
+
+                //                                               //}
+                //                                               //if ($('#emailV_E').length != 0) {
+                //                                               //    success = false
+                //                                               //}
+                //                                               //if ($('#PhoneV_E').length != 0) {
+                //                                               //    success = false
+                //                                               //}
+                //                                               //if ($('#LiveS_E').length != 0) {
+                //                                               //    success = false
+                //                                               //}
+                //                                               //if ($('#LiveSq_E').length != 0) {
+                //                                               //    success = false
+                //                                               //}
+                //                                               //if ($('#GenS_E').length != 0) {
+                //                                               //    success = false
+                //                                               //}
+                //                                               //if ($('#GenSq_E').length != 0) {
+                //                                               //    success = false
+                //                                               //}
+                //                                               //if ($('#countRErr').length != 0 && $('#LiveSqBErr').length == 0 && $('#GenSErrA').length == 0 && $('#countRErrA').length != 0 && $('#LiveS_').length != 0) {
+                //                                               //    success = false
+                //                                               //    
+                //                                               //}
+
+
+
+                //                                               if (success == true) {
+                //                                                   //--Saving
+
+                //                                                   ////console.log(obj)
+                //                                                   if (apartId == "null") {
+                //                                                       var obj = { "OBJECT_ID": objs, "ENTRANCE": entr, "FLOOR": floor, "ROOM_NUMBER": rnum, "ROOM_FOR_ID": RoomF, "ROOM_TYPE_ID": r_t, "CHAMB_AMOUNT": countR, "GEN_SQUARE": GenS, "LIVE_SQUARE": LiveS, "adbs": txtDatas };
+                //                                                       $('.ui-loader-background').show();
+                //                                                       $('#loader').show();
+                //                                                       SaveApart(obj, Log)
+                //                                                       //alert('Ok')
+                //                                                   }
+                //                                                   else {
+                //                                                       //var IDROom = sessionStorage.getItem("ID")
+                //                                                       var objUp = { "ROOM_ID": apartId, "OBJECT_ID": objs, "ENTRANCE": entr, "FLOOR": floor, "ROOM_NUMBER": rnum, "ROOM_FOR_ID": RoomF, "ROOM_TYPE_ID": r_t, "CHAMB_AMOUNT": countR, "GEN_SQUARE": GenS, "LIVE_SQUARE": LiveS, "adbs": txtDatas };
+                //                                                       var roomtype = $("#r_t option:selected").text();
+                //                                                       $('.ui-loader-background').show();
+                //                                                       $('#loader').show();
+                //                                                       UpdateApart(objUp, Log, rnum, roomtype);
+                //                                                   }
+
+                //                                               }
+
+                //                                           }
+                //                                           else {
+                //                                               if ($('#LiveSE').length == 0) {
+                //                                                   $("#LiveS").after('<label id= "LiveSE" class="errs">Необходимо заполнить поле "Жилая площадь"</label>')
+                //                                               }
+
+                //                                           }
+                //                                       }
+                //                                       else {
+                //                                           if ($('#GenSE').length == 0) {
+                //                                               $("#GenS").after('<label id= "GenSE" class="errs">Необходимо заполнить поле "Общая площадь"</label>')
+                //                                           }
+
+                //                                       }
+                //                                   }
+                //                                   else {
+                //                                       if ($('#countRE').length == 0) {
+                //                                           $("#countR").after('<label id= "countRE" class="errs">Необходимо заполнить поле "Количество комнат"</label>')
+                //                                       }
+
+                //                                   }
+                //                               }
+                //                               else {
+                //                                   if ($('#r_tE').length == 0) {
+                //                                       $("#r_tH").after('<label id= "r_tE" class="errs">Необходимо выбрать "Тип помещения"</label>')
+                //                                   }
+
+                //                               }
+                //                           }
+                //                           else {
+                //                               if ($('#RoomFE').length == 0) {
+                //                                   $("#RoomFH").after('<label id= "RoomFE" class="errs">Необходимо выбрать "Назначение помещения"</label>')
+                //                               }
+
+                //                           }
+                //                       }
+                //                       else {
+                //                           if ($('#rnumE').length == 0) {
+                //                               $("#rnumH").after('<label id= "rnumE" class="errs">Необходимо заполнить поле "Номер помещения"</label>')
+                //                           }
+
+                //                       }
+                //                   }
+                //                   else {
+                //                       if ($('#floorE').length == 0) {
+                //                           $("#floorH").after('<label id= "floorE" class="errs">Необходимо заполнить поле "Этаж"</label>')
+                //                       }
+
+                //                   }
+                //               }
+                //               else {
+                //                   if ($('#entrE').length == 0) {
+                //                       $("#entrH").after('<label id= "entrE" class="errs">Необходимо заполнить поле "Подъезд"</label>')
+                //                   }
+
+                //               }
+                //           }
+                //           else {
+                //               if ($('#objsE').length == 0) {
+                //                   $("#objsH").after('<label id= "objsE" class="errs">Необходимо выбрать объект</label>')
+                //               }
+
+                //           }
             }
         })
 
@@ -1275,7 +1037,7 @@
             getRoomFor("");
             GetUproObj(Log, "");
             $("#plus").click(function () {
-                var lastItm = $(this).prev().attr("itemid");
+                var lastItm = $('.ls:last').attr('itemid')
                 addTab(lastItm)
             })
 
@@ -1290,8 +1052,8 @@
                 $('#errPer').remove()
                 var period = $('#Period').val();
                 if (period.length != 0) {
-                    if ($('#vnTable').length==0) {
-                         $('.modal-bodyVn').children('div:eq(0)').after('<div class="col-md-12 vndiv" itemid="0"><table id="vnTable" class="table"><thead><tr><td>Услуга:</td><td>Объем услуг:</td><td>Ед.изм.:</td><td>Тариф руб/ед:</td><td>Льготы субсидии:</td><td>Перерасчеты (+/-):</td><td>Начислено:</td></tr></thead><tbody id="vnTableBody"></tbody></table></div>')
+                    if ($('#vnTable').length == 0) {
+                        $('.modal-bodyVn').children('div:eq(0)').after('<div class="col-md-12 vndiv" itemid="0"><table id="vnTable" class="table"><thead><tr><td>Услуга:</td><td>Объем услуг:</td><td>Ед.изм.:</td><td>Тариф руб/ед:</td><td>Льготы субсидии:</td><td>Перерасчеты (+/-):</td><td>Начислено:</td></tr></thead><tbody id="vnTableBody"></tbody></table></div>')
 
                         $('#vnTableBody').append('<tr data-guid="0"><td><input type="text" id="srv"></td><td><input type="number"      style="width: 100%"></td><td><input type="text"      style="width: 100%"></td><td><input  type="number"   style="width: 100%" ></td><td><input type="number" style="width: 100%"></td><td><input  type="number" style="width: 100%"></td><td><input type="number" onkeyup="AddingNac(this)"  style="width: 100%"  id="Nac0"></td><td><span id="removingNac" onclick="RemoveNacDiv(this)" >x</span></td></tr>')
 
@@ -1303,7 +1065,7 @@
 
                 }
                 else {
-                
+
                     $('#Period').before('<label id="errPer" style="color:red">Необходимо заполнить</label>')
                     window.setTimeout(function () {
                         $('#errPer').remove()
@@ -1404,7 +1166,7 @@
         })
 
         $('#UplAcc').click(function () {
-          //  ShowExcelByOpenXml('8b1083e3-eaab-4c9e-8818-d129225100a4.xlsx')// for SupplierServices
+            //  ShowExcelByOpenXml('8b1083e3-eaab-4c9e-8818-d129225100a4.xlsx')// for SupplierServices
             //  SaveDatasFromExcel(428, 'eeed773d-409a-4c4e-ad68-51c041eccea9.xlsx', Log)
             if ($('#objsM').val() != 0) {
                 $('#UploadAcc').show();
@@ -1956,7 +1718,7 @@
                 $('#mtrs').empty();
                 $('.ui-loader-background').show();
                 $('#loader').show();
-              
+
                 getArxMeter(Log, objId)
             }
             else {
@@ -1964,8 +1726,8 @@
                 $('#mtrs').empty();
                 $('.ui-loader-background').show();
                 $('#loader').show();
-                if (objId==0) {
-                     getMeter(Log)
+                if (objId == 0) {
+                    getMeter(Log)
                 }
                 else {
                     getMeterbyObject(Log, objId)
@@ -2201,8 +1963,8 @@
             })
             $('#noArch').prop('checked', false);
             var objM = $('#objsM').val()
-            if (objM==0) {
-                 getMeter(Log);
+            if (objM == 0) {
+                getMeter(Log);
             }
             else {
                 getMeterbyObject(Log, objM)
@@ -2213,27 +1975,27 @@
             $('.ui-loader-background').show();
             $('#loader').show();
             var arxName = $('#arx').text();
-            if (arxName =='Активные счетчики') {
+            if (arxName == 'Активные счетчики') {
                 getArxMeter(Log, $(this).val())
             }
             else {
-              //  $('#arx').text('Счетчики в архиве')
-                        if ($(this).val() != 0) {
-                            $('#objsM_E').remove();
-                            $('#mtrs').empty()
+                //  $('#arx').text('Счетчики в архиве')
+                if ($(this).val() != 0) {
+                    $('#objsM_E').remove();
+                    $('#mtrs').empty()
 
-                            getMeterbyObject(Log, $(this).val())
-                            Get_Dead_Line($(this).val())
-                            sessionStorage.setItem("SMAsterObj", $(this).val())
-                        }
-                        else {
-                            $('#mtrs').empty()
-                            getMeter(Log)
-                        }
-                        //$('.ui-loader-background').hide();
-                        //$('#loader').hide();
+                    getMeterbyObject(Log, $(this).val())
+                    Get_Dead_Line($(this).val())
+                    sessionStorage.setItem("SMAsterObj", $(this).val())
+                }
+                else {
+                    $('#mtrs').empty()
+                    getMeter(Log)
+                }
+                //$('.ui-loader-background').hide();
+                //$('#loader').hide();
             }
-       
+
         })
         $('#mb5').append('<div class="row"><div class="container"><div class="col-xs-12 col-sm-3"></div></div></div>')
         $('#mb5 .col-xs-12').load('AddCounter.aspx #pop')
@@ -3696,6 +3458,53 @@
 
 
 })
+function typePropChange(e) {
+    var typPropeval = $(e).val()
+    var sobs0 = '<div class="row mb-3 mr-2 ml-1 w-30 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="sobs0" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="sobs0" class="transp backLab">Собственник</label> </div> </div> </div>'
+    var dol0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="dol0" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" type="text"> <label for="dol0" class="transp backLab">Доля</label> </div> </div> </div>'
+
+    var tel0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="tel0" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="tel0" class="transp backLab">Номер телефона</label> </div> </div> </div>'
+    var email0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="email0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" class="border-0" type="text"> <label for="email0" class="transp backLab">E-mail</label></div></div></div>'
+    var AddElem = '<button onclick="AddElem(this)" class="transp border-0 flexCenter mt-n3"> <span class="bgLightGrey w24 rounded-pill"></span> <img src="../img/ic-plus.svg" class="w12 reddishSvg position-absolute" alt=""> </button>'
+    //var clone_sobs0 = $(e).parent().parent().children('#sobs0').parent().parent().parent();
+    //var clone_dol0 = $('#dol0').parent().parent().parent();
+    //var clone_email0 = $('#email0').parent().parent().parent();
+    //var clone_tel0 = $('#tel0').parent().parent().parent();
+    if (typPropeval != 0) {
+        $(e).parent('div').parent('div').children('.inds').remove();
+        $('button[onclick="AddElem(this)"],span[onclick="delElem(this)"]').remove()
+        if (typPropeval == 1) {
+
+            for (var i = 0; i <= 1; i++) {
+                $(e).parent().after(email0)
+                $(e).parent().after(tel0)
+                $(e).parent().after(sobs0)
+            }
+        }
+        else if (typPropeval == 2 || typPropeval == 4) {
+
+            $(e).parent().after(email0)
+            $(e).parent().after(tel0)
+            $(e).parent().after(sobs0)
+        }
+        else if (typPropeval == 3) {
+            for (var i = 0; i <= 1; i++) {
+
+                if (i == 0) {
+                    $(e).parent().after(AddElem)
+                }
+                $(e).parent().after(email0)
+                $(e).parent().after(tel0)
+                $(e).parent().after(dol0)
+                $(e).parent().after(sobs0)
+            }
+        }
+    }
+    else {
+        $(e).parent('div').parent('div').children('.inds').remove();
+        $('button[onclick="AddElem(this)"],span[onclick="delElem(this)"]').remove()
+    }
+}
 function OpenTab(countTab, e) {
     $(e).parent('ol').children('li').attr('class', 'w200 mr-3 h-100 m-0')
     $(e).attr('class', 'w200 mr-3 h-100 m-0 active')
@@ -4189,7 +3998,7 @@ function UI_ForIndication(e) {
     $('#UploadCounter').children('.modal-content2').children('.modal-footer2').children('#loadExC').hide();
     $('#UploadCounter').children('.modal-content2').children('.modal-footer2').append('<input type="button" id="loadExC" onclick="AddCounterValue_mass(this)" name="name" value="Загрузить" style="float: left; width: 25%; height: 78%; background-color: white; color: black; font-weight: 700;">')
 
-  
+
     if ($('#objsM').val() != 0) {
         $('#UploadCounter').show();
     }
@@ -5000,15 +4809,15 @@ function GetDirectionsGrups(DIRECTION_GUID, DirectNAME, PROJECT_GUID) {
                     //    $('#ExistGrups').append('<div data-s=' + SSID + '><div class="cornFlower">' + SSNAME+'</div></div>')
 
                     //}
-                   // if (j[i].NAME == 'ТЭО' || j[i].NAME == 'Vipklimat') {
+                    // if (j[i].NAME == 'ТЭО' || j[i].NAME == 'Vipklimat') {
 
                     //selectDirect
                     $('#ExistGrups').append('<div onclick=selectGrups(this,\"' + DIRECTION_GUID + '\",\"' + j[i].SERVICE_GUID + '\") onclick data-direct=' + DIRECTION_GUID + ' data-grup=' + j[i].SERVICE_GUID + '><img src=' + j[i].SERVICE_ICON + ' class="GrupImg">' + DirectNAME + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i><label class="grupLabel">' + j[i].SERVICE_NAME + '</label><hr></div>')
-                        if (i == 0) {
+                    if (i == 0) {
 
-                        }
-                        getExisServices(PROJECT_GUID, DIRECTION_GUID, j[i].SERVICE_GUID, DirectNAME, j[i].SERVICE_NAME)
-                   // }
+                    }
+                    getExisServices(PROJECT_GUID, DIRECTION_GUID, j[i].SERVICE_GUID, DirectNAME, j[i].SERVICE_NAME)
+                    // }
                 }
             }
         }
@@ -5061,7 +4870,7 @@ function getExisServices(prj, DIRECTION_GUID, SERVICE_GUID, DIRECTION_NAME, SERV
         }
     })
 }
-function SelectDirect(e, d_guid,p_Guid) {
+function SelectDirect(e, d_guid, p_Guid) {
     $('#ExistDirections').children('div').css('background-color', 'white');
 
     $('#ExistDirections').children('div').children('.btn').remove();
@@ -5548,7 +5357,7 @@ function AddNewGrup() {
     $('.modal-body2').append('<div class="col-md-12"><div class="col-md-6"><label> Напрваления</label><select id="directions" style="width:50%"><option value="0">Выберите Направление</option></select><label>Название Группа Услуг</label><input type="text" value="" id="GName" style="width: 50%;"><img  id="GrupIcon" onclick="showAllSetIcons(this)" src="../img/icons/icon_art.png" itemid="2" style="width: 8%;cursor:pointer"><input class="knop" id="f_ilesForD" style="display:none" type="file" onchange=fileForDirect(this,"GrupIcon")><label>Название Услуг</label><input type="text" id="ServiceNameNew" style="width: 50%;"><br><div><label>Единица измерения</label><select id="edizm" style="width: auto;"><option value="0">Выберите единица измерения</option></select></div><div style="width: 50%;/* float: right; */margin-right: 53%;"><label style="width: 25%;">Стоимость (руб.)</label><input type="number" id="costServiceNew"><label style="width: 20%;float: right;/* margin-right: 60px !important; */">Договорная</label><input type="checkbox" id="DoqNew" onclick="checkCheckbox(this)" style="float: right;margin-right: 5%;/* margin-bottom: 57% !important; */"><div></div>')
     getEdizm();
     getExistForDroptown();
-   // getExistSuppliers('suppliers_'); <label> Поставщик</label> <select id="suppliers_" style="width:50%"><option value="0">Выберите Поставщик</option></select>
+    // getExistSuppliers('suppliers_'); <label> Поставщик</label> <select id="suppliers_" style="width:50%"><option value="0">Выберите Поставщик</option></select>
     $('#myModal2').children('.modal-content2').children('.modal-footer2').children('input[type="button"]:eq(1)').attr('onclick', 'AddGrup()')
     $('#myModal2').children('.modal-content2').children('.modal-footer2').children('input[type="button"]:eq(1)').val('Сохранить')
 }
@@ -5767,8 +5576,7 @@ function UpdatingService(servId) {
 }
 function AddGrup() {
     var GrupSuccess = true;
-    if ($('#suppliers_').val() == 0)
-    {
+    if ($('#suppliers_').val() == 0) {
         if ($('#directions').val() == 0) {
             GrupSuccess = false;
             $('#dSErr').remove();
@@ -5830,19 +5638,19 @@ function AddGrup() {
     if (GrupSuccess == true) {
         var GRUP_NAME = $('#GName').val();
         var direction_guid = $('#directions').val();
-    //    var SERVICE_SUPPLIER = $('#suppliers_').children('option:selected').text()
-       // var SUPPLIER_GUID = $('#suppliers_').val()
+        //    var SERVICE_SUPPLIER = $('#suppliers_').children('option:selected').text()
+        // var SUPPLIER_GUID = $('#suppliers_').val()
         var SERVICE_PROJECT = $('#prj').children('option:selected').text()
         var GRUP_ICON = $('#GrupIcon').attr('src');
         var SERVICE_NAME = $('#ServiceNameNew').val()
         //var dIconId = $('#directIcon').attr('itemid')
-     //   var sname = 
-       // var quantity = ($('#isQuantity').prop('checked') == false) ? '0' : '1'
+        //   var sname = 
+        // var quantity = ($('#isQuantity').prop('checked') == false) ? '0' : '1'
         var SERVICE_UNIT = $('#edizm').children('option:selected').text()
         var SERVICE_COST = ($('#DoqNew').prop('checked') == false) ? $('#costServiceNew').val() : "Договорная";
         //, 'SERVICE_SUPPLIER': SERVICE_SUPPLIER, 'SUPPLIER_GUID': SUPPLIER_GUID
         var obj = { "GRUP_NAME": GRUP_NAME, 'SERVICE_PROJECT': SERVICE_PROJECT, "GRUP_ICON": GRUP_ICON, 'direction_guid': direction_guid, 'SERVICE_NAME': SERVICE_NAME, 'SERVICE_UNIT': SERVICE_UNIT, 'SERVICE_COST': SERVICE_COST }
-      //  console.log(obj)
+        //  console.log(obj)
         $.ajax({
             error: function (e) { $('.ui-loader-background').hide(); $('#loader').hide(); alert(e.responseJSON.Message) },
             type: "POST",
@@ -5859,8 +5667,7 @@ function AddGrup() {
     }
 
 }
-function getExistSuppliers(dropId)
-{
+function getExistSuppliers(dropId) {
     var logId = sessionStorage.getItem("Log");
     var obj = { 'lg': logId }
     $.ajax({
@@ -5873,9 +5680,9 @@ function getExistSuppliers(dropId)
         success: function (data) {
             var json = JSON.parse(data.d);
             for (var i = 0; i < json.length; i++) {
-                $('#' + dropId).append('<option value=\"' + json[i].GUID + '\">' + json[i].NAME+'</option>')
+                $('#' + dropId).append('<option value=\"' + json[i].GUID + '\">' + json[i].NAME + '</option>')
             }
-            
+
         }
     })
 }
@@ -6135,7 +5942,7 @@ function UpdateDirect() {
         var Dname = $('#Dname').val();//#Sname
         var d_guid = $('#Dname').attr('data-direct')
         var prj = $('#prj').val();
-        var DIcon= $('#DIcon').attr('src');//setIcon
+        var DIcon = $('#DIcon').attr('src');//setIcon
         var respons_id = $('#Respons').val();
         //var dname = $('#DName').val();
         //var dIconId = $('#directIcon').attr('itemid')
@@ -6144,7 +5951,7 @@ function UpdateDirect() {
         //var unit = $('#edizm').val();
         //var cost = ($('#DoqNew').prop('checked') == false) ? $('#costServiceNew').val() : "Договорная";
         //, 'dname': dname, "dIconId": dIconId, 'sname': sname, 'quantity': quantity, 'unit': unit, 'cost': cost
-        var obj = { "d_guid": d_guid, 'NAME': Dname, 'ICON': DIcon, 'respId': respons_id}
+        var obj = { "d_guid": d_guid, 'NAME': Dname, 'ICON': DIcon, 'respId': respons_id }
 
         $.ajax({
             error: function (e) { $('.ui-loader-background').hide(); $('#loader').hide(); alert(e.responseJSON.Message) },
@@ -6228,8 +6035,7 @@ function showAllSetIcons(e) {
     //    }
     //})
 }
-function fileForDirect(e,imgId)
-{
+function fileForDirect(e, imgId) {
     var filePath = $('#f_ilesForD').val();
     if (filePath.length != 0) {
         $("#loader,.ui-loader-background").show();
@@ -6242,7 +6048,7 @@ function fileForDirect(e,imgId)
             $('.ui-loader-background').show();
             $("#loader,.ui-loader-background").show();
             $('#errEx,#files_E').remove();
-            var input =e //$('#f_ilesForD')
+            var input = e //$('#f_ilesForD')
 
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -6324,7 +6130,7 @@ function fileForDirect(e,imgId)
             $("#loader,.ui-loader-background").hide();
             $('#errEx,#files_E').remove();
             $('#f_ilesForD').val('');
-            $('#'+imgId+'').after('<label id="files_E" style="color:red">(png*, jpg*)</label>').show();
+            $('#' + imgId + '').after('<label id="files_E" style="color:red">(png*, jpg*)</label>').show();
         }
 
     }
@@ -6373,7 +6179,7 @@ function DeleteDirection_(e, d_guid) {
     $('#myModal2').children('.modal-content2').children('.modal-footer2').children('input[type="button"]:eq(1)').attr('onclick', 'DeleteDirection(\"' + d_guid + '\")')
     // $('#deleteO').attr('id','deleteSet')
     $('#deleteSet').click(function () {
-        
+
         //var Obj = { "sid": sid }
         //    $.ajax({error: function (e) {$('.ui-loader-background').hide();$('#loader').hide();alert(e.responseJSON.Message)},
         //        type: "POST",
@@ -6600,7 +6406,7 @@ function getRelationService(e, selected) {
 function RemoveNacDiv(e) {
     var data_s_ = $('.tab-content').find('.active').find('#Paying').find('.table').find('tbody').find('tr[data-s="selected"]').attr('data-guid')
     if (data_s_ == undefined) {
-     if ($('#vnTableBody').children('tr').length == 2) {
+        if ($('#vnTableBody').children('tr').length == 2) {
             $('#vnTable').remove()
         }
         else {
@@ -6620,8 +6426,7 @@ function RemoveNacDiv(e) {
     }
 
 }
-function DeleteKvart(PAY_GUID)
-{
+function DeleteKvart(PAY_GUID) {
     var Obj = { "PAY_GUID": PAY_GUID }
     $.ajax({
         error: function (e) { $('.ui-loader-background').hide(); $('#loader').hide(); alert(e.responseJSON.Message) },
@@ -6750,9 +6555,9 @@ function AddingNac(e) {
     if ($(e).attr('id') == "Period") {
         var period = $(e).val().trim()
         $('#vnTableBody').find('tr:last').find('#srv').val('Итого за ' + period + ':')
-       // $('#srv:last').val('Итого за ' + period + ':')
-        if (period.length==0) {
-    $('#Period').before('<label id="errPer" style="color:red">Необходимо заполнить</label>')
+        // $('#srv:last').val('Итого за ' + period + ':')
+        if (period.length == 0) {
+            $('#Period').before('<label id="errPer" style="color:red">Необходимо заполнить</label>')
             window.setTimeout(function () {
                 $('#errPer').remove()
             }, 5000);
@@ -7305,7 +7110,6 @@ function ErrorForControls(e, text) {
     var e_class = $(e).attr('class')
     if (e_class == 'select2-hidden-accessible') {
         $(e).parent().find('.select2-selection').attr('style', 'border-color:#f06d06 !important')
-
         if (text != undefined) {
             var originalText = $(e).next().next('label').text()
             $(e).next().next('label').attr('style', 'color: red').text(text)
@@ -7332,16 +7136,96 @@ function ErrorForControls(e, text) {
 
     window.setTimeout(function () { $(e).removeAttr('style'); $('#servicelbl').remove() }, 5000);
 
-    if (text != undefined) {
+    if (text != undefined && e_class != 'select2-hidden-accessible') {
         var originalText = $(e).next('label').text()
         $(e).next('label').attr('style', 'color: red').text(text)
         $(e).attr('title', text)
         window.setTimeout(function () {
-            $(e).removeAttr('title')
             $(e).next('label').removeAttr('style').text(originalText)
-               
+            $(e).attr('title', '')
         }, 5000);
     }
+}
+
+function checkControlsM() {
+    var Issuccess = true
+    $('[required]').each(function () {
+        var tagName = this.tagName
+        var labelName = $(this).parent().children('label').text();
+        if (tagName == 'SELECT') {
+
+            if ($(this).val() == 0) {
+                ErrorForControls(this, 'Необходимо выбрать "' + labelName + '"')
+                Issuccess = false
+            }
+        }
+        if (tagName == 'INPUT') {
+            if ($(this).val().trim().length == 0) {
+                ErrorForControls(this, 'Необходимо заполнить поле "' + labelName + '"')
+                Issuccess = false
+            }
+        }
+
+    })
+
+    $('.ls').each(function () {
+        $('[required]').each(function () {
+            var tagName = this.tagName
+            var labelName = $(this).parent().children('label').text();
+            if (tagName == 'INPUT') {
+                if ($(this).val().trim().length == 0) {
+
+                    Issuccess = false
+                }
+            }
+        })
+        if (Issuccess == false) {
+            $(this).children().find('ol').children('li:eq(0)').click()
+        }
+    })
+    if (Issuccess == true) {
+        var objs = $("#objs").val();
+        var entr = ($("#entr").val().length == 0) ? 0 : $("#entr").val();
+        var floor = ($("#floor").val().length == 0) ? 0 : $("#floor").val();
+        var rnum = $("#rnum").val();
+        var RoomF = $('#RoomF').val();
+        var r_t = $('#r_t').val();
+        var countR = ($("#countR").val().length == 0) ? 0 : $("#countR").val();
+        var GenS = ($("#GenS").val().length == 0) ? 0 : $("#GenS").val();
+        var LiveS = ($("#LiveS").val().length == 0) ? 0 : $("#LiveS").val();
+        var txtDatas = []
+        $('.ls').each(function () {
+            var lc = $(this).children().find('#lc').val().trim()
+            var ID_lc = $(this).children().find('#lc').attr('data-id')//scoreGuid
+            var pass = $(this).children().find('#pss').val().trim();
+            var typeProp = $(this).children().find('#typeProp').val();
+            var LiveSq = $(this).children().find('#LiveSq').val().trim()
+            LiveSq = (LiveSq.length == 0) ? " " : LiveSq
+            var GenSq = $(this).children().find('#GenSq').val().trim();
+            GenSq = (GenSq.length == 0) ? " " : GenSq
+            var LiveSqB = $(this).children().find('#LiveSqB').val().trim();
+            LiveSqB = (LiveSqB.length == 0) ? " " : LiveSqB
+            var AmRoom = $(this).children().find('#AmRoom').val().trim();
+            AmRoom = (AmRoom.length == 0) ? " " : AmRoom
+            var data_sms = "";
+            var data_em = "";
+            var data_exp = "";
+            ID_lc = (ID_lc == undefined) ? '0' : ID_lc
+            if (pass != undefined && pass.length != 0) {
+                data_sms = $(this).children().find('#pss').attr('data-sms')
+                data_sms = (data_sms == undefined) ? "" : data_sms
+
+                data_em = $(this).children().find('#pss').attr('data-em')
+                data_em = (data_em == undefined) ? "" : data_em
+
+                data_exp = $(this).children().find('#pss').attr('data-exp')
+                data_exp = (data_exp == undefined) ? "" : data_exp
+            }
+            lc = lc + "|" + pass + "|" + data_sms + "|" + data_em + "|" + data_exp
+        })
+    }
+
+    return { Issuccess: Issuccess }
 }
 function CHeck_Obj_RMF_RMT_RMN(e, OBJECT_ID, ROOM_FOR_ID, ROOM_TYPE_ID, ROOM_NUMBER, LOG_IN_ID, FLOOR) {
     var obj = { "OBJECT_ID": OBJECT_ID, "ROOM_FOR_ID": ROOM_FOR_ID, "ROOM_TYPE_ID": ROOM_TYPE_ID, "ROOM_NUMBER": ROOM_NUMBER, "LOG_IN_ID": LOG_IN_ID, 'FLOOR': FLOOR }
@@ -7359,7 +7243,7 @@ function CHeck_Obj_RMF_RMT_RMN(e, OBJECT_ID, ROOM_FOR_ID, ROOM_TYPE_ID, ROOM_NUM
 
                 if ($('#' + ids + 'E').length == 0) {
                     //$('#' + ids + 'H').after('<label id="' + ids + 'E" style="color:red">Помещение с таким назначением, этажом,номером и типом уже есть на данном объекте! </label>')
-                    ErrorForControls(e,'Помещение с таким назначением, этажом,номером и типом уже есть на данном объекте! ')
+                    ErrorForControls(e, 'Помещение с таким назначением, этажом,номером и типом уже есть на данном объекте! ')
                 }
             }
             else {
@@ -10121,7 +10005,7 @@ function getRoomBYO_ID(l, o) {
         }
     })
 }
-function makeMeterFilter(lg, fltO, a_rx,objId) {
+function makeMeterFilter(lg, fltO, a_rx, objId) {
     var Obj = { "lg": lg, "Mflt": fltO, "arx": a_rx, "objId": objId }
     $.ajax({
         error: function (e) { $('.ui-loader-background').hide(); $('#loader').hide(); alert(e.responseJSON.Message) },
@@ -11225,7 +11109,7 @@ function getBasAccountDatas(rmId, OBJECT_ID) {
         async: false,
         success: function (data) {
             var jsondata_ = JSON.parse(data.d)
-           // console.log(jsondata_)
+            // console.log(jsondata_)
             // 
             var jsondata_A_D;
             if (jsondata_.length < 10) {
@@ -11371,11 +11255,10 @@ function getBasAccountDatas(rmId, OBJECT_ID) {
         }
     })
 }
-function showTab(e)
-{
-    var tabnumb=$(e).attr('data-tab')
+function showTab(e) {
+    var tabnumb = $(e).attr('data-tab')
     $('.faces').attr('class', 'faces tab-pane fade')
-    $('.faces[data-tab="' + tabnumb + '"]').attr('class','faces tab-pane fade in active')
+    $('.faces[data-tab="' + tabnumb + '"]').attr('class', 'faces tab-pane fade in active')
 }
 function AddPayment(len, isNew) {
     console.log('isNew: ' + isNew)
@@ -11499,14 +11382,13 @@ function Deleting_Detail(e, dtId) {
 function DeletingPay(e, idPay) {
     var result = confirm("Вы действительно хотите удалить данные за выбранный период?");
     if (result == true) {
-        $('.ui-loader-background,#loader').show();  
+        $('.ui-loader-background,#loader').show();
         var ServiceArray = []
 
         var data_s_ = $('.tab-content').find('.active').find('#Paying').find('.table').find('tbody').find('tr[data-s="selected"]').attr('data-guid')
-        $('.tab-content').find('.active').find('#Paying').find('.table').find('tbody').find('tr[data-s="selected"]').next('tr').find('#detBody').children('tr').each(function ()
-        {
+        $('.tab-content').find('.active').find('#Paying').find('.table').find('tbody').find('tr[data-s="selected"]').next('tr').find('#detBody').children('tr').each(function () {
             var data_guid = $(this).attr('data-guid')
-            ServiceArray.push({ 'PAY_GUID': data_guid})
+            ServiceArray.push({ 'PAY_GUID': data_guid })
         })
         DeleteKvartByPeriod(JSON.stringify(ServiceArray))
     }
@@ -11523,8 +11405,7 @@ function DeletingPay(e, idPay) {
     //    $('#myModal2').hide();
     //})
 }
-function DeleteKvartByPeriod(ServiceArray)
-{
+function DeleteKvartByPeriod(ServiceArray) {
     var Obj = { "ServiceArray": ServiceArray }
     $.ajax({
         error: function (e) { $('.ui-loader-background').hide(); $('#loader').hide(); alert(e.responseJSON.Message) },
@@ -11534,7 +11415,7 @@ function DeleteKvartByPeriod(ServiceArray)
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            
+
             $('.tab-content').find('.active').find('#Paying').find('.table').find('tbody').find('tr[data-s="selected"]').next('tr').remove()
             $('.tab-content').find('.active').find('#Paying').find('.table').find('tbody').find('tr[data-s="selected"]').remove();
             $('#DelPay').hide();
@@ -11743,7 +11624,7 @@ function GetRFP_KONSTANTIN(score, table) {
             console.log(data);
             var array = data.ResultData
             array = array.RECORDS;
-          
+
             var groupArray = array.reduce(function (result, current) {
                 result[current.MONTH.replace(' ', '_')] = result[current.MONTH.replace(' ', '_')] || [];
                 result[current.MONTH.replace(' ', '_')].push(current);
@@ -11872,11 +11753,11 @@ function ShowDetail(e, rfp_Id) {
     })
 }
 function ShowDetail_K(e) {
-   
+
     var data_s = $(e).attr('data-s')
-    var indexNumber=-1
+    var indexNumber = -1
     if (data_s == undefined) {
-        $('#DelPay').show().removeAttr('disabled','disabled')
+        $('#DelPay').show().removeAttr('disabled', 'disabled')
         $('.ui-loader-background').show();
         $('#loader').show();
         $('tr[data-s="selected"]').removeAttr('data-s')
@@ -12294,7 +12175,7 @@ function AddNac(e, trIndex) {
         $('#ONBEGIN').val(ONBEGIN);
         $('#OVERALL').val(Accured)
         $('#ONEND').val(GeneralSumm)
-       // getMonthsAndYears(SelectedMandY);
+        // getMonthsAndYears(SelectedMandY);
 
         var detTrcount = $('.tab-content').find('.active').find('#Paying').find('.table').find('tbody').find('tr[data-s="selected"]').next('tr').children('td:eq(0)').children('.table ').children('#detBody').children('tr').length
 
@@ -12304,7 +12185,7 @@ function AddNac(e, trIndex) {
         $('.modal-bodyVn').children('div:eq(0)').after('<div class="col-md-12 vndiv" itemid="0"><table id="vnTable" class="table"><thead><tr><td>Услуга:</td><td>Объем услуг:</td><td>Ед.изм.:</td><td>Тариф руб/ед:</td><td>Льготы субсидии:</td><td>Перерасчеты (+/-):</td><td>Начислено:</td></tr></thead><tbody id="vnTableBody"></tbody></table></div>')
         for (var i = 0; i < detTrcount; i++) {
             //var removingNac = (i == 0) ? ' ' : '<span id = "removingNac" onclick = "RemoveNacDiv(this)" style ="float: right;color:red;font-size:20px;font-weight:900;" > x</span>'
-            var checkedPayed =false// $(e).parent().children('.table').children('tbody').children('tr:eq(' + trIndex + ')').next('tr').children('td:eq(0)').children('.table ').children('#detBody').children('tr:eq(' + i + ')').children('td:eq(7)').children('input[type="checkbox"]').prop('checked')
+            var checkedPayed = false// $(e).parent().children('.table').children('tbody').children('tr:eq(' + trIndex + ')').next('tr').children('td:eq(0)').children('.table ').children('#detBody').children('tr:eq(' + i + ')').children('td:eq(7)').children('input[type="checkbox"]').prop('checked')
 
             var disabled = (checkedPayed == false) ? "" : "disabled=disabled"
             var payed = (checkedPayed == false) ? "data-payed=0" : "data-payed=1"
@@ -12326,10 +12207,10 @@ function AddNac(e, trIndex) {
 
             var TARIF = $('.tab-content').find('.active').find('#Paying').find('.table').find('tbody').find('tr[data-s="selected"]').next('tr').children('td:eq(0)').children('.table ').children('#detBody').children('tr:eq(' + i + ')').children('td:eq(3)').text()
 
-            TARIF = parseFloat(TARIF.replace(',','.'))
+            TARIF = parseFloat(TARIF.replace(',', '.'))
 
             var PRIVILEGES = $('.tab-content').find('.active').find('#Paying').find('.table').find('tbody').find('tr[data-s="selected"]').next('tr').children('td:eq(0)').children('.table ').children('#detBody').children('tr:eq(' + i + ')').children('td:eq(4)').text()
-            PRIVILEGES = parseFloat(PRIVILEGES.replace(',','.'))
+            PRIVILEGES = parseFloat(PRIVILEGES.replace(',', '.'))
             var RECALCULATIONS = $('.tab-content').find('.active').find('#Paying').find('.table').find('tbody').find('tr[data-s="selected"]').next('tr').children('td:eq(0)').children('.table ').children('#detBody').children('tr:eq(' + i + ')').children('td:eq(5)').text()
             RECALCULATIONS = parseFloat(RECALCULATIONS.replace(',', '.'))
             var data_S_guid = $('.tab-content').find('.active').find('#Paying').find('.table').find('tbody').find('tr[data-s="selected"]').next('tr').children('td:eq(0)').children('.table ').children('#detBody').children('tr:eq(' + i + ')').attr('data-guid')
@@ -12339,7 +12220,7 @@ function AddNac(e, trIndex) {
 
             var ISFIXED = $(e).parent().children('.table').children('tbody').children('tr:eq(' + trIndex + ')').next('tr').children('td:eq(0)').children('.table ').children('#detBody').children('tr:eq(' + i + ')').children('td:eq(0)').attr('data-fixed')
             //ISFIXED = (ISFIXED == "True") ? 'checked=true' : '';
-           
+
             VOLUME = parseFloat(VOLUME.replace(',', '.'));
             //<td><input type="number" ' + disabled + 'value=' + ISFIXED + '   style="width: 100%"></td>
             $('#vnTableBody').append('<tr data-guid=' + data_S_guid + '><td><input type="text" id="srv" ' + disabled + ' value=\"' + SERVICES + '\"></td><td><input type="number" ' + disabled + ' value=' + VOLUME + '   style="width: 100%"></td><td><input type="text"  ' + disabled + ' ' + EDIZM + '  style="width: 100%"></td><td><input  type="number"  ' + disabled + ' value=' + TARIF + ' style="width: 100%" ></td><td><input type="number" ' + disabled + ' value=' + PRIVILEGES + ' style="width: 100%"></td><td><input  type="number" ' + disabled + ' value=' + RECALCULATIONS + ' style="width: 100%"></td><td><input type="number" ' + disabled + ' onkeyup="AddingNac(this)"  style="width: 100%" value=' + NacValue + ' id="Nac0"></td>' + removingOperation + '</tr>')
@@ -12349,7 +12230,7 @@ function AddNac(e, trIndex) {
 
             //$('.modal-bodyVn').children('div:eq(0)').after('<div class="col-md-12 vndiv" ' + payed + ' itemid="0"><div class="col-md-2"><label>Тип начисления/платежа:</label><select onchange="getRelationService(this)" ' + disabled + ' id="tipN0"><option value="0">Выберите тип начисление</option></select></div><div class="col-md-2"><label>Услуга:</label><select id="srv" ' + disabled + '><option value="0">Выберите услуги</option></select></div><div class="col-md-1"><label>Объем услуг:</label><input type="number" ' + disabled + ' value=' + VOLUME + '   style="width: 100%"></div><div class="col-md-1"><label >Ед.изм.:</label><input type="text"  ' + disabled + ' ' + EDIZM + '  style="width: 100%"></div><div class="col-md-1"><label>Тариф руб/ед:</label><input  type="number"  ' + disabled + ' value=' + TARIF + ' style="width: 100%" ></div><div class="col-md-1"><label >Постоянные:</label><input type="text" ' + disabled + 'value='+ISFIXED+'   style="width: 100%"></div><div class="col-md-1"><label >Льготы субсидии:</label><input type="number" ' + disabled + ' value=' + PRIVILEGES + ' style="width: 100%"></div><div class="col-md-1"><label>Перерасчеты (+/-):</label><input  type="number" ' + disabled + ' value=' + RECALCULATIONS + ' style="width: 100%"></div><div class="col-md-1">' + removingOperation + '<label id="Nacllbl">Начислено:</label><input type="number" ' + disabled + ' onkeyup="AddingNac(this)"  style="width: 100%" value=' + NacValue + ' id="Nac0"></div>')
 
-          //  GetTipNac(i, s);
+            //  GetTipNac(i, s);
 
         }
         if (detTrcount == 1) {
@@ -12497,102 +12378,102 @@ function CheckCurrentRfp(e) {
 function AddVnFunc() {
     var data_s_ = $('.tab-content').find('.active').find('#Paying').find('.table').find('tbody').find('tr[data-s="selected"]').attr('data-guid')
     if (data_s_ == undefined) {
-     //var succPay = true;
-     //   var ServcArray = []
-     //   var tbody = ''
-     //   $('.Servc').each(function () {
-     //       var LS = $(this).parent().attr('data-ls');
-     //       tbody = $(this).parent().attr('data-tbody');
-     //       var ADDRESS = $('#objs option:selected').text();
+        //var succPay = true;
+        //   var ServcArray = []
+        //   var tbody = ''
+        //   $('.Servc').each(function () {
+        //       var LS = $(this).parent().attr('data-ls');
+        //       tbody = $(this).parent().attr('data-tbody');
+        //       var ADDRESS = $('#objs option:selected').text();
 
-     //       var SERVICE = $(this).children('div:eq(0)').children('#Service').val()
-     //       if (SERVICE.length == 0) {
-     //           succPay = false
-     //           $(this).children('div:eq(0)').children('#Service').attr('placeholder', 'Обязательно').addClass('red_Placeholder').css('border', '1px solid red').css('box-shadow', '    0px 0px 5px 0px red')
+        //       var SERVICE = $(this).children('div:eq(0)').children('#Service').val()
+        //       if (SERVICE.length == 0) {
+        //           succPay = false
+        //           $(this).children('div:eq(0)').children('#Service').attr('placeholder', 'Обязательно').addClass('red_Placeholder').css('border', '1px solid red').css('box-shadow', '    0px 0px 5px 0px red')
 
-     //       }
+        //       }
 
-     //       var ONBEGIN = $(this).children('.onbegin').children('#ONBEGIN').val()
-     //       if (ONBEGIN.length == 0) {
-     //           ONBEGIN = '0.00';
-     //           //succPay = false
+        //       var ONBEGIN = $(this).children('.onbegin').children('#ONBEGIN').val()
+        //       if (ONBEGIN.length == 0) {
+        //           ONBEGIN = '0.00';
+        //           //succPay = false
 
-     //           //$(this).children('div:eq(1)').children('#ONBEGIN').attr('placeholder', 'Обязательно').addClass('red_Placeholder').css('border', '1px solid red').css('box-shadow','    0px 0px 5px 0px red')
-     //       }
+        //           //$(this).children('div:eq(1)').children('#ONBEGIN').attr('placeholder', 'Обязательно').addClass('red_Placeholder').css('border', '1px solid red').css('box-shadow','    0px 0px 5px 0px red')
+        //       }
 
-     //       var OVERALL = $(this).children('.overall').children('#OVERALL').val();
-     //       if (OVERALL.length == 0) {
-     //           OVERALL = '0.00'
-     //           //succPay = false
-     //           //$(this).children('div:eq(2)').children('#OVERALL').attr('placeholder', 'Обязательно').addClass('red_Placeholder').css('border', '1px solid red').css('box-shadow', '    0px 0px 5px 0px red')
-     //       }
+        //       var OVERALL = $(this).children('.overall').children('#OVERALL').val();
+        //       if (OVERALL.length == 0) {
+        //           OVERALL = '0.00'
+        //           //succPay = false
+        //           //$(this).children('div:eq(2)').children('#OVERALL').attr('placeholder', 'Обязательно').addClass('red_Placeholder').css('border', '1px solid red').css('box-shadow', '    0px 0px 5px 0px red')
+        //       }
 
-     //       var PAYMENTS = $(this).children('.payments').children('#PAYMENTS').val();
-     //       if (PAYMENTS.length == 0) {
-     //           PAYMENTS = '0.00'
-     //           //succPay = false
-     //           //$(this).children('div:eq(3)').children('#PAYMENTS').attr('placeholder', 'Обязательно').addClass('red_Placeholder').css('border', '1px solid red').css('box-shadow', '    0px 0px 5px 0px red')
-     //       }
-     //       var VOLUME = ($(this).children('.Volume').children('#VOLUME').val().length == 0) ? '0.00' : $(this).children('.Volume').children('#VOLUME').val()
+        //       var PAYMENTS = $(this).children('.payments').children('#PAYMENTS').val();
+        //       if (PAYMENTS.length == 0) {
+        //           PAYMENTS = '0.00'
+        //           //succPay = false
+        //           //$(this).children('div:eq(3)').children('#PAYMENTS').attr('placeholder', 'Обязательно').addClass('red_Placeholder').css('border', '1px solid red').css('box-shadow', '    0px 0px 5px 0px red')
+        //       }
+        //       var VOLUME = ($(this).children('.Volume').children('#VOLUME').val().length == 0) ? '0.00' : $(this).children('.Volume').children('#VOLUME').val()
 
-     //       var TARIFF = ($(this).children('.tarif').children('#TARIFF').val().length == 0) ? '0.00' : $(this).children('.tarif').children('#TARIFF').val()
-     //       var LGOTA = ($(this).children('.lgot').children('#LGOTA').val().length == 0) ? '0.00' : $(this).children('.lgot').children('#LGOTA').val()
-     //       var RECALC = ($(this).children('.recalc').children('#RECALC').val().length == 0) ? '0.00' : $(this).children('.recalc').children('#RECALC').val()
-     //       var OVERALL2 = ($(this).children('.overall2').children('#OVERALL2').val().length == 0) ? '0.00' : $(this).children('.overall2').children('#OVERALL2').val()
-     //       var ONEND = ($(this).children('.onend').children('#ONEND').val().length == 0) ? '0.00' : $(this).children('.onend').children('#ONEND').val()
-     //       var UNITS = $(this).children('.edizm').children('#UNITS').find('option:selected').text();
+        //       var TARIFF = ($(this).children('.tarif').children('#TARIFF').val().length == 0) ? '0.00' : $(this).children('.tarif').children('#TARIFF').val()
+        //       var LGOTA = ($(this).children('.lgot').children('#LGOTA').val().length == 0) ? '0.00' : $(this).children('.lgot').children('#LGOTA').val()
+        //       var RECALC = ($(this).children('.recalc').children('#RECALC').val().length == 0) ? '0.00' : $(this).children('.recalc').children('#RECALC').val()
+        //       var OVERALL2 = ($(this).children('.overall2').children('#OVERALL2').val().length == 0) ? '0.00' : $(this).children('.overall2').children('#OVERALL2').val()
+        //       var ONEND = ($(this).children('.onend').children('#ONEND').val().length == 0) ? '0.00' : $(this).children('.onend').children('#ONEND').val()
+        //       var UNITS = $(this).children('.edizm').children('#UNITS').find('option:selected').text();
 
-     //       if (succPay == true) {
-     //           ServcArray.push({
-     //               'LS': LS,
-     //               'ADDRESS': ADDRESS,
-     //               'SERVICE': SERVICE,
-     //               'ONBEGIN': ONBEGIN,
-     //               'OVERALL': OVERALL,
-     //               'UNITS': UNITS,
-     //               'PAYMENTS': PAYMENTS,
-     //               'VOLUME': VOLUME,
-     //               'TARIFF': TARIFF,
-     //               'LGOTA': LGOTA,
-     //               'RECALC': RECALC,
-     //               'OVERALL2': OVERALL2,
-     //               'ONEND': ONEND
-     //           })
-     //       }
-     //   })
-     //   succPay=false
-     //   if (succPay == true) {
+        //       if (succPay == true) {
+        //           ServcArray.push({
+        //               'LS': LS,
+        //               'ADDRESS': ADDRESS,
+        //               'SERVICE': SERVICE,
+        //               'ONBEGIN': ONBEGIN,
+        //               'OVERALL': OVERALL,
+        //               'UNITS': UNITS,
+        //               'PAYMENTS': PAYMENTS,
+        //               'VOLUME': VOLUME,
+        //               'TARIFF': TARIFF,
+        //               'LGOTA': LGOTA,
+        //               'RECALC': RECALC,
+        //               'OVERALL2': OVERALL2,
+        //               'ONEND': ONEND
+        //           })
+        //       }
+        //   })
+        //   succPay=false
+        //   if (succPay == true) {
 
-     //       //console.log(ServcArray);
+        //       //console.log(ServcArray);
 
-     //       //for (var i = 0; i < ServcArray.length; i++) {
-     //       //    $('#' + tbody).prepend('<tr><td><a>' + ServcArray[i].SERVICE + '</a></td><td><a>' + ServcArray[i].ONBEGIN + '</a></td><td><a>' + ServcArray[i].OVERALL + '</a></td><td><a>' + ServcArray[i].PAYMENTS + '</a></td><td><a>' + ServcArray[i].ONEND + '</a></td></tr>')
-     //       //}
-     //       $('.ui-loader-background').show();
-     //       $('#loader').show();
+        //       //for (var i = 0; i < ServcArray.length; i++) {
+        //       //    $('#' + tbody).prepend('<tr><td><a>' + ServcArray[i].SERVICE + '</a></td><td><a>' + ServcArray[i].ONBEGIN + '</a></td><td><a>' + ServcArray[i].OVERALL + '</a></td><td><a>' + ServcArray[i].PAYMENTS + '</a></td><td><a>' + ServcArray[i].ONEND + '</a></td></tr>')
+        //       //}
+        //       $('.ui-loader-background').show();
+        //       $('#loader').show();
 
-     //       Save_Payments2(JSON.stringify(ServcArray), tbody)
-     //       $('.closeVn').click();
+        //       Save_Payments2(JSON.stringify(ServcArray), tbody)
+        //       $('.closeVn').click();
 
-     //       //  Save_Payments(objPay, tableId);
+        //       //  Save_Payments(objPay, tableId);
 
 
-     //   }
+        //   }
     }
-    var success=true
-   // else {
-       // data_s_ = (data_s_ == undefined)
-       // var periodArray = [];
-        var servicesArray = []
-        var MONTH = $('#Period').val()
-        if (MONTH.length == 0) {
-            success = false;
+    var success = true
+    // else {
+    // data_s_ = (data_s_ == undefined)
+    // var periodArray = [];
+    var servicesArray = []
+    var MONTH = $('#Period').val()
+    if (MONTH.length == 0) {
+        success = false;
+        $('#errPer').remove()
+        $('#Period').before('<label id="errPer" style="color:red">Необходимо заполнить</label>')
+        window.setTimeout(function () {
             $('#errPer').remove()
-            $('#Period').before('<label id="errPer" style="color:red">Необходимо заполнить</label>')
-            window.setTimeout(function () {
-                $('#errPer').remove()
-            }, 5000);
-        }
+        }, 5000);
+    }
 
     var ONBEGIN_ = $('#ONBEGIN').val();
     if (ONBEGIN_.length == 0) {
@@ -12621,86 +12502,85 @@ function AddVnFunc() {
             $('#errPaym').remove()
         }, 5000);
     }
-        var LS_ = $('.tab-content').find('.active').find('#lc').val()//$('.modal-bodyVn').attr('data-ls')
-      //  var data_guid = $('.modal-bodyVn').attr('data-id')
-        var ADDRESS = $('#objs').children('option:selected').text();
+    var LS_ = $('.tab-content').find('.active').find('#lc').val()//$('.modal-bodyVn').attr('data-ls')
+    //  var data_guid = $('.modal-bodyVn').attr('data-id')
+    var ADDRESS = $('#objs').children('option:selected').text();
     //periodArray.push({ "LS": LS_, "ADDRESS": ADDRESS, "MONTH": MONTH, "SERVICES": "Итого за " + MONTH + "", "VOLUME": "", "UNITS": "", "TARIFF": "", "ONBEGIN": ONBEGIN_, "CONSTANT": OVERALL_, "LGOTA": "0.000000", "RECALC": "0.000000", "OVERALL": OVERALL_, "PAYMENTS": PAYMENTS_, "PAYDATE": "", "SALDO": "0.000000", "ONEND": OVERALL_, "LOAD_GUID": "NEW_GUID", 'PAY_GUID': data_s_ })
     data_s_ = (data_s_ == undefined) ? '0' : data_s_
     var i = 0;
-        $('#vnTableBody tr').each(function ()
-        {
-           i=i+1
-           // var id_s = $(this).attr('data-id');
-            var Data_guid = $(this).attr('data-guid');
-            Data_guid = (Data_guid == undefined) ? '0' : Data_guid
-            var srv = $(this).children('td:eq(0)').find('input').val();
-            if (srv.length == 0) {
-                $('#err_srv'+i+'').remove();
-                success = false
-                $(this).children('td:eq(0)').find('input').after('<label class="err" id="err_srv' + i +'" style="color:red">Необходимо заполнить</label>')
-                window.setTimeout(function () {
-                    $('#err_srv' + i +'').remove()
-                }, 5000);
-            }
-            var volume = $(this).children('td:eq(1)').find('input').val();
-            if (volume.length == 0) {
-                $('#err_volume' + i +'').remove();
-                success = false
-                $(this).children('td:eq(1)').find('input').after('<label class="err" id="err_volume' + i +'" style="color:red">Необходимо заполнить</label>')
-                window.setTimeout(function () {
-                    $('#err_volume' + i +'').remove()
-                }, 5000);
-            }
-            var edism = $(this).children('td:eq(2)').find('input').val();
-            if (edism.length == 0) {
-                success = false
-                $('#err_edism' + i +'').remove();
-                $(this).children('td:eq(2)').find('input').after('<label class="err" id="err_edism' + i +'" style="color:red">Необходимо заполнить</label>')
-                window.setTimeout(function () {
-                    $('#err_edism' + i +'').remove()
-                }, 5000);
-            }
-
-            var tarif = $(this).children('td:eq(3)').find('input').val();
-            if (tarif.length == 0) {
-                success = false
-                $('#err_tarif' + i +'').remove();
-                $(this).children('td:eq(3)').find('input').after('<label class="err" id="err_tarif' + i +'" style="color:red">Необходимо заполнить</label>')
-                window.setTimeout(function () {
-                    $('#err_tarif' + i +'').remove()
-                }, 5000);
-            }
-
-            var Lgotes = $(this).children('td:eq(4)').find('input').val();
-            var recalc = $(this).children('td:eq(5)').find('input').val();
-            var nac = $(this).children('td:eq(6)').find('input').val();
-            if (nac.length == 0) {
-                success=false
-                $('#err_nac' + i +'').remove();
-                $(this).children('td:eq(6)').find('input').after('<label class="err" id="err_nac' + i +'" style="color:red">Необходимо заполнить</label>')
-                window.setTimeout(function () {
-                    $('#err_nac' + i +'').remove()
-                }, 5000);
-            }
-
+    $('#vnTableBody tr').each(function () {
+        i = i + 1
+        // var id_s = $(this).attr('data-id');
+        var Data_guid = $(this).attr('data-guid');
+        Data_guid = (Data_guid == undefined) ? '0' : Data_guid
+        var srv = $(this).children('td:eq(0)').find('input').val();
+        if (srv.length == 0) {
+            $('#err_srv' + i + '').remove();
+            success = false
+            $(this).children('td:eq(0)').find('input').after('<label class="err" id="err_srv' + i + '" style="color:red">Необходимо заполнить</label>')
             window.setTimeout(function () {
-                $('.err').remove()
+                $('#err_srv' + i + '').remove()
             }, 5000);
-
-            servicesArray.push({ "LS": LS_, "ADDRESS": ADDRESS, "MONTH": MONTH, "SERVICES": srv, "VOLUME": volume, "UNITS": edism, "TARIFF": tarif, "ONBEGIN": "", "CONSTANT": nac, "LGOTA": Lgotes, "RECALC": recalc, "OVERALL": nac, "PAYMENTS": "", "PAYDATE": "", "SALDO": "0.000000", "ONEND": "", "LOAD_GUID": "NEW_GUID", 'PAY_GUID': Data_guid })
-        })
-        servicesArray.push({ "LS": LS_, "ADDRESS": ADDRESS, "MONTH": MONTH, "SERVICES": "Итого за " + MONTH + ":", "VOLUME": "", "UNITS": "", "TARIFF": "", "ONBEGIN": ONBEGIN_, "CONSTANT": OVERALL_, "LGOTA": "0.000000", "RECALC": "0.000000", "OVERALL": OVERALL_, "PAYMENTS": PAYMENTS_, "PAYDATE": "", "SALDO": "0.000000", "ONEND": OVERALL_, "LOAD_GUID": "NEW_GUID", 'PAY_GUID': data_s_ })
-       // console.log(periodArray)
-       // console.log("periodArray")
-        console.log("------------")
-        console.log(servicesArray)
-        console.log("servicesArray")
-    var tablebodyId = $('.tab-content').find('.active').find('#Paying').find('.table').find('tbody').attr('id');
-        if (success==true) {
-            //alert('ok')
-            Save_Payments2(JSON.stringify(servicesArray), tablebodyId)
         }
-   // }
+        var volume = $(this).children('td:eq(1)').find('input').val();
+        if (volume.length == 0) {
+            $('#err_volume' + i + '').remove();
+            success = false
+            $(this).children('td:eq(1)').find('input').after('<label class="err" id="err_volume' + i + '" style="color:red">Необходимо заполнить</label>')
+            window.setTimeout(function () {
+                $('#err_volume' + i + '').remove()
+            }, 5000);
+        }
+        var edism = $(this).children('td:eq(2)').find('input').val();
+        if (edism.length == 0) {
+            success = false
+            $('#err_edism' + i + '').remove();
+            $(this).children('td:eq(2)').find('input').after('<label class="err" id="err_edism' + i + '" style="color:red">Необходимо заполнить</label>')
+            window.setTimeout(function () {
+                $('#err_edism' + i + '').remove()
+            }, 5000);
+        }
+
+        var tarif = $(this).children('td:eq(3)').find('input').val();
+        if (tarif.length == 0) {
+            success = false
+            $('#err_tarif' + i + '').remove();
+            $(this).children('td:eq(3)').find('input').after('<label class="err" id="err_tarif' + i + '" style="color:red">Необходимо заполнить</label>')
+            window.setTimeout(function () {
+                $('#err_tarif' + i + '').remove()
+            }, 5000);
+        }
+
+        var Lgotes = $(this).children('td:eq(4)').find('input').val();
+        var recalc = $(this).children('td:eq(5)').find('input').val();
+        var nac = $(this).children('td:eq(6)').find('input').val();
+        if (nac.length == 0) {
+            success = false
+            $('#err_nac' + i + '').remove();
+            $(this).children('td:eq(6)').find('input').after('<label class="err" id="err_nac' + i + '" style="color:red">Необходимо заполнить</label>')
+            window.setTimeout(function () {
+                $('#err_nac' + i + '').remove()
+            }, 5000);
+        }
+
+        window.setTimeout(function () {
+            $('.err').remove()
+        }, 5000);
+
+        servicesArray.push({ "LS": LS_, "ADDRESS": ADDRESS, "MONTH": MONTH, "SERVICES": srv, "VOLUME": volume, "UNITS": edism, "TARIFF": tarif, "ONBEGIN": "", "CONSTANT": nac, "LGOTA": Lgotes, "RECALC": recalc, "OVERALL": nac, "PAYMENTS": "", "PAYDATE": "", "SALDO": "0.000000", "ONEND": "", "LOAD_GUID": "NEW_GUID", 'PAY_GUID': Data_guid })
+    })
+    servicesArray.push({ "LS": LS_, "ADDRESS": ADDRESS, "MONTH": MONTH, "SERVICES": "Итого за " + MONTH + ":", "VOLUME": "", "UNITS": "", "TARIFF": "", "ONBEGIN": ONBEGIN_, "CONSTANT": OVERALL_, "LGOTA": "0.000000", "RECALC": "0.000000", "OVERALL": OVERALL_, "PAYMENTS": PAYMENTS_, "PAYDATE": "", "SALDO": "0.000000", "ONEND": OVERALL_, "LOAD_GUID": "NEW_GUID", 'PAY_GUID': data_s_ })
+    // console.log(periodArray)
+    // console.log("periodArray")
+    console.log("------------")
+    console.log(servicesArray)
+    console.log("servicesArray")
+    var tablebodyId = $('.tab-content').find('.active').find('#Paying').find('.table').find('tbody').attr('id');
+    if (success == true) {
+        //alert('ok')
+        Save_Payments2(JSON.stringify(servicesArray), tablebodyId)
+    }
+    // }
 }
 function Save_Payments2(ServcArray, tbody) {
     obj = { 'arr': ServcArray }
@@ -12720,7 +12600,7 @@ function Save_Payments2(ServcArray, tbody) {
             //    for (var i = 0; i < Array.length; i++) {
             //        $('#' + tbody).prepend('<tr data-guid=' + jsondata.guid + ' style="background-color: white;" onclick="ShowDetail_K(this)"><td><a style="cursor: pointer; color: black;">' + Array[i].SERVICE + '</a></td><td><a style="cursor: pointer; color: black;">' + Array[i].ONBEGIN + '</a></td><td><a style="cursor: pointer; color: black;">' + Array[i].OVERALL + '</a></td><td><a style="cursor: pointer; color: black;">' + Array[i].PAYMENTS + '</a></td><td><a style="cursor: pointer; color: black;">' + Array[i].ONEND + '</a></td></tr>')
             //}
-              $('.closeVn').click();
+            $('.closeVn').click();
         }
     })
 }
@@ -13161,12 +13041,12 @@ function getRoom(lg) {
 }
 function changeDatatableElementStructures(e) {
     var E_id = $(e).attr('id')
-    var Tablewrapper = '#'+E_id + '_wrapper'
+    var Tablewrapper = '#' + E_id + '_wrapper'
     var TableLength = E_id + '_length'
     var TableFilter = '#' + E_id + '_filter'
     $(Tablewrapper).prepend($('#TableTools'))
-    $('#ListLength').append($('select[name="' + TableLength+'"]'))
-    $('select[name="' + TableLength+'"]').children('option').each(function () {
+    $('#ListLength').append($('select[name="' + TableLength + '"]'))
+    $('select[name="' + TableLength + '"]').children('option').each(function () {
         // .text('Показывать ' + $(this).val() + ' записей')
         $(this).text('Показывать ' + $(this).val() + ' записей')
     })
@@ -13176,19 +13056,13 @@ function changeDatatableElementStructures(e) {
 }
 function deltab(itm, e) {
     if (e == undefined) {
-        var Allli = $("#nav-tab li").length;
-        if (Allli > 2) {
-            $('#nav-tab li[itemid=' + itm + ']').remove();
-            //  var tab = 
-            // $('div[data-tab="' + itm + '"]').remove();
-            //$('.tab-content').find('#tab' + itm + '').remove();
-            $('#tab' + itm).remove();
-            $('.tab-content > div:last').attr('class', 'tab-pane fade active in');
-            $('#nav-tab > li:nth-last-child(2)').attr('class', 'active');
+        var AllLs = $('.ls').length
+        if (AllLs >= 2) {
+            $(itm).parent().parent('.ls').remove()
 
         }
         else {
-            $("#nav-tab i[itemid=" + itm + "]").hide();
+            $('.removing3').attr('style', 'color:darkgray')
         }
     }
     else {
@@ -13209,7 +13083,7 @@ function deltab(itm, e) {
     }
 
     if ($('.removing3').length == 1) {
-        $('.removing3').hide()
+        $('.removing3').attr('style', 'color:darkgray')
 
     }
 
@@ -13542,24 +13416,35 @@ function alertWithButton2(Header_, text_, footer_, txt, item, roomId, log) {
     })
 }
 function addTab(lastitm) {
-    var nextItem = parseInt(lastitm) + 1
-    var allLi = $("#nav-tab li").length;
+    $('.ls').children('div:first').children('.removing3').remove()
+    $('.ls').children('div:first').prepend('<i class="fa fa-close removing3" itemid="1" onclick="deltab(this)" aria-hidden="true"></i>')
+    var LastLs = $('.ls:last').clone();
+    $(LastLs).children().find('.inds,button[onclick="AddElem(this)"],span[onclick="delElem(this)"]').remove();
+    $('.ls:last').after(LastLs)
+    $('.ls:last').find('input[type="text"]').val('')
+    $('.ls:last').find('.select2').remove();
 
-    if (allLi < 11) {
+    $('select').select2({
+        containerCssClass: "wrap"
+    })
+    //var nextItem = parseInt(lastitm) + 1
+    //var allLi = $("#nav-tab li").length;
 
-        var lastTab = $(".tab-content > div:last-child").attr('data-tab')
-        var nextTab = parseInt(lastTab) + 1
-        $(".tab-content > div").attr('class', 'tab-pane fade');
-        $(".tab-content > div:last-child").after('<div id="tab' + nextTab + '" data-tab="' + nextTab + '" class="tab-pane fade in active"><div class="row"><div class="col-md-8 col-xs-12"><label for="lc">Номер лицевого счета:</label><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text" id="lc"><label for="lc">Пароль:</label><input disabled="disabled" onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text" id="pss" style="width: 71%;"><button style="margin-left: 3px" onclick="Generate(this)" id="GENER" class="btn genBtn">СГЕНЕРИРОВАТЬ</button><label for="typeProp">Тип собственности:</label><select id="typeProp"><option value="0">Выберите собственность</option><option value="1">Совместная</option><option value="2">Единоличная</option><option value="3">Долевая</option><option value="4">Социальный найм</option></select><div id="itms"><div class="col-xs-6 col-md-3"><label id="sobsH" style="display:none">Собственник</label></div><div class="col-xs-6 col-md-3" style="display: none;"><label id="dolH" style="display: block;">Доля</label></div><div class="col-xs-6 col-md-3"><label id="telH" style="display:none" for="telH">Номер&nbsp;телефона</label></div><div class="col-xs-6 col-md-3"><label id="emailH" style="display:none">E-mail</label></div></div><button style= "display:none" id= "Adding" class="btn genBtn"> Добавить</button></div> <div class="col-md-4 col-xs-12"><label>Жилая площадь по данному л/с, м<sup>2</sup></label><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="LiveSq" type="number" style="width:50%;"  ><label>Общая площадь по данному л/с, м<sup>2</sup></label><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="number" style="width:50%;" id="GenSq"  ><label>Общая площадь без летних зон по данному л/с, м<sup>2</sup></label><input id="LiveSqB" onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="number" style="width:50%;"  ><label>Количество комнат</label><input type="number" id="AmRoom" onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)"  ></div></div></div>');
-        $("#nav-tab li").attr('class', '');
-        $("#nav-tab li[itemid=" + lastitm + "]").after('<li itemid=' + nextItem + ' class="active"><a data-toggle="tab" href="#tab' + nextItem + '" aria-expanded="true">Новый лицевой счет</a></li>')
-        //
-        $("#nav-tab li[itemid=" + nextItem + "]").prepend('<i class="fa fa-close removing3" itemid=' + nextItem + ' onclick="deltab(' + nextItem + ')" aria-hidden="true"></i>')
-        //$('i[itemid=' + lastitm + ']').show();
-    }
-    else {
-        $('#plus').removeAttr('class').hide();
-    }
+    //if (allLi < 11) {
+
+    //    var lastTab = $(".tab-content > div:last-child").attr('data-tab')
+    //    var nextTab = parseInt(lastTab) + 1
+    //    $(".tab-content > div").attr('class', 'tab-pane fade');
+    //    $(".tab-content > div:last-child").after('<div id="tab' + nextTab + '" data-tab="' + nextTab + '" class="tab-pane fade in active"><div class="row"><div class="col-md-8 col-xs-12"><label for="lc">Номер лицевого счета:</label><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text" id="lc"><label for="lc">Пароль:</label><input disabled="disabled" onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text" id="pss" style="width: 71%;"><button style="margin-left: 3px" onclick="Generate(this)" id="GENER" class="btn genBtn">СГЕНЕРИРОВАТЬ</button><label for="typeProp">Тип собственности:</label><select id="typeProp"><option value="0">Выберите собственность</option><option value="1">Совместная</option><option value="2">Единоличная</option><option value="3">Долевая</option><option value="4">Социальный найм</option></select><div id="itms"><div class="col-xs-6 col-md-3"><label id="sobsH" style="display:none">Собственник</label></div><div class="col-xs-6 col-md-3" style="display: none;"><label id="dolH" style="display: block;">Доля</label></div><div class="col-xs-6 col-md-3"><label id="telH" style="display:none" for="telH">Номер&nbsp;телефона</label></div><div class="col-xs-6 col-md-3"><label id="emailH" style="display:none">E-mail</label></div></div><button style= "display:none" id= "Adding" class="btn genBtn"> Добавить</button></div> <div class="col-md-4 col-xs-12"><label>Жилая площадь по данному л/с, м<sup>2</sup></label><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="LiveSq" type="number" style="width:50%;"  ><label>Общая площадь по данному л/с, м<sup>2</sup></label><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="number" style="width:50%;" id="GenSq"  ><label>Общая площадь без летних зон по данному л/с, м<sup>2</sup></label><input id="LiveSqB" onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="number" style="width:50%;"  ><label>Количество комнат</label><input type="number" id="AmRoom" onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)"  ></div></div></div>');
+    //    $("#nav-tab li").attr('class', '');
+    //    $("#nav-tab li[itemid=" + lastitm + "]").after('<li itemid=' + nextItem + ' class="active"><a data-toggle="tab" href="#tab' + nextItem + '" aria-expanded="true">Новый лицевой счет</a></li>')
+    //    //
+    //    $("#nav-tab li[itemid=" + nextItem + "]").prepend('<i class="fa fa-close removing3" itemid=' + nextItem + ' onclick="deltab(' + nextItem + ')" aria-hidden="true"></i>')
+    //    //$('i[itemid=' + lastitm + ']').show();
+    //}
+    //else {
+    //    $('#plus').removeAttr('class').hide();
+    //}
 
     //  $("#nav-tab li[itemid=" + lastitm + "]").prev().attr('class', '');
 
@@ -14754,98 +14639,42 @@ function getOwnerShip() {
 
     })
 }
-function AddElem(tip, totalItem) {
-    var lastItem = $(".active #itms .row:last").attr('itemid');
-    var nextItem = parseInt(lastItem) + 1;
-    //var totalItem = $("#itms .row").length;
-    if (tip == "sovs") {
-        if (totalItem < 10) {
-            $(".active #itms .row:last").after('<div class="row" itemid="' + nextItem + '"><div class="col-xs-8 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text" id="sobs' + nextItem + '" itemid="' + nextItem + '"></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="tel' + nextItem + '" type="tel" itemid="' + nextItem + '"></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="email' + nextItem + '" type="email" itemid="' + nextItem + '"></div><i class="fa fa-close removing" onclick=delElem(this,' + nextItem + ',"sovs") aria-hidden="true"></i></div>')
+function AddElem(e) {
+    if ($('.inds').length < 40) {
+        var typPropeval = $(e).val()
+        var sobs0 = '<div class="row mb-3 mr-2 ml-1 w-30 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="sobs0" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="sobs0" class="transp backLab">Собственник</label> </div> </div> </div>'
+        var dol0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="dol0" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" type="text"> <label for="dol0" class="transp backLab">Доля</label> </div> </div> </div>'
 
+        var tel0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="tel0" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="tel0" class="transp backLab">Номер телефона</label> </div> </div> </div>'
+        var email0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="email0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" class="border-0" type="text"> <label for="email0" class="transp backLab">E-mail</label></div></div></div>'
+        var deleteInd = '<span class="flexCenter mr-3" id="delInd" onclick="delElem(this)"> <span class="bgDarkGrey w24 rounded-pill"></span> <span class="font-weight-bold position-absolute" id="counter"> <img src="../img/close.svg" class="w12 brightness" alt=""> </span> </span>'
+        $(e).before(sobs0)
+        $(e).before(dol0)
+        $(e).before(tel0)
+        $(e).before(email0)
+        $('span[id="delInd"]').remove()
+        $('input[id="email0"]').parent().parent().parent().after(deleteInd)
+
+        if ($('.inds').length == 40) {
+            $(e).attr('style', 'display:none !important')
         }
-        else {
-            $(".active #Adding").attr("disabled", "disabled").attr('class', 'btn deActiveAdd ')
-        }
-        totalItem = parseInt(totalItem) + 1
-        $(".active #itms i").removeAttr('style');
-        $(".active #Adding").attr('onclick', 'AddElem("sovs",' + totalItem + ')')
     }
-    if (tip == "doleva") {
-        if (totalItem < 10) {
-            $(".active #itms .row:last").after('<div class="row" itemid="' + nextItem + '"><div class="col-xs-8 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text" id="sobs' + nextItem + '" itemid="' + nextItem + '"></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" id="dol' + nextItem + '" type="text" itemid="' + nextItem + '"></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="tel' + nextItem + '" type="tel" itemid="' + nextItem + '"></div><div class="col-xs-6 col-md-3"><i class="fa fa-close" onclick=delElem(this,' + nextItem + ',"doleva") style="float:right;color:red" aria-hidden="true"></i><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="email' + nextItem + '" type="email" itemid="' + nextItem + '"></div> </div>')
-        }
-        else {
-            $(".active #Adding").attr("disabled", "disabled").attr('class', 'btn deActiveAdd ')
-        }
-        totalItem = parseInt(totalItem) + 1
-        $(".active #Adding").attr('onclick', 'AddElem("doleva",' + totalItem + ')')
-        $(".active #itms i").attr('style', 'color:red;float:right')
-    }
+
 
 
 }
-function delElem(e, itmId, tip) {
-    if (tip == "sovs") {
-        var totalItem = $(".active #itms .row").length;
-        //var totalItm = $("#itms .row").length;
-        if (totalItem == 2) {
-            if (itmId == 0) {
-                $(e).attr('style', 'color:grey ');
-                $(e).attr('disabled', 'disabled');
-                // totalItm = 9;
-
-            }
-            else {
-                $(e).attr('style', 'color:grey ');
-                $(e).attr('disabled', 'disabled');
-
-            }
-
+function delElem(e) {
+    var lengtinds = $('.inds').length
+    if (lengtinds > 8) {
+        for (var i = 0; i < 4; i++) {
+            $(e).prev('.inds').remove();
         }
-        else {
-            //if (itmId == 0) {
-            //    $('#sobs0').remove();
-            //    $('#tel0').remove();
-            //    $('#email0').remove();
-            //    $(e).remove();
-            //  //  totalItm = 9;
-
-            //}
-            //else {
-            $(".active #itms .row[itemid=" + itmId + "]").remove();
-            //  }
-
+        $(e).remove()
+        if ($('.inds').length == 8) {
+            $('span[id="delInd"]').remove();
         }
-        totalItem = parseInt(totalItem) - 1
-        $(".active #Adding").attr('onclick', 'AddElem("sovs",' + totalItem + ')')
-        $(".active #Adding").removeAttr('disabled').attr('class', 'btn genBtn')
     }
-    if (tip == "doleva") {
-        var totalItem = $(".active #itms .row").length;
-        if (totalItem == 2) {
-            if (itmId == 0) {
-                $(e).attr('style', 'color:grey;float:right');
-                $(e).attr('disabled', 'disabled');
-                // totalItm = 9;
 
-            }
-            else {
-                $(e).attr('style', 'color:grey;float:right ');
-                $(e).attr('disabled', 'disabled');
-
-            }
-
-        }
-        else {
-
-            $(".active #itms .row[itemid=" + itmId + "]").remove();
-
-
-        }
-        totalItem = parseInt(totalItem) - 1
-        $(".active #Adding").attr('onclick', 'AddElem("doleva",' + totalItem + ')')
-        $(".active #Adding").removeAttr('disabled').attr('class', 'btn genBtn')
-    }
 }
 
 function changeStartStop(e) {
