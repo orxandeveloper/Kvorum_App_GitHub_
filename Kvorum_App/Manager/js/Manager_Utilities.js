@@ -3458,48 +3458,54 @@
 
 
 })
+
+function giveElements(i) {
+    var sobs0 = '<div class="row mb-3 mr-2 ml-1 w-30 p-0 border-1 rounded8 inds'+i+'"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="sobs' + i + '" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="sobs' + i +'" class="transp backLab">Собственник</label> </div> </div> </div>'
+    var dol0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i +'"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="dol' + i + '" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" type="text"> <label for="dol' + i +'" class="transp backLab">Доля</label> </div> </div> </div>'
+
+    var tel0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i +'"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="tel' + i + '" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="tel' + i +'" class="transp backLab">Номер телефона</label> </div> </div> </div>'
+    var email0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i +'"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="email' + i + '"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" class="border-0" type="text"> <label for="email' + i +'" class="transp backLab">E-mail</label></div></div></div>'
+    var AddElem = '<button onclick="AddElem(this,' + i + ')" class="transp border-0 flexCenter mt-n3"> <span class="bgLightGrey w24 rounded-pill"></span> <img src="../img/ic-plus.svg" class="w12 reddishSvg position-absolute" alt=""> </button>'
+    var deleteInd = '<span class="flexCenter mr-3" id="delInd" onclick="delElem(this,'+i+')"> <span class="bgDarkGrey w24 rounded-pill"></span> <span class="font-weight-bold position-absolute" id="counter"> <img src="../img/close.svg" class="w12 brightness" alt=""> </span> </span>'
+    return { sobs: sobs0, dol: dol0, tel: tel0, email: email0, AddElem: AddElem, deleteInd: deleteInd }
+}
 function typePropChange(e) {
     var typPropeval = $(e).val()
-    var sobs0 = '<div class="row mb-3 mr-2 ml-1 w-30 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="sobs0" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="sobs0" class="transp backLab">Собственник</label> </div> </div> </div>'
-    var dol0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="dol0" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" type="text"> <label for="dol0" class="transp backLab">Доля</label> </div> </div> </div>'
-
-    var tel0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="tel0" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="tel0" class="transp backLab">Номер телефона</label> </div> </div> </div>'
-    var email0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="email0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" class="border-0" type="text"> <label for="email0" class="transp backLab">E-mail</label></div></div></div>'
-    var AddElem = '<button onclick="AddElem(this)" class="transp border-0 flexCenter mt-n3"> <span class="bgLightGrey w24 rounded-pill"></span> <img src="../img/ic-plus.svg" class="w12 reddishSvg position-absolute" alt=""> </button>'
+  
    //s
     if (typPropeval != 0) {
-        $(e).parent('div').parent('div').children('.inds').remove();
-        $('button[onclick="AddElem(this)"],span[onclick="delElem(this)"]').remove()
+        $(e).parent('div').parent('div').children('div:not(:first)').remove();
+        $(e).parent('div').parent('div').children('button[onclick],span[onclick]').remove()
         if (typPropeval == 1) {
 
-            for (var i = 0; i <= 1; i++) {
-                $(e).parent().after(email0)
-                $(e).parent().after(tel0)
-                $(e).parent().after(sobs0)
+            for (var i = 1; i >= 0; i--) {
+                $(e).parent().after(giveElements(i).email)
+                $(e).parent().after(giveElements(i).tel)
+                $(e).parent().after(giveElements(i).sobs)
             }
         }
         else if (typPropeval == 2 || typPropeval == 4) {
 
-            $(e).parent().after(email0)
-            $(e).parent().after(tel0)
-            $(e).parent().after(sobs0)
+            $(e).parent().after(giveElements(0).email)
+            $(e).parent().after(giveElements(0).tel)
+            $(e).parent().after(giveElements(0).sobs)
         }
         else if (typPropeval == 3) {
-            for (var i = 0; i <= 1; i++) {
+            for (var i = 1; i >= 0; i--) {
 
-                if (i == 0) {
-                    $(e).parent().after(AddElem)
+                if (i == 1) {
+                    $(e).parent().after(giveElements(i).AddElem)
                 }
-                $(e).parent().after(email0)
-                $(e).parent().after(tel0)
-                $(e).parent().after(dol0)
-                $(e).parent().after(sobs0)
+                $(e).parent().after(giveElements(i).email)
+                $(e).parent().after(giveElements(i).tel)
+                $(e).parent().after(giveElements(i).dol)
+                $(e).parent().after(giveElements(i).sobs)
             }
         }
     }
     else {
-        $(e).parent('div').parent('div').children('.inds').remove();
-        $('button[onclick="AddElem(this)"],span[onclick="delElem(this)"]').remove()
+        $(e).parent('div').parent('div').children('div:not(:first)').remove();
+        $(e).parent('div').parent('div').children('button[onclick],span[onclick]').remove()
     }
 }
 function OpenTab(countTab, e) {
@@ -7219,7 +7225,11 @@ function checkControlsM() {
                 data_exp = (data_exp == undefined) ? "" : data_exp
             }
             lc = lc + "|" + pass + "|" + data_sms + "|" + data_em + "|" + data_exp
+            txtDatas.push({ "NUMBER": lc, "OWNERSHIP_TYPE_ID": typeProp, "LIVE_SQUARE": LiveSq, "GEN_SQUARE": GenSq, "WITHOUT_SUMMER_SQUARE": LiveSqB, "ROOM_QUANT": AmRoom, "A_D": itmsS, "ID": ID_lc })
         })
+
+        var obj = { "OBJECT_ID": objs, "ENTRANCE": entr, "FLOOR": floor, "ROOM_NUMBER": rnum, "ROOM_FOR_ID": RoomF, "ROOM_TYPE_ID": r_t, "CHAMB_AMOUNT": countR, "GEN_SQUARE": GenS, "LIVE_SQUARE": LiveS, "adbs": txtDatas };
+        console.log(obj)
     }
 
     return { Issuccess: Issuccess }
@@ -12709,10 +12719,11 @@ function Generate(e) {
     $("#txt2").empty();
     $("#txt2").append("");
     $("#mf2").text("")
-
+    var PassControlId = Math.floor(Math.random()*10000000)
+    $(e).parent().children().find('#pss').attr('random-id', PassControlId)
     $('#genPass').val($('.tab-content').children('.active').children('.row').children('div:eq(0)').children('#pss').val())
     GenPas()// Для суббота не надо. Дата (08.02.2019);
-
+    $('#GENER').attr('onclick', 'GetValuesG('+PassControlId+')')
     var modal = document.getElementById('myModal4');
     var span = document.getElementById("close_4")[0];
     modal.style.display = "block";
@@ -12737,10 +12748,10 @@ function GetValuesG(e) {
     if ($('.domOk').css('display') == "none") {
         var pss = $('#genPass').val();
         var sms = "";
-        var lblpssText = "Пароль: "
+        var lblpssText = ""
         if ($('#sms').is(':checked')) {
             sms = "has";
-            lblpssText = lblpssText + " Сделать смс-рассылку, "
+            lblpssText = lblpssText + "Сделать смс-рассылку"
         }
         else {
             sms = "not"
@@ -12748,13 +12759,23 @@ function GetValuesG(e) {
         var em = ""
         if ($('#em').is(':checked')) {
             em = "has"
-            lblpssText = lblpssText + " Сделать рассылку на электроннуя почту, "
+            lblpssText = (lblpssText.trim().length != 0) ? lblpssText + ", " : lblpssText
+            lblpssText = lblpssText + "Сделать рассылку на электроннуя почту "
         }
         else {
             em = "not"
         }
         var psExp = ($('#psExp').val() == 0) ? " бессрочный" : $('#psExp').val();
-        $('.active #pss').val(pss).attr('data-sms', sms).attr('data-em', em).attr('data-exp', 0);
+     //   $('#lblpssText').remove();
+        if (lblpssText.trim().length != 0) {
+            if ($('[random-id=' + e + ']').parent().parent().prev('div').children('#lblpssText').length == 0) {
+                 $('[random-id=' + e + ']').parent().parent().prev('div').append('<label id="lblpssText">' + lblpssText + '</label>')
+            }
+            else {
+                $('[random-id=' + e + ']').parent().parent().prev('div').children('#lblpssText').text(lblpssText)
+            }
+        }
+        $('[random-id='+e+']').val(pss).attr('data-sms', sms).attr('data-em', em).attr('data-exp', 0);
         $("#close_4").click();
 
 
@@ -13416,7 +13437,8 @@ function addTab(lastitm) {
     $('.ls').children('div:first').children('.removing3').remove()
     $('.ls').children('div:first').prepend('<i class="fa fa-close removing3" itemid="1" onclick="deltab(this)" aria-hidden="true"></i>')
     var LastLs = $('.ls:last').clone();
-    $(LastLs).children().find('.inds,button[onclick="AddElem(this)"],span[onclick="delElem(this)"]').remove();
+    $(LastLs).children('div[data-tapid="2"]').children('div:not(:first)').remove();
+    $(LastLs).children('div[data-tapid="2"]').children('button[onclick],span[onclick]').remove();
     $('.ls:last').after(LastLs)
     $('.ls:last').find('input[type="text"]').val('')
     $('.ls:last').find('.select2').remove();
@@ -14636,23 +14658,22 @@ function getOwnerShip() {
 
     })
 }
-function AddElem(e) {
+function AddElem(e, i) {
+    var nexti=i+1
     if ($('.inds').length < 40) {
         var typPropeval = $(e).val()
-        var sobs0 = '<div class="row mb-3 mr-2 ml-1 w-30 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="sobs0" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="sobs0" class="transp backLab">Собственник</label> </div> </div> </div>'
-        var dol0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="dol0" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" type="text"> <label for="dol0" class="transp backLab">Доля</label> </div> </div> </div>'
-
-        var tel0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="tel0" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="tel0" class="transp backLab">Номер телефона</label> </div> </div> </div>'
-        var email0 = '<div class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="email0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" class="border-0" type="text"> <label for="email0" class="transp backLab">E-mail</label></div></div></div>'
-        var deleteInd = '<span class="flexCenter mr-3" id="delInd" onclick="delElem(this)"> <span class="bgDarkGrey w24 rounded-pill"></span> <span class="font-weight-bold position-absolute" id="counter"> <img src="../img/close.svg" class="w12 brightness" alt=""> </span> </span>'
-        $(e).before(sobs0)
-        $(e).before(dol0)
-        $(e).before(tel0)
-        $(e).before(email0)
+         
+      
+        $(e).before(giveElements(nexti).sobs)
+        $(e).before(giveElements(nexti).dol)
+        $(e).before(giveElements(nexti).tel)
+        $(e).before(giveElements(nexti).email)
         $('span[id="delInd"]').remove()
-        $('input[id="email0"]').parent().parent().parent().after(deleteInd)
-
-        if ($('.inds').length == 40) {
+        for (var k = 0; k <= nexti; k++) {
+            $('input[id="email' + k + '"]').parent().parent().parent().after(giveElements(k).deleteInd)
+        }
+        $(e).attr('onclick', 'AddElem(this,' + nexti + ')')
+        if (nexti == 9) {
             $(e).attr('style', 'display:none !important')
         }
     }
@@ -14660,18 +14681,16 @@ function AddElem(e) {
 
 
 }
-function delElem(e) {
-    var lengtinds = $('.inds').length
-    if (lengtinds > 8) {
-        for (var i = 0; i < 4; i++) {
-            $(e).prev('.inds').remove();
-        }
-        $(e).remove()
-        if ($('.inds').length == 8) {
+function delElem(e,i) {
+
+    $(e).prevAll('.inds' + i + '').remove();
+    var indsCount = $(e).parent('div').children('.rounded8').find('input[onkeyup="hideErrsMessage2(this)"]').length;
+    $(e).remove()
+   
+    if (indsCount == 8) {
             $('span[id="delInd"]').remove();
         }
-    }
-
+    
 }
 
 function changeStartStop(e) {

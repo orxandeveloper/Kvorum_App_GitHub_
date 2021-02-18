@@ -464,7 +464,7 @@
                                 <label for="pss" class="w-95 transp backLab">Пароль</label>
                             </div>
 
-                            <button onclick="Generate(this)" id="GENER" class="btn btn1 outline shadow-none m-0 rounded-lg w-48 h56">
+                            <button onclick="Generate(this)" id="GENER_Modal" class="btn btn1 outline shadow-none m-0 rounded-lg w-48 h56">
                                 <span>
                                     <img src="../img/ic-pass.svg" class="mr-2" alt="" />
                                     <span class="text-truncate">Сгенерировать</span>
