@@ -2,6 +2,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
+        .pointer{
+            cursor:pointer
+        }
         #delInd{
                 margin-bottom: 15px;
         }
@@ -301,8 +304,6 @@
         }
     </style>
 
-
-
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -416,21 +417,21 @@
                 <div id="ls" class="ls" itemid="0">
                      <div class=" h60 w-100 bgWhite shadow rounded16 pl-3 mt-4 pr-3 ">
                     <ol class="list-unstyled list-inline flexHoriz te-menu m-0 h-100 ">
-                        <li onclick="OpenTab(1,this)" class="w200 mr-3 h-100 m-0  ">
-                            <a class=" font-weight-bold" href="#">Лицевые&nbsp;счета</a>
+                        <li onclick="OpenTab(1,this)" class="w200 mr-3 h-100 m-0 pointer">
+                            <a class=" font-weight-bold"  >Лицевые&nbsp;счета</a>
                         </li>
-                        <li onclick="OpenTab(2,this)" class="w200 mr-3 h-100 m-0 active">
-                            <a class=" font-weight-bold" href="#">Собственники</a>
+                        <li onclick="OpenTab(2,this)" class="w200 mr-3 h-100 m-0 active pointer">
+                            <a class=" font-weight-bold"  >Собственники</a>
                         </li>
 
 
-                        <li onclick="OpenTab(2,this)" style="display: none" class="w200 mr-3 h-100 m-0 ">
-                            <a class=" font-weight-bold" href="#">Начисления&nbsp;и&nbsp;платежи</a>
+                        <li onclick="OpenTab(2,this)" style="display: none" class="w200 mr-3 h-100 m-0 pointer">
+                            <a class=" font-weight-bold" >Начисления&nbsp;и&nbsp;платежи</a>
                         </li>
                     </ol>
                 </div>
 
-                <div data-tapid="2" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
+                <div data-tabid="2" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
 
 
                     <div class="posRel h56 rounded-lg  w-100">
@@ -445,7 +446,7 @@
                 
                 </div>
 
-                <div data-tapid="1" style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
+                <div data-tabid="1" style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
 
 
 
