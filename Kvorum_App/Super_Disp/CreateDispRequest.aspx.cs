@@ -240,9 +240,9 @@ namespace Kvorum_App.Super_Disp
 
             Mydb.ExecuteNoNQuery("INSERT_FCM_LOG", new SqlParameter[] {
 
-                new SqlParameter("@SECTION","Заявки"),
+                new SqlParameter("@SECTION","Заявка"),
            new SqlParameter("@EVENT"," № П-" + MOBILE_NUMBER + " Заявка получила статус «В работе»."),
-           new SqlParameter("@TEXT","Заявке № П-" + MOBILE_NUMBER + " по услуге «" + ServicesOfRequest + "» в статусе «В работе»." ),
+           new SqlParameter("@TEXT","Заявке № П-" + MOBILE_NUMBER + " в статусе «В работе»." ),
         //   new SqlParameter("@PROJECT_ID",PROJECT_ID),
            new SqlParameter("@SCORE_ID",""),
            new SqlParameter("@tokenId",SpId.ToString()),
@@ -450,9 +450,9 @@ namespace Kvorum_App.Super_Disp
                 }
 
                 Mydb.ExecuteNoNQuery("INSERT_FCM_LOG", new SqlParameter[] {
-                        new SqlParameter("@SECTION","Заявки"),
-                   new SqlParameter("@EVENT","Cоздана заявка № " + MOBILE_NUMBER + "."),
-                   new SqlParameter("@TEXT","Заявка № " + MOBILE_NUMBER + " получила статус «Закрыта»." ),
+                        new SqlParameter("@SECTION","Заявка"),
+                   new SqlParameter("@EVENT","Заявке № " + MOBILE_NUMBER + " получила статус «Закрыта»"),
+                   new SqlParameter("@TEXT","Заявке № " + MOBILE_NUMBER + " получила статус «Закрыта»." ),
                 //   new SqlParameter("@PROJECT_ID",PROJECT_ID),
                    new SqlParameter("@SCORE_ID",""),
                    new SqlParameter("@tokenId",SPECIALIST_ID.ToString()),
@@ -513,7 +513,7 @@ namespace Kvorum_App.Super_Disp
                     SendEmailForRequest(Text, SPECIALIST_EMAIL.ToString(), Rid, 5, Convert.ToInt32(SPECIALIST_ID), "Диспетчер");
                 }
                 Mydb.ExecuteNoNQuery("INSERT_FCM_LOG", new SqlParameter[] {
-                        new SqlParameter("@SECTION","Заявки"),
+                        new SqlParameter("@SECTION","Заявка"),
                    new SqlParameter("@EVENT","Cоздана заявка № " + MOBILE_NUMBER + "."),
                    new SqlParameter("@TEXT","Заявка № " + MOBILE_NUMBER + " получила статус «Закрыта»." ),
                 //   new SqlParameter("@PROJECT_ID",PROJECT_ID),
@@ -865,7 +865,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
 
             Mydb.ExecuteNoNQuery("INSERT_FCM_LOG", new SqlParameter[] {
 
-                new SqlParameter("@SECTION","Заявки"),
+                new SqlParameter("@SECTION","Заявка"),
            new SqlParameter("@EVENT"," № П-" + MOBILE_NUMBER + " Заявка получила статус «Выполнена»."),
            new SqlParameter("@TEXT","Заявка № П-" + MOBILE_NUMBER + " в статусе «Выполнена»." ),
         //   new SqlParameter("@PROJECT_ID",PROJECT_ID),
@@ -1763,8 +1763,8 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
 
             Mydb.ExecuteNoNQuery("INSERT_FCM_LOG", new SqlParameter[] {
 
-                new SqlParameter("@SECTION","Заявки"),
-           new SqlParameter("@EVENT"," № П-" + MOBILE_NUMBER + " Заявка получила статус «Отменена»."),
+                new SqlParameter("@SECTION","Заявка"),
+           new SqlParameter("@EVENT","Заявке № П-" + MOBILE_NUMBER + " в статусе «В Отменена»"),
            new SqlParameter("@TEXT","Заявке № П-" + MOBILE_NUMBER + " в статусе «В Отменена»." ),
         //   new SqlParameter("@PROJECT_ID",PROJECT_ID),
            new SqlParameter("@SCORE_ID",""),
@@ -1802,7 +1802,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                 }
 
                 Mydb.ExecuteNoNQuery("INSERT_FCM_LOG", new SqlParameter[] {
-                        new SqlParameter("@SECTION","Заявки"),
+                        new SqlParameter("@SECTION","Заявка"),
                    new SqlParameter("@EVENT","Cоздана заявка № П-" + MOBILE_NUMBER + "."),
                    new SqlParameter("@TEXT","Заявка № П-" + MOBILE_NUMBER + " получила статус «Отменена»." ),
                 //   new SqlParameter("@PROJECT_ID",PROJECT_ID),
@@ -1879,7 +1879,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                     SendEmailForRequest(Text, SPECIALIST_EMAIL.ToString(), Rid, 4, Convert.ToInt32(SPECIALIST_ID), "Диспетчер");
                 }
                 Mydb.ExecuteNoNQuery("INSERT_FCM_LOG", new SqlParameter[] {
-                        new SqlParameter("@SECTION","Заявки"),
+                        new SqlParameter("@SECTION","Заявка"),
                    new SqlParameter("@EVENT","Cоздана заявка № " + MOBILE_NUMBER + "."),
                    new SqlParameter("@TEXT","Заявка № " + MOBILE_NUMBER + " получила статус «Отменена»." ),
                 //   new SqlParameter("@PROJECT_ID",PROJECT_ID),
