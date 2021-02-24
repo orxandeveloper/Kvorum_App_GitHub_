@@ -237,12 +237,13 @@ namespace Kvorum_App.Super_Disp
             //}
 
             Text = "В заявке № " + MOBILE_NUMBER + ",по которой Вы являетесь исполнителем, изменила статус на «В работе».";
-            //Заявка №[Номер заявки] принята в работу
+            //Заявка №[Номер заявки] возвращена в работу
+            string textForPush = (em == "vernut") ? "Заявка №  П-" + MOBILE_NUMBER + " возвращена в работу": "Заявка № П-" + MOBILE_NUMBER + " принята в работу";
             Mydb.ExecuteNoNQuery("INSERT_FCM_LOG", new SqlParameter[] {
 
                 new SqlParameter("@SECTION","Заявка"),
-           new SqlParameter("@EVENT","Заявка № П-" + MOBILE_NUMBER + " принята в работу."),
-           new SqlParameter("@TEXT","Заявка № П-" + MOBILE_NUMBER + " принята в работу." ),
+           new SqlParameter("@EVENT",textForPush),
+           new SqlParameter("@TEXT",textForPush),
         //   new SqlParameter("@PROJECT_ID",PROJECT_ID),
            new SqlParameter("@SCORE_ID",""),
            new SqlParameter("@tokenId",SpId.ToString()),
@@ -448,7 +449,7 @@ namespace Kvorum_App.Super_Disp
                 {
                     SendEmailForRequest(Text, SPECIALIST_EMAIL.ToString(), Rid_, 4, Convert.ToInt32(SPECIALIST_ID), "Диспетчер");
                 }
-                //Заявка №[Номер заявки] закрыта
+                 
                 Mydb.ExecuteNoNQuery("INSERT_FCM_LOG", new SqlParameter[] {
                         new SqlParameter("@SECTION","Заявка"),
                    new SqlParameter("@EVENT","Заявка № П-" + MOBILE_NUMBER + " закрыта"),
@@ -853,12 +854,12 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                 }, CommandType.StoredProcedure);
             }
             string MOBILE_NUMBER = Mydb.ExecuteScalar("GetSupReqIdByGuid", new SqlParameter[] { new SqlParameter("@rq", REQGUID) }, CommandType.StoredProcedure).ToString();
-            //Заявка №[Номер заявки] выполнена
+          
             Mydb.ExecuteNoNQuery("INSERT_FCM_LOG", new SqlParameter[] {
 
                 new SqlParameter("@SECTION","Заявка"),
-           new SqlParameter("@EVENT","Заявка № П-"+MOBILE_NUMBER+" выполнена."),
-           new SqlParameter("@TEXT","Заявка № П-"+MOBILE_NUMBER+" выполнена." ),
+           new SqlParameter("@EVENT","Заявка № П-"+MOBILE_NUMBER+" выполнена"),
+           new SqlParameter("@TEXT","Заявка № П-"+MOBILE_NUMBER+" выполнена" ),
         //   new SqlParameter("@PROJECT_ID",PROJECT_ID),
            new SqlParameter("@SCORE_ID",""),
            new SqlParameter("@tokenId",SPECIALIST_ID.ToString()),
@@ -1751,7 +1752,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
 
             }, CommandType.StoredProcedure);
             string MOBILE_NUMBER = Mydb.ExecuteScalar("GetSupReqIdByGuid", new SqlParameter[] { new SqlParameter("@rq", R_id) }, CommandType.StoredProcedure).ToString();
-            //Заявка №[Номер заявки] отменена
+             
 
             Mydb.ExecuteNoNQuery("INSERT_FCM_LOG", new SqlParameter[] {
 

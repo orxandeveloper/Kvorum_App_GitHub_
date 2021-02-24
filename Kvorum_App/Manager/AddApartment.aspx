@@ -412,7 +412,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-7 m-0">
+            <div class="col-lg-7 m-0" id="AllLs">
 
                 <div id="ls" class="ls" itemid="0">
                      <div class=" h60 w-100 bgWhite shadow rounded16 pl-3 mt-4 pr-3 ">

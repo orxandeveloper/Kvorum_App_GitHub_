@@ -1237,8 +1237,9 @@ $(document).ready(function () {
 
                                     SaveLog_S("Вернуть заявку в работу", "Важное", "Техник", "Диспетчеризация", "К вам возвращена заявка <" + R_id + ">", SLog_id);
                                     var mn = $('#hedrZ').attr('mn');
-                                    SaveFCM('Заявка', 'Заявка получила статус «В работе»', 'Заявка № ' + mn + 'в статусе «В работе».', '', $('#Acnum').val(), SLog_id, 'CreateDispRequest.aspx', R_id)
-                                  
+                               
+
+                                    SaveFCM('Заявка', 'Заявка №  ' + mn + 'возвращена в работу', 'Заявка №  ' + mn + 'возвращена в работу', '', $('#Acnum').val(), SLog_id, 'CreateDispRequest.aspx', R_id)
                                     //window.location.href = "DispRequests.aspx"
                                     //parent.history.back();
                                     var loc = window.location.pathname
@@ -2091,7 +2092,7 @@ function RabotVipolSuper(R_id) {
                 success: function (data) {//Заявка по работе <Номер заявки> выполнена
                     var mn = $('#hedrZ').attr('mn')
                     if (Url != "../Super_Disp/CreateDispRequest.aspx/makeVipolSupp") {
-                        SaveFCM('Заявки', 'Заявка получила статус «Выполнена»', 'Заявке № ' + mn + 'в статусе «Выполнена».', '', $('#Acnum').val(), SLog_id, 'CreateDispRequest.aspx', rid)
+                        SaveFCM('Заявка', 'Заявка получила статус «Выполнена»', 'Заявке № ' + mn + 'в статусе «Выполнена».', '', $('#Acnum').val(), SLog_id, 'CreateDispRequest.aspx', rid)
                     }
                     
                     //  SaveLog_S("Работа выполнена", "Важное", "Диспетчер", "Диспетчеризация", "Работа по заявке < " + rid + " > выполнена", SLog_id);
@@ -3569,9 +3570,10 @@ function vernutVrabot(rid) {
                 SaveLog_S("Вернуть заявку в работу", "Важное", "Техник", "Диспетчеризация", "К вам возвращена заявка <" + rid + ">", SLog_id);
                 //window.location.href = "DispRequests.aspx"
                 //parent.history.back();
+                //Заявка №[Номер заявки] возвращена в работу
                 var SLog_id = sessionStorage.getItem("Log")
                 var mn = $('#hedrZ').attr('mn');
-                SaveFCM('Заявка', 'Заявка получила статус «В работе»', 'Заявка № ' + mn + '.', '', $('#Acnum').val(), SLog_id, 'CreateDispRequest.aspx', rid)
+                SaveFCM('Заявка', 'Заявка №  ' + mn + 'возвращена в работу', 'Заявка №  ' + mn + 'возвращена в работу', '', $('#Acnum').val(), SLog_id, 'CreateDispRequest.aspx', rid)
                 var loc = window.location.pathname
                 var back = (loc.indexOf('Responsible') != -1) ? 'Resp_Requests.aspx' : (loc.indexOf('Manager') != -1) ? 'RequestsManager.aspx' : (loc.indexOf('Disp_Admin') != -1) ? 'RegisterRequest.aspx' : (loc.indexOf('Super_Disp') != -1) ? 'DispRequests.aspx' : 'SRequests.aspx'
                 window.location.href = back
