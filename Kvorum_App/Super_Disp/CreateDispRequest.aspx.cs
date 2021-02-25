@@ -1711,7 +1711,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
 
         //}
         [WebMethod]
-        public static string MakeOtmenSupp(string R_id, string imgs, string text,string opl,int login_id,string _path)
+        public static string MakeOtmenSupp(string R_id, string imgs, string text,string opl,int login_id,string _path,int SpId)
         {
             string result = "";
             dynamic j = JsonConvert.DeserializeObject(imgs);
@@ -1761,7 +1761,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
            new SqlParameter("@TEXT","Заявка № П-" + MOBILE_NUMBER + " отменена" ),
         //   new SqlParameter("@PROJECT_ID",PROJECT_ID),
            new SqlParameter("@SCORE_ID",""),
-         //  new SqlParameter("@tokenId",SpId.ToString()),
+          new SqlParameter("@tokenId",SpId),
           new SqlParameter("@LOG_IN_ID",Convert.ToInt32(login_id)),
            new SqlParameter("@PAGE",""),
            new SqlParameter("@ID",MOBILE_NUMBER),
