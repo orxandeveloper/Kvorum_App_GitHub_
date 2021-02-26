@@ -134,6 +134,7 @@ namespace Kvorum_App.Super_Disp
                     FILES = item["FILES"].ToString()
                 });*/
             string s_GROUPS = Mydb.ExecuteAsJson("TestDB.dbo.sp_QUICK_API_get_ub_services", new SqlParameter[] { new SqlParameter("@PROJECT_GUID", PROJECT_GUID), new SqlParameter("@DIRECTION_GUID", DIRECTION_GUID), new SqlParameter("@SERVICE_GUID", servc) }, CommandType.StoredProcedure);
+        
             string R_GROUPS = Mydb.ExecuteAsJson("GET_RESPONSIBLES_BY_GROUP",new SqlParameter[] { new SqlParameter("@SERVICE_GUID", servc) },CommandType.StoredProcedure);
            string  js=new JavaScriptSerializer().Serialize(new {
                 SERVICE_GROUPS= s_GROUPS,
