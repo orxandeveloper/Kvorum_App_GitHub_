@@ -18,6 +18,11 @@ namespace Kvorum_App.Super_Disp
 
         }
         [WebMethod]
+        public static string GetDatasForRaport(int type,string Stext)
+        {
+            return Mydb.ExecuteReadertoDataTableAsJson("GetDatasForRaport", new SqlParameter[] {new SqlParameter("@type", type),new SqlParameter("Stext", Stext) }, CommandType.StoredProcedure);
+        }
+        [WebMethod]
         public static string GetDispsRequests(int lg,int role,int all)
         {
 
