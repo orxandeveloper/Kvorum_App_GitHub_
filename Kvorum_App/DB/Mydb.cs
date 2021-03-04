@@ -145,7 +145,7 @@ namespace Kvorum_App
                     rows.Add(row);
                 }
                 JavaScriptSerializer js = new JavaScriptSerializer();
-
+                js.MaxJsonLength = int.MaxValue;
                 return js.Serialize(rows);
             }
         }
