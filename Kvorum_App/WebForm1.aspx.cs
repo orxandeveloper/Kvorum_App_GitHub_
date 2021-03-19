@@ -42,8 +42,145 @@ namespace Kvorum_App
             #endregion
             // jsondata();
             //SendLoginMailFor34();
+            // SendSms("79154916045", "Test221900", "Test_221900");Phone_number Anton
+            //SendSmSForNewLS();
+           // sendEmailForNewLs();
+
+        }
+
+        private void sendEmailForNewLs()
+        {
+            DataTable dt = Mydb.ExecuteReadertoDataTable(@"select ss.SCORE_ID, in_.EMAIL,ps.PASS,in_.FIRST_NAME from SubbotaScores ss
+inner join INDIVIDUAL_PERSCORE ip on ip.SCORE_ID=ss.SCORE_ID
+inner join PER_SCORE ps on ps.SCORE_ID=ss.SCORE_ID and ps.PASS=ss.PASS
+inner join IND_NAME in_ on in_.INDIVIDUAL_ID=ip.INDIVIDUAL_ID and in_.EMAIL is not null", new SqlParameter[] { }, CommandType.Text);
+            // SendMail("221900", "221900_pass", "orxandeveloper@gmail.com", "0");
+            foreach (DataRow item in dt.Rows)
+            {
+                string Email = item["EMAIL"].ToString();
+                string ScoreId = item["SCORE_ID"].ToString();
+                string Pass = item["PASS"].ToString();
+                SendMail(ScoreId, Pass, Email, "0");
+            }
+        }
+        public static string SendMail(string score_, string pass_, string Email_, string srok_, string G = null)
+        {
+            string succEm = "0";
+            //string protocol = Mydb.ExecuteScalar("select DOMAIN_NAME from OBJECT_DOMAIN where OBJECT_ID=@o", new SqlParameter[] { new SqlParameter("@o", ObjecId) }, CommandType.Text).ToString();
+            //protocol = protocol = protocol.Substring(0, protocol.IndexOf('.'));
+            //protocol = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + "/" + protocol + "/LoginT.aspx";
+            //string score = datas[0];
+            string pass = pass_;
+            string srok = (srok_ == "0") ? "у пароля неограниченный срок действия" : srok_;
 
 
+
+            #region oldBodyMail
+
+            //string body = @"<h4 style=""font-weight:100;""><b>Добро пожаловать!</b> Для Вашего лицевого счета создана учетная запись в системе «УПРАВБОТ».</h4><h4 style=""font - weight: 100; "">Здравствуйте! Для Вашего дома по адресу  <a href=""#"">""{0}""</a> функционируют мобильное приложение (<a href=""#"">Android</a>, <a href=""#"">IOS</a> ) и личный кабинет на странице дома .</h4><h4 style=""font-weight: 100;"">Ваш логин: <b>""{1}""</b></h4><h4 style=""font-weight: 100;"">Ваш пароль:<b>""{2}""</b></h4><h4 style=""font-weight: 100;"">Срок действия пароля в днях:<b>""{3}""</b></h4><h4 style=""font-weight: 100;"">Вы можете поменять пароль в <a href=""#"">настройках профиля</a>  в личном кабинете или в мобильном приложении.</h4><h4 style=""font-weight: 100;"">В личном кабинете и мобильном приложении Вы сможете:</h4><img src=""https://upravbot.ru/img/prebor.jpg""><h4 style=""width: 14%; margin-left: 10vw; margin-top: -5vw; font-weight: 700;"">Подать показания приборов учета</h4><br><img src =""https://upravbot.ru/img/money.png"" style = ""margin-left: 36px; margin-top: 16px;"" ><h4 style = ""font-weight: 700; margin-left: 10vw; margin-top: -4vw;""> Оплатить счет за жилищно - коммунальные услуги онлайн</h4><br><img src = ""https://upravbot.ru/img/doci.png"" style = ""margin-left: 36px; margin-top: 16px;"" ><h4 style = ""font-weight: 700; margin-left: 10vw; margin-top: -3vw;"" > Оформить заявку </h4><br><h4 style = ""font-weight:100"" > При возникновении вопросов по работе портала «УПРАВБОТ», пожалуйста, обратитесь в техподдержку: <a href = ""mailto:helpdesk@upravbot.ru"">help-desk@upravbot.ru </a></h4><br><h4 style = ""font-weight:100;font-style:  italic;"" > C уважением,Ваш «УПРАВБОТ».</h4> ";
+            //string body = @"<div style=""display: block; width: 100 %; height: 100 %; background - color: #f3f3f3; margin: 0px; padding: 0px; padding: 10px; font-family: sans-serif;""><div style=""display: block; max-width: 700px; margin-left: auto; margin-right: auto; background-color: #ffffff; padding: 20px;""><h2>Добро пожаловать!</h2><p>Для Вашего лицевого счета создана учетная запись в&nbsp;системе «Автопилот».</p><p>Здравствуйте! Для Вашего дома по адресу <a href=""#"">""{0}""</a> функционируют мобильное приложение (<a href=""#"">Android</a>, <a href=""#"">iOS</a> ) и&nbsp;личный кабинет на странице дома.</p><p>Ваш логин: <b>""{1}""</b></p><p>Ваш пароль:<b>""{2}""</b></p><p>Вы можете поменять пароль в&nbsp;<a href=""#"">настройках профиля</a> в&nbsp;личном кабинете или в&nbsp;мобильном приложении.</p><p>В личном кабинете и мобильном приложении Вы сможете:</p><ul style=""list-style:none;""><li style=""display: block; margin-bottom:16px;""><img src=""https://upravbot.ru/img/prebor.jpg"" align=""left"" style=""text-align: left; display: inline-block; height: 34px; width: auto; margin-right: 4px;"" alt=""> Подать показания приборов учета.</li><li style=""display: block;  margin-bottom:16px;""><img src=""https://upravbot.ru/img/money.png"" align=""left"" style=""text-align: left; display: inline-block; height: 28px; width: auto; margin-right: 10px;"" alt=""""> Оплатить счет за жилищно - коммунальные услуги онлайн.</li><li style=""display: block;  margin-bottom:16px;""><img src=""https://upravbot.ru/img/doci.png"" align=""left"" style=""text-align: left; display: inline-block; height: 24px; width: auto; margin-right: 10px; margin-left:4px;"" alt=""> Оформить заявку.</li></ul><p>При возникновении вопросов по работе портала «Автопилот», пожалуйста, обратитесь в&nbsp;техподдержку: <a href=""mailto:helpdesk@upravbot.ru"">help-desk@upravbot.ru </a></p><br><p>C уважением, Ваш «Автопилот».</p></div></div>";
+            //body = String.Format(body, protocol, score_, pass);
+
+            #endregion
+            string text_ = "Для Вашего лицевого счета создана учетная запись";
+            if (G != null)
+            {
+                text_ = G;
+            }
+            string body = @" \<div style=""display: block; width: 100 %; height: 100 %; background - color: #f3f3f3; margin: 0px; padding: 0px; padding: 10px; font-family: sans-serif;""><div style=""display: block; max-width: 700px; margin-left: auto; margin-right: auto; background-color: #ffffff; padding: 20px;""><p>{3} в&nbsp;системе «УПРАВБОТ».</p><p>Ваш логин: <b>""{0}""</b></p><p>Ваш пароль:<b>""{1}""</b></p><p>Скачать приложение Вы можете: <a href=""{2}"">http://www.matorin-un.ru/getmobile</a></p><p>В личном кабинете и мобильном приложении Вы сможете:</p><ul style=""list-style:none;""><li style=""display: block; margin-bottom:16px;""><img src=""https://upravbot.ru/img/prebor.jpg"" align=""left"" style=""text-align: left; display: inline-block; height: 34px; width: auto; margin-right: 4px;"" alt=""> Подать показания приборов учета.</li><li style=""display: block;  margin-bottom:16px;""><img src=""https://upravbot.ru/img/money.png"" align=""left"" style=""text-align: left; display: inline-block; height: 28px; width: auto; margin-right: 10px;"" alt=""""> Оплатить счет за жилищно - коммунальные услуги онлайн.</li><li style=""display: block;  margin-bottom:16px;""><img src=""https://upravbot.ru/img/doci.png"" align=""left"" style=""text-align: left; display: inline-block; height: 24px; width: auto; margin-right: 10px; margin-left:4px;"" alt=""> Оформить заявку.</li></ul><p>При возникновении вопросов по работе портала «УПРАВБОТ», пожалуйста, обратитесь в&nbsp;техподдержку: <a href=""mailto:helpdesk@upravbot.ru"">help-desk@upravbot.ru </a></p><br><p>C уважением, Ваш «УПРАВБОТ».</p></div></div>";
+            string mobile = "http://www.matorin-un.ru/getmobile";//HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + "/getmobile.aspx";
+            body = String.Format(body, score_, pass, mobile, text_);
+            try
+            {
+                Mydb.ExecuteNoNQuery("sp_Send_Mail_Upravbot", new SqlParameter[] { new SqlParameter("@mailto", Email_), new SqlParameter("@theme", "Upravbot.ru"), new SqlParameter("@body", body) }, CommandType.StoredProcedure);
+                succEm = "1";
+            }
+            catch (Exception)
+            {
+
+                succEm = "0";
+            }
+            return succEm;
+        }
+        private void SendSmSForNewLS()
+        {
+            DataTable dt = Mydb.ExecuteReadertoDataTable(@"select ss.SCORE_ID,
+'7'+REVERSE(SUBSTRING((REVERSE(LTRIM(RTRIM(REPLACE(in_.PHONE,' ',''))))),0,11)) as PHONE ,ps.PASS,in_.FIRST_NAME from SubbotaScores ss
+inner join INDIVIDUAL_PERSCORE ip on ip.SCORE_ID = ss.SCORE_ID
+inner join PER_SCORE ps on ps.SCORE_ID = ss.SCORE_ID and ps.PASS = ss.PASS
+inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is not null", new SqlParameter[] { }, CommandType.Text);
+            foreach (DataRow item in dt.Rows)
+            {
+                string Phone = item["PHONE"].ToString();
+                string ScoreId = item["SCORE_ID"].ToString();
+                string Pass = item["PASS"].ToString();
+                SendSms(Phone, ScoreId, Pass);
+            }
+        }
+
+        public static string SendSms(string Phone_, string score_, string Pass, string G = null)
+        {
+            string success = "";
+            string nm = Phone_;
+            nm = nm.Replace('(', ' ').Replace(')', ' ').Replace('-', ' ').Replace('+', ' ');
+            nm = nm.Replace(" ", string.Empty);
+            if (nm.Length == 10)
+            {
+                nm = "7" + nm;
+                // Console.WriteLine("10simvol");
+            }
+            if (nm.Length > 10)
+            {
+                //  Console.WriteLine("nm.Length>10");
+                string is_seven = nm.Substring(0, 1);
+                if (is_seven == "8")
+                {
+                    //Console.WriteLine("is_seven==8");
+                    nm = nm.Remove(0, 1);
+                    nm = "7" + nm;
+                }
+                is_seven = nm.Substring(0, 1);
+                if (is_seven != "7")
+                {
+                    // Console.WriteLine("is_seven!=7");
+                    nm = "7" + nm;
+                }
+            }
+            // string protocol = "test Link";//Mydb.ExecuteScalar("select DOMAIN_NAME from OBJECT_DOMAIN where OBJECT_ID=@o", new SqlParameter[] { new SqlParameter("@o", ObjectId_) }, CommandType.Text).ToString();
+            // protocol = protocol = protocol.Substring(0, protocol.IndexOf('.'));
+            //protocol = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + "/" + protocol + "/MainPage.aspx";
+            //string text = "Uvazhaemyj zhitel'! Vam vystavlen schet za ZHKU. Dlya oplaty ispol'zujte mobil'prilozhenie: " + protocol + ". Vash MATORIN";
+            string protocolForApps = "http://www.matorin-un.ru/getmobile";//"http://onelink.to/9qxk74"//HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + "/getmobile.aspx";
+            //"http://www.matorin-un.ru/getmobile";
+            string text = "Dlya Vas sozdana uchetnaya zapis' v sisteme Upravbot. Login: " + score_ + ", Parol: " + Pass + " . (" + protocolForApps + ")"; //"Для Вас создана учётная запись в системе \"Управбот\". Логин: " + score_ + ". Пароль: " + Pass + " . Скачать приложение: " + protocolForApps;
+            if (G != null)
+            {
+                text = G + " v sisteme Upravbot. Login: " + score_ + ", Parol: " + Pass + " . (" + protocolForApps + ")";
+                //"Dlya Vas sozdan parol’ v sisteme Upravbot. Login: " + score_ + ", Parol: " + Pass + " . (" + protocolForApps + ")";
+            }
+            string URL = "https://my5.pir.company/sendsms.php?user=matorin&pwd=MAT0R1N&sadr=MATORIN&dadr=" + nm + "&text=" + text + "";
+            //https://my5.t-sms.ru/sendsms.php
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                request.Proxy = HttpWebRequest.DefaultWebProxy;
+                request.Proxy.Credentials = CredentialCache.DefaultNetworkCredentials;
+                request.PreAuthenticate = true;
+                request.ContentType = "application/json";
+                WebResponse webResponse = request.GetResponse();
+                Stream webStream = webResponse.GetResponseStream();
+                StreamReader responseReader = new StreamReader(webStream);
+                string rspns = responseReader.ReadToEnd();
+
+                Mydb.ExecuteNoNQuery("INSERT INTO SMS_GATE(SMS_TEXT,SMS_RESPONSE,SCORE_ID,SEND_NUMBER,SMS_DATE) VALUES(@SMS_TEXT,@SMS_RESPONSE,@SCORE_ID,@SEND_NUMBER,GETDATE())", new SqlParameter[] { new SqlParameter("@SMS_TEXT", text), new SqlParameter("@SMS_RESPONSE", rspns), new SqlParameter("@SCORE_ID", score_), new SqlParameter("@SEND_NUMBER", nm) }, CommandType.Text);
+                success = "1";
+            }
+            catch (Exception)
+            {
+
+                success = "0";
+            }
+            return success;
         }
         public static string GeneratePass() {
             var bigCases = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

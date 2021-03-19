@@ -19,77 +19,7 @@ namespace Kvorum_App.Super_Disp
         {
 
         }
-        //private static void SERVICES_SPECIALISTS_CRUD(dynamic SPECIATISTS, int Inserted_Requestid, string Text, string funcType)
-        //{
-        //    if (funcType == "Insert")
-        //    {
-        //        for (int i = 0; i < SPECIATISTS.Count; i++)
-        //        {
-        //            string sguid = (string)SPECIATISTS[i].sguid;
-        //            //sguid =sguid.Replace("\\", "");
-        //            //sguid =sguid.Replace("\\", "");
-        //            Mydb.ExecuteNoNQuery("INSERT_REQUEST_SPECIALISTS", new SqlParameter[] {
-        //                        new SqlParameter("@SPECIALIST_ID",(int)SPECIATISTS[i].spId),
-        //                        new SqlParameter("@SGUID",sguid),
-        //                        new SqlParameter("@IS_RESPONSIBLE",(string)SPECIATISTS[i].isResp),
-        //                        new SqlParameter("@REQUEST_ID",Inserted_Requestid),
-        //                    }, CommandType.StoredProcedure);
-        //            if (i == 0)
-        //            {
-        //                int currentsp = (int)SPECIATISTS[i].spId;
-        //                SendEmailForRequest(Text, (string)SPECIATISTS[i].spEmail, Inserted_Requestid, 1, (int)SPECIATISTS[i].spId);
-        //            }
-        //            else
-        //            {
-        //                int currentsp = (int)SPECIATISTS[i].spId;
-        //                int prevsp = (int)SPECIATISTS[i - 1].spId;
-
-        //                if ((int)SPECIATISTS[i].spId != (int)SPECIATISTS[i - 1].spId)
-        //                {
-        //                    SendEmailForRequest(Text, (string)SPECIATISTS[i].spEmail, Inserted_Requestid, 1, (int)SPECIATISTS[i].spId);
-        //                }
-        //            }
-
-        //        }
-        //    }
-        //    if (funcType == "Delete")
-        //    {
-        //        Mydb.ExecuteNoNQuery("INSERT_REQUEST_SPECIALISTS", new SqlParameter[] { new SqlParameter("@IS_DELETE", false), new SqlParameter("@REQUEST_ID", Inserted_Requestid) }, CommandType.StoredProcedure);
-        //    }
-        //    if (funcType == "Update")
-        //    {
-        //        Mydb.ExecuteNoNQuery("INSERT_REQUEST_SPECIALISTS", new SqlParameter[] { new SqlParameter("@IS_DELETE", false), new SqlParameter("@REQUEST_ID", Inserted_Requestid) }, CommandType.StoredProcedure);
-        //        for (int i = 0; i < SPECIATISTS.Count; i++)
-        //        {
-        //            string sguid = (string)SPECIATISTS[i].sguid;
-        //            //sguid =sguid.Replace("\\", "");
-        //            //sguid =sguid.Replace("\\", "");
-        //            Mydb.ExecuteNoNQuery("INSERT_REQUEST_SPECIALISTS", new SqlParameter[] {new SqlParameter("@IS_DELETE",true),
-        //                        new SqlParameter("@SPECIALIST_ID",(int)SPECIATISTS[i].spId),
-        //                        new SqlParameter("@SGUID",sguid),
-        //                        new SqlParameter("@IS_RESPONSIBLE",(string)SPECIATISTS[i].isResp),
-        //                        new SqlParameter("@REQUEST_ID",Inserted_Requestid),
-        //                    }, CommandType.StoredProcedure);
-        //            if (i == 0)
-        //            {
-        //                int currentsp = (int)SPECIATISTS[i].spId;
-        //                SendEmailForRequest(Text, (string)SPECIATISTS[i].spEmail, Inserted_Requestid, 1, (int)SPECIATISTS[i].spId);
-        //            }
-        //            else
-        //            {
-        //                int currentsp = (int)SPECIATISTS[i].spId;
-        //                int prevsp = (int)SPECIATISTS[i - 1].spId;
-
-        //                if ((int)SPECIATISTS[i].spId != (int)SPECIATISTS[i - 1].spId)
-        //                {
-        //                    SendEmailForRequest(Text, (string)SPECIATISTS[i].spEmail, Inserted_Requestid, 1, (int)SPECIATISTS[i].spId);
-        //                }
-        //            }
-
-        //        }
-        //    }
-        //}
-
+       
         [WebMethod]
         public static string getSpesicalisetsBySupplierGuid(string supGuid)
         {
@@ -828,7 +758,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                 new SqlParameter("@RESPONSIBLE_ID",Convert.ToInt32(RESPONSIBLE_ID)),
                    new SqlParameter("@SERVICE_NAME",(string)prs[0].SERVICE_NAME),
                 new SqlParameter("@FILES",ImgAdres),
-                new SqlParameter("@COMMENT_",rst),
+             //   new SqlParameter("@COMMENT_",rst),
                 new SqlParameter("@STATUS","3"),
                    new SqlParameter("@WORKDATE",pdate),
                 new SqlParameter("@WORKBEGIN",Ptime),
@@ -838,6 +768,8 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
 
             }, CommandType.StoredProcedure);
 
+            Mydb.ExecuteNoNQuery("sntComment", new SqlParameter[] { new SqlParameter("@REQ_GUID", REQGUID), new SqlParameter("@rc", rst)
+                , new SqlParameter("@lg", Convert.ToInt32(login_id)),new SqlParameter("@is_vipol","1") }, CommandType.StoredProcedure);
             for (int i = 0; i < prs.Count; i++)
             {
                 string COST_ = prs[i].COST;
@@ -909,6 +841,11 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
             int LastId = (int)Mydb.ExecuteScalar(" select top 1 RST_ID from REQUEST_STATUS_TEXT order by RST_ID desc", new SqlParameter[] { }, CommandType.Text);
 
             dynamic j = JsonConvert.DeserializeObject(rsf);
+            if (j[0].ImgAdres == "0")
+            {
+                Mydb.ExecuteNoNQuery("insert into REQUEST_STATUS_FILE (REQUEST_ID,FILE_ADRESS,RST_ID)values (@r_id,@fs,@rst)"
+                    , new SqlParameter[] { new SqlParameter("@r_id", Rid), new SqlParameter("@fs", "0"), new SqlParameter("@rst", LastId) }, CommandType.Text);
+            }
             for (int i = 0; i < j.Count; i++)
             {
                 string ImgAdres = j[i].ImgAdres;
