@@ -180,49 +180,49 @@ namespace Kvorum_App.Super_Disp
         [WebMethod]
         public static string RaportForRequest(string ColumnsName, string DataForRapor)
         {
-            GiveExcel_for_Raport(Mydb.ExecuteReadertoDataTable("select * from vw_RequestFor_Raport where MASTER_ID between 878 and 880"
-              , new SqlParameter[] { }, CommandType.Text), ColumnsName);
-            // dynamic Datas_json = JsonConvert.DeserializeObject(DataForRapor);
-            //bool and_or = (bool)Datas_json.and_or;
-            //string SCORES = (string)Datas_json.SCORES;
-            //string INDIVIDUAL_ID = (string)Datas_json.INDIVIDUAL_ID;
-            //string ROOM_NUMBER = (string)Datas_json.ROOM_NUMBER;
-            //string SPESIALIST_ID = (string)Datas_json.SPESIALIST_ID;
-            //string RESPONSIBLE_ID = (string)Datas_json.RESPONSIBLE_ID;
-            //string STATUS_ID = (string)Datas_json.STATUS_ID;
-            //string OBJECT_ID = (string)Datas_json.OBJECT_ID;
-            //string SUPPLIER_GUID = (string)Datas_json.SUPPLIER_GUID;
-            //string DIRECTION_GUID = (string)Datas_json.DIRECTION_GUID;
-            //string SERVICE_GROUP_GUID = (string)Datas_json.SERVICE_GROUP_GUID;
-            //string SERVICE_GUID = (string)Datas_json.SERVICE_GUID;
+            //GiveExcel_for_Raport(Mydb.ExecuteReadertoDataTable("select * from vw_RequestFor_Raport where MASTER_ID between 878 and 880"
+            //  , new SqlParameter[] { }, CommandType.Text), ColumnsName);
+            dynamic Datas_json = JsonConvert.DeserializeObject(DataForRapor);
+            bool and_or = (bool)Datas_json.and_or;
+            string SCORES = (string)Datas_json.SCORES;
+            string INDIVIDUAL_ID = (string)Datas_json.INDIVIDUAL_ID;
+            string ROOM_NUMBER = (string)Datas_json.ROOM_NUMBER;
+            string SPESIALIST_ID = (string)Datas_json.SPESIALIST_ID;
+            string RESPONSIBLE_ID = (string)Datas_json.RESPONSIBLE_ID;
+            string STATUS_ID = (string)Datas_json.STATUS_ID;
+            string OBJECT_ID = (string)Datas_json.OBJECT_ID;
+            string SUPPLIER_GUID = (string)Datas_json.SUPPLIER_GUID;
+            string DIRECTION_GUID = (string)Datas_json.DIRECTION_GUID;
+            string SERVICE_GROUP_GUID = (string)Datas_json.SERVICE_GROUP_GUID;
+            string SERVICE_GUID = (string)Datas_json.SERVICE_GUID;
             //string PAYED = (string)Datas_json.PAYED;
-            //string REQUEST_TYPE_ = (string)Datas_json.REQUEST_TYPE_;
-            //string PAYMENT = (string)Datas_json.PAYMENT;
-            //string EMERGENCY_TREATMENT = (string)Datas_json.EMERGENCY_TREATMENT;
-            //string CR_DATE_from = (string)Datas_json.CR_DATE_from;
-            //string CR_DATE_to = (string)Datas_json.CR_DATE_to;
+            string REQUEST_TYPE_ = (string)Datas_json.REQUEST_TYPE_;
+            string PAYMENT = (string)Datas_json.PAYMENT;
+            string EMERGENCY_TREATMENT = (string)Datas_json.EMERGENCY_TREATMENT;
+            string CR_DATE_from = (string)Datas_json.CR_DATE_from;
+            string CR_DATE_to = (string)Datas_json.CR_DATE_to;
 
-            //GiveExcel_for_Raport(
-            //Mydb.ExecuteReadertoDataTable("RaportForRequest", new SqlParameter[] {
-            //    new SqlParameter("@and_or",and_or),
-            //    new SqlParameter("@SCORES",SCORES),
-            //    new SqlParameter("@INDIVIDUAL_ID",INDIVIDUAL_ID),
-            //    new SqlParameter("@ROOM_NUMBER",ROOM_NUMBER),
-            //    new SqlParameter("@SPESIALIST_ID",SPESIALIST_ID),
-            //    new SqlParameter("@RESPONSIBLE_ID",RESPONSIBLE_ID),
-            //    new SqlParameter("@STATUS_ID",STATUS_ID),
-            //    new SqlParameter("@OBJECT_ID",OBJECT_ID),
-            //    new SqlParameter("@SUPPLIER_GUID",SUPPLIER_GUID),
-            //    new SqlParameter("@DIRECTION_GUID",DIRECTION_GUID),
-            //    new SqlParameter("@SERVICE_GROUP_GUID",SERVICE_GROUP_GUID),
-            //    new SqlParameter("@SERVICE_GUID",SERVICE_GUID),
-            //    new SqlParameter("@PAYED",PAYED),
-            //    new SqlParameter("@REQUEST_TYPE_",REQUEST_TYPE_),
-            //    new SqlParameter("@PAYMENT",PAYMENT),
-            //    new SqlParameter("@EMERGENCY_TREATMENT",EMERGENCY_TREATMENT),
-            //    new SqlParameter("@CR_DATE_from",CR_DATE_from),
-            //    new SqlParameter("@CR_DATE_to",CR_DATE_to)
-            //}, CommandType.StoredProcedure),ColumnsName);
+            GiveExcel_for_Raport(
+            Mydb.ExecuteReadertoDataTable("RaportForRequest", new SqlParameter[] {
+                new SqlParameter("@and_or",and_or),
+                new SqlParameter("@SCORES",SCORES),
+                new SqlParameter("@INDIVIDUAL_ID",INDIVIDUAL_ID),
+                new SqlParameter("@ROOM_NUMBER",ROOM_NUMBER),
+                new SqlParameter("@SPESIALIST_ID",SPESIALIST_ID),
+                new SqlParameter("@RESPONSIBLE_ID",RESPONSIBLE_ID),
+                new SqlParameter("@STATUS_ID",STATUS_ID),
+                new SqlParameter("@OBJECT_ID",OBJECT_ID),
+                new SqlParameter("@SUPPLIER_GUID",SUPPLIER_GUID),
+                new SqlParameter("@DIRECTION_GUID",DIRECTION_GUID),
+                new SqlParameter("@SERVICE_GROUP_GUID",SERVICE_GROUP_GUID),
+                new SqlParameter("@SERVICE_GUID",SERVICE_GUID),
+               // new SqlParameter("@PAYED",PAYED),
+                new SqlParameter("@REQUEST_TYPE_",REQUEST_TYPE_),
+                new SqlParameter("@PAYMENT",PAYMENT),
+                new SqlParameter("@EMERGENCY_TREATMENT",EMERGENCY_TREATMENT),
+                new SqlParameter("@CR_DATE_from",CR_DATE_from),
+                new SqlParameter("@CR_DATE_to",CR_DATE_to)
+            }, CommandType.StoredProcedure), ColumnsName);
 
             return "";
         }
