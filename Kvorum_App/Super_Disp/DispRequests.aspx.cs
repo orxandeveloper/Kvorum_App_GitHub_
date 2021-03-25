@@ -44,7 +44,10 @@ namespace Kvorum_App.Super_Disp
             if (dt.Rows.Count != 0)
             {
                 string guid = Guid.NewGuid().ToString();
-                string strFilePath = @"C:\Users\ACER\Desktop\yunis\Raport_" + DateTime.Now.ToString("dd.mm.yyyy") + "_" + guid + ".xlsx";
+                //C:\Users\ACER\Desktop\yunis\--local machine
+                //"C:\inetpub\wwwroot\Files\
+
+                string strFilePath = @"C:\inetpub\wwwroot\Files\Raport_" + DateTime.Now.ToString("dd.mm.yyyy") + "_" + guid + ".xlsx";
                 using (var workbook = new XLWorkbook())
                 {
 
@@ -103,34 +106,41 @@ namespace Kvorum_App.Super_Disp
                             if (eng_column== "REQUEST_SERVICES")
                             {
                                 string[] dbValues = dbValue.Split('|');
-                                for (int f = 0; f < dbValues.Length; f++)
+                                if (dbValue.Trim().Length>0)
                                 {
-                                    dbValue = "";
-                                    var kol_cost_ed = dbValues[f].Substring(dbValues[f].IndexOf('(') + 1, (dbValues[f].IndexOf(')') - dbValues[f].IndexOf('(')) - 1);
-                                    dbValues[f] = dbValues[f].Substring(0, dbValues[f].IndexOf('('));
+                                    for (int f = 0; f < dbValues.Length; f++)
+                                    {
+                                       
+                                        if (dbValues[f].IndexOf('{')!=-1)
+                                        {
+                                            dbValue = "";
+                                            var kol_cost_ed = dbValues[f].Substring(dbValues[f].IndexOf('{') + 1, (dbValues[f].IndexOf('}') - dbValues[f].IndexOf('{')) - 1);
+                                            dbValues[f] = dbValues[f].Substring(0, dbValues[f].IndexOf('{'));
 
-                                    string[] kolcosted_array = kol_cost_ed.Split('^');
-                                    if (exitsInjson(list, "kol"))
-                                    {
-                                        dbValues[f] = dbValues[f] + " (" + kolcosted_array[0] + ")";
+                                            string[] kolcosted_array = kol_cost_ed.Split('^');
+                                            if (exitsInjson(list, "kol"))
+                                            {
+                                                dbValues[f] = dbValues[f] + " (" + kolcosted_array[0] + ")";
 
-                                    }
-                                    if (exitsInjson(list, "ed"))
-                                    {
-                                        dbValues[f] = dbValues[f] + " (" + kolcosted_array[1] + ")";
-                                    }
-                                    if (exitsInjson(list, "cost"))
-                                    {
-                                        dbValues[f] = dbValues[f] + " (" + kolcosted_array[2] + ")";
-                                    }
-                                    if (f==0)
-                                    {
-                                        dbValue = dbValues[f];
-                                    }
-                                    else
-                                    {
-                                        dbValue = dbValue+"," + dbValues[f];
-                                    }
+                                            }
+                                            if (exitsInjson(list, "ed"))
+                                            {
+                                                dbValues[f] = dbValues[f] + " (" + kolcosted_array[1] + ")";
+                                            }
+                                            if (exitsInjson(list, "cost"))
+                                            {
+                                                dbValues[f] = dbValues[f] + " (" + kolcosted_array[2] + ")";
+                                            }
+                                            if (f == 0)
+                                            {
+                                                dbValue = dbValues[f];
+                                            }
+                                            else
+                                            {
+                                                dbValue = dbValue + "," + dbValues[f];
+                                            } 
+                                        }
+                                    } 
                                 }
                             }
                             
@@ -183,7 +193,7 @@ namespace Kvorum_App.Super_Disp
             //GiveExcel_for_Raport(Mydb.ExecuteReadertoDataTable("select * from vw_RequestFor_Raport where MASTER_ID between 878 and 880"
             //  , new SqlParameter[] { }, CommandType.Text), ColumnsName);
             dynamic Datas_json = JsonConvert.DeserializeObject(DataForRapor);
-            bool and_or = (bool)Datas_json.and_or;
+            string and_or = (string)Datas_json.and_or;
             string SCORES = (string)Datas_json.SCORES;
             string INDIVIDUAL_ID = (string)Datas_json.INDIVIDUAL_ID;
             string ROOM_NUMBER = (string)Datas_json.ROOM_NUMBER;
@@ -202,29 +212,29 @@ namespace Kvorum_App.Super_Disp
             string CR_DATE_from = (string)Datas_json.CR_DATE_from;
             string CR_DATE_to = (string)Datas_json.CR_DATE_to;
 
-            GiveExcel_for_Raport(
-            Mydb.ExecuteReadertoDataTable("RaportForRequest", new SqlParameter[] {
-                new SqlParameter("@and_or",and_or),
-                new SqlParameter("@SCORES",SCORES),
-                new SqlParameter("@INDIVIDUAL_ID",INDIVIDUAL_ID),
-                new SqlParameter("@ROOM_NUMBER",ROOM_NUMBER),
-                new SqlParameter("@SPESIALIST_ID",SPESIALIST_ID),
-                new SqlParameter("@RESPONSIBLE_ID",RESPONSIBLE_ID),
-                new SqlParameter("@STATUS_ID",STATUS_ID),
-                new SqlParameter("@OBJECT_ID",OBJECT_ID),
-                new SqlParameter("@SUPPLIER_GUID",SUPPLIER_GUID),
-                new SqlParameter("@DIRECTION_GUID",DIRECTION_GUID),
-                new SqlParameter("@SERVICE_GROUP_GUID",SERVICE_GROUP_GUID),
-                new SqlParameter("@SERVICE_GUID",SERVICE_GUID),
-               // new SqlParameter("@PAYED",PAYED),
-                new SqlParameter("@REQUEST_TYPE_",REQUEST_TYPE_),
-                new SqlParameter("@PAYMENT",PAYMENT),
-                new SqlParameter("@EMERGENCY_TREATMENT",EMERGENCY_TREATMENT),
-                new SqlParameter("@CR_DATE_from",CR_DATE_from),
-                new SqlParameter("@CR_DATE_to",CR_DATE_to)
+            string FIle = GiveExcel_for_Raport(
+        Mydb.ExecuteReadertoDataTable("RaportForRequest", new SqlParameter[] {
+                new SqlParameter("@and_or",and_or.Trim().Trim()),
+                new SqlParameter("@SCORES",SCORES.Trim()),
+                new SqlParameter("@INDIVIDUAL_ID",INDIVIDUAL_ID.Trim()),
+                new SqlParameter("@ROOM_NUMBER",ROOM_NUMBER.Trim()),
+                new SqlParameter("@SPESIALIST_ID",SPESIALIST_ID.Trim()),
+                new SqlParameter("@RESPONSIBLE_ID",RESPONSIBLE_ID.Trim()),
+                new SqlParameter("@STATUS_ID",STATUS_ID.Trim()),
+                new SqlParameter("@OBJECT_ID",OBJECT_ID.Trim()),
+                new SqlParameter("@SUPPLIER_GUID",SUPPLIER_GUID.Trim()),
+                new SqlParameter("@DIRECTION_GUID",DIRECTION_GUID.Trim()),
+                new SqlParameter("@SERVICE_GROUP_GUID",SERVICE_GROUP_GUID.Trim()),
+                new SqlParameter("@SERVICE_GUID",SERVICE_GUID.Trim()),
+               // new SqlParameter("@PAYED",PAYED.Trim()),
+                new SqlParameter("@REQUEST_TYPE_",REQUEST_TYPE_.Trim()),
+                new SqlParameter("@PAYMENT",PAYMENT.Trim()),
+                new SqlParameter("@EMERGENCY_TREATMENT",EMERGENCY_TREATMENT.Trim()),
+                new SqlParameter("@CR_DATE_from",CR_DATE_from.Trim()),
+                new SqlParameter("@CR_DATE_to",CR_DATE_to.Trim())
             }, CommandType.StoredProcedure), ColumnsName);
 
-            return "";
+            return "{\"result\":\"Ok\",\"RequestsExcel\":\""+ FIle + "\"}";
         }
 
         [WebMethod]
