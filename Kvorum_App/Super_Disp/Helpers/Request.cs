@@ -49,5 +49,7 @@ namespace Kvorum_App.Super_Disp.Helpers
         public string RREQUEST_ID { get; internal set; }
         public string Entrance_Tex { get; internal set; }
         public string Floor_Tex { get; internal set; }
+        public string FLOOR { get; internal set; }
+        public string ENTRANCE { get; internal set; }
     }
 }

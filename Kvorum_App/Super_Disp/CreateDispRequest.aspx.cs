@@ -1944,7 +1944,10 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                 r.DELIVERY_TYPE_ID = 0;// item["WORKEND"].ToString().Substring(0, 5);//(item["DELIVERY_TYPE_ID"] == DBNull.Value) ? -1 : Convert.ToInt32(item["DELIVERY_TYPE_ID"]);//
                 r.SPECIALIS_ID = Convert.ToInt32(item["SPECIALIST_ID"]);//
                 r.SPECIALISTS = item["SUPPLIER"].ToString();// Mydb.ExecuteAsJson("GetSpsByRId", new SqlParameter[] { new SqlParameter("@rid", Rid) }, CommandType.StoredProcedure);
-                r.REQUEST_TEXT = item["COMMENT"].ToString();//
+                r.REQUEST_TEXT = item["COMMENT"].ToString();
+                r.ENTRANCE = item["ENTRANCE"].ToString();
+                r.FLOOR = item["FLOOR"].ToString();
+                //
                                                             // r.REQUEST_COMMENT = item["REQUEST_COMMENT"].ToString();//
                                                             // r.COMMENT_FILE = item["COMMENT_FILE"].ToString();//
                 r.LOG_IN_ID = 0;//(item["LOG_IN_ID"] != DBNull.Value) ? Convert.ToInt32(item["LOG_IN_ID"]) : 0;//
