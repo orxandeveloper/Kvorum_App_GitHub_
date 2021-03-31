@@ -990,7 +990,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
             //  var ispol_val=(ispol != null) ? ispol : DBNull.Value;
 
             string MOBILE_NUMBER = Convert.ToString(Mydb.ExecuteScalar("Get_MOBILE_NUMBER_BY_R_ID", new SqlParameter[] { new SqlParameter("@Rid", Rid) }, CommandType.StoredProcedure));
-            int ExSpecialistId = (int)Mydb.ExecuteScalar("[GetSpsByRId]", new SqlParameter[] { new SqlParameter("@rid", path) }, CommandType.StoredProcedure);
+            int ExSpecialistId = (int)Mydb.ExecuteScalar("[GetSpsByRId]", new SqlParameter[] { new SqlParameter("@rid", Rid) }, CommandType.StoredProcedure);
 
             if (Convert.ToInt32(ispol) != ExSpecialistId)
             {
