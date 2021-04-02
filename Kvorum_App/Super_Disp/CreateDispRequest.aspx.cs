@@ -783,7 +783,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                 new SqlParameter("@SPECIALIST_ID",SPECIALIST_ID),
                 new SqlParameter("@RESPONSIBLE_ID",Convert.ToInt32(RESPONSIBLE_ID)),
                    new SqlParameter("@SERVICE_NAME",(string)prs[0].SERVICE_NAME),
-                new SqlParameter("@FILES",ImgAdres),
+             //   new SqlParameter("@FILES",ImgAdres),
              //   new SqlParameter("@COMMENT_",rst),
                 new SqlParameter("@STATUS","3"),
                    new SqlParameter("@WORKDATE",pdate),
@@ -795,7 +795,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
             }, CommandType.StoredProcedure);
 
             Mydb.ExecuteNoNQuery("sntComment", new SqlParameter[] { new SqlParameter("@REQ_GUID", REQGUID), new SqlParameter("@rc", rst)
-                , new SqlParameter("@lg", Convert.ToInt32(login_id)),new SqlParameter("@is_vipol","1") }, CommandType.StoredProcedure);
+                , new SqlParameter("@lg", Convert.ToInt32(login_id)),new SqlParameter("@COMMENT_FILE",ImgAdres),new SqlParameter("@is_vipol","1") }, CommandType.StoredProcedure);
             for (int i = 0; i < prs.Count; i++)
             {
                 string COST_ = prs[i].COST;
