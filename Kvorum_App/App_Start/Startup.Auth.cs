@@ -27,13 +27,15 @@ namespace Kvorum_App
             var oidcOptions = new OpenIdConnectAuthenticationOptions
             {
                 Authority = OidcAuthority,
-                ClientId = OidcClientId,
-                ClientSecret = OidcClientSecret,
-                GetClaimsFromUserInfoEndpoint = true,
-                PostLogoutRedirectUri = OidcRedirectUrl,
-                RedirectUri = OidcRedirectUrl,
-                ResponseType = OpenIdConnectResponseType.Code,
-                Scope = OpenIdConnectScope.OpenId
+
+                ClientId = "mvc",//OidcClientId,
+                ClientSecret = "secret",//OidcClientSecret,
+                //GetClaimsFromUserInfoEndpoint = true,
+                PostLogoutRedirectUri = "http://localhost:5002/signout-callback-oidc",//OidcRedirectUrl,
+                RedirectUri = "http://localhost:5002/signin-oidc",//OidcRedirectUrl,
+                ResponseType = "code",//OpenIdConnectResponseType.CodeIdToken,
+                Scope = "api1 openid profile",//OpenIdConnectScope.OpenId
+               
             };
 
             app.UseOpenIdConnectAuthentication(oidcOptions);
