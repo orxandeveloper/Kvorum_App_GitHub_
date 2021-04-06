@@ -302,6 +302,15 @@
             font-size: 50px;
             color: rgb(0,100,223);
         }
+        .create{
+                text-decoration: none !important;
+    color: #d44141;
+    display: inline-block;
+    background: transparent;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 21px;
+    float: right;
+        }
     </style>
 
 </asp:Content>
@@ -321,12 +330,10 @@
                     <div>
                         <button class="btn genBtn" id="backAppart" style="background: #ccc">Назад</button>
                         <button id="SaveUp" class="btn genBtn">Сохранить</button>
-                        <div class="button">
-                            <a id="DeletePOM" href="#" role="button" class="create" style="display: none;"><i class="fa fa-times-circle" aria-hidden="true"></i>&nbsp;Удалить</a>
-                        </div>
+                           <a id="DeletePOM" href="#" role="button" class="create" style="display: none;"><i class="fa fa-times-circle" aria-hidden="true"></i>&nbsp;Удалить</a>
                     </div>
 
-                    <h3 class="font24 font-weight-bold p-3 w-100">Помещение и лицевой счет
+                    <h3 class="font24 font-weight-bold p-3 w-100" id="PageH">Помещение и лицевой счет
 	
 			
                     </h3>
@@ -497,9 +504,10 @@
 
 
                 </div>
+                     <hr />
                 </div>
                
-                <hr />
+               
                 <button class="btn btn1 outline shadow-none rounded-pill" title="Добавить лицевой счет" id="plus">
                     <span class="bgLightGrey w24 rounded-pill"></span>
                     <img src="../img/ic-plus.svg" class="w12 reddishSvg position-absolute" alt="" id="plusImg">

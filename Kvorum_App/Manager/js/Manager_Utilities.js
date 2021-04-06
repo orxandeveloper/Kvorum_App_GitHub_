@@ -642,7 +642,7 @@
         $("#SaveUp").click(function () {
             var SuccesResult = checkControlsM().Issuccess
 
-
+          //  console.log(checkControlsM().obj)
             if (SuccesResult == true) {
                 SaveApart(checkControlsM().obj, Log)
             }
@@ -1048,7 +1048,8 @@
         }
         else {
             $('#QRGenerate').show();
-            $('.col-sm-9').children('h2').text('Редактировать помещение')
+            $('#AllLs').children('div[itemid="0"]').remove();
+            $('#PageH').text('Редактировать помещение')
 
             $('#plusNac').click(function () {
                 $('#errPer').remove()
@@ -3460,44 +3461,27 @@
 
 
 })
-function addTab(lastitm,ls) {
+function addTab(lastitm,jdata) {
 
     $('.ls').children('div:first').children('.removing3').remove()
-    $('.ls').children('div:first').prepend('<i class="fa fa-close removing3" itemid="1" onclick="deltab(this)" aria-hidden="true"></i>')
-    var LastLs = giveElements((parseInt(lastitm) + 1),ls).NewTab
+    $('.ls').children('div:first').prepend('<i class="fa fa-close removing3" itemid="0" onclick="deltab(this)" aria-hidden="true"></i>')
+    var LastLs = giveElements((parseInt(lastitm) + 1), jdata).NewTab
     $(LastLs).children('div[data-tabid="2"]').children('div:not(:first)').remove();
     $(LastLs).children('div[data-tabid="2"]').children('button[onclick],span[onclick]').remove();
-    $('#AllLs').prepend(LastLs)
+    //  $('#AllLs').prepend(LastLs)
+    $('#plus').before(LastLs)
     //  $('.ls:last').after(LastLs)
     $('.ls:last').find('input[type="text"]').val('')
     $('.ls:last').find('.select2').remove();
-
-    $('select').select2({
+    var itmNumb = (parseInt(lastitm) + 1)
+    $('div[itemid="' + itmNumb + '"]').children('div[data-tabid="2"]').find('select').select2({
         containerCssClass: "wrap"
     })
-    //var nextItem = parseInt(lastitm) + 1
-    //var allLi = $("#nav-tab li").length;
-
-    //if (allLi < 11) {
-
-    //    var lastTab = $(".tab-content > div:last-child").attr('data-tab')
-    //    var nextTab = parseInt(lastTab) + 1
-    //    $(".tab-content > div").attr('class', 'tab-pane fade');
-    //    $(".tab-content > div:last-child").after('<div id="tab' + nextTab + '" data-tab="' + nextTab + '" class="tab-pane fade in active"><div class="row"><div class="col-md-8 col-xs-12"><label for="lc">Номер лицевого счета:</label><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text" id="lc"><label for="lc">Пароль:</label><input disabled="disabled" onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text" id="pss" style="width: 71%;"><button style="margin-left: 3px" onclick="Generate(this)" id="GENER" class="btn genBtn">СГЕНЕРИРОВАТЬ</button><label for="typeProp">Тип собственности:</label><select id="typeProp"><option value="0">Выберите собственность</option><option value="1">Совместная</option><option value="2">Единоличная</option><option value="3">Долевая</option><option value="4">Социальный найм</option></select><div id="itms"><div class="col-xs-6 col-md-3"><label id="sobsH" style="display:none">Собственник</label></div><div class="col-xs-6 col-md-3" style="display: none;"><label id="dolH" style="display: block;">Доля</label></div><div class="col-xs-6 col-md-3"><label id="telH" style="display:none" for="telH">Номер&nbsp;телефона</label></div><div class="col-xs-6 col-md-3"><label id="emailH" style="display:none">E-mail</label></div></div><button style= "display:none" id= "Adding" class="btn genBtn"> Добавить</button></div> <div class="col-md-4 col-xs-12"><label>Жилая площадь по данному л/с, м<sup>2</sup></label><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="LiveSq" type="number" style="width:50%;"  ><label>Общая площадь по данному л/с, м<sup>2</sup></label><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="number" style="width:50%;" id="GenSq"  ><label>Общая площадь без летних зон по данному л/с, м<sup>2</sup></label><input id="LiveSqB" onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="number" style="width:50%;"  ><label>Количество комнат</label><input type="number" id="AmRoom" onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)"  ></div></div></div>');
-    //    $("#nav-tab li").attr('class', '');
-    //    $("#nav-tab li[itemid=" + lastitm + "]").after('<li itemid=' + nextItem + ' class="active"><a data-toggle="tab" href="#tab' + nextItem + '" aria-expanded="true">Новый лицевой счет</a></li>')
-    //    //
-    //    $("#nav-tab li[itemid=" + nextItem + "]").prepend('<i class="fa fa-close removing3" itemid=' + nextItem + ' onclick="deltab(' + nextItem + ')" aria-hidden="true"></i>')
-    //    //$('i[itemid=' + lastitm + ']').show();
-    //}
-    //else {
-    //    $('#plus').removeAttr('class').hide();
-    //}
-
-    //  $("#nav-tab li[itemid=" + lastitm + "]").prev().attr('class', '');
+   
+   
 
 }
-function giveElements(i,lsText) {
+function giveElements(i,jdata) {
     var sobs0 = '<div itemid="' + i +'" class="row mb-3 mr-2 ml-1 w-30 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="sobs' + i + '" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="sobs' + i +'" class="transp backLab">Собственник</label> </div> </div> </div>'
     var dol0 = '<div itemid="' + i + '" class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="dol' + i + '" required class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" type="text"> <label for="dol' + i +'" class="transp backLab">Доля</label> </div> </div> </div>'
 
@@ -3505,8 +3489,10 @@ function giveElements(i,lsText) {
     var email0 = '<div itemid="' + i +'" class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i +'"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="email' + i + '"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" class="border-0" type="text"> <label for="email' + i +'" class="transp backLab">E-mail</label></div></div></div>'
     var AddElem = '<button itemid="' + i +'" onclick="AddElem(this,' + i + ')" class="transp border-0 flexCenter mt-n3"> <span class="bgLightGrey w24 rounded-pill"></span> <img src="../img/ic-plus.svg" class="w12 reddishSvg position-absolute" alt=""> </button>'
     var deleteInd = '<span itemid="' + i + '" class="flexCenter mr-3" id="delInd" onclick="delElem(this,' + i + ')"> <span class="bgDarkGrey w24 rounded-pill"></span> <span class="font-weight-bold position-absolute" id="counter"> <img src="../img/close.svg" class="w12 brightness" alt=""> </span> </span>'
-    lsText = (lsText == undefined) ? 'Лицевые счета' : lsText
-    var NewTab = '<div id="ls" class="ls" itemid="' + i + '"> <div class=" h60 w-100 bgWhite shadow rounded16 pl-3 mt-4 pr-3 "> <ol class="list-unstyled list-inline flexHoriz te-menu m-0 h-100 "> <li onclick="OpenTab(1,this)" class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">' + lsText + '</a> </li> <li onclick="OpenTab(2,this)" class="w200 mr-3 h-100 m-0 active pointer"> <a class=" font-weight-bold">Собственники</a> </li> <li onclick="OpenTab(2,this)" style="display: none" class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">Начисления&nbsp;и&nbsp;платежи</a> </li> </ol> </div> <div data-tabid="2" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="posRel h56 rounded-lg  w-100"> <select onchange="typePropChange(this)" id="typeProp" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true"> <option value="0">Выберите собственность</option> <option value="1">Совместная</option><option value="2">Единоличная</option><option value="3">Долевая</option><option value="4">Социальный найм</option></select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 934.149px;"><span class="selection"><span class="select2-selection select2-selection--single wrap" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-typeProp-container"><span class="select2-selection__rendered" id="select2-typeProp-container" title="Выберите собственность">Выберите собственность</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> <label for="typeProp" class="w-95 transp backLab">Тип собственности</label> </div> </div> <div data-tabid="1" style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="row mb-3 mr-2 ml-1 w-100 p-0 rounded8"> <div class="col-md-12 m-0 p-0"> <div class="posRel h56 rounded-lg mb-3"> <input onkeyup="hideErrsMessage2(this)" required="" type="text" id="lc"> <label for="lc" class="w-95 transp backLab">Лицевой счет</label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48 m-0"> <input disabled="disabled" onkeyup="hideErrsMessage2(this)" type="text" id="pss" style="width: 71%;"> <label for="pss" class="w-95 transp backLab">Пароль</label> </div> <button onclick="Generate(this)" id="GENER_Modal" class="btn btn1 outline shadow-none m-0 rounded-lg w-48 h56"> <span> <img src="../img/ic-pass.svg" class="mr-2" alt=""> <span class="text-truncate">Сгенерировать</span> </span> </button> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSq" onkeyup="hideErrsMessage2(this)"> <label for="LiveSq" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="GenSq" onkeyup="hideErrsMessage2(this)"> <label for="GenSq" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSqB" onkeyup="hideErrsMessage2(this)"> <label for="LiveSq" class="w-95 transp backLab">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="AmRoom" onkeyup="hideErrsMessage2(this)"> <label for="AmRoom" class="w-95 transp backLab">Количество комнат<sup>2</sup></label> </div> </div> </div> </div> </div>'
+   // var NUMBER = jdata.NUMBER
+    var lsText = (jdata.NUMBER == undefined) ? 'Лицевые счета' : jdata.NUMBER
+    var lsVal = (jdata.NUMBER == undefined) ? '' : jdata.NUMBER
+    var NewTab = '<div id="ls" class="ls" itemid="' + i + '"> <div class=" h60 w-100 bgWhite shadow rounded16 pl-3 mt-4 pr-3 "><i class="fa fa-close removing3" itemid="' + i + '" onclick="deltab(this)" aria-hidden="true"></i> <ol class="list-unstyled list-inline flexHoriz te-menu m-0 h-100 "> <li onclick="OpenTab(1,this)" class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">' + lsText + '</a> </li> <li onclick="OpenTab(2,this)" class="w200 mr-3 h-100 m-0 active pointer"> <a class=" font-weight-bold">Собственники</a> </li> <li onclick="OpenTab(2,this)" style="display: none" class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">Начисления&nbsp;и&nbsp;платежи</a> </li> </ol> </div> <div data-tabid="2" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="posRel h56 rounded-lg  w-100"> <select onchange="typePropChange(this)" id="typeProp" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true"> <option value="0">Выберите собственность</option> <option value="1">Совместная</option><option value="2">Единоличная</option><option value="3">Долевая</option><option value="4">Социальный найм</option></select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 934.149px;"><span class="selection"><span class="select2-selection select2-selection--single wrap" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-typeProp-container"><span class="select2-selection__rendered" id="select2-typeProp-container" title="Выберите собственность">Выберите собственность</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> <label for="typeProp" class="w-95 transp backLab">Тип собственности</label> </div> </div> <div data-tabid="1" style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="row mb-3 mr-2 ml-1 w-100 p-0 rounded8"> <div class="col-md-12 m-0 p-0"> <div class="posRel h56 rounded-lg mb-3"> <input onkeyup="hideErrsMessage2(this)" required="" type="text" id="lc" value="' + lsVal + '"> <label for="lc" class="w-95 transp backLab">Лицевой счет</label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48 m-0"> <input disabled="disabled" onkeyup="hideErrsMessage2(this)" type="text" id="pss" style="width: 71%;"> <label for="pss" class="w-95 transp backLab">Пароль</label> </div> <button onclick="Generate(this)" id="GENER_Modal" class="btn btn1 outline shadow-none m-0 rounded-lg w-48 h56"> <span> <img src="../img/ic-pass.svg" class="mr-2" alt=""> <span class="text-truncate">Сгенерировать</span> </span> </button> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSq" onkeyup="hideErrsMessage2(this)"> <label for="LiveSq" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="GenSq" onkeyup="hideErrsMessage2(this)"> <label for="GenSq" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSqB" onkeyup="hideErrsMessage2(this)"> <label for="LiveSq" class="w-95 transp backLab">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="AmRoom" onkeyup="hideErrsMessage2(this)"> <label for="AmRoom" class="w-95 transp backLab">Количество комнат<sup>2</sup></label> </div> </div> </div> </div><hr> </div>'
     return { sobs: sobs0, dol: dol0, tel: tel0, email: email0, AddElem: AddElem, deleteInd: deleteInd, NewTab: NewTab }
 }
 function typePropChange(e) {
@@ -7154,16 +7140,23 @@ function ErrorForControls(e, text) {
     if (e_class == 'select2-hidden-accessible') {
         $(e).parent().find('.select2-selection').attr('style', 'border-color:#f06d06 !important')
         if (text != undefined) {
-            var originalText = $(e).next().next('label').text()
-            $(e).next().next('label').attr('style', 'color: red').text(text)
+            //var originalText = $(e).next().next('label').text()
+            $(e).next().next('label').hide()
+           // $(e).closest('#ErrorLabel_').remove()
+         //   var ErrorLabel_ = $(e).parent().children('#ErrorLabel_').length
+            if ($(e).parent().children('#ErrorLabel_').length == 0) {
+                $(e).next().next('label').after('<label id="ErrorLabel_" title="' + text + '" class="w-95 transp backLab" style="color:red">' + text + '</label>')//.attr('style', 'color: red').text(text)
+            }
             var select2Id = $(e).attr('id');
             var spanId = '#select2-' + select2Id + '-container'
-            var original_title = $(spanId).attr('title')
+           // var original_title = $(spanId).attr('title')
             $(spanId).attr('title', text)
             window.setTimeout(function () {
-                $(e).removeAttr('title'),
-                    $(spanId).attr('title', original_title)
-                $(e).next().next('label').removeAttr('style').text(originalText)
+                //  $(e).removeAttr('title'),
+                $('#ErrorLabel_').remove()
+                $(e).next().next('label').show()
+                    //$(spanId).attr('title', original_title)
+              //  $(e).next().next('label').removeAttr('style').text(originalText)
 
             }, 5000);
         }
@@ -7180,12 +7173,18 @@ function ErrorForControls(e, text) {
     window.setTimeout(function () { $(e).removeAttr('style'); $('#servicelbl').remove() }, 5000);
 
     if (text != undefined && e_class != 'select2-hidden-accessible') {
-        var originalText = $(e).next('label').text()
-        $(e).next('label').attr('style', 'color: red').text(text)
-        $(e).attr('title', text)
+        //  var originalText = $(e).next('label').text()
+        $(e).next('label').hide()
+        if ($(e).parent().children('#ErrorLabel_txt').length == 0) {
+            $(e).next('label').after('<label id="ErrorLabel_txt" title="' + text + '" class="w-95 transp backLab" style="color:red">' + text + '</label>')//.attr('style', 'color: red').text(text)
+        }
+     //   $(e).next('label').attr('style', 'color: red').text(text)
+      //  $(e).attr('title', text)
         window.setTimeout(function () {
-            $(e).next('label').removeAttr('style').text(originalText)
-            $(e).attr('title', '')
+          //  $(e).next('label').removeAttr('style').text(originalText)
+            $(e).next('label').show()
+            //   $(e).attr('title', '')
+            $('#ErrorLabel_txt').remove();
         }, 5000);
     }
 }
@@ -7317,7 +7316,7 @@ function checkControlsM() {
         var obj = { "OBJECT_ID": objs, "ENTRANCE": entr, "FLOOR": floor, "ROOM_NUMBER": rnum, "ROOM_FOR_ID": RoomF, "ROOM_TYPE_ID": r_t, "CHAMB_AMOUNT": countR, "GEN_SQUARE": GenS, "LIVE_SQUARE": LiveS, "adbs": txtDatas };
         console.log(obj)
     }
-
+    console.log(obj)
     return { Issuccess: Issuccess, obj: obj }
 }
 function CHeck_Obj_RMF_RMT_RMN(e, OBJECT_ID, ROOM_FOR_ID, ROOM_TYPE_ID, ROOM_NUMBER, LOG_IN_ID, FLOOR) {
@@ -11220,7 +11219,8 @@ function getBasAccountDatas(rmId, OBJECT_ID) {
                 //if (jsondata_.length != 1) {
                 //    $("#nav-tab li[itemid=" + i + "]").prepend('<i class="fa fa-close removing3" itemid=' + i + ' onclick="deltab(' + i + ',this)" aria-hidden="true"></i>')
                 //}
-                addTab(i,jsondata_[i].NUMBER)
+                console.log(jsondata_[i])
+                addTab(i,jsondata_[i])
                 //giveElements(i, jsondata_[i].NUMBER).NewTab
 
             }

@@ -1388,7 +1388,10 @@
         return pattern_.test(password_)
     }
 });
-
+function goToLogin()
+{
+    window.location.href = "ClientLogin.aspx"; 
+}
 function checkCheckBox(e, num) {
     var allchecked=true
     $('input[type="checkbox"]').each(function ()
