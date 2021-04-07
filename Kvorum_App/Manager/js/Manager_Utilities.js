@@ -642,7 +642,7 @@
         $("#SaveUp").click(function () {
             var SuccesResult = checkControlsM().Issuccess
 
-          //  console.log(checkControlsM().obj)
+            //  console.log(checkControlsM().obj)
             if (SuccesResult == true) {
                 SaveApart(checkControlsM().obj, Log)
             }
@@ -3461,7 +3461,7 @@
 
 
 })
-function addTab(lastitm,jdata) {
+function addTab(lastitm, jdata) {
 
     $('.ls').children('div:first').children('.removing3').remove()
     $('.ls').children('div:first').prepend('<i class="fa fa-close removing3" itemid="0" onclick="deltab(this)" aria-hidden="true"></i>')
@@ -3477,68 +3477,146 @@ function addTab(lastitm,jdata) {
     $('div[itemid="' + itmNumb + '"]').children('div[data-tabid="2"]').find('select').select2({
         containerCssClass: "wrap"
     })
-   
-   
+
+    if (jdata != undefined) {
+        var lsVal = (jdata.NUMBER == undefined) ? '' : jdata.NUMBER
+        $('#lc_' + itmNumb).val(lsVal)
+        var ROOM_QUANT = jdata.ROOM_QUANT;
+        ROOM_QUANT = ROOM_QUANT.split('|')
+        var pass = ROOM_QUANT[1]
+        $('#pss_' + itmNumb).val(pass)
+        var LIVE_SQUARE = jdata.LIVE_SQUARE
+        $('#LiveSq_' + itmNumb).val(LIVE_SQUARE)
+        var GEN_SQUARE = jdata.GEN_SQUARE
+        $('#GenSq_' + itmNumb).val(GEN_SQUARE)
+        var LiveSqB = jdata.WITHOUT_SUMMER_SQUARE
+        $('#LiveSqB_' + itmNumb).val(LiveSqB)
+        var AmRoom = ROOM_QUANT[0]
+        $('#AmRoom_' + itmNumb).val(AmRoom)
+        var OWNERSHIP_TYPE_ID = jdata.OWNERSHIP_TYPE_ID
+        var A_D = jdata.A_D
+        $('#typeProp_' + itmNumb).attr('data-j', 'j').data('j', A_D)
+        $('#typeProp_' + itmNumb).select2('val', OWNERSHIP_TYPE_ID)//.val(OWNERSHIP_TYPE_ID)
+    }
+
 
 }
-function giveElements(i,jdata) {
-    var sobs0 = '<div itemid="' + i +'" class="row mb-3 mr-2 ml-1 w-30 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="sobs' + i + '" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="sobs' + i +'" class="transp backLab">Собственник</label> </div> </div> </div>'
-    var dol0 = '<div itemid="' + i + '" class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="dol' + i + '" required class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" type="text"> <label for="dol' + i +'" class="transp backLab">Доля</label> </div> </div> </div>'
+function giveElements(i, jdata) {
+    var sobs0 = '<div itemid="' + i + '" class="row mb-3 mr-2 ml-1 w-30 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="sobs' + i + '" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="sobs' + i + '" class="transp backLab">Собственник</label> </div> </div> </div>'
+    var dol0 = '<div itemid="' + i + '" class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="dol' + i + '" required class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" type="text"> <label for="dol' + i + '" class="transp backLab">Доля</label> </div> </div> </div>'
 
-    var tel0 = '<div itemid="' + i +'" class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i +'"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="tel' + i + '" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="tel' + i +'" class="transp backLab">Номер телефона</label> </div> </div> </div>'
-    var email0 = '<div itemid="' + i +'" class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i +'"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="email' + i + '"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" class="border-0" type="text"> <label for="email' + i +'" class="transp backLab">E-mail</label></div></div></div>'
-    var AddElem = '<button itemid="' + i +'" onclick="AddElem(this,' + i + ')" class="transp border-0 flexCenter mt-n3"> <span class="bgLightGrey w24 rounded-pill"></span> <img src="../img/ic-plus.svg" class="w12 reddishSvg position-absolute" alt=""> </button>'
+    var tel0 = '<div itemid="' + i + '" class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="tel' + i + '" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="tel' + i + '" class="transp backLab">Номер телефона</label> </div> </div> </div>'
+    var email0 = '<div itemid="' + i + '" class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="email' + i + '"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" class="border-0" type="text"> <label for="email' + i + '" class="transp backLab">E-mail</label></div></div></div>'
+    var AddElem = '<button itemid="' + i + '" onclick="AddElem(this,' + i + ')" class="transp border-0 flexCenter mt-n3"> <span class="bgLightGrey w24 rounded-pill"></span> <img src="../img/ic-plus.svg" class="w12 reddishSvg position-absolute" alt=""> </button>'
     var deleteInd = '<span itemid="' + i + '" class="flexCenter mr-3" id="delInd" onclick="delElem(this,' + i + ')"> <span class="bgDarkGrey w24 rounded-pill"></span> <span class="font-weight-bold position-absolute" id="counter"> <img src="../img/close.svg" class="w12 brightness" alt=""> </span> </span>'
-   // var NUMBER = jdata.NUMBER
-    var lsText = (jdata.NUMBER == undefined) ? 'Лицевые счета' : jdata.NUMBER
-    var lsVal = (jdata.NUMBER == undefined) ? '' : jdata.NUMBER
-    var NewTab = '<div id="ls" class="ls" itemid="' + i + '"> <div class=" h60 w-100 bgWhite shadow rounded16 pl-3 mt-4 pr-3 "><i class="fa fa-close removing3" itemid="' + i + '" onclick="deltab(this)" aria-hidden="true"></i> <ol class="list-unstyled list-inline flexHoriz te-menu m-0 h-100 "> <li onclick="OpenTab(1,this)" class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">' + lsText + '</a> </li> <li onclick="OpenTab(2,this)" class="w200 mr-3 h-100 m-0 active pointer"> <a class=" font-weight-bold">Собственники</a> </li> <li onclick="OpenTab(2,this)" style="display: none" class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">Начисления&nbsp;и&nbsp;платежи</a> </li> </ol> </div> <div data-tabid="2" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="posRel h56 rounded-lg  w-100"> <select onchange="typePropChange(this)" id="typeProp" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true"> <option value="0">Выберите собственность</option> <option value="1">Совместная</option><option value="2">Единоличная</option><option value="3">Долевая</option><option value="4">Социальный найм</option></select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 934.149px;"><span class="selection"><span class="select2-selection select2-selection--single wrap" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-typeProp-container"><span class="select2-selection__rendered" id="select2-typeProp-container" title="Выберите собственность">Выберите собственность</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> <label for="typeProp" class="w-95 transp backLab">Тип собственности</label> </div> </div> <div data-tabid="1" style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="row mb-3 mr-2 ml-1 w-100 p-0 rounded8"> <div class="col-md-12 m-0 p-0"> <div class="posRel h56 rounded-lg mb-3"> <input onkeyup="hideErrsMessage2(this)" required="" type="text" id="lc" value="' + lsVal + '"> <label for="lc" class="w-95 transp backLab">Лицевой счет</label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48 m-0"> <input disabled="disabled" onkeyup="hideErrsMessage2(this)" type="text" id="pss" style="width: 71%;"> <label for="pss" class="w-95 transp backLab">Пароль</label> </div> <button onclick="Generate(this)" id="GENER_Modal" class="btn btn1 outline shadow-none m-0 rounded-lg w-48 h56"> <span> <img src="../img/ic-pass.svg" class="mr-2" alt=""> <span class="text-truncate">Сгенерировать</span> </span> </button> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSq" onkeyup="hideErrsMessage2(this)"> <label for="LiveSq" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="GenSq" onkeyup="hideErrsMessage2(this)"> <label for="GenSq" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSqB" onkeyup="hideErrsMessage2(this)"> <label for="LiveSq" class="w-95 transp backLab">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="AmRoom" onkeyup="hideErrsMessage2(this)"> <label for="AmRoom" class="w-95 transp backLab">Количество комнат<sup>2</sup></label> </div> </div> </div> </div><hr> </div>'
+    // var NUMBER = jdata.NUMBER
+    var lsText = (jdata == undefined) ? 'Лицевые счета' : jdata.NUMBER
+
+    var NewTab = '<div id="ls" class="ls" itemid="' + i + '"> <div class=" h60 w-100 bgWhite shadow rounded16 pl-3 mt-4 pr-3 "><i class="fa fa-close removing3" itemid="' + i + '" onclick="deltab(this)" aria-hidden="true"></i> <ol class="list-unstyled list-inline flexHoriz te-menu m-0 h-100 "> <li onclick="OpenTab(1,this)" class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">' + lsText + '</a> </li> <li onclick="OpenTab(2,this)" class="w200 mr-3 h-100 m-0 active pointer"> <a class=" font-weight-bold">Собственники</a> </li> <li onclick="OpenTab(2,this)" style="display: none" class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">Начисления&nbsp;и&nbsp;платежи</a> </li> </ol> </div> <div data-tabid="2" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="posRel h56 rounded-lg  w-100"> <select onchange="typePropChange(this)" id="typeProp_' + i + '" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true"> <option value="0">Выберите собственность</option> <option value="1">Совместная</option><option value="2">Единоличная</option><option value="3">Долевая</option><option value="4">Социальный найм</option></select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 934.149px;"><span class="selection"><span class="select2-selection select2-selection--single wrap" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-typeProp-container"><span class="select2-selection__rendered" id="select2-typeProp-container" title="Выберите собственность">Выберите собственность</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> <label for="typeProp_' + i + '" class="w-95 transp backLab">Тип собственности</label> </div> </div> <div data-tabid="1" style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="row mb-3 mr-2 ml-1 w-100 p-0 rounded8"> <div class="col-md-12 m-0 p-0"> <div class="posRel h56 rounded-lg mb-3"> <input onkeyup="hideErrsMessage2(this)" required="" type="text" id="lc_' + i + '"> <label for="lc_' + i + '" class="w-95 transp backLab">Лицевой счет</label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48 m-0"> <input disabled="disabled" onkeyup="hideErrsMessage2(this)" type="text" id="pss_' + i + '" style="width: 71%;"> <label for="pss_' + i + '" class="w-95 transp backLab">Пароль</label> </div> <button onclick="Generate(this)" id="GENER_Modal_' + i + '" class="btn btn1 outline shadow-none m-0 rounded-lg w-48 h56"> <span> <img src="../img/ic-pass.svg" class="mr-2" alt=""> <span class="text-truncate">Сгенерировать</span> </span> </button> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSq_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="LiveSq_' + i + '" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="GenSq_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="GenSq_' + i + '" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSqB_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="LiveSqB_' + i + '" class="w-95 transp backLab">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="AmRoom_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="AmRoom_' + i + '" class="w-95 transp backLab">Количество комнат<sup>2</sup></label> </div> </div> </div> </div><hr> </div>'
+
     return { sobs: sobs0, dol: dol0, tel: tel0, email: email0, AddElem: AddElem, deleteInd: deleteInd, NewTab: NewTab }
 }
-function typePropChange(e) {
+function typePropChange(e, jdata) {
     var typPropeval = $(e).val()
-  
-   //s
-    if (typPropeval != 0) {
-        $(e).parent('div').parent('div').children('div:not(:first)').remove();
-        $(e).parent('div').parent('div').children('button[onclick],span[onclick]').remove()
-        if (typPropeval == 1) {
+    var data_j = $(e).attr('data-j')
 
-            for (var i = 1; i >= 0; i--) {
-                $(e).parent().after(giveElements(i).email)
-                $(e).parent().after(giveElements(i).tel)
-                $(e).parent().after(giveElements(i).sobs)
-            }
-        }
-        else if (typPropeval == 2 || typPropeval == 4) {
+    if (data_j != undefined) {
+        data_j = $(e).data('j')
+        if (typPropeval != 0) {
+            $(e).parent('div').parent('div').children('div:not(:first)').remove();
+            $(e).parent('div').parent('div').children('button[onclick],span[onclick]').remove()
 
-            $(e).parent().after(giveElements(0).email)
-            $(e).parent().after(giveElements(0).tel)
-            $(e).parent().after(giveElements(0).sobs)
-        }
-        else if (typPropeval == 3) {
-            for (var i = 1; i >= 0; i--) {
-
-                if (i == 1) {
+            for (var i = 0; i < data_j.length; i++) {
+                if (i == 0 && typPropeval == 3) {
                     $(e).parent().after(giveElements(i).AddElem)
                 }
+
                 $(e).parent().after(giveElements(i).email)
+                var email = data_j[i].EMAIL
+                var idemail="#email"+i
+                $(e).parent().parent().children('div').find(idemail).val(email)
+
                 $(e).parent().after(giveElements(i).tel)
-                $(e).parent().after(giveElements(i).dol)
+                var Phone = data_j[i].PHONE
+                var idphone = "#tel" + i
+                $(e).parent().parent().children('div').find(idphone).val(Phone)
+
+
+                if (typPropeval == 3) {
+                    $(e).parent().after(giveElements(i).dol)
+                    var dol = data_j[i].SHARE
+                }
                 $(e).parent().after(giveElements(i).sobs)
+                var first_name = data_j[i].FIRST_NAME
+                var idSobs = '#sobs' + i
+                $(e).parent().parent().children('div').find(idSobs).val(first_name)
             }
+
+            //for (var i = data_j.length; i >= 0; i--) {
+
+            //    if (i == 1 && typPropeval == 3) {
+            //        $(e).parent().after(giveElements(i).AddElem)
+            //    }
+            //    $(e).parent().after(giveElements(i).email)
+                
+            //    $(e).parent().after(giveElements(i).tel)
+            //    if (typPropeval == 3) {
+            //        $(e).parent().after(giveElements(i).dol)
+            //    }
+            //    $(e).parent().after(giveElements(i).sobs)
+            //    var first_name = data_j[i-1].FIRST_NAME
+            //    $(e).parent().children('#sobs' + i-1).val(first_name)
+            //}
+
+        }
+        else {
+            $(e).parent('div').parent('div').children('div:not(:first)').remove();
+            $(e).parent('div').parent('div').children('button[onclick],span[onclick]').remove()
         }
     }
     else {
-        $(e).parent('div').parent('div').children('div:not(:first)').remove();
-        $(e).parent('div').parent('div').children('button[onclick],span[onclick]').remove()
+
+        if (typPropeval != 0) {
+            $(e).parent('div').parent('div').children('div:not(:first)').remove();
+            $(e).parent('div').parent('div').children('button[onclick],span[onclick]').remove()
+            if (typPropeval == 1) {
+
+                for (var i = 1; i >= 0; i--) {
+                    $(e).parent().after(giveElements(i).email)
+                    $(e).parent().after(giveElements(i).tel)
+                    $(e).parent().after(giveElements(i).sobs)
+                }
+            }
+            else if (typPropeval == 2 || typPropeval == 4) {
+
+                $(e).parent().after(giveElements(0).email)
+                $(e).parent().after(giveElements(0).tel)
+                $(e).parent().after(giveElements(0).sobs)
+            }
+            else if (typPropeval == 3) {
+                for (var i = 1; i >= 0; i--) {
+
+                    if (i == 1) {
+                        $(e).parent().after(giveElements(i).AddElem)
+                    }
+                    $(e).parent().after(giveElements(i).email)
+                    $(e).parent().after(giveElements(i).tel)
+                    $(e).parent().after(giveElements(i).dol)
+                    $(e).parent().after(giveElements(i).sobs)
+                }
+            }
+        }
+        else {
+            $(e).parent('div').parent('div').children('div:not(:first)').remove();
+            $(e).parent('div').parent('div').children('button[onclick],span[onclick]').remove()
+        }
     }
 }
- function OpenTab(countTab, e) {
-     $(e).parent('ol').children('li').attr('class', 'w200 mr-3 h-100 m-0 pointer')
-     $(e).attr('class', 'w200 mr-3 h-100 m-0 active pointer')
-     $(e).parents('.ls').children('div[data-tabid="1"],div[data-tabid="2"]').attr('style', 'display:none !important')
-     $(e).parents('.ls').children('div[data-tabid="' + countTab + '"]').attr('style', 'display:flex !important')
+function OpenTab(countTab, e) {
+    $(e).parent('ol').children('li').attr('class', 'w200 mr-3 h-100 m-0 pointer')
+    $(e).attr('class', 'w200 mr-3 h-100 m-0 active pointer')
+    $(e).parents('.ls').children('div[data-tabid="1"],div[data-tabid="2"]').attr('style', 'display:none !important')
+    $(e).parents('.ls').children('div[data-tabid="' + countTab + '"]').attr('style', 'display:flex !important')
 }
 function GetRoomTypesFor_QRCodes(lg, obj) {
     var objJ = { lg: lg, obj: obj }
@@ -7142,21 +7220,21 @@ function ErrorForControls(e, text) {
         if (text != undefined) {
             //var originalText = $(e).next().next('label').text()
             $(e).next().next('label').hide()
-           // $(e).closest('#ErrorLabel_').remove()
-         //   var ErrorLabel_ = $(e).parent().children('#ErrorLabel_').length
+            // $(e).closest('#ErrorLabel_').remove()
+            //   var ErrorLabel_ = $(e).parent().children('#ErrorLabel_').length
             if ($(e).parent().children('#ErrorLabel_').length == 0) {
                 $(e).next().next('label').after('<label id="ErrorLabel_" title="' + text + '" class="w-95 transp backLab" style="color:red">' + text + '</label>')//.attr('style', 'color: red').text(text)
             }
             var select2Id = $(e).attr('id');
             var spanId = '#select2-' + select2Id + '-container'
-           // var original_title = $(spanId).attr('title')
+            // var original_title = $(spanId).attr('title')
             $(spanId).attr('title', text)
             window.setTimeout(function () {
                 //  $(e).removeAttr('title'),
                 $('#ErrorLabel_').remove()
                 $(e).next().next('label').show()
-                    //$(spanId).attr('title', original_title)
-              //  $(e).next().next('label').removeAttr('style').text(originalText)
+                //$(spanId).attr('title', original_title)
+                //  $(e).next().next('label').removeAttr('style').text(originalText)
 
             }, 5000);
         }
@@ -7178,10 +7256,10 @@ function ErrorForControls(e, text) {
         if ($(e).parent().children('#ErrorLabel_txt').length == 0) {
             $(e).next('label').after('<label id="ErrorLabel_txt" title="' + text + '" class="w-95 transp backLab" style="color:red">' + text + '</label>')//.attr('style', 'color: red').text(text)
         }
-     //   $(e).next('label').attr('style', 'color: red').text(text)
-      //  $(e).attr('title', text)
+        //   $(e).next('label').attr('style', 'color: red').text(text)
+        //  $(e).attr('title', text)
         window.setTimeout(function () {
-          //  $(e).next('label').removeAttr('style').text(originalText)
+            //  $(e).next('label').removeAttr('style').text(originalText)
             $(e).next('label').show()
             //   $(e).attr('title', '')
             $('#ErrorLabel_txt').remove();
@@ -7215,7 +7293,7 @@ function checkControlsM() {
         $('[required]').each(function () {
             var tagName = this.tagName
             var labelName = $(this).parent().children('label').text();
-             
+
             if (tagName == 'INPUT') {
                 if ($(this).val().trim().length == 0) {
                     data_tabid = $(this).parents('div[data-tabid]').attr('data-tabid')
@@ -7224,11 +7302,11 @@ function checkControlsM() {
             }
         })
         if (Issuccess == false) {
-            
-            if (data_tabid==1) {
+
+            if (data_tabid == 1) {
                 $(this).children().find('ol').children('li:eq(0)').click()
             }
-            else if (data_tabid==2) {
+            else if (data_tabid == 2) {
                 $(this).children().find('ol').children('li:eq(1)').click()
             }
         }
@@ -7306,13 +7384,13 @@ function checkControlsM() {
                 }
                 itmsS.push({ "FIRST_NAME": sobs, "SHARE": dol, "PHONE": tel, "EMAIL": email })
             }
-            
+
 
             lc = lc + "|" + pass + "|" + data_sms + "|" + data_em + "|" + data_exp
             txtDatas.push({ "NUMBER": lc, "OWNERSHIP_TYPE_ID": typeProp, "LIVE_SQUARE": LiveSq, "GEN_SQUARE": GenSq, "WITHOUT_SUMMER_SQUARE": LiveSqB, "ROOM_QUANT": AmRoom, "A_D": itmsS, "ID": ID_lc })
         })
 
-       
+
         var obj = { "OBJECT_ID": objs, "ENTRANCE": entr, "FLOOR": floor, "ROOM_NUMBER": rnum, "ROOM_FOR_ID": RoomF, "ROOM_TYPE_ID": r_t, "CHAMB_AMOUNT": countR, "GEN_SQUARE": GenS, "LIVE_SQUARE": LiveS, "adbs": txtDatas };
         console.log(obj)
     }
@@ -11212,7 +11290,7 @@ function getBasAccountDatas(rmId, OBJECT_ID) {
             }
 
             $(".tab-content").empty();
-           // $('.ls').remove()
+            // $('.ls').remove()
             for (var i = jsondata_.length - 1; i >= 0; i--) {
                 //  sessionStorage.setItem("ID", jsondata_[i].ID)
                 //$("#nav-tab").prepend('<li   itemid=' + i + ' class><i class="fa fa-close removing3" itemid="' + i + '" style="display:none" onclick="deltab(' + i + ',this)" aria-hidden="true"></i><a data-toggle="tab" href="#tab' + i + '"  aria-expanded="true">' + jsondata_[i].NUMBER + '</a></li>')
@@ -11220,7 +11298,7 @@ function getBasAccountDatas(rmId, OBJECT_ID) {
                 //    $("#nav-tab li[itemid=" + i + "]").prepend('<i class="fa fa-close removing3" itemid=' + i + ' onclick="deltab(' + i + ',this)" aria-hidden="true"></i>')
                 //}
                 console.log(jsondata_[i])
-                addTab(i,jsondata_[i])
+                addTab(i, jsondata_[i])
                 //giveElements(i, jsondata_[i].NUMBER).NewTab
 
             }
@@ -12807,11 +12885,11 @@ function Generate(e) {
     $("#txt2").empty();
     $("#txt2").append("");
     $("#mf2").text("")
-    var PassControlId = Math.floor(Math.random()*10000000)
+    var PassControlId = Math.floor(Math.random() * 10000000)
     $(e).parent().children().find('#pss').attr('random-id', PassControlId)
     $('#genPass').val($('.tab-content').children('.active').children('.row').children('div:eq(0)').children('#pss').val())
     GenPas()// Для суббота не надо. Дата (08.02.2019);
-    $('#GENER').attr('onclick', 'GetValuesG('+PassControlId+')')
+    $('#GENER').attr('onclick', 'GetValuesG(' + PassControlId + ')')
     var modal = document.getElementById('myModal4');
     var span = document.getElementById("close_4")[0];
     modal.style.display = "block";
@@ -12854,10 +12932,10 @@ function GetValuesG(e) {
             em = "not"
         }
         var psExp = ($('#psExp').val() == 0) ? " бессрочный" : $('#psExp').val();
-     //   $('#lblpssText').remove();
+        //   $('#lblpssText').remove();
         if (lblpssText.trim().length != 0) {
             if ($('[random-id=' + e + ']').parent().parent().prev('div').children('#lblpssText').length == 0) {
-                 $('[random-id=' + e + ']').parent().parent().prev('div').append('<label id="lblpssText">' + lblpssText + '</label>')
+                $('[random-id=' + e + ']').parent().parent().prev('div').append('<label id="lblpssText">' + lblpssText + '</label>')
             }
             else {
                 $('[random-id=' + e + ']').parent().parent().prev('div').children('#lblpssText').text(lblpssText)
@@ -12866,7 +12944,7 @@ function GetValuesG(e) {
         else {
             $('[random-id=' + e + ']').parent().parent().prev('div').children('#lblpssText').remove();
         }
-        $('[random-id='+e+']').val(pss).attr('data-sms', sms).attr('data-em', em).attr('data-exp', 0);
+        $('[random-id=' + e + ']').val(pss).attr('data-sms', sms).attr('data-em', em).attr('data-exp', 0);
         $("#close_4").click();
 
 
@@ -13161,7 +13239,7 @@ function changeDatatableElementStructures(e) {
     })
     $('#' + TableLength).remove();
     $('#SearchForTable').append($(TableFilter).children('label').children('input[type="search"]').attr('class', 'w-100 transp border-0 ml-2 pr-2 pt-1'))
- $(TableFilter).remove();
+    $(TableFilter).remove();
 }
 function deltab(itm, e) {
     if (e == undefined) {
@@ -13988,7 +14066,7 @@ function hideErrsMessage2(e) {
         //                    success = false;
         //                    $('#SaveUp').attr('disabled', 'disabled');
         //                    if ($('#PhoneV_E').length == 0) {
-                             
+
         //                        ErrorForControls($(e), 'Номер телефона повторяется')
         //                    }
 
@@ -14032,7 +14110,7 @@ function hideErrsMessage2(e) {
 
                                     $('#SaveUp').attr('disabled', 'disabled')
 
-                                   
+
                                     ErrorForControls($(e), 'Электронная почта повторяется')
                                 }
                             }
@@ -14108,11 +14186,11 @@ function hideErrsMessage2(e) {
         if (GenS < GenSq) {
 
             $('#SaveUp').attr('disabled', 'disabled')
-             
+
 
             ErrorForControls($('#GenS'), 'Общая площадь по данному л/с не может быть больше, чем  Общая площадь в помещении')
 
-      
+
             ErrorForControls($('#GenSq'), 'Общая площадь по данному л/с не может быть больше, чем  Общая площадь в помещении')
 
         }
@@ -14123,46 +14201,46 @@ function hideErrsMessage2(e) {
             if (LiveSq > GenSq) {
 
                 $('#SaveUp').attr('disabled', 'disabled')
-                 
+
                 $('#GenSq').after('<label id="GenSqErr2" style="color:red">Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с</label>')
 
                 ErrorForControls($('#GenSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с')
 
-                
+
 
                 ErrorForControls($('#LiveSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с')
                 $('#SaveUp').attr('disabled', 'disabled')
             }
             else {
-               
+
                 $('#SaveUp').removeAttr('disabled')
                 var LiveSqB = ($('#LiveSqB').val().length == 0) ? 0 : parseFloat($('#LiveSqB').val());
 
                 if (LiveSqB > GenSq) {
                     $('#SaveUp').attr('disabled', 'disabled')
-                  
-                   
+
+
 
                     ErrorForControls($('#GenSq'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с')
 
-                     
+
                     ErrorForControls($('#LiveSqB'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с')
 
                 }
                 else {
-                   
+
                     $('#SaveUp').removeAttr('disabled')
                 }
 
             }
             var LiveS_ = ($('#LiveS').val().length == 0) ? 0 : parseFloat($('#LiveS').val())
             if (LiveS_ > GenS) {
-                
+
                 $('#SaveUp').attr('disabled', 'disabled')
                 ErrorForControls($('#GenS'), 'Жилая площадь не может быть больше, чем  Общая площадь в помещении')
             }
             else {
-                 
+
                 $('#SaveUp').remove('disabled')
             }
         }
@@ -14175,9 +14253,9 @@ function hideErrsMessage2(e) {
         var LiveSq = ($('#LiveSq').val().length == 0) ? 0 : parseFloat($('#LiveSq').val());
         if (LiveS < LiveSq) {
 
-            $('#SaveUp').attr('disabled', 'disabled') 
+            $('#SaveUp').attr('disabled', 'disabled')
             ErrorForControls($('#LiveS'), 'Жилая площадь по данному л/с не может быть больше, чем  Жилая площадь в помещении')
-          
+
             ErrorForControls($('#LiveSq'), 'Жилая площадь по данному л/с не может быть больше, чем  Жилая площадь в помещении')
 
 
@@ -14188,8 +14266,8 @@ function hideErrsMessage2(e) {
             var GenSq = ($('#GenSq').val().length == 0) ? 0 : parseFloat($('#GenSq').val());
             if (LiveSq > GenSq) {
 
-                
-            
+
+
                 ErrorForControls($('#GenSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с')
 
                 ErrorForControls($('#LiveSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с')
@@ -14197,13 +14275,13 @@ function hideErrsMessage2(e) {
                 $('#SaveUp').attr('disabled', 'disabled')
             }
             else {
-               
+
                 $('#SaveUp').removeAttr('disabled')
             }
 
             var GenS_ = ($('#GenS').val().length == 0) ? 0 : parseFloat($('#GenS').val())
             if (LiveS > GenS_) {
-                 
+
                 $('#SaveUp').attr('disabled', 'disabled')
                 ErrorForControls($('#LiveS'), 'Жилая площадь не может быть больше, чем  Общая площадь в помещении')
             }
@@ -14229,7 +14307,7 @@ function hideErrsMessage2(e) {
 
         }
         else {
-        
+
             $('#SaveUp').removeAttr('disabled')
         }
     }
@@ -14456,7 +14534,7 @@ function getRoomFor(slc) {
 
             }
             if (slc != "") {
-                $("#RoomF").val(slc).select2('val',slc)
+                $("#RoomF").val(slc).select2('val', slc)
             }
         }
     })
@@ -14604,11 +14682,11 @@ function getOwnerShip() {
     })
 }
 function AddElem(e, i) {
-    var nexti=i+1
+    var nexti = i + 1
     if ($('.inds').length < 40) {
         var typPropeval = $(e).val()
-         
-      
+
+
         $(e).before(giveElements(nexti).sobs)
         $(e).before(giveElements(nexti).dol)
         $(e).before(giveElements(nexti).tel)
@@ -14626,16 +14704,16 @@ function AddElem(e, i) {
 
 
 }
-function delElem(e,i) {
+function delElem(e, i) {
 
     $(e).prevAll('.inds' + i + '').remove();
     var indsCount = $(e).parent('div').children('.rounded8').find('input[onkeyup="hideErrsMessage2(this)"]').length;
     $(e).remove()
-   
+
     if (indsCount == 8) {
-            $('span[id="delInd"]').remove();
-        }
-    
+        $('span[id="delInd"]').remove();
+    }
+
 }
 
 function changeStartStop(e) {

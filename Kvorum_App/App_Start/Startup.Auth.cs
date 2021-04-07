@@ -30,14 +30,11 @@ namespace Kvorum_App
             {
                 ClientId = "mvc",
                 Authority = "https://upravbot.ru/IDS4",
-                RedirectUri = "http://localhost:5002/signin-oidc",
+                RedirectUri = "http://localhost:5002/ClientLogin.aspx",
                 Scope = "openid profile api1",
-
                 SignInAsAuthenticationType = "cookie",
-
                 RequireHttpsMetadata = false,
                 UseTokenLifetime = false,
-
                 RedeemCode = true,
                 SaveTokens = true,
                 ClientSecret = "secret",
