@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
 using IdentityModel;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.Owin.Security;
@@ -10,8 +6,6 @@ using Microsoft.Owin.Security.Cookies;
 //using OpenAthens.Owin.Security.OpenIdConnect;
 using Microsoft.Owin.Security.OpenIdConnect;
 using Microsoft.Owin;
-
-
 using Owin;
 using System.Security.Cryptography;
 using System.Text;
