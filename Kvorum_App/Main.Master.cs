@@ -1,4 +1,6 @@
-﻿using Microsoft.Owin.Security.Cookies;
+﻿using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OpenIdConnect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,12 @@ namespace Kvorum_App
         }
         protected void login_Click(object sender, EventArgs e)
         {
+            HttpContext.Current.GetOwinContext().Authentication.Challenge(
+                     new AuthenticationProperties
+                     {
+                         RedirectUri = "/ClientLogin.aspx"
+                     }, OpenIdConnectAuthenticationDefaults.AuthenticationType
+                     );
             //if (!Request.IsAuthenticated)
             //{//d
             //    HttpContext.Current.GetOwinContext().Authentication.Challenge();

@@ -1,19 +1,28 @@
 ﻿using System;
-using IdentityModel;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
-//using OpenAthens.Owin.Security.OpenIdConnect;
-using Microsoft.Owin.Security.OpenIdConnect;
-using Microsoft.Owin;
-using Owin;
+using System.Linq;
+using System.Net.Http;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using IdentityModel;
+using IdentityModel.Client;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Notifications;
+using Microsoft.Owin.Security.OpenIdConnect;
+using Owin;
 
 namespace Kvorum_App
 {
+
+
+
+
+
     public partial class Startup
     {
 
@@ -22,24 +31,27 @@ namespace Kvorum_App
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = "ApplicationCookie",
-
+                ExpireTimeSpan = TimeSpan.FromMinutes(10),
+                SlidingExpiration = true
 
             });
 
             var oidcOptions = new OpenIdConnectAuthenticationOptions
             {
-                ClientId = "mvc",
-                Authority = "https://upravbot.ru/IDS4",
+                ClientId = "aspx",
+                Authority = "https://upravbot.ru/IDS4/",
                 RedirectUri = "http://localhost:5002/ClientLogin.aspx",
-                Scope = "openid profile api1",
+                Scope = "apiCore profile openid offline_access api1",
+                ResponseType = "code",
                 SignInAsAuthenticationType = "cookie",
+
                 RequireHttpsMetadata = false,
                 UseTokenLifetime = false,
+
                 RedeemCode = true,
                 SaveTokens = true,
                 ClientSecret = "secret",
-                ResponseType = "code",
-                ResponseMode = "query",
+
 
                 ProtocolValidator = new OpenIdConnectProtocolValidator()
                 {
@@ -53,92 +65,70 @@ namespace Kvorum_App
 
                 Notifications = new OpenIdConnectAuthenticationNotifications
                 {
-                    RedirectToIdentityProvider = n =>
+                    SecurityTokenValidated = async n =>
                     {
-                        if (n.ProtocolMessage.RequestType == OpenIdConnectRequestType.Authentication)
+                        var claims_to_exclude = new[]
                         {
-                            // set PKCE parameters
-                            var codeVerifier = CryptoRandom.CreateUniqueId(32);
+                            "aud", "iss", "nbf", "exp", "nonce", "iat", "at_hash"
+                        };
 
-                            string codeChallenge;
-                            using (var sha256 = SHA256.Create())
+                        var claims_to_keep =
+                            n.AuthenticationTicket.Identity.Claims
+                            .Where(x => false == claims_to_exclude.Contains(x.Type)).ToList();
+                        claims_to_keep.Add(new Claim("id_token", n.ProtocolMessage.IdToken));
+
+                        if (n.ProtocolMessage.AccessToken != null)
+                        {
+                            claims_to_keep.Add(new Claim("access_token", n.ProtocolMessage.AccessToken));
+
+
+                            var client = new HttpClient();
+
+                            var userInfoClient = await client.GetUserInfoAsync(new UserInfoRequest
                             {
-                                var challengeBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(codeVerifier));
-                                codeChallenge = Base64Url.Encode(challengeBytes);
-                            }
+                                Address = "https://upravbot.ru/IDS4/connect/userinfo",
+                                Token = n.ProtocolMessage.AccessToken
+                            });
 
-                            n.ProtocolMessage.SetParameter("code_challenge", codeChallenge);
-                            n.ProtocolMessage.SetParameter("code_challenge_method", "S256");
 
-                            // remember code_verifier (adapted from OWIN nonce cookie)
-                            RememberCodeVerifier(n, codeVerifier);
+
+                            //var userInfoClient = new IdentityModel.Client.UserInfoClient(new Uri("https://localhost:5001/connect/userinfo"), n.ProtocolMessage.AccessToken);
+                            var userInfoResponse = userInfoClient;
+                            var userInfoClaims = userInfoResponse.Claims
+                             .Where(x => x.Type != "sub") // filter sub since we're already getting it from id_token
+                             .Select(x => new Claim(x.Type, x.Value));
+                            claims_to_keep.AddRange(userInfoClaims);
                         }
 
-                        return Task.CompletedTask;
+                        var ci = new ClaimsIdentity(
+                            n.AuthenticationTicket.Identity.AuthenticationType,
+                            "name", "role");
+                        ci.AddClaims(claims_to_keep);
+
+                        n.AuthenticationTicket = new Microsoft.Owin.Security.AuthenticationTicket(
+                            ci, n.AuthenticationTicket.Properties
+                        );
                     },
-                    AuthorizationCodeReceived = n =>
+                    RedirectToIdentityProvider = n =>
                     {
-                        // get code_verifier
-                        var codeVerifier = RetrieveCodeVerifier(n);
+                        if (n.ProtocolMessage.RequestType == OpenIdConnectRequestType.Logout)
+                        {
+                            var id_token = n.OwinContext.Authentication.User.FindFirst("id_token")?.Value;
+                            n.ProtocolMessage.IdTokenHint = id_token;
+                        }
 
-                        // attach code_verifier
-                        n.TokenEndpointRequest.SetParameter("code_verifier", codeVerifier);
-
-                        return Task.CompletedTask;
+                        return Task.FromResult(0);
                     }
                 }
+
+
+
             };
-
             app.UseOpenIdConnectAuthentication(oidcOptions);
+
+
+
         }
 
-        private void RememberCodeVerifier(RedirectToIdentityProviderNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> n, string codeVerifier)
-        {
-            var properties = new AuthenticationProperties();
-            properties.Dictionary.Add("cv", codeVerifier);
-            n.Options.CookieManager.AppendResponseCookie(
-                n.OwinContext,
-                GetCodeVerifierKey(n.ProtocolMessage.State),
-                Convert.ToBase64String(Encoding.UTF8.GetBytes(n.Options.StateDataFormat.Protect(properties))),
-                new CookieOptions
-                {
-                    SameSite = SameSiteMode.Lax,
-                    HttpOnly = true,
-                    Secure = n.Request.IsSecure,
-                    Expires = DateTime.UtcNow + n.Options.ProtocolValidator.NonceLifetime
-                });
-        }
-
-        private string RetrieveCodeVerifier(AuthorizationCodeReceivedNotification n)
-        {
-            string key = GetCodeVerifierKey(n.ProtocolMessage.State);
-
-            string codeVerifierCookie = n.Options.CookieManager.GetRequestCookie(n.OwinContext, key);
-            if (codeVerifierCookie != null)
-            {
-                var cookieOptions = new CookieOptions
-                {
-
-                    SameSite = SameSiteMode.Lax,
-                    HttpOnly = true,
-                    Secure = n.Request.IsSecure
-                };
-
-                n.Options.CookieManager.DeleteCookie(n.OwinContext, key, cookieOptions);
-            }
-
-            var cookieProperties = n.Options.StateDataFormat.Unprotect(Encoding.UTF8.GetString(Convert.FromBase64String(codeVerifierCookie)));
-            cookieProperties.Dictionary.TryGetValue("cv", out var codeVerifier);
-
-            return codeVerifier;
-        }
-
-        private string GetCodeVerifierKey(string state)
-        {
-            using (var hash = SHA256.Create())
-            {
-                return OpenIdConnectAuthenticationDefaults.CookiePrefix + "cv." + Convert.ToBase64String(hash.ComputeHash(Encoding.UTF8.GetBytes(state)));
-            }
-        }
     }
 }

@@ -3502,17 +3502,24 @@ function addTab(lastitm, jdata) {
 
 }
 function giveElements(i, jdata) {
-    var sobs0 = '<div itemid="' + i + '" class="row mb-3 mr-2 ml-1 w-30 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="sobs' + i + '" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="sobs' + i + '" class="transp backLab">Собственник</label> </div> </div> </div>'
-    var dol0 = '<div itemid="' + i + '" class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="dol' + i + '" required class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" type="text"> <label for="dol' + i + '" class="transp backLab">Доля</label> </div> </div> </div>'
+    var sobs0 = '<div itemid="' + i + '" class="row mb-3 mr-2 ml-1 w-30 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input  class="border-0 sobs' + i + '"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="sobs' + i + '" class="transp backLab">Собственник</label> </div> </div> </div>'
 
-    var tel0 = '<div itemid="' + i + '" class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="tel' + i + '" class="border-0"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="tel' + i + '" class="transp backLab">Номер телефона</label> </div> </div> </div>'
-    var email0 = '<div itemid="' + i + '" class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input id="email' + i + '"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" class="border-0" type="text"> <label for="email' + i + '" class="transp backLab">E-mail</label></div></div></div>'
+    var dol0 = '<div itemid="' + i + '" class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input  required class="border-0 dol' + i + '"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" type="text"> <label for="dol' + i + '" class="transp backLab">Доля</label> </div> </div> </div>'
+
+    var tel0 = '<div itemid="' + i + '" class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input   class="border-0 tel' + i + '"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="tel' + i + '" class="transp backLab">Номер телефона</label> </div> </div> </div>'
+    var email0 = '<div itemid="' + i + '" class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input   onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" class="border-0 email' + i + '" type="text"> <label for="email' + i + '" class="transp backLab">E-mail</label></div></div></div>'
     var AddElem = '<button itemid="' + i + '" onclick="AddElem(this,' + i + ')" class="transp border-0 flexCenter mt-n3"> <span class="bgLightGrey w24 rounded-pill"></span> <img src="../img/ic-plus.svg" class="w12 reddishSvg position-absolute" alt=""> </button>'
     var deleteInd = '<span itemid="' + i + '" class="flexCenter mr-3" id="delInd" onclick="delElem(this,' + i + ')"> <span class="bgDarkGrey w24 rounded-pill"></span> <span class="font-weight-bold position-absolute" id="counter"> <img src="../img/close.svg" class="w12 brightness" alt=""> </span> </span>'
     // var NUMBER = jdata.NUMBER
     var lsText = (jdata == undefined) ? 'Лицевые счета' : jdata.NUMBER
+    var tab_headers = '<ol class="list-unstyled list-inline flexHoriz te-menu m-0 h-100 "> <li onclick="OpenTab(1,this)" class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">' + lsText + '</a> </li> <li onclick="OpenTab(2,this)" class="w200 mr-3 h-100 m-0 active pointer"> <a class=" font-weight-bold">Собственники</a> </li> <li onclick="OpenTab(3,this)" style="display: none" class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">Начисления и платежи</a> </li><li onclick ="OpenTab(4,this)" style="display:none" class="w200 mr-3 h-100 m-0 pointer"> <a class="font-weight-bold">История оплат</a> </li></ol>'
 
-    var NewTab = '<div id="ls" class="ls" itemid="' + i + '"> <div class=" h60 w-100 bgWhite shadow rounded16 pl-3 mt-4 pr-3 "><i class="fa fa-close removing3" itemid="' + i + '" onclick="deltab(this)" aria-hidden="true"></i> <ol class="list-unstyled list-inline flexHoriz te-menu m-0 h-100 "> <li onclick="OpenTab(1,this)" class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">' + lsText + '</a> </li> <li onclick="OpenTab(2,this)" class="w200 mr-3 h-100 m-0 active pointer"> <a class=" font-weight-bold">Собственники</a> </li> <li onclick="OpenTab(2,this)" style="display: none" class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">Начисления&nbsp;и&nbsp;платежи</a> </li> </ol> </div> <div data-tabid="2" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="posRel h56 rounded-lg  w-100"> <select onchange="typePropChange(this)" id="typeProp_' + i + '" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true"> <option value="0">Выберите собственность</option> <option value="1">Совместная</option><option value="2">Единоличная</option><option value="3">Долевая</option><option value="4">Социальный найм</option></select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 934.149px;"><span class="selection"><span class="select2-selection select2-selection--single wrap" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-typeProp-container"><span class="select2-selection__rendered" id="select2-typeProp-container" title="Выберите собственность">Выберите собственность</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> <label for="typeProp_' + i + '" class="w-95 transp backLab">Тип собственности</label> </div> </div> <div data-tabid="1" style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="row mb-3 mr-2 ml-1 w-100 p-0 rounded8"> <div class="col-md-12 m-0 p-0"> <div class="posRel h56 rounded-lg mb-3"> <input onkeyup="hideErrsMessage2(this)" required="" type="text" id="lc_' + i + '"> <label for="lc_' + i + '" class="w-95 transp backLab">Лицевой счет</label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48 m-0"> <input disabled="disabled" onkeyup="hideErrsMessage2(this)" type="text" id="pss_' + i + '" style="width: 71%;"> <label for="pss_' + i + '" class="w-95 transp backLab">Пароль</label> </div> <button onclick="Generate(this)" id="GENER_Modal_' + i + '" class="btn btn1 outline shadow-none m-0 rounded-lg w-48 h56"> <span> <img src="../img/ic-pass.svg" class="mr-2" alt=""> <span class="text-truncate">Сгенерировать</span> </span> </button> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSq_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="LiveSq_' + i + '" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="GenSq_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="GenSq_' + i + '" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSqB_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="LiveSqB_' + i + '" class="w-95 transp backLab">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="AmRoom_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="AmRoom_' + i + '" class="w-95 transp backLab">Количество комнат<sup>2</sup></label> </div> </div> </div> </div><hr> </div>'
+    var data_tab2 = '<div data-tabid="2" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="posRel h56 rounded-lg  w-100"> <select onchange="typePropChange(this)" id="typeProp_' + i + '" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true"> <option value="0">Выберите собственность</option> <option value="1">Совместная</option><option value="2">Единоличная</option><option value="3">Долевая</option><option value="4">Социальный найм</option></select><br> <label for="typeProp_' + i + '" class="w-95 transp backLab">Тип собственности</label> </div> </div>'
+
+    var data_tab1 = '<div data-tabid="1" style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="row mb-3 mr-2 ml-1 w-100 p-0 rounded8"> <div class="col-md-12 m-0 p-0"> <div class="posRel h56 rounded-lg mb-3"> <input onkeyup="hideErrsMessage2(this)" required="" type="text" id="lc_' + i + '"> <label for="lc_' + i + '" class="w-95 transp backLab">Лицевой счет</label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48 m-0"> <input disabled="disabled" onkeyup="hideErrsMessage2(this)" type="text" id="pss_' + i + '" style="width: 71%;"> <label for="pss_' + i + '" class="w-95 transp backLab">Пароль</label> </div> <button onclick="Generate(this)" id="GENER_Modal_' + i + '" class="btn btn1 outline shadow-none m-0 rounded-lg w-48 h56"> <span> <img src="../img/ic-pass.svg" class="mr-2" alt=""> <span class="text-truncate">Сгенерировать</span> </span> </button> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSq_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="LiveSq_' + i + '" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="GenSq_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="GenSq_' + i + '" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSqB_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="LiveSqB_' + i + '" class="w-95 transp backLab">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="AmRoom_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="AmRoom_' + i + '" class="w-95 transp backLab">Количество комнат<sup>2</sup></label> </div> </div> </div> </div>'
+
+
+    var NewTab = '<div id="ls" class="ls" itemid="' + i + '"> <div class=" h60 w-100 bgWhite shadow rounded16 pl-3 mt-4 pr-3 "><i class="fa fa-close removing3" itemid="' + i + '" onclick="deltab(this)" aria-hidden="true"></i>' + tab_headers + '</div>' + data_tab2 + '' + data_tab1 + '<hr> </div>'
 
     return { sobs: sobs0, dol: dol0, tel: tel0, email: email0, AddElem: AddElem, deleteInd: deleteInd, NewTab: NewTab }
 }
@@ -3533,22 +3540,24 @@ function typePropChange(e, jdata) {
 
                 $(e).parent().after(giveElements(i).email)
                 var email = data_j[i].EMAIL
-                var idemail="#email"+i
+                var idemail=".email"+i
                 $(e).parent().parent().children('div').find(idemail).val(email)
 
                 $(e).parent().after(giveElements(i).tel)
                 var Phone = data_j[i].PHONE
-                var idphone = "#tel" + i
+                var idphone = ".tel" + i
                 $(e).parent().parent().children('div').find(idphone).val(Phone)
 
 
                 if (typPropeval == 3) {
                     $(e).parent().after(giveElements(i).dol)
                     var dol = data_j[i].SHARE
+                    var IdDol = ".dol" + i
+                    $(e).parent().parent().children('div').find(IdDol).val(dol)
                 }
                 $(e).parent().after(giveElements(i).sobs)
                 var first_name = data_j[i].FIRST_NAME
-                var idSobs = '#sobs' + i
+                var idSobs = '.sobs' + i
                 $(e).parent().parent().children('div').find(idSobs).val(first_name)
             }
 
@@ -7354,27 +7363,27 @@ function checkControlsM() {
             for (var i = 0; i <= ItemCount; i++) {
                 var itemid = i//$(this).attr('itemid');
                 var data_tab_Children = $(this).children('div[data-tabid="2"]').children('div[itemid="' + itemid + '"]')
-                var sobs = $(data_tab_Children).children().find('#sobs' + itemid + '').val().trim()
-                var sobs = $(this).children().find('#sobs' + itemid + '').val().trim()
+                var sobs = $(data_tab_Children).children().find('.sobs' + itemid + '').val().trim()
+                var sobs = $(this).children().find('.sobs' + itemid + '').val().trim()
                 if (sobs == undefined) {
                     spobs = "";
                 }
                 var dol = "";
                 if (typeProp == 3) {
-                    dol = $(this).children().find('#dol' + itemid + '').val().trim();
+                    dol = $(this).children().find('.dol' + itemid + '').val().trim();
                     dol = dol.replace(',', '.')
                 }
-                var tel = $(this).children().find('#tel' + itemid + '').val().trim()
+                var tel = $(this).children().find('.tel' + itemid + '').val().trim()
                 if (tel != undefined) {
                     if (pass.length != 0 && data_sms == "has" && tel.length == 0) {
-                        ErrorForControls($(this).children().find('#tel' + itemid + ''), 'Для рассылки пароля не хватает следующих данных "Номер телефона"')
+                        ErrorForControls($(this).children().find('.tel' + itemid + ''), 'Для рассылки пароля не хватает следующих данных "Номер телефона"')
                         Issuccess = false
                     }
                 }
-                var email = $(this).children().find('#email' + itemid + '').val().trim()
+                var email = $(this).children().find('.email' + itemid + '').val().trim()
                 if (email != undefined) {
                     if (pass.length != 0 && data_em == "has" && email.length == 0) {
-                        ErrorForControls($(this).children().find('#email' + itemid + ''), 'Для рассылки пароля не хватает следующих данных: "E-mail"')
+                        ErrorForControls($(this).children().find('.email' + itemid + ''), 'Для рассылки пароля не хватает следующих данных: "E-mail"')
                         Issuccess = false
                     }
 
@@ -11290,141 +11299,15 @@ function getBasAccountDatas(rmId, OBJECT_ID) {
             }
 
             $(".tab-content").empty();
-            // $('.ls').remove()
+       
             for (var i = jsondata_.length - 1; i >= 0; i--) {
-                //  sessionStorage.setItem("ID", jsondata_[i].ID)
-                //$("#nav-tab").prepend('<li   itemid=' + i + ' class><i class="fa fa-close removing3" itemid="' + i + '" style="display:none" onclick="deltab(' + i + ',this)" aria-hidden="true"></i><a data-toggle="tab" href="#tab' + i + '"  aria-expanded="true">' + jsondata_[i].NUMBER + '</a></li>')
-                //if (jsondata_.length != 1) {
-                //    $("#nav-tab li[itemid=" + i + "]").prepend('<i class="fa fa-close removing3" itemid=' + i + ' onclick="deltab(' + i + ',this)" aria-hidden="true"></i>')
-                //}
+                
                 console.log(jsondata_[i])
                 addTab(i, jsondata_[i])
-                //giveElements(i, jsondata_[i].NUMBER).NewTab
 
             }
-            //  $('.nav-tabs:last,.tab-content:last').remove();
 
-            // $('.nav-tabs:last,.tab-content:last').remove();
-            for (var i = 0; i < jsondata_.length; i++) {
-
-                jsondata_A_D = jsondata_[i].A_D;
-
-                $(".tab-content").append('<div id="tab' + i + '" data-tab="' + i + '" class="tab-pane fade"><div class="row"><div class="col-md-8 col-xs-12"><label for="lc">Номер лицевого счета:</label><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text" id="lc"><label for="typeProp">Тип собственности:</label><select id="typeProp"><option value="0">Выберите собственность</option><option value="1">Совместная</option><option value="2">Единоличная</option><option value="3">Долевая</option><option value="4">Социальный найм</option></select><div id="itms"><div class="col-xs-6 col-md-3"><label id="sobsH" style="display: none;">Собственник</label></div><div class="col-xs-6 col-md-3" style="display: none;"><label id="dolH" style="display: block;">Доля</label></div><div class="col-xs-6 col-md-3"><label id="telH" style="display:none" for="telH">Номер&nbsp;телефона</label></div><div class="col-xs-6 col-md-3"><label id="emailH" style="display: none;">E-mail</label></div></div><button style="display:none" id="Adding" class="btn genBtn">Добавить</button></div><div class="col-md-4 col-xs-12"><label>Жилая площадь по данному л/с, м<sup>2</sup></label><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="LiveSq" type="number" style="width:50%;"  ><label>Общая площадь по данному л/с, м<sup>2</sup></label><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="number" style="width:50%;" id="GenSq"><label>Общая площадь без летних зон по данному л/с, м<sup>2</sup></label><input id="LiveSqB" onkeyup="hideErrsMessage2(this)"  onchange="hideErrsMessage2(this)"type="number" style="width:50%;"  ><label>Количество комнат</label><input type="number" id="AmRoom" onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)"  ></div></div></div>')
-                $('#tab' + i + ' .row:nth-last-child(1)  #typeProp').val(jsondata_[i].OWNERSHIP_TYPE_ID)
-                $('#tab' + i + ' .row:nth-last-child(1)  #lc').val(jsondata_[i].NUMBER).attr('data-id', jsondata_[i].ID)
-                var ROOM_QUANT = jsondata_[i].ROOM_QUANT.split('|');
-                $('#tab' + i + ' .row:nth-last-child(1)  #lc').after('<label for="lc">Пароль:</label><input disabled="disabled" data-sms="not" data-em="not" onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text" id="pss" style="width: 71%;"><button style="margin-left: 3px" onclick="Generate(this)" id="GENER" class="btn genBtn">СГЕНЕРИРОВАТЬ</button>')
-                $('#tab' + i + ' .row:nth-last-child(1)  #pss').val(ROOM_QUANT[1])
-                jsondata_[i].GEN_SQUARE = (jsondata_[i].GEN_SQUARE == 0) ? "" : jsondata_[i].GEN_SQUARE
-                jsondata_[i].LIVE_SQUARE = (jsondata_[i].LIVE_SQUARE == 0) ? "" : jsondata_[i].LIVE_SQUARE
-
-                $('#tab' + i + ' .row:last-child  #LiveSq').val(jsondata_[i].LIVE_SQUARE);
-                $('#tab' + i + ' .row:last-child  #GenSq').val(jsondata_[i].GEN_SQUARE);
-
-                jsondata_[i].WITHOUT_SUMMER_SQUARE = (jsondata_[i].WITHOUT_SUMMER_SQUARE == 0) ? "" : jsondata_[i].WITHOUT_SUMMER_SQUARE
-                ROOM_QUANT[0] = (ROOM_QUANT[0] == 0) ? "" : ROOM_QUANT[0]
-                $('#tab' + i + ' .row:last-child  #LiveSqB').val(jsondata_[i].WITHOUT_SUMMER_SQUARE);
-                $('#tab' + i + ' .row:last-child  #AmRoom').val(ROOM_QUANT[0]);
-                //AddPayment('#tab' + i + '')
-
-                //$('.tab-content #tab' + i + ' .row').after('<hr><ul class="nav nav-tabs"><li class="active"><a data-toggle="tab" >Начисления и платежи</a></li></ul><div class="tab-content"><div  class="tab-pane fade in active" style="min-height: 100px;"><input type="button" class="btn genBtn" id="DelPay" value="Удалить"><input type="button" class="btn genBtn" id="AddNac" value="Внести начисления"><input type="button" class="btn genBtn" id="AddPay" value="Внести платежи" style="margin-left: 6px;"><table class="table orderList" style="width: 87%;"><thead><tr><td>Период <span class="glyphicon glyphicon-chevron-down"></span></td><td> Остаток на начало периода (-/+)</td> <td>Начислено</td><td>Поступило</td><td>Итого к оплате</td><td>Оплатить до:</td></tr></thead><tbody></tbody></table></div></div>')
-                // 
-                //
-                var k = 0;
-                for (var j = jsondata_A_D.length - 1; j >= 0; j--) {
-                    if (jsondata_[i].OWNERSHIP_TYPE_ID == 1) {
-                        //$('.tab-content #tab' + i + ' #itms #dolH').parent().remove();
-                        $('.tab-content #tab' + i + ' #itms #dolH').parent().hide();
-                        $('.tab-content #tab' + i + ' #itms #sobsH').show();
-                        $('.tab-content #tab' + i + ' #itms #telH').show();
-                        $('.tab-content #tab' + i + ' #itms #emailH').show();
-
-                        $('.tab-content #tab' + i + ' #itms #emailH').parent().after('<div class="row" itemid="' + j + '"><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text" id="sobs' + j + '" itemid="' + j + '"></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="tel' + j + '" type="tel" itemid="' + j + '"></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="email' + j + '" type="email" itemid="' + j + '"></div><i class="fa fa-close removing" onclick=delElem(this,' + j + ',"sovs") style="display:none" aria-hidden="true"></i></div>')
-                        // $('.tab-content #tab' + i + ' .row #Adding').show().attr('onclick', 'AddElem("sovs",' + j + ')');
-
-                        // $("#tab" + i + " .row:nth-last-child(1)  #itms .row #sobs" + j + "").val('Orxan')
-                        k++;
-                    }
-                    if (jsondata_[i].OWNERSHIP_TYPE_ID == 2) {
-                        //  $('.tab-content #tab' + i + ' #itms #dolH').hide().parent().removeAttr('class');
-                        $('.tab-content #tab' + i + ' #itms #dolH').hide()
-                        $('.tab-content #tab' + i + ' #itms #sobsH').show();
-                        $('.tab-content #tab' + i + ' #itms #telH').show();
-                        $('.tab-content #tab' + i + ' #itms #emailH').show();
-                        $('.tab-content #tab' + i + ' #itms #emailH').parent().after('<div class="row" itemid="0"><div class="col-xs-6 col-md-3"><input type="text" onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="sobs0" itemid="0"/></div><div class="col-xs-6 col-md-3" style="display:none"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" id="dol0" type="text" itemid="0"/></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="tel0" type="tel" itemid="0"/></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="email0" type="email"  itemid="0"/></div></div>')
-                        $("#tab" + i + " .row:nth-last-child(1)  #itms .row #sobs0").val(jsondata_A_D[0].FIRST_NAME);
-                        $("#tab" + i + " .row:nth-last-child(1)  #itms .row #dol0").val(jsondata_A_D[0].SHARE);
-                        $("#tab" + i + " .row:nth-last-child(1)  #itms .row #email0").val(jsondata_A_D[0].EMAIL);
-                        $("#tab" + i + " .row:nth-last-child(1)  #itms .row #tel0").val(jsondata_A_D[0].PHONE);
-                    }
-                    if (jsondata_[i].OWNERSHIP_TYPE_ID == 3) {
-                        $('.tab-content #tab' + i + ' #itms #dolH').show();
-                        $('.tab-content #tab' + i + ' #itms #sobsH').show();
-                        $('.tab-content #tab' + i + ' #itms #dolH').parent().show();
-                        $('.tab-content #tab' + i + ' #itms #telH').show();
-                        $('.tab-content #tab' + i + ' #itms #emailH').show();
-                        $('.tab-content #tab' + i + ' #itms #emailH').parent().after('<div class="row" itemid="' + j + '"><div class="col-xs-6 col-md-3"><input type="text" onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="sobs' + j + '" itemid="' + j + '"></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" id="dol' + j + '" type="text" itemid="' + j + '"></div><div class="col-xs-6 col-md-3"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="tel' + j + '" type="tel" itemid="' + j + '"></div><div class="col-xs-6 col-md-3"><i class="fa fa-close" onclick=delElem(this,' + j + ',"doleva") style="float:right;color:red" aria-hidden="true"></i><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="email' + j + '" type="email" itemid="' + j + '"></div></div>')
-                        $('.tab-content #tab' + i + ' .row #Adding').show().attr('onclick', 'AddElem("doleva",' + j + ')');
-                    }
-                    if (jsondata_[i].OWNERSHIP_TYPE_ID == 4) {
-                        //    $('.tab-content #tab' + i + ' #itms #dolH').show();
-                        // $('.tab-content #tab' + i + ' #itms #dolH').hide().parent().removeAttr('class');
-                        $('.tab-content #tab' + i + ' #itms #dolH').hide()
-                        $('.tab-content #tab' + i + ' #itms #sobsH').show();
-                        $('.tab-content #tab' + i + ' #itms #telH').show();
-                        $('.tab-content #tab' + i + ' #itms #emailH').show();
-                        $('.tab-content #tab' + i + ' #itms #emailH').parent().after('<div class="row" itemid="0"><div class="col-xs-6 col-md-3"><input type="text" onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="sobs0" itemid="0"   /> </div><div class="col-xs-6 col-md-3" style="padding:0 10px 0 15px;display:none"><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" id="dol0" type="text" itemid="0"   /></div><div class="col-xs-6 col-md-3" ><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="tel0" type="tel" itemid="0"/></div> <div class="col-xs-6 col-md-3""><input onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" id="email0" type="email"  itemid="0"/></div></div>')
-                        $("#tab" + i + " .row:nth-last-child(1)  #itms .row #sobs0").val(jsondata_A_D[0].FIRST_NAME);
-                        $("#tab" + i + " .row:nth-last-child(1)  #itms .row #dol0").val(jsondata_A_D[0].SHARE);
-                        $("#tab" + i + " .row:nth-last-child(1)  #itms .row #email0").val(jsondata_A_D[0].EMAIL);
-                        $("#tab" + i + " .row:nth-last-child(1)  #itms .row #tel0").val(jsondata_A_D[0].PHONE);
-                    }
-                }
-
-                var txtCont = $('.tab-content #tab' + i + ' #itms .row').length
-                txtCont = parseInt(txtCont)
-                for (var b = 0; b < txtCont; b++) {
-                    if (jsondata_[i].OWNERSHIP_TYPE_ID == 1) {
-                        var itemid = $('.tab-content #tab' + i + ' #itms .row:eq(' + b + ')').attr('itemid');
-
-                        $("#tab" + i + " .row:nth-last-child(1)  #itms .row #sobs" + b + "").val(jsondata_A_D[itemid].FIRST_NAME);
-                        $("#tab" + i + " .row:nth-last-child(1)  #itms .row #tel" + b + "").val(jsondata_A_D[itemid].PHONE);
-                        $("#tab" + i + " .row:nth-last-child(1)  #itms .row #email" + b + "").val(jsondata_A_D[itemid].EMAIL);
-
-                    }
-                    if (jsondata_[i].OWNERSHIP_TYPE_ID == 3) {
-                        var itemid = $('.tab-content #tab' + i + ' #itms .row:eq(' + b + ')').attr('itemid');
-
-                        $("#tab" + i + " .row:nth-last-child(1)  #itms .row #sobs" + b + "").val(jsondata_A_D[itemid].FIRST_NAME);
-                        $("#tab" + i + " .row:nth-last-child(1)  #itms .row #tel" + b + "").val(jsondata_A_D[itemid].PHONE);
-                        $("#tab" + i + " .row:nth-last-child(1)  #itms .row #email" + b + "").val(jsondata_A_D[itemid].EMAIL);
-                        $("#tab" + i + " .row:nth-last-child(1)  #itms .row #dol" + b + "").val(jsondata_A_D[itemid].SHARE);
-
-                    }
-                }
-                //  $('#typeProp_E').remove();
-                $(".active #itms #sobsH").show();
-                $(".active #itms #dolH").show();
-                $(".active #itms #telH").show();
-                $(".active #itms #emailH").show();
-
-
-                // getIndAndShare(i, jsondata_[i].NUMBER)
-            }
-
-            if (jsondata_.length < 10) {
-                $("#nav-tab li:nth-last-child(2)").attr("class", "active")
-                $(".tab-content > div:last-child").attr('class', 'tab-pane fade in active');
-            }
-            if (jsondata_.length == 10) {
-                $("#nav-tab li:last").attr("class", "active")
-            }
-
-            //for (var i = 0; i < jsondata_.lenght; i++) {
-
-            //}
-
-            AddPayment(jsondata_.length, jsondata_[0].ENTRANCE);
+          AddPayment(jsondata_.length, jsondata_[0].ENTRANCE);
         }
     })
 }
@@ -11788,7 +11671,7 @@ function GetRFP_KONSTANTIN(score, table) {
     $.ajax({
         error: function (e) { $('.ui-loader-background').hide(); $('#loader').hide(); alert(e.responseJSON.Message) },
         type: "POST",
-        url: window.location.protocol + '//' + window.location.host + '//WCFServices/MATORIN.QUICK_API.svc/Get_accural_payments',
+        url: 'http://172.20.20.24/WCFServices/MATORIN.QUICK_API.svc/Get_accural_payments',//window.location.protocol + '//' + window.location.host + 
         data: JSON.stringify(obj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -11838,7 +11721,7 @@ function GetRFP_history_KONSTANTIN(sc, table) {
     $.ajax({
         error: function (e) { $('.ui-loader-background').hide(); $('#loader').hide(); alert(e.responseJSON.Message) },
         type: "POST",
-        url: window.location.protocol + '//' + window.location.host + '//WCFServices/MATORIN.QUICK_API.svc/Get_bank_payments',
+        url: 'http://172.20.20.24/WCFServices/MATORIN.QUICK_API.svc/Get_bank_payments',//window.location.protocol + '//' + window.location.host + 
         data: JSON.stringify(obj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
