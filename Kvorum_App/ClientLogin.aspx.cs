@@ -1,14 +1,15 @@
 ﻿using Kvorum_App.Client_Admin.Utilities;
- 
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
  
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
- 
+using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Services;
  
@@ -17,12 +18,36 @@ namespace Kvorum_App
 {
     public partial class ClientLogin : System.Web.UI.Page
     {
+        protected global::System.Web.UI.WebControls.DataList dlClaims;
         protected void Page_Load(object sender, EventArgs e)
         {
-     
+
+            var tt = System.Web.HttpContext.Current.Session["tt"];
+       //  var claims = HttpContext.Current.GetOwinContext();
+            //foreach (var claim in ((System.Security.Claims.ClaimsPrincipal)User).Claims)
+            //{
+            //    var type = claim.Type;
+            //    var   value = claim.Value;
+            //}
+
+            //var claims = //ClaimsPrincipal.Current.Claims;
+            //dlClaims.DataSource = claims;
+            //dlClaims.DataBind();
+            //foreach (var item in dlClaims.Items)
+            //{
+            //    Response.Write(item);
+            //}
+            //if (!Request.IsAuthenticated)
+            //{//d
+            //    HttpContext.Current.GetOwinContext().Authentication.Challenge();
+            //}
+            //else
+            //{
+
+            //}
         }
 
-       
+
 
         [WebMethod]
         public static string LoginSystem(string email_, string pass_)

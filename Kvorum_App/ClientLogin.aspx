@@ -251,6 +251,7 @@
         }
     </style>
 </asp:Content>
+<%@ Import Namespace="System.Security.Claims" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
     
@@ -259,6 +260,19 @@
     <div class="row" style="width:100%;min-width:100%;margin-top:26px;">
         <div class="col-sm-3 hidden-xs"></div>
         <div class="col-sm-6 col-xs-12" style="text-align:center;">
+           <%--  <asp:DataList runat="server" ID="dlClaims">
+            <ItemTemplate>
+                <dt><%# ((Claim) Container.DataItem).Type %></dt>
+                <dd><%# ((Claim) Container.DataItem).Value %></dd>
+            </ItemTemplate>
+        </asp:DataList>--%>
+            <ul>
+
+           
+            <% foreach (var claim in ((System.Security.Claims.ClaimsPrincipal)User).Claims){ %>
+        <li><%: claim.Type + ", " + claim.Value %></li>
+    <%} %>
+                 </ul>
             <h1 class="loginHeader">ВХОД В СИСТЕМУ</h1>
         </div>     <div class="col-sm-3 hidden-xs"></div>
     </div>

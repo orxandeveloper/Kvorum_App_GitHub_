@@ -44,7 +44,7 @@ namespace Kvorum_App
                 Scope = "apiCore profile openid offline_access api1",
                 ResponseType = "code",
                 SignInAsAuthenticationType = "cookie",
-
+                
                 RequireHttpsMetadata = false,
                 UseTokenLifetime = false,
 
@@ -83,8 +83,9 @@ namespace Kvorum_App
 
 
                             var client = new HttpClient();
-
-                            var userInfoClient = await client.GetUserInfoAsync(new UserInfoRequest
+                          
+                           // System.Web.HttpContext.Current.Session["tt"] = tt;
+                           var userInfoClient = await client.GetUserInfoAsync(new UserInfoRequest
                             {
                                 Address = "https://upravbot.ru/IDS4/connect/userinfo",
                                 Token = n.ProtocolMessage.AccessToken

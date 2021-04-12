@@ -14,7 +14,7 @@ namespace Kvorum_App
 {
     public partial class Main : System.Web.UI.MasterPage
     {
-        protected global::System.Web.UI.WebControls.DataList dlClaims;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -24,19 +24,12 @@ namespace Kvorum_App
             HttpContext.Current.GetOwinContext().Authentication.Challenge(
                      new AuthenticationProperties
                      {
-                         RedirectUri = "/ClientLogin.aspx"
-                     }, OpenIdConnectAuthenticationDefaults.AuthenticationType
+                         RedirectUri = "/ClientLogin.aspx",
+                         
+                     }, 
+                     OpenIdConnectAuthenticationDefaults.AuthenticationType
                      );
-            //if (!Request.IsAuthenticated)
-            //{//d
-            //    HttpContext.Current.GetOwinContext().Authentication.Challenge();
-            //}
-            //else
-            //{
-            //    var claims = ClaimsPrincipal.Current.Claims;
-            //    dlClaims.DataSource = claims;
-            //    dlClaims.DataBind();
-            //}
+            
         }
     }
 }
