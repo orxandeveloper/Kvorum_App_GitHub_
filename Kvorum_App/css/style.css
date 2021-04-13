@@ -1253,7 +1253,8 @@ box-shadow: inset 0px 0px 0px 1px #333; border: 1px solid #777;
 .table thead * {font-size: 90%}
  sup {font-size: 75%}
  .table tbody * td {PADDING: 3px;}
-.table tbody * td:first-child {background-color: #f3f3f3; padding-left: 32px;}
+.table tbody * td:first-child {/*background-color: #f3f3f3;*/
+                               padding-left: 32px;}
 .table th:first-child {padding-left: 32px;}
 .table tbody * td:last-child {padding-right: 32px;}
 .table th:last-child {padding-right: 32px;}

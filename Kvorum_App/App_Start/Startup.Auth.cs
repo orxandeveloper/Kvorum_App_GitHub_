@@ -95,6 +95,8 @@ namespace Kvorum_App
 
                             //var userInfoClient = new IdentityModel.Client.UserInfoClient(new Uri("https://localhost:5001/connect/userinfo"), n.ProtocolMessage.AccessToken);
                             var userInfoResponse = userInfoClient;
+                            string Login_Data = userInfoResponse.Raw;
+                            System.Web.HttpContext.Current.Session["Login_Data"] = Login_Data;
                             var userInfoClaims = userInfoResponse.Claims
                              .Where(x => x.Type != "sub") // filter sub since we're already getting it from id_token
                              .Select(x => new Claim(x.Type, x.Value));

@@ -1,4 +1,5 @@
 ﻿using Kvorum_App.Client_Admin.Utilities;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,10 @@ namespace Kvorum_App
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            var tt = System.Web.HttpContext.Current.Session["tt"];
+          //  string Login_Data = System.Web.HttpContext.Current.Session["Login_Data"].ToString();
+          //  dynamic parsedJson = JsonConvert.DeserializeObject(Login_Data);
+            //string name = parsedJson.name;
+          //  LoginSystem(name, "123456Aa");
        //  var claims = HttpContext.Current.GetOwinContext();
             //foreach (var claim in ((System.Security.Claims.ClaimsPrincipal)User).Claims)
             //{

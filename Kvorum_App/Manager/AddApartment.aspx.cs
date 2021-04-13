@@ -22,6 +22,19 @@ namespace Kvorum_App.Manager
         {
 
         }
+        [WebMethod]
+        public static string Get_bank_payments(string login)
+        {
+
+            return Mydb.ExecuteAsJson("TestDB.dbo.sp_QUICK_API_Get_bank_payments", new SqlParameter[] {new SqlParameter("@LS", login) }, CommandType.StoredProcedure);
+        }
+        [WebMethod]
+        public static string Get_accural_payments(string id, string login, string type)
+        {
+
+            return Mydb.ExecuteAsJson("TestDB.dbo.sp_QUICK_API_Get_accural_payments", new SqlParameter[] {
+            new SqlParameter("@id",id),new SqlParameter("@login",login),new SqlParameter("@type",type)}, CommandType.StoredProcedure); 
+        }
 
         [WebMethod]
         public static string GetRoomTypes_ByRoomfor_(int roomf)

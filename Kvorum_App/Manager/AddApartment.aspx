@@ -2,34 +2,47 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .pointer{
+        .sortingArrow {
+            font-size: 25px !important;
+            color: #D11B25;
+            margin-left: 7%;
             cursor:pointer
         }
-        #delInd{
-                margin-bottom: 15px;
+
+        .pointer {
+            cursor: pointer
         }
-        #delInd span{
-            background:#D11B25 !important;
+
+        #delInd {
+            margin-bottom: 15px;
         }
-        .removing3{
+
+            #delInd span {
+                background: #D11B25 !important;
+            }
+
+        .removing3 {
             color: #D11B25;
-    float: right;
-    position: relative;
-    z-index: 100;
-    margin: 0.75em 1em 0.5em 0;
-    border: 1px solid #ccc;
-    padding: 3px 4px;
-    border-radius: 50%;
-    background: #EAEAEA !important;
-    cursor:pointer
+            float: right;
+            position: relative;
+            z-index: 100;
+            margin: 0.75em 1em 0.5em 0;
+            border: 1px solid #ccc;
+            padding: 3px 4px;
+            border-radius: 50%;
+            background: #EAEAEA !important;
+            cursor: pointer
         }
-        #plus{
-            margin-left: 45%; 
+
+        #plus {
+            margin-left: 45%;
             width: 10%;
         }
-        #plusImg{
+
+        #plusImg {
             width: 62px !important;
         }
+
         .modalVn {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
@@ -302,14 +315,15 @@
             font-size: 50px;
             color: rgb(0,100,223);
         }
-        .create{
-                text-decoration: none !important;
-    color: #d44141;
-    display: inline-block;
-    background: transparent;
-    font-family: 'PT Sans Narrow', sans-serif;
-    font-size: 21px;
-    float: right;
+
+        .create {
+            text-decoration: none !important;
+            color: #d44141;
+            display: inline-block;
+            background: transparent;
+            font-family: 'PT Sans Narrow', sans-serif;
+            font-size: 21px;
+            float: right;
         }
     </style>
 
@@ -330,7 +344,7 @@
                     <div>
                         <button class="btn genBtn" id="backAppart" style="background: #ccc">Назад</button>
                         <button id="SaveUp" class="btn genBtn">Сохранить</button>
-                           <a id="DeletePOM" href="#" role="button" class="create" style="display: none;"><i class="fa fa-times-circle" aria-hidden="true"></i>&nbsp;Удалить</a>
+                        <a id="DeletePOM" href="#" role="button" class="create" style="display: none;"><i class="fa fa-times-circle" aria-hidden="true"></i>&nbsp;Удалить</a>
                     </div>
 
                     <h3 class="font24 font-weight-bold p-3 w-100" id="PageH">Помещение и лицевой счет
@@ -422,92 +436,92 @@
             <div class="col-lg-7 m-0" id="AllLs">
 
                 <div id="ls" class="ls" itemid="0">
-                     <div class=" h60 w-100 bgWhite shadow rounded16 pl-3 mt-4 pr-3 ">
-                    <ol class="list-unstyled list-inline flexHoriz te-menu m-0 h-100 ">
-                        <li onclick="OpenTab(1,this)" class="w200 mr-3 h-100 m-0 pointer">
-                            <a class=" font-weight-bold"  >Лицевые&nbsp;счета</a>
-                        </li>
-                        <li onclick="OpenTab(2,this)" class="w200 mr-3 h-100 m-0 active pointer">
-                            <a class=" font-weight-bold"  >Собственники</a>
-                        </li>
+                    <div class=" h60 w-100 bgWhite shadow rounded16 pl-3 mt-4 pr-3 ">
+                        <ol class="list-unstyled list-inline flexHoriz te-menu m-0 h-100 ">
+                            <li onclick="OpenTab(1,this)" class="w200 mr-3 h-100 m-0 pointer">
+                                <a class=" font-weight-bold">Лицевые&nbsp;счета</a>
+                            </li>
+                            <li onclick="OpenTab(2,this)" class="w200 mr-3 h-100 m-0 active pointer">
+                                <a class=" font-weight-bold">Собственники</a>
+                            </li>
 
 
-                        <li onclick="OpenTab(2,this)" style="display: none" class="w200 mr-3 h-100 m-0 pointer">
-                            <a class=" font-weight-bold" >Начисления&nbsp;и&nbsp;платежи</a>
-                        </li>
-                    </ol>
-                </div>
-
-                <div data-tabid="2" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
-
-
-                    <div class="posRel h56 rounded-lg  w-100">
-                        <select onchange="typePropChange(this)" id="typeProp">
-                            <option value="0">Выберите собственность</option>
-
-                        </select>
-                        <label for="typeProp" class="w-95 transp backLab">Тип собственности</label>
+                            <li onclick="OpenTab(2,this)" style="display: none" class="w200 mr-3 h-100 m-0 pointer">
+                                <a class=" font-weight-bold">Начисления&nbsp;и&nbsp;платежи</a>
+                            </li>
+                        </ol>
                     </div>
 
-                    
-                
-                </div>
-
-                <div data-tabid="1" style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
+                    <div data-tabid="2" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
 
 
+                        <div class="posRel h56 rounded-lg  w-100">
+                            <select onchange="typePropChange(this)" id="typeProp">
+                                <option value="0">Выберите собственность</option>
 
-
-                    <div class="row mb-3 mr-2 ml-1 w-100 p-0 rounded8">
-                        <div class="col-md-12 m-0 p-0">
-                            <div class="posRel h56 rounded-lg mb-3">
-                                <input onkeyup="hideErrsMessage2(this)" required type="text" id="lc">
-                                <label for="lc" class="w-95 transp backLab">Лицевой счет</label>
-                            </div>
+                            </select>
+                            <label for="typeProp" class="w-95 transp backLab">Тип собственности</label>
                         </div>
 
-                        <div class="flexHoriz justify-content-between mb-2 w-100">
-                            <div class="posRel h56 rounded-lg w-48 m-0">
-                                <input disabled="disabled" onkeyup="hideErrsMessage2(this)" type="text" id="pss" style="width: 71%;">
-                                <label for="pss" class="w-95 transp backLab">Пароль</label>
-                            </div>
 
-                            <button onclick="Generate(this)" id="GENER_Modal" class="btn btn1 outline shadow-none m-0 rounded-lg w-48 h56">
-                                <span>
-                                    <img src="../img/ic-pass.svg" class="mr-2" alt="" />
-                                    <span class="text-truncate">Сгенерировать</span>
-                                </span>
-                            </button>
-                        </div>
 
-                        <div class="flexHoriz justify-content-between mb-2 w-100">
-                            <div class="posRel h56 rounded-lg w-48">
-                                <input id="LiveSq" onkeyup="hideErrsMessage2(this)">
-                                <label for="LiveSq" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label>
-                            </div>
-                            <div class="posRel h56 rounded-lg w-48">
-                                <input id="GenSq" onkeyup="hideErrsMessage2(this)">
-                                <label for="GenSq" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label>
-                            </div>
-                        </div>
-                        <div class="flexHoriz justify-content-between mb-2 w-100">
-                            <div class="posRel h56 rounded-lg w-48">
-                                <input id="LiveSqB" onkeyup="hideErrsMessage2(this)">
-                                <label for="LiveSq" class="w-95 transp backLab">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label>
-                            </div>
-                            <div class="posRel h56 rounded-lg w-48">
-                                <input id="AmRoom" onkeyup="hideErrsMessage2(this)">
-                                <label for="AmRoom" class="w-95 transp backLab">Количество комнат<sup>2</sup></label>
-                            </div>
-                        </div>
                     </div>
 
+                    <div data-tabid="1" style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
 
+
+
+
+                        <div class="row mb-3 mr-2 ml-1 w-100 p-0 rounded8">
+                            <div class="col-md-12 m-0 p-0">
+                                <div class="posRel h56 rounded-lg mb-3">
+                                    <input onkeyup="hideErrsMessage2(this)" required type="text" id="lc">
+                                    <label for="lc" class="w-95 transp backLab">Лицевой счет</label>
+                                </div>
+                            </div>
+
+                            <div class="flexHoriz justify-content-between mb-2 w-100">
+                                <div class="posRel h56 rounded-lg w-48 m-0">
+                                    <input disabled="disabled" onkeyup="hideErrsMessage2(this)" type="text" id="pss" style="width: 71%;">
+                                    <label for="pss" class="w-95 transp backLab">Пароль</label>
+                                </div>
+
+                                <button onclick="Generate(this)" id="GENER_Modal" class="btn btn1 outline shadow-none m-0 rounded-lg w-48 h56">
+                                    <span>
+                                        <img src="../img/ic-pass.svg" class="mr-2" alt="" />
+                                        <span class="text-truncate">Сгенерировать</span>
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="flexHoriz justify-content-between mb-2 w-100">
+                                <div class="posRel h56 rounded-lg w-48">
+                                    <input id="LiveSq" onkeyup="hideErrsMessage2(this)">
+                                    <label for="LiveSq" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label>
+                                </div>
+                                <div class="posRel h56 rounded-lg w-48">
+                                    <input id="GenSq" onkeyup="hideErrsMessage2(this)">
+                                    <label for="GenSq" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label>
+                                </div>
+                            </div>
+                            <div class="flexHoriz justify-content-between mb-2 w-100">
+                                <div class="posRel h56 rounded-lg w-48">
+                                    <input id="LiveSqB" onkeyup="hideErrsMessage2(this)">
+                                    <label for="LiveSq" class="w-95 transp backLab">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label>
+                                </div>
+                                <div class="posRel h56 rounded-lg w-48">
+                                    <input id="AmRoom" onkeyup="hideErrsMessage2(this)">
+                                    <label for="AmRoom" class="w-95 transp backLab">Количество комнат<sup>2</sup></label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <hr />
                 </div>
-                     <hr />
-                </div>
-               
-               
+
+
                 <button class="btn btn1 outline shadow-none rounded-pill" title="Добавить лицевой счет" id="plus">
                     <span class="bgLightGrey w24 rounded-pill"></span>
                     <img src="../img/ic-plus.svg" class="w12 reddishSvg position-absolute" alt="" id="plusImg">

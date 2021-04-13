@@ -3497,11 +3497,14 @@ function addTab(lastitm, jdata) {
         var A_D = jdata.A_D
         $('#typeProp_' + itmNumb).attr('data-j', 'j').data('j', A_D)
         $('#typeProp_' + itmNumb).select2('val', OWNERSHIP_TYPE_ID)//.val(OWNERSHIP_TYPE_ID)
+
+        GetRFP_KONSTANTIN(lsVal, '#paytbl_' + itmNumb);
+        GetRFP_history_KONSTANTIN(lsVal, '#HistoryPays_' + itmNumb);
     }
 
 
 }
-function giveElements(i, jdata) {
+function giveElements(i, jdata,rfp) {
     var sobs0 = '<div itemid="' + i + '" class="row mb-3 mr-2 ml-1 w-30 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input  class="border-0 sobs' + i + '"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" type="text"> <label for="sobs' + i + '" class="transp backLab">Собственник</label> </div> </div> </div>'
 
     var dol0 = '<div itemid="' + i + '" class="row mb-3 mr-2 ml-1 w-20 p-0 border-1 rounded8 inds' + i + '"> <div class="col-md-10 m-0 p-0"> <div class="posRel m-0 p-0"> <input  required class="border-0 dol' + i + '"  onkeyup="hideErrsMessage2(this)" onchange="hideErrsMessage2(this)" onkeypress="return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 44" type="text"> <label for="dol' + i + '" class="transp backLab">Доля</label> </div> </div> </div>'
@@ -3512,14 +3515,20 @@ function giveElements(i, jdata) {
     var deleteInd = '<span itemid="' + i + '" class="flexCenter mr-3" id="delInd" onclick="delElem(this,' + i + ')"> <span class="bgDarkGrey w24 rounded-pill"></span> <span class="font-weight-bold position-absolute" id="counter"> <img src="../img/close.svg" class="w12 brightness" alt=""> </span> </span>'
     // var NUMBER = jdata.NUMBER
     var lsText = (jdata == undefined) ? 'Лицевые счета' : jdata.NUMBER
-    var tab_headers = '<ol class="list-unstyled list-inline flexHoriz te-menu m-0 h-100 "> <li onclick="OpenTab(1,this)" class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">' + lsText + '</a> </li> <li onclick="OpenTab(2,this)" class="w200 mr-3 h-100 m-0 active pointer"> <a class=" font-weight-bold">Собственники</a> </li> <li onclick="OpenTab(3,this)" style="display: none" class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">Начисления и платежи</a> </li><li onclick ="OpenTab(4,this)" style="display:none" class="w200 mr-3 h-100 m-0 pointer"> <a class="font-weight-bold">История оплат</a> </li></ol>'
+     
+    var Rfpshow = (jdata == undefined) ? 'style="display: none"' : '';
+    var tab_headers = '<ol class="list-unstyled list-inline flexHoriz te-menu m-0 h-100 "> <li onclick="OpenTab(1,this)" class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">' + lsText + '</a> </li> <li onclick="OpenTab(2,this)" class="w200 mr-3 h-100 m-0 active pointer"> <a class=" font-weight-bold">Собственники</a> </li> <li onclick="OpenTab(3,this)" ' + Rfpshow + ' class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">Начисления и платежи</a> </li><li onclick ="OpenTab(4,this)" ' + Rfpshow+' class="w200 mr-3 h-100 m-0 pointer"> <a class="font-weight-bold">История оплат</a> </li></ol>'
+
+    var data_tab3 = '<div data-tabid="3" style="display:none !important" id="Paying" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"><div id="tab-4" style="min-height: 100px;"><input type="button" class="btn genBtn" disabled="disabled" id="DelPay" style="display:none" onclick="DeletingPay(this)" value="Удалить"><input type="button" class="btn genBtn" id="AddNac" onclick="AddNac(this,-1)" value="Внести начисления"><input type="button" class="btn genBtn" id="AddPay" value="Внести платежи" onclick="AddPlatej(this)" style="margin-left: 6px; display:none"> <div style="clear: both;height: 20px;">&nbsp;</div><table class="table orderList" style="width: 100%;"><thead><tr><td>Период / Услуги <i  onclick="SortingPay(this)" class="fa fa-angle-down sortingArrow" aria-hidden="true"></i></td><td> Остаток на начало периода (-/+) руб.</td> <td>Начислено руб.</td><td>Поступило руб.</td><td>Итого к оплате руб.</td><td style="display:none">Оплатить до:</td></tr></thead><tbody id="paytbl_' + i + '"></tbody></table></div></div>'
+
+    var data_tab4 ='<div id="PayingHistory"  data-tabid="4" style="display:none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"><table class="table orderList" id="tblHistory" style="width: 87%; display: table;"><thead><tr><td>Дата</td><td>Поступило (руб.)</td></tr></thead><tbody id="HistoryPays_'+i+'"></tbody></table></div>'
 
     var data_tab2 = '<div data-tabid="2" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="posRel h56 rounded-lg  w-100"> <select onchange="typePropChange(this)" id="typeProp_' + i + '" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true"> <option value="0">Выберите собственность</option> <option value="1">Совместная</option><option value="2">Единоличная</option><option value="3">Долевая</option><option value="4">Социальный найм</option></select><br> <label for="typeProp_' + i + '" class="w-95 transp backLab">Тип собственности</label> </div> </div>'
 
     var data_tab1 = '<div data-tabid="1" style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="row mb-3 mr-2 ml-1 w-100 p-0 rounded8"> <div class="col-md-12 m-0 p-0"> <div class="posRel h56 rounded-lg mb-3"> <input onkeyup="hideErrsMessage2(this)" required="" type="text" id="lc_' + i + '"> <label for="lc_' + i + '" class="w-95 transp backLab">Лицевой счет</label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48 m-0"> <input disabled="disabled" onkeyup="hideErrsMessage2(this)" type="text" id="pss_' + i + '" style="width: 71%;"> <label for="pss_' + i + '" class="w-95 transp backLab">Пароль</label> </div> <button onclick="Generate(this)" id="GENER_Modal_' + i + '" class="btn btn1 outline shadow-none m-0 rounded-lg w-48 h56"> <span> <img src="../img/ic-pass.svg" class="mr-2" alt=""> <span class="text-truncate">Сгенерировать</span> </span> </button> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSq_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="LiveSq_' + i + '" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="GenSq_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="GenSq_' + i + '" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSqB_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="LiveSqB_' + i + '" class="w-95 transp backLab">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="AmRoom_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="AmRoom_' + i + '" class="w-95 transp backLab">Количество комнат<sup>2</sup></label> </div> </div> </div> </div>'
 
 
-    var NewTab = '<div id="ls" class="ls" itemid="' + i + '"> <div class=" h60 w-100 bgWhite shadow rounded16 pl-3 mt-4 pr-3 "><i class="fa fa-close removing3" itemid="' + i + '" onclick="deltab(this)" aria-hidden="true"></i>' + tab_headers + '</div>' + data_tab2 + '' + data_tab1 + '<hr> </div>'
+    var NewTab = '<div id="ls" class="ls" itemid="' + i + '"> <div class=" h60 w-100 bgWhite shadow rounded16 pl-3 mt-4 pr-3 "><i class="fa fa-close removing3" itemid="' + i + '" onclick="deltab(this)" aria-hidden="true"></i>' + tab_headers + '</div>' + data_tab4+'' + data_tab3 + '' + data_tab2 + '' + data_tab1 + '<hr> </div>'
 
     return { sobs: sobs0, dol: dol0, tel: tel0, email: email0, AddElem: AddElem, deleteInd: deleteInd, NewTab: NewTab }
 }
@@ -3624,7 +3633,7 @@ function typePropChange(e, jdata) {
 function OpenTab(countTab, e) {
     $(e).parent('ol').children('li').attr('class', 'w200 mr-3 h-100 m-0 pointer')
     $(e).attr('class', 'w200 mr-3 h-100 m-0 active pointer')
-    $(e).parents('.ls').children('div[data-tabid="1"],div[data-tabid="2"]').attr('style', 'display:none !important')
+    $(e).parents('.ls').children('div[data-tabid="1"],div[data-tabid="2"],div[data-tabid="3"],div[data-tabid="4"]').attr('style', 'display:none !important')
     $(e).parents('.ls').children('div[data-tabid="' + countTab + '"]').attr('style', 'display:flex !important')
 }
 function GetRoomTypesFor_QRCodes(lg, obj) {
@@ -11320,15 +11329,15 @@ function AddPayment(len, isNew) {
     console.log('isNew: ' + isNew)
     for (var i = 0; i < len; i++) {//<td>Оплачено</td>
 
-        //if (isNew != null) {
-        //    $('.tab-content').children('#tab' + i).children('.row').after('<hr><div class="row"><ul class="nav nav-tabs"><li data-tab="0" class="active" onclick="showTab(this)" style="cursor:pointer"><a data-toggle="tab"  aria-expanded="true">Физические лица</a></li><li data-tab="1" onclick="showTab(this)" style="cursor:pointer" class=""><a data-toggle="tab" aria-expanded="false">Юридические лица</a></li><li data-tab="2" onclick="showTab(this)" style="width: 20%;cursor:pointer;" class="GosTab"><a data-toggle="tab" aria-expanded="true">Государственные учреждения</a></li></ul><div class="tab-content"><div id="tab0" data-tab="0" class="faces tab-pane fade in active"><div class="col-md-12"><div class="col-md-5 bordering" ><label> Пользователи помещения</label><table><thead><tr><th>ФИО</th><th>Дата Рождения</th><th>Мобильный телефон</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr></tbody></table></div><div class="col-md-2 arrowDiv" ><i class="fa fa-arrow-right arrows" aria-hidden="true"></i><br><i class="fa fa-arrow-right arrows" aria-hidden="true" ></i></div><div class="col-md-5 bordering"><label>Родственники</label><table><thead><tr><th>ФИО</th><th>Тип родства</th><th>Вид пользвателя</th><th>Дата рождени</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td></tr></tbody></table></div> </div><a class="btn genBtn" href="AddUsers_.aspx">Добавить физическое лицо</a></div><div id="tab1" data-tab="1" class="faces tab-pane fade"><h6 class="h6color">Юридические лица</h6><table><thead><tr><th>Наименование организации</th><th>Тип собственности</th><th>ИНН</th><th>КПП</th><th>ОГРН</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td></tr></tbody></table><a class="btn genBtn" href="AddLegalEntity_.aspx">Добавить юридическое лицо</a></div><div id="tab2" data-tab="2" class="faces tab-pane fade"><h6 class="h6color">Государственные учреждения</h6><table><thead><tr><th>Наименование Государственные учреждения</th><th>Право собственности</th><th>ИНН</th><th>КПП</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td></tr></tbody></table><a class="btn genBtn" href="GovernmentAgency.aspx">Добавить Государственные учреждения</a></div></div></div>')
-        //}
-        $('.tab-content').children('#tab' + i).children('.row:last').after('<hr><ul class="nav nav-tabs"><li style="cursor:pointer" onclick="ShowAccurals(this)" class="active"><a >Начисления и платежи</a></li><li style="cursor:pointer" onclick="ShowHistoryAccurals(this)"><a>История оплат</a></li></ul><div id="Paying"><div id="tab-4"  style="min-height: 100px;"><input type="button" class="btn genBtn" disabled=disabled id="DelPay" style="display:none" onclick=DeletingPay(this) value="Удалить"><input type="button" class="btn genBtn" id="AddNac"  onclick="AddNac(this,-1)" value="Внести начисления"><input type="button" class="btn genBtn" id="AddPay" value="Внести платежи" onclick="AddPlatej(this)" style="margin-left: 6px; display:none"><table class="table orderList"  style="width: 87%;"><thead><tr><td>Период / Услуги <span onclick="SortingPay(this)" class="glyphicon glyphicon-chevron-up"></span></td><td> Остаток на начало периода (-/+) руб.</td> <td>Начислено руб.</td><td>Поступило руб.</td><td>Итого к оплате руб.</td><td style="display:none">Оплатить до:</td></tr></thead><tbody id=paytbl_' + i + '></tbody></table></div></div><div id="PayingHistory" style="display:none"><table class="table orderList" id="tblHistory" style="width: 87%; display: table;"><thead><tr><td>Дата</td><td>Поступило (руб.)</td></tr></thead><tbody id="HistoryPays_' + i + '"></tbody></table></div>')
+      
+        //$('.tab-content').children('#tab' + i).children('.row:last').after('<hr><ul class="nav nav-tabs"><li style="cursor:pointer" onclick="ShowAccurals(this)" class="active"><a >Начисления и платежи</a></li><li style="cursor:pointer" onclick="ShowHistoryAccurals(this)"><a>История оплат</a></li></ul><div id="Paying"><div id="tab-4"  style="min-height: 100px;"><input type="button" class="btn genBtn" disabled=disabled id="DelPay" style="display:none" onclick=DeletingPay(this) value="Удалить"><input type="button" class="btn genBtn" id="AddNac"  onclick="AddNac(this,-1)" value="Внести начисления"><input type="button" class="btn genBtn" id="AddPay" value="Внести платежи" onclick="AddPlatej(this)" style="margin-left: 6px; display:none"><table class="table orderList"  style="width: 87%;"><thead><tr><td>Период / Услуги <span onclick="SortingPay(this)" class="glyphicon glyphicon-chevron-up"></span></td><td> Остаток на начало периода (-/+) руб.</td> <td>Начислено руб.</td><td>Поступило руб.</td><td>Итого к оплате руб.</td><td style="display:none">Оплатить до:</td></tr></thead><tbody id=paytbl_' + i + '></tbody></table></div></div><div id="PayingHistory" style="display:none"><table class="table orderList" id="tblHistory" style="width: 87%; display: table;"><thead><tr><td>Дата</td><td>Поступило (руб.)</td></tr></thead><tbody id="HistoryPays_' + i + '"></tbody></table></div>')
+       
+        //giveElements(i, undefined,"RFP")
         var lc = $('#tab' + i).children('.row').children('div').children('#lc').val();
         //GetRFP(lc, '#paytbl_' + i);
 
-        GetRFP_KONSTANTIN(lc, '#paytbl_' + i);
-        GetRFP_history_KONSTANTIN(lc, '#HistoryPays_' + i);
+        //GetRFP_KONSTANTIN(lc, '#paytbl_' + i);
+        //GetRFP_history_KONSTANTIN(lc, '#HistoryPays_' + i);
 
     }
 }
@@ -11669,17 +11678,17 @@ function GetRFP_KONSTANTIN(score, table) {
 
     var obj = { 'id': '', 'login': score, 'month': '', 'type': '' };
     $.ajax({
-        error: function (e) { $('.ui-loader-background').hide(); $('#loader').hide(); alert(e.responseJSON.Message) },
+        error: function (e) { $('.ui-loader-background').hide(); $('#loader').hide(); console.log(e) },
         type: "POST",
-        url: 'http://172.20.20.24/WCFServices/MATORIN.QUICK_API.svc/Get_accural_payments',//window.location.protocol + '//' + window.location.host + 
+        url:'AddApartment.aspx/Get_accural_payments',// window.location.protocol + '//' + window.location.host + '//WCFServices/MATORIN.QUICK_API.svc/Get_accural_payments'
         data: JSON.stringify(obj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
             console.log('payes')
             console.log(data);
-            var array = data.ResultData
-            array = array.RECORDS;
+            var array = JSON.parse(data.d);//data.ResultData
+           // array = array.RECORDS;
 
             var groupArray = array.reduce(function (result, current) {
                 result[current.MONTH.replace(' ', '_')] = result[current.MONTH.replace(' ', '_')] || [];
@@ -11719,16 +11728,16 @@ function GetRFP_history_KONSTANTIN(sc, table) {
 
     var obj = { 'login': sc };
     $.ajax({
-        error: function (e) { $('.ui-loader-background').hide(); $('#loader').hide(); alert(e.responseJSON.Message) },
+        error: function (e) { $('.ui-loader-background').hide(); $('#loader').hide(); console.log(e) },
         type: "POST",
-        url: 'http://172.20.20.24/WCFServices/MATORIN.QUICK_API.svc/Get_bank_payments',//window.location.protocol + '//' + window.location.host + 
+        url: 'AddApartment.aspx/Get_bank_payments',//window.location.protocol + '//' + window.location.host + '//WCFServices/MATORIN.QUICK_API.svc/Get_bank_payments'
         data: JSON.stringify(obj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
             ////console.log(data);
-            var array = data.ResultData
-            array = array.RECORDS;
+            var array = JSON.parse(data.d)//data.ResultData
+           // array = array.RECORDS;
             for (var i = 0; i < array.length; i++) {
                 $(table).append('<tr><td>' + array[i].PAY_DATE + '</td><td>' + array[i].PAY_SUMM + '</td></tr>')
             }
@@ -11824,8 +11833,8 @@ function ShowDetail_K(e) {
         $(e).parent().children('tr').css('background-color', 'white');
         $(e).parent().children('tr').children('td').children('a').css('color', 'black');
         // $('#Pays .txtRt').remove()
-        $(e).css('background-color', 'lightskyblue')
-        $(e).children('td').children('a').css('color', 'black');
+        $(e).css('background-color', '#D11B25')
+        $(e).children('td').children('a').css('color', 'white');
 
         var key = $(e).children('td:first').attr('itemid');
         var data = $(e).parent().data(key);
@@ -13287,8 +13296,8 @@ function SortingPay(e) {
     var ar = []
     var thisClass = $(e).attr('class');
     $('#detBody').parent().parent().parent().remove();
-    if (thisClass == 'glyphicon glyphicon-chevron-down') {
-        $(e).attr('class', 'glyphicon glyphicon-chevron-up');
+    if (thisClass == 'fa fa-angle-down sortingArrow') {
+        $(e).attr('class', 'fa fa-angle-up sortingArrow');
         //$(e).parent().parent().parent().parent().children('tbody').children('tr:eq(0)').css('background-color', 'red')
         $(e).parent().parent().parent().parent().children('tbody').children('tr').each(function () {
             //$(this).children('td').each(function ()
@@ -13364,7 +13373,7 @@ function SortingPay(e) {
 
     }
     else {
-        $(e).attr('class', 'glyphicon glyphicon-chevron-down');
+        $(e).attr('class', 'fa fa-angle-down sortingArrow');
 
         $(e).parent().parent().parent().parent().children('tbody').children('tr').each(function () {
             //$(this).children('td').each(function ()
