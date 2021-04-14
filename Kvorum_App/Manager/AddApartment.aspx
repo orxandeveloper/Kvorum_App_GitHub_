@@ -368,7 +368,7 @@
                             <label for="rnum" class="w-95 transp backLab">Номер помещения</label>
                         </div>
                         <div class="posRel h56 rounded-lg  w-48">
-                            <input id="countR" onkeyup="hideErrsMessage2(this)">
+                            <input id="countR" class="countR" onkeyup="hideErrsMessage2(this)">
                             <label for="countR" class="w-95 transp backLab">Количество комнат</label>
                         </div>
                     </div>
@@ -390,11 +390,11 @@
 
                     <div class="flexHoriz justify-content-between mb-2">
                         <div class="posRel h56 rounded-lg w-48">
-                            <input id="LiveS" onkeyup="hideErrsMessage2(this)">
+                            <input id="LiveS" class="LiveS" onkeyup="hideErrsMessage2(this)">
                             <label for="LiveS" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label>
                         </div>
                         <div class="posRel h56 rounded-lg w-48">
-                            <input id="GenS" onkeyup="hideErrsMessage2(this)">
+                            <input id="GenS" class="GenS" onkeyup="hideErrsMessage2(this)">
                             <label for="GenS" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label>
                         </div>
                     </div>
@@ -475,14 +475,14 @@
                         <div class="row mb-3 mr-2 ml-1 w-100 p-0 rounded8">
                             <div class="col-md-12 m-0 p-0">
                                 <div class="posRel h56 rounded-lg mb-3">
-                                    <input onkeyup="hideErrsMessage2(this)" required type="text" id="lc">
+                                    <input class="lc" onkeyup="hideErrsMessage2(this)" required type="text" id="lc">
                                     <label for="lc" class="w-95 transp backLab">Лицевой счет</label>
                                 </div>
                             </div>
 
                             <div class="flexHoriz justify-content-between mb-2 w-100">
                                 <div class="posRel h56 rounded-lg w-48 m-0">
-                                    <input disabled="disabled" onkeyup="hideErrsMessage2(this)" type="text" id="pss" style="width: 71%;">
+                                    <input disabled="disabled" onkeyup="hideErrsMessage2(this)" class="pss" type="text" id="pss" style="width: 71%;">
                                     <label for="pss" class="w-95 transp backLab">Пароль</label>
                                 </div>
 
@@ -496,21 +496,21 @@
 
                             <div class="flexHoriz justify-content-between mb-2 w-100">
                                 <div class="posRel h56 rounded-lg w-48">
-                                    <input id="LiveSq" onkeyup="hideErrsMessage2(this)">
+                                    <input id="LiveSq" class="LiveSq"  onkeyup="hideErrsMessage2(this)">
                                     <label for="LiveSq" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label>
                                 </div>
                                 <div class="posRel h56 rounded-lg w-48">
-                                    <input id="GenSq" onkeyup="hideErrsMessage2(this)">
+                                    <input id="GenSq" class="GenSq" onkeyup="hideErrsMessage2(this)">
                                     <label for="GenSq" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label>
                                 </div>
                             </div>
                             <div class="flexHoriz justify-content-between mb-2 w-100">
                                 <div class="posRel h56 rounded-lg w-48">
-                                    <input id="LiveSqB" onkeyup="hideErrsMessage2(this)">
-                                    <label for="LiveSq" class="w-95 transp backLab">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label>
+                                    <input id="LiveSqB" class="LiveSqB" onkeyup="hideErrsMessage2(this)">
+                                    <label for="LiveSqB" class="w-95 transp backLab">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label>
                                 </div>
                                 <div class="posRel h56 rounded-lg w-48">
-                                    <input id="AmRoom" onkeyup="hideErrsMessage2(this)">
+                                    <input id="AmRoom" class="AmRoom" onkeyup="hideErrsMessage2(this)">
                                     <label for="AmRoom" class="w-95 transp backLab">Количество комнат<sup>2</sup></label>
                                 </div>
                             </div>

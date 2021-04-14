@@ -623,12 +623,13 @@
                     CHeck_Obj_RMF_RMT_RMN($(this), $('#objs').val(), $('#RoomF').val(), $('#r_t').val(), $('#rnum').val(), Log, $('#floor').val())
                 }
             }
-            if ($(this).attr('id') == 'r_t') {
+            if ($(this).attr('id') == 'r_t' ) {
                 if ($(this).val() != 0 && $('#objs').val() != 0 && $('#RoomF').val() != 0 && $('#r_t').val() != 0 && $('#rnum').val().length != 0 && $('#floor').val().length != 0) {
 
                     CHeck_Obj_RMF_RMT_RMN($(this), $('#objs').val(), $('#RoomF').val(), $('#r_t').val(), $('#rnum').val(), Log, $('#floor').val())
                 }
             }
+           
         })
         getOwnerShip();
 
@@ -644,7 +645,14 @@
 
             //  console.log(checkControlsM().obj)
             if (SuccesResult == true) {
-                SaveApart(checkControlsM().obj, Log)
+                if (apartId == "null") {
+                    SaveApart(checkControlsM().obj, Log)
+                }
+                else {
+                    var roomtype = $('#r_t').val();
+                    var rnum = $('#rnum').val();
+                    UpdateApart(checkControlsM().obj, Log, rnum, roomtype);
+                }
             }
             if (true) {
                 //var objs = $("#objs").val();
@@ -1018,7 +1026,9 @@
         })
 
         $('#RoomF').change(function () {
+            
             gtTypeOfroom("", $(this).val())
+            
         })
         $('.closeVn').click(function () {
             $('#myModalVn').hide();
@@ -3527,7 +3537,7 @@ function giveElements(i, jdata,rfp) {
 
     var data_tab1 = '<div data-tabid="1" style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="row mb-3 mr-2 ml-1 w-100 p-0 rounded8"> <div class="col-md-12 m-0 p-0"> <div class="posRel h56 rounded-lg mb-3"> <input onkeyup="hideErrsMessage2(this)" required="" type="text" id="lc_' + i + '"> <label for="lc_' + i + '" class="w-95 transp backLab">Лицевой счет</label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48 m-0"> <input disabled="disabled" onkeyup="hideErrsMessage2(this)" type="text" id="pss_' + i + '" style="width: 71%;"> <label for="pss_' + i + '" class="w-95 transp backLab">Пароль</label> </div> <button onclick="Generate(this)" id="GENER_Modal_' + i + '" class="btn btn1 outline shadow-none m-0 rounded-lg w-48 h56"> <span> <img src="../img/ic-pass.svg" class="mr-2" alt=""> <span class="text-truncate">Сгенерировать</span> </span> </button> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSq_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="LiveSq_' + i + '" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="GenSq_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="GenSq_' + i + '" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSqB_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="LiveSqB_' + i + '" class="w-95 transp backLab">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="AmRoom_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="AmRoom_' + i + '" class="w-95 transp backLab">Количество комнат<sup>2</sup></label> </div> </div> </div> </div>'
 
-
+    
     var NewTab = '<div id="ls" class="ls" itemid="' + i + '"> <div class=" h60 w-100 bgWhite shadow rounded16 pl-3 mt-4 pr-3 "><i class="fa fa-close removing3" itemid="' + i + '" onclick="deltab(this)" aria-hidden="true"></i>' + tab_headers + '</div>' + data_tab4+'' + data_tab3 + '' + data_tab2 + '' + data_tab1 + '<hr> </div>'
 
     return { sobs: sobs0, dol: dol0, tel: tel0, email: email0, AddElem: AddElem, deleteInd: deleteInd, NewTab: NewTab }
@@ -7291,7 +7301,7 @@ function checkControlsM() {
         var tagName = this.tagName
         var labelName = $(this).parent().children('label').text();
         if (tagName == 'SELECT') {
-
+            var val=$(this).val()
             if ($(this).val() == 0) {
                 ErrorForControls(this, 'Необходимо выбрать "' + labelName + '"')
                 Issuccess = false
@@ -7341,30 +7351,31 @@ function checkControlsM() {
         var LiveS = ($("#LiveS").val().length == 0) ? 0 : $("#LiveS").val();
         var txtDatas = []
         $('.ls').each(function () {
-            var lc = $(this).children().find('#lc').val().trim()
-            var ID_lc = $(this).children().find('#lc').attr('data-id')//scoreGuid
-            var pass = $(this).children().find('#pss').val().trim();
-            var typeProp = $(this).children().find('#typeProp').val();
-            var LiveSq = $(this).children().find('#LiveSq').val().trim()
+            var itemid = $(this).attr('itemid')
+            var lc = $(this).children().find('#lc_'+itemid).val().trim()
+            var ID_lc = $(this).children().find('#lc_' + itemid).attr('data-id')//scoreGuid
+            var pass = $(this).children().find('#pss_' + itemid).val().trim();
+            var typeProp = $(this).children().find('#typeProp_' + itemid).val();
+            var LiveSq = $(this).children().find('#LiveSq_' + itemid).val().trim()
             LiveSq = (LiveSq.length == 0) ? " " : LiveSq
-            var GenSq = $(this).children().find('#GenSq').val().trim();
+            var GenSq = $(this).children().find('#GenSq_' + itemid).val().trim();
             GenSq = (GenSq.length == 0) ? " " : GenSq
-            var LiveSqB = $(this).children().find('#LiveSqB').val().trim();
+            var LiveSqB = $(this).children().find('#LiveSqB_' + itemid).val().trim();
             LiveSqB = (LiveSqB.length == 0) ? " " : LiveSqB
-            var AmRoom = $(this).children().find('#AmRoom').val().trim();
+            var AmRoom = $(this).children().find('#AmRoom_' + itemid).val().trim();
             AmRoom = (AmRoom.length == 0) ? " " : AmRoom
             var data_sms = "";
             var data_em = "";
             var data_exp = "";
             ID_lc = (ID_lc == undefined) ? '0' : ID_lc
             if (pass != undefined && pass.length != 0) {
-                data_sms = $(this).children().find('#pss').attr('data-sms')
+                data_sms = $(this).children().find('#pss_' + itemid).attr('data-sms')
                 data_sms = (data_sms == undefined) ? "" : data_sms
 
-                data_em = $(this).children().find('#pss').attr('data-em')
+                data_em = $(this).children().find('#pss_' + itemid).attr('data-em')
                 data_em = (data_em == undefined) ? "" : data_em
 
-                data_exp = $(this).children().find('#pss').attr('data-exp')
+                data_exp = $(this).children().find('#pss_' + itemid).attr('data-exp')
                 data_exp = (data_exp == undefined) ? "" : data_exp
             }
             var itmsS = []
@@ -7408,8 +7419,8 @@ function checkControlsM() {
             txtDatas.push({ "NUMBER": lc, "OWNERSHIP_TYPE_ID": typeProp, "LIVE_SQUARE": LiveSq, "GEN_SQUARE": GenSq, "WITHOUT_SUMMER_SQUARE": LiveSqB, "ROOM_QUANT": AmRoom, "A_D": itmsS, "ID": ID_lc })
         })
 
-
-        var obj = { "OBJECT_ID": objs, "ENTRANCE": entr, "FLOOR": floor, "ROOM_NUMBER": rnum, "ROOM_FOR_ID": RoomF, "ROOM_TYPE_ID": r_t, "CHAMB_AMOUNT": countR, "GEN_SQUARE": GenS, "LIVE_SQUARE": LiveS, "adbs": txtDatas };
+        var apartId = sessionStorage.getItem("apart")
+        var obj = { "ROOM_ID": apartId,"OBJECT_ID": objs, "ENTRANCE": entr, "FLOOR": floor, "ROOM_NUMBER": rnum, "ROOM_FOR_ID": RoomF, "ROOM_TYPE_ID": r_t, "CHAMB_AMOUNT": countR, "GEN_SQUARE": GenS, "LIVE_SQUARE": LiveS, "adbs": txtDatas };
         console.log(obj)
     }
     console.log(obj)
@@ -11117,7 +11128,7 @@ function UpdateApart(obj, lg, RoomNumber, RoomType) {
     $.ajax({
         error: function (e) { $('.ui-loader-background').hide(); $('#loader').hide(); alert(e.responseJSON.Message) },
         type: "POST",
-        url: "AddApartment.aspx/UpdateRoom",
+        url: "AddApartment.aspx/UpdateRoom_",
         data: JSON.stringify(obj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -13133,8 +13144,10 @@ function changeDatatableElementStructures(e) {
     $('#SearchForTable').append($(TableFilter).children('label').children('input[type="search"]').attr('class', 'w-100 transp border-0 ml-2 pr-2 pt-1'))
     $(TableFilter).remove();
 }
-function deltab(itm, e) {
-    if (e == undefined) {
+function deltab(itm) {
+    var apartId = sessionStorage.getItem("apart")
+  
+    if (apartId == "null") {
         var AllLs = $('.ls').length
         if (AllLs >= 2) {
             $(itm).parent().parent('.ls').remove()
@@ -13145,12 +13158,14 @@ function deltab(itm, e) {
         }
     }
     else {
-        var Allli = $("#nav-tab li").length;
+        itm = $(itm).parent().parent().attr('itemid')
+        var Allli = $(".ls").length;
         var text;
-        if (Allli > 2) {
+        if (Allli > 1) {
 
+            
 
-            text = $(e).parent().children('[data-toggle="tab"]').text();
+            text = $('#lc_' + itm).val();
             $("#myModal2 #deleteO").val("ДА")//cls
             $("#myModal2 #cls").val("НЕТ")
             alertWithButton2("Удалить лицевой счет", "Вы действительно хотите удалить лицевой счет № " + text + " ?", "", text, itm, "", "")
@@ -13255,6 +13270,7 @@ function SaveAccFromExcel(ObjId, fl) {
     })
 }
 function DeleteAccData(nmbr, t, objT, rmnum, lg) {
+   
     var Obj = { "nmbr": nmbr }
     $.ajax({
         error: function (e) { $('.ui-loader-background').hide(); $('#loader').hide(); alert(e.responseJSON.Message) },
@@ -13265,29 +13281,19 @@ function DeleteAccData(nmbr, t, objT, rmnum, lg) {
         dataType: "json",
 
         success: function (data) {
-            // if (Allli > 2) {
-            $('#nav-tab li[itemid=' + t + ']').remove();
-            //  var tab = 
-            // $('div[data-tab="' + itm + '"]').remove();
-            //$('.tab-content').find('#tab' + itm + '').remove();
-            $('#tab' + t).remove();
-            $('.tab-content > div:last').attr('class', 'tab-pane fade active in');
-            $('#nav-tab > li:nth-last-child(2)').attr('class', 'active');
-            var lg = sessionStorage.getItem("Log")
+          
+            
+            $('.ls[itemid="' + t + '"]').remove(); // $('#tab' + t).remove();
+         
+           
             var ClId = sessionStorage.getItem("Clien_ID")
             var selObj = $("#objs option:selected").text();
             SaveLog("Удалить лицевой счеть", "Важное", "Личный кабинет (Профиль Управляющего)", "Управляющий", 'Удален лицевой счет" ' + nmbr + '(Объект ' + selObj + ')"', lg)
             $('#lgs').empty();
             getlog2(lg, "Manager");
-            /**/
-            //(txt, item, tipObj, RoomNumber);
-            /**/
-            // (txt, item, tipObj, RoomNumber, log);
-            // }
-            //else {
-            //    
-            //}
             $("#myModal2 #cls").click();
+           
+          
         }
     })
 }
@@ -13921,63 +13927,22 @@ function hideErrsMessage(e) {
 
 }
 function hideErrsMessage2(e) {
-    var ids = $(e).attr('id');
+    var ids = $(e).attr('class');
     if (ids.indexOf('dol') > -1) {
         $('.dols').next('br').remove();
         $('.dols').remove();
-        //var dolvalue = $(e).val()
-        //if (dolvalue < 0 || dolvalue > 1) {
-        //    $(e).val(0)
-        //}
+       
     }
     if (ids.indexOf('tel') > -1) {
         $('.tels').next('br').remove()
         $('.tels').remove()
 
-        // //console.log('tel')
-        // $(e).mask("(99) 9999*-9999"); 
-        //$(e).usPhoneFormat({
-        //    format: '(xxx) xxx-xxxx',
-        //});
-        //$(e).inputmask("(999) 999-999");
-
-        //#PhoneV_E
+     
         var phone = $(e).val();
         var success = true
-        var PhoneNumbers = phone.match(/\d/g)
+        //var PhoneNumbers = phone.match(/\d/g)
 
-        //if (PhoneNumbers != null && PhoneNumbers.length == 10) {
-        //    var tabCOunt = $('.tab-content .tab-pane').length;
-        //    var emailCntCOunt = $('.tab-content .tab-pane #itms input[type="tel"]').length
-        //    for (var i = 0; i < tabCOunt; i++) {
-        //        $('.tab-content .tab-pane:eq(' + i + ') #itms input[type="tel"]').each(function () {
-        //            var tel = $(this).val()
-        //            if ($(e).attr('id') != $(this).attr('id')) {
-
-        //                if (tel == phone) {
-        //                    success = false;
-        //                    $('#SaveUp').attr('disabled', 'disabled');
-        //                    if ($('#PhoneV_E').length == 0) {
-
-        //                        ErrorForControls($(e), 'Номер телефона повторяется')
-        //                    }
-
-        //                }
-        //                else {
-        //                    success = true
-        //                    $('#SaveUp').removeAttr('disabled')
-        //                    $('#PhoneV_E').remove();
-        //                }
-        //            }
-        //        })
-        //    }
-        //}
-        //if (success == true) {
-        //    if (phone.length == 15) {
-        //        //  CheckEmail_or_Phone(e, phone, "")
-        //        //   //console.log("15")
-        //    }
-        //}
+      
         $(e).inputmask("(999) 999-99-99");
     }
     if (ids.indexOf('email') > -1) {
@@ -14044,11 +14009,11 @@ function hideErrsMessage2(e) {
         var obj = $("#objs").val();
         CHeckAccNumber(e, $(e).val(), obj)
     }
-    var email = $(e).attr('id')
-    if ($(e).attr('id') != 'floor' && $(e).attr('type') != 'tel' && email.indexOf('email') == -1 && email.indexOf('lc') == -1) {
-        var number = $(e).val().replace('-', '')
-        $(e).val(number)
-    }
+    var email = $(e).attr('class')
+    //if ($(e).attr('id') != 'floor' && $(e).attr('type') != 'tel' && email.indexOf('email') == -1 && email.indexOf('lc') == -1) {
+    //    var number = $(e).val().replace('-', '')
+    //    $(e).val(number)
+    //}
     if ($(e).attr('id') === 'countR' || $(e).attr('id') === 'AmRoom') {
 
         var countR = ($('#countR').val().length == 0) ? 0 : parseInt($('#countR').val());
@@ -14298,12 +14263,7 @@ function SaveApart(o, lg) {
             // SaveLog("Добавить помещение", "Важное", "Личный кабинет (Профиль Управляющего)", "Управляющий", "Добавлено новое помещение", Log)
             var json = JSON.parse(data.d);
             if (json.result == "OK") {
-                //nomer
-                // var jObj = JSON.parse(o);
-                //SaveLog("Добавить помещение", "Важное", "Личный кабинет (Профиль Управляющего)", "Управляющий", "Добавлено новое помещение (Объект " + $('#objs option:selected').text() + " /Номер помещения " + $('#rnum').val() + ")", lg)
-                //for (var i = 0; i < o.length; i++) {
-
-                //}
+                 
                 SaveLog("Добавить помещение", "Важное", "Личный кабинет (Профиль Управляющего)", "Управляющий", "Добавлен лицевой счет  (Объект " + $('#objs option:selected').text() + " /Номер помещения " + $('#rnum').val() + ")", lg)
                 window.location.href = "Apartments.aspx";
             }
@@ -14341,7 +14301,12 @@ function gtTypeOfroom(slc, roomf) {
 
             }
             if (slc != "") {
-                $("#r_t").val(slc).select2('val', slc)
+
+             
+                    $('#r_t').select2('destroy')
+                    $('#r_t').val(slc).select2()
+                
+                
             }
 
 
@@ -14426,7 +14391,8 @@ function getRoomFor(slc) {
 
             }
             if (slc != "") {
-                $("#RoomF").val(slc).select2('val', slc)
+                $('#RoomF').select2('destroy')
+                $("#RoomF").val(slc).select2();
             }
         }
     })
