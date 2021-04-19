@@ -22,12 +22,28 @@ namespace Kvorum_App
         protected global::System.Web.UI.WebControls.DataList dlClaims;
         protected void Page_Load(object sender, EventArgs e)
         {
+            //var modal = @"<div id='myModal2' class='modal2' style='z-index:1000; display:block;'> <!-- Modal content --> <div class='modal-content2' style=''> <div class='modal-header2'><span class='close2' id='close_'>×</span> <h2 id='mh2' style='text-lign:left;color:white'>Выберите Страницу</h2></div><div class='modal-body2' style='height:60% !important;padding:15px;display:inline-block;'> <h3><a link='/Manager/Apartments.aspx' role='1' onclick='SendToPage(this)' style='cursor:pointer;font-size:77%;color:#337ab7;'>На Страницу Профиль управляющего</a></h3><hr><h3><a link='/Responsible_Admin/Resp_Requests.aspx' role='16' onclick='SendToPage(this)' style='cursor:pointer'> На Страницу Профиль Ответственного</a></h3><hr></div><div class='modal-footer2' style='text-align:left;'></div></div></div>";
+            //Response.Write(modal);
+            // hdnSession.Value= System.Web.HttpContext.Current.Session["Login_Data"].ToString();
 
-          //  string Login_Data = System.Web.HttpContext.Current.Session["Login_Data"].ToString();
-          //  dynamic parsedJson = JsonConvert.DeserializeObject(Login_Data);
+            HttpCookie mycookie =  HttpContext.Current.Request.Cookies["mycookie"];
+            HttpContext.Current.Response.Cookies.Remove("mycookie");
+            mycookie.Expires =   DateTime.Now.AddDays(-1d);
+            mycookie.Value = System.Web.HttpContext.Current.Session["Login_Data"].ToString(); 
+            HttpContext.Current.Response.SetCookie(mycookie);
+
+            //HttpContext.Current.Response.Cookies.Remove("mycookie");
+            //HttpCookie mycookie = new HttpCookie("mycookie");
+            //mycookie.Expires = DateTime.Now.AddDays(-1d);
+            //mycookie.Value = System.Web.HttpContext.Current.Session["Login_Data"].ToString();
+            //HttpContext.Current.Response.Cookies.Add(mycookie);
+            //response.Cookies.Add()
+
+            //string Login_Data = System.Web.HttpContext.Current.Session["Login_Data"].ToString();
+            //dynamic parsedJson = JsonConvert.DeserializeObject(Login_Data);
             //string name = parsedJson.name;
-          //  LoginSystem(name, "123456Aa");
-       //  var claims = HttpContext.Current.GetOwinContext();
+            // LoginSystem(name, "123456Aa");
+            //  var claims = HttpContext.Current.GetOwinContext();
             //foreach (var claim in ((System.Security.Claims.ClaimsPrincipal)User).Claims)
             //{
             //    var type = claim.Type;
@@ -51,7 +67,90 @@ namespace Kvorum_App
             //}
         }
 
+        [WebMethod]
+        public static string LoginIdentity(string Id_,string isTenant)
+        {
+            string returnvalue = null;
+            int Id = 0;
+            if (Id_.Contains('@'))
+            {
+                Id =Convert.ToInt32(Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "5"), new SqlParameter("@mail", Id_) }, CommandType.StoredProcedure));
+            }
+            else
+            {
+                Id_ = Id_.Substring(Id_.IndexOf('_')+1);
+                Id = Convert.ToInt32(Id_);
+            }
+            string Client_Id = Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@lg", Id), new SqlParameter("@procType", "1") }, CommandType.StoredProcedure).ToString();//1
 
+    
+            int count = (int)Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "2"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure);//2
+            if (count == 1)
+            {
+                string role = Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "3"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure).ToString();//3
+                string RolName = "Нечего";
+                string ModulName = "Нечего";
+                if (role == "4")
+                {
+                    ModulName = "Клиентское администрирование";
+                    RolName = "Администратор";
+                }
+                if (role == "3")
+                {
+                    ModulName = "Диспетчерская";
+                    RolName = "Диспетчер";
+                }
+                if (role == "1")
+                {
+                    ModulName = "Личный кабинет";
+                    RolName = "Управляющий";
+                }
+                if (role == "15")
+                {
+                    ModulName = "Диспетчерская";
+                    RolName = "Диспетчер поставщика";
+                }
+                if (role == "17")
+                {
+                    ModulName = "Диспетчерская";
+                    RolName = "Супер Диспетчер";
+                }
+
+                if (role == "16")
+                {
+                    ModulName = "Профиль Управляющего";
+                    RolName = "Ответственный";
+                }
+                Mydb.ExecuteNoNQuery("usp_ConstructorAPI_INSERT_LOG", new SqlParameter[] {
+                                    new SqlParameter("@EVENT_TYPE","Вход"),
+                                    new SqlParameter("@EVENT_STATUS","Систем"),
+                                    new SqlParameter("@EVENT_ROLE",RolName),
+                                    new SqlParameter("@EVENT_MODULE",ModulName),
+                                    new SqlParameter("@EVENT_MESSAGE","Пользователь вошел в систему"),
+                                    new SqlParameter("@EVENT_MAKER",Id)}, CommandType.StoredProcedure);
+                returnvalue = "{\"result\" : \"1\",\"Id\" :\"" + Client_Id + "\",\"LogId\" :\"" + Id + "\",\"RoleId\":\"" + role + "\"}";
+            }
+            if (count > 1)
+            {
+                DataTable dt = Mydb.ExecuteReadertoDataTable("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "3"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure);//3
+                List<LoginDatas> lds = new List<LoginDatas>();
+                foreach (DataRow item in dt.Rows)
+                {
+                    LoginDatas ld = new LoginDatas();
+                    ld.ROLE_ID = item["ROLE_ID"].ToString();
+                    ld.Id = Client_Id;
+                    ld.LogId = Id.ToString();
+                    ld.result = "5";
+                    lds.Add(ld);
+
+                }
+                JavaScriptSerializer js = new JavaScriptSerializer();
+               
+                returnvalue = js.Serialize(lds);
+             
+            }
+            return returnvalue;
+        }
 
         [WebMethod]
         public static string LoginSystem(string email_, string pass_)
@@ -141,13 +240,13 @@ namespace Kvorum_App
                         pass_ = GetMd5HashData(pass_);
                         if (pass_mail == pass_)
                         {
-                            string Client_Id = Mydb.ExecuteScalar("select CLIENT_ID FROM ACCOUNT WHERE E_MAIL=@mail", new SqlParameter[] { new SqlParameter("@mail", email_) }, CommandType.Text).ToString();
+                            string Client_Id = Mydb.ExecuteScalar("select CLIENT_ID FROM ACCOUNT WHERE E_MAIL=@mail", new SqlParameter[] { new SqlParameter("@mail", email_) }, CommandType.Text).ToString();//4
 
-                            string loginId = Mydb.ExecuteScalar("select LOG_IN_ID FROM ACCOUNT WHERE E_MAIL=@mail", new SqlParameter[] { new SqlParameter("@mail", email_) }, CommandType.Text).ToString();
-                            int count = (int)Mydb.ExecuteScalar("select COUNT(*) from ACCOUNT_ROLE where LOG_IN_ID =@lg", new SqlParameter[] { new SqlParameter("@lg", Convert.ToInt32(loginId)) }, CommandType.Text);
+                            string loginId = Mydb.ExecuteScalar("select LOG_IN_ID FROM ACCOUNT WHERE E_MAIL=@mail", new SqlParameter[] { new SqlParameter("@mail", email_) }, CommandType.Text).ToString();//5
+                            int count = (int)Mydb.ExecuteScalar("select COUNT(*) from ACCOUNT_ROLE where LOG_IN_ID =@lg", new SqlParameter[] { new SqlParameter("@lg", Convert.ToInt32(loginId)) }, CommandType.Text);//2
                             if (count == 1)
                             {
-                                string role = Mydb.ExecuteScalar("select ROLE_ID from MODUL_ROLE where MR_ID=(select MR_ID from ACCOUNT_ROLE where LOG_IN_ID =@lg)", new SqlParameter[] { new SqlParameter("@lg", Convert.ToInt32(loginId)) }, CommandType.Text).ToString();
+                                string role = Mydb.ExecuteScalar("select ROLE_ID from MODUL_ROLE where MR_ID=(select MR_ID from ACCOUNT_ROLE where LOG_IN_ID =@lg)", new SqlParameter[] { new SqlParameter("@lg", Convert.ToInt32(loginId)) }, CommandType.Text).ToString();//3
                                 string RolName = "Нечего";
                                 string ModulName = "Нечего";
                                 if (role == "4")
@@ -216,7 +315,7 @@ namespace Kvorum_App
                 if (IdCount!=0)
                 {
                     // email_ = email_.Substring(email_.LastIndexOf('_') + 1);
-                    int Id = (int)Mydb.ExecuteScalar("select LOG_IN_ID from ACCOUNT where [LOGIN]=@login", new SqlParameter[] { new SqlParameter("@login", email_) }, CommandType.Text);//Convert.ToInt32(email_);
+                    int Id = (int)Mydb.ExecuteScalar("select LOG_IN_ID from ACCOUNT where [LOGIN]=@login", new SqlParameter[] { new SqlParameter("@login", email_) }, CommandType.Text);//Convert.ToInt32(email_);//5
                     int Count_DBPass = (int)Mydb.ExecuteScalar("select count(PASSWORD) from ACCOUNT where LOG_IN_ID=@id", new SqlParameter[] { new SqlParameter("@id", Id) }, CommandType.Text);
                     if (Count_DBPass > 0)
                     {
@@ -226,13 +325,13 @@ namespace Kvorum_App
                         {
                             if (SUPPLIER_EMAIL != "Login_742")
                             {
-                                string Client_Id = Mydb.ExecuteScalar("select CLIENT_ID FROM ACCOUNT WHERE LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@lg", Id) }, CommandType.Text).ToString();
+                                string Client_Id = Mydb.ExecuteScalar("select CLIENT_ID FROM ACCOUNT WHERE LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@lg", Id) }, CommandType.Text).ToString();//1
 
                                 //string loginId = Mydb.ExecuteScalar("select LOG_IN_ID FROM ACCOUNT WHERE E_MAIL=@mail", new SqlParameter[] { new SqlParameter("@mail", email_) }, CommandType.Text).ToString();
-                                int count = (int)Mydb.ExecuteScalar("select COUNT(*) from ACCOUNT_ROLE where LOG_IN_ID =@lg", new SqlParameter[] { new SqlParameter("@lg", Id) }, CommandType.Text);
+                                int count = (int)Mydb.ExecuteScalar("select COUNT(*) from ACCOUNT_ROLE where LOG_IN_ID =@lg", new SqlParameter[] { new SqlParameter("@lg", Id) }, CommandType.Text);//2
                                 if (count == 1)
                                 {
-                                    string role = Mydb.ExecuteScalar("select ROLE_ID from MODUL_ROLE where MR_ID=(select MR_ID from ACCOUNT_ROLE where LOG_IN_ID =@lg)", new SqlParameter[] { new SqlParameter("@lg", Id) }, CommandType.Text).ToString();
+                                    string role = Mydb.ExecuteScalar("select ROLE_ID from MODUL_ROLE where MR_ID=(select MR_ID from ACCOUNT_ROLE where LOG_IN_ID =@lg)", new SqlParameter[] { new SqlParameter("@lg", Id) }, CommandType.Text).ToString();//3
                                     string RolName = "Нечего";
                                     string ModulName = "Нечего";
                                     if (role == "4")
@@ -277,7 +376,7 @@ namespace Kvorum_App
                                 }
                                 if (count > 1)
                                 {
-                                    DataTable dt = Mydb.ExecuteReadertoDataTable("select ROLE_ID from MODUL_ROLE where MR_ID in (select MR_ID from ACCOUNT_ROLE where LOG_IN_ID =@lg)", new SqlParameter[] { new SqlParameter("@lg", Id) }, CommandType.Text);
+                                    DataTable dt = Mydb.ExecuteReadertoDataTable("select ROLE_ID from MODUL_ROLE where MR_ID in (select MR_ID from ACCOUNT_ROLE where LOG_IN_ID =@lg)", new SqlParameter[] { new SqlParameter("@lg", Id) }, CommandType.Text);//3
                                     List<LoginDatas> lds = new List<LoginDatas>();
                                     foreach (DataRow item in dt.Rows)
                                     {

@@ -1,5 +1,7 @@
-﻿$(function() {
-    console.log();
+﻿ 
+$(function () {
+
+   
     //if (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === "") {
     //    //window.location = 'https://upravbot.ru' + window.location.pathname + window.location.hash; if ((window.location.hostname.toLowerCase().indexOf('upravbot.ru') == -1) || (window.location.hostname.toLowerCase().indexOf('.24') != -1)) 
     //}
@@ -9,10 +11,12 @@
     //    }
 
     //}
+ 
     $("#eml").click(function ()
     {
         window.location ="mailto:help-desk@upravbot.ru"
     })
+   
     //localStorage.setItem("CLient_Id","123")
    
     //  $("#EmailC").val($.cookie())
@@ -542,139 +546,8 @@
                         success: function (data) {
 
                             // loading.show()
-                            console.log(data.d)
-
-                            var jsondata = $.parseJSON(data.d);
-                            // console.log(jsondata[0].ROLE_ID)
-                            if (jsondata.result == 3) {
-                                alertMessage("Неудачное действие", "Пожалуйста, подтвердите свою регистрацию по электронной почте", ":(")
-                            }
-                            if (jsondata.result == 1) {
-                                sessionStorage.setItem("Clien_ID", jsondata.Id)
-                                //sessionStorage.setItem("LLogId", jsondata.LogId)
-                                sessionStorage.setItem("Log", jsondata.LogId)
-                                var LinksTexs1 = []
-                                if (jsondata.RoleId == 4) {
-                                    sessionStorage.setItem("Log", jsondata.LogId)
-                                    sessionStorage.setItem("Clien_ID", jsondata.Id)
-                                    window.location.href = "Client_Admin/RegisterUO.aspx";
-                                    sessionStorage.setItem("role", jsondata.RoleId)
-                                    //LinksTexs1.push({ "Link_": "Client_Admin/RegisterUO.aspx", "LinkText_": " На Страницу Администрирование" })
-                                    //LinksTexs1.push({ "Link_": "/Manager/Apartments.aspx", "LinkText_": " На Страницу Профиль управляющего" })
-                                    //LinksTexs1.push({ "Link_": "Disp_Admin/RegisterRequest.aspx", "LinkText_": " На Страницу Диспечерская" })
-                                    //PopupSelect("Выберите Страницу", JSON.stringify(LinksTexs1))
-                                }
-                                if (jsondata.RoleId == 3) {
-                                    sessionStorage.setItem("Log", jsondata.LogId)
-                                    sessionStorage.setItem("Clien_ID", jsondata.Id)
-                                    sessionStorage.setItem("role", jsondata.RoleId)
-                                    window.location.href = "Disp_Admin/RegisterRequest.aspx";
-                                }
-                                if (jsondata.RoleId == 1) {
-                                    sessionStorage.setItem("Log", jsondata.LogId)
-                                    sessionStorage.setItem("Clien_ID", jsondata.Id)
-                                    sessionStorage.setItem("role", jsondata.RoleId)
-                                    window.location.href = "/Manager/Apartments.aspx";
-                                    // alert("ok")
-                                }
-                                if (jsondata.RoleId == 15) {
-                                    
-                                    sessionStorage.setItem("Log", jsondata.LogId)
-                                    sessionStorage.setItem("Clien_ID", jsondata.Id)
-                                    sessionStorage.setItem("role", jsondata.RoleId)
-                                    window.location.href ="/Supplier_Admin/SRequests.aspx"
-                                }
-
-                                if (jsondata.RoleId == 17) {
-                                     
-                                    sessionStorage.setItem("Log", jsondata.LogId)
-                                    sessionStorage.setItem("Clien_ID", jsondata.Id)
-                                    sessionStorage.setItem("role", jsondata.RoleId)
-                                    window.location.href = "/Super_Disp/DispRequests.aspx"
-                                }
-
-                                if (jsondata.RoleId == 16) {
-
-                                    sessionStorage.setItem("Log", jsondata.LogId)
-                                    sessionStorage.setItem("Clien_ID", jsondata.Id)
-                                    sessionStorage.setItem("role", jsondata.RoleId)
-                                    window.location.href = "/Responsible_Admin/Resp_Requests.aspx"
-                                }
-                            }
-                            else if (jsondata.result == 2) {
-                                alertMessage("Неудачное действие", "Неправильное имя пользователя или пароль. Проверьте правильность введенных данных", ":(")
-                            }
-                            else if (jsondata[0].result == 5) {
-                                //alert('ok');
-                                var LinksTexs = []
-                                sessionStorage.setItem("Clien_ID", jsondata[0].Id)
-                                sessionStorage.setItem("Log", jsondata[0].LogId)
-                                for (var i = 0; i < jsondata.length; i++) {
-                                    if (jsondata[i].ROLE_ID == 3) {
-                                        LinksTexs.push({ "Link_": "Disp_Admin/RegisterRequest.aspx", "LinkText_": " На Страницу Диспечерская", "role": jsondata[i].ROLE_ID })
-                                    }
-                                    if (jsondata[i].ROLE_ID == 4) {
-                                        LinksTexs.push({ "Link_": "Client_Admin/RegisterUO.aspx", "LinkText_": " На Страницу Администрирование", "role": jsondata[i].ROLE_ID })
-                                    }
-                                    if (jsondata[i].ROLE_ID == 1) {
-                                        LinksTexs.push({ "Link_": "/Manager/Apartments.aspx", "LinkText_": " На Страницу Профиль управляющего", "role": jsondata[i].ROLE_ID })
-                                    }
-                                    if (jsondata[i].ROLE_ID == 16) {
-                                        LinksTexs.push({ "Link_": "/Responsible_Admin/Resp_Requests.aspx", "LinkText_": " На Страницу Профиль Ответственного", "role": jsondata[i].ROLE_ID })
-                                    }
-                                    if (jsondata[i].ROLE_ID == 17) {
-                                        LinksTexs.push({ "Link_": "/Super_Disp/DispRequests.aspx", "LinkText_": " На Страницу Супер Диспечерская", "role": jsondata[i].ROLE_ID })
-                                    }
-                                }
-                                PopupSelect("Выберите Страницу", JSON.stringify(LinksTexs))
-                            }
-                            else if (jsondata.result == '10.0') {
-                                var guid = jsondata.guid
-                                sessionStorage.setItem('guid', guid)
-                                window.location.href='Offer.aspx'
-                            }
-                            else if (jsondata.result == '11.1'){
-                                //alertMessage("Попробуйте войти позднее.", "Личный кабинет для поставщиков услуг находится в разработке.", ":(")
-                                var guid = jsondata.guid
-                                sessionStorage.setItem("guid_supp", guid)
-                                window.location.href="../Supplier_Office/Requests.aspx"
-                            }
-
-                            //else if (jsondata.result == 2) {
-                            //    //loading.hide()
-                            //    //alert("Данный e-mail уже зарегистрирован")
-                            //    alertMessage("Неудачное действие", "Неправильное имя пользователя или пароль. Проверьте правильность введенных данных", ":(")
-                            //}
-                            //else if (jsondata.result == 3) {
-                            //    window.location.href = 'Client_Admin/AlertingError.aspx?reason=l'
-                            //}
-                            //console.log(jsondata)
-                            //if (jsondata.result != 2 && email.match(/Login_(\d+)$/)) {
-                            //    var LinksTexs = []
-                            //    for (var i = 0; i < jsondata.length; i++) {
-                            //        if (jsondata[i].sm == 1 && jsondata[i].sr == 1) {//Управляющая
-                            //            LinksTexs.push({ "Link_": "Upr.aspx", "LinkText_": " На Страницу Управляющая" })
-                            //        }
-                            //        if (jsondata[i].sm == 4 && jsondata[i].sr == 2) {//Инженерская
-                            //            LinksTexs.push({ "Link_": "Inj.aspx", "LinkText_": " На Страницу Инженерская" })
-                            //        }
-                            //        if (jsondata[i].sm == 4 && jsondata[i].sr == 3) {//Диспечерская
-                            //            var LogId = email.split("_").pop(); //email.substr(email.indexOf('_'))
-                            //            sessionStorage.setItem("Log", LogId)
-                            //            LinksTexs.push({ "Link_": "Disp_Admin/RegisterRequest.aspx", "LinkText_": " На Страницу Диспечерская" })
-                            //        }
-                            //        if (jsondata[i].sm == 2 && jsondata[i].sr == 2) {//Основной Фонд
-                            //            LinksTexs.push({ "Link_": "OF.aspx", "LinkText_": " На Страницу Основной Фонд" })
-                            //        }
-                            //        if (jsondata[i].sm == 3 && jsondata[i].sr == 4) {//Основной Фонд
-                            //            LinksTexs.push({ "Link_": "Admin.aspx", "LinkText_": " На Страницу Aдминстратор" })
-                            //        }
-                            //    }
-
-                            //    PopupSelect("Выберите Страницу", JSON.stringify(LinksTexs))
-
-                            //}
-
+                         LoginProcedure(data)
+                        
 
                         },
                         error: function (r) {
@@ -1388,6 +1261,142 @@
         return pattern_.test(password_)
     }
 });
+//$(document).ready(function () {
+//    $('#idendityLogin').click();
+//})
+//$(window).load(function () {
+//    $('#idendityLogin').click();
+//})
+function LoginProcedure(data)
+{
+    console.log(data.d)
+
+    var jsondata = $.parseJSON(data.d);
+    // console.log(jsondata[0].ROLE_ID)
+    if (jsondata.result == 3) {
+        alertMessage("Неудачное действие", "Пожалуйста, подтвердите свою регистрацию по электронной почте", ":(")
+    }
+    if (jsondata.result == 1) {
+        sessionStorage.setItem("Clien_ID", jsondata.Id)
+        //sessionStorage.setItem("LLogId", jsondata.LogId)
+        sessionStorage.setItem("Log", jsondata.LogId)
+        var LinksTexs1 = []
+        if (jsondata.RoleId == 4) {
+            sessionStorage.setItem("Log", jsondata.LogId)
+            sessionStorage.setItem("Clien_ID", jsondata.Id)
+            window.location.href = "Client_Admin/RegisterUO.aspx";
+            sessionStorage.setItem("role", jsondata.RoleId)
+            //LinksTexs1.push({ "Link_": "Client_Admin/RegisterUO.aspx", "LinkText_": " На Страницу Администрирование" })
+            //LinksTexs1.push({ "Link_": "/Manager/Apartments.aspx", "LinkText_": " На Страницу Профиль управляющего" })
+            //LinksTexs1.push({ "Link_": "Disp_Admin/RegisterRequest.aspx", "LinkText_": " На Страницу Диспечерская" })
+            //PopupSelect("Выберите Страницу", JSON.stringify(LinksTexs1))
+        }
+        if (jsondata.RoleId == 3) {
+            sessionStorage.setItem("Log", jsondata.LogId)
+            sessionStorage.setItem("Clien_ID", jsondata.Id)
+            sessionStorage.setItem("role", jsondata.RoleId)
+            window.location.href = "Disp_Admin/RegisterRequest.aspx";
+        }
+        if (jsondata.RoleId == 1) {
+            sessionStorage.setItem("Log", jsondata.LogId)
+            sessionStorage.setItem("Clien_ID", jsondata.Id)
+            sessionStorage.setItem("role", jsondata.RoleId)
+            window.location.href = "/Manager/Apartments.aspx";
+            // alert("ok")
+        }
+        if (jsondata.RoleId == 15) {
+
+            sessionStorage.setItem("Log", jsondata.LogId)
+            sessionStorage.setItem("Clien_ID", jsondata.Id)
+            sessionStorage.setItem("role", jsondata.RoleId)
+            window.location.href = "/Supplier_Admin/SRequests.aspx"
+        }
+
+        if (jsondata.RoleId == 17) {
+
+            sessionStorage.setItem("Log", jsondata.LogId)
+            sessionStorage.setItem("Clien_ID", jsondata.Id)
+            sessionStorage.setItem("role", jsondata.RoleId)
+            window.location.href = "/Super_Disp/DispRequests.aspx"
+        }
+
+        if (jsondata.RoleId == 16) {
+
+            sessionStorage.setItem("Log", jsondata.LogId)
+            sessionStorage.setItem("Clien_ID", jsondata.Id)
+            sessionStorage.setItem("role", jsondata.RoleId)
+            window.location.href = "/Responsible_Admin/Resp_Requests.aspx"
+        }
+    }
+    else if (jsondata.result == 2) {
+        alertMessage("Неудачное действие", "Неправильное имя пользователя или пароль. Проверьте правильность введенных данных", ":(")
+    }
+    else if (jsondata[0].result == 5) {
+        //alert('ok');
+        var LinksTexs = []
+        sessionStorage.setItem("Clien_ID", jsondata[0].Id)
+        sessionStorage.setItem("Log", jsondata[0].LogId)
+        for (var i = 0; i < jsondata.length; i++) {
+            if (jsondata[i].ROLE_ID == 3) {
+                LinksTexs.push({ "Link_": "Disp_Admin/RegisterRequest.aspx", "LinkText_": " На Страницу Диспечерская", "role": jsondata[i].ROLE_ID })
+            }
+            if (jsondata[i].ROLE_ID == 4) {
+                LinksTexs.push({ "Link_": "Client_Admin/RegisterUO.aspx", "LinkText_": " На Страницу Администрирование", "role": jsondata[i].ROLE_ID })
+            }
+            if (jsondata[i].ROLE_ID == 1) {
+                LinksTexs.push({ "Link_": "/Manager/Apartments.aspx", "LinkText_": " На Страницу Профиль управляющего", "role": jsondata[i].ROLE_ID })
+            }
+            if (jsondata[i].ROLE_ID == 16) {
+                LinksTexs.push({ "Link_": "/Responsible_Admin/Resp_Requests.aspx", "LinkText_": " На Страницу Профиль Ответственного", "role": jsondata[i].ROLE_ID })
+            }
+            if (jsondata[i].ROLE_ID == 17) {
+                LinksTexs.push({ "Link_": "/Super_Disp/DispRequests.aspx", "LinkText_": " На Страницу Супер Диспечерская", "role": jsondata[i].ROLE_ID })
+            }
+        }
+        PopupSelect("Выберите Страницу", JSON.stringify(LinksTexs))
+    }
+    else if (jsondata.result == '10.0') {
+        var guid = jsondata.guid
+        sessionStorage.setItem('guid', guid)
+        window.location.href = 'Offer.aspx'
+    }
+    else if (jsondata.result == '11.1') {
+        //alertMessage("Попробуйте войти позднее.", "Личный кабинет для поставщиков услуг находится в разработке.", ":(")
+        var guid = jsondata.guid
+        sessionStorage.setItem("guid_supp", guid)
+        window.location.href = "../Supplier_Office/Requests.aspx"
+    }
+
+}
+function IdendityLogin() {
+  //  var hdnSession = $('#hdnSession').attr('value')
+    //console.log('hdnSession: ' + hdnSession);
+    var cookie = document.cookie;
+
+    console.log(cookie)
+    cookie = cookie.substring(cookie.indexOf('=') + 1, cookie.indexOf(';'))
+    cookie = JSON.parse(cookie);
+   // var LoginId = cookie.preferred_username.substring(cookie.preferred_username.indexOf('_') + 1, cookie.preferred_username.length)
+    console.log(cookie);
+    //console.log(LoginId)
+    //console.log();
+
+    var obj = { "Id_": cookie.preferred_username, "isTenant": "no" }
+    $.ajax({
+        type: "POST",
+        url: "ClientLogin.aspx/LoginIdentity",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            LoginProcedure(data)
+        },
+        error: function (r) {
+            alert(r.responseText)
+            console.log(r)
+        }
+    })
+}
 function goToLogin()
 {
     window.location.href = "ClientLogin.aspx"; 
