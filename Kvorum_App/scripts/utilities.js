@@ -62,35 +62,7 @@ $(function () {
         }
     }
     
-    function PopupSelect(Header_, link_) {
-        $("#mh2").text(Header_);
-        var parsedLink = JSON.parse(link_)
-        //console.log(parsedLink)href="' + parsedLink[i].Link_ + '"
-        for (var i = 0; i < parsedLink.length; i++) {
-            $(".modal-body2").append('<h3><a link="' + parsedLink[i].Link_ + '" role="' + parsedLink[i].role +'" onclick="SendToPage(this)" style="cursor:pointer">' + parsedLink[i].LinkText_ + '</a></h1><hr/>')
-        }
-        parsedLink = [];
-       // console.log(parsedLink)
-        var modal = document.getElementById('myModal2');
-        var span = document.getElementsByClassName("close_")[0];
-        modal.style.display = "block";
-        $("#close_,#cls").click(function () {
-            modal.style.display = "none";
-            //link_.splice(0, link_.length)
-            // link_ = [];
-            // link_.pop();
-            $(".modal-body2").empty();
-             
-        })
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-               // link_.splice(0, link_.length)
-                // link_ = [];
-                $(".modal-body2").empty();
-            }
-        }
-    }
+   
     function PersAcc_Check(Pers)
     {
         var obj = {
@@ -1267,6 +1239,35 @@ $(function () {
 //$(window).load(function () {
 //    $('#idendityLogin').click();
 //})
+function PopupSelect(Header_, link_) {
+    $("#mh2").text(Header_);
+    var parsedLink = JSON.parse(link_)
+    //console.log(parsedLink)href="' + parsedLink[i].Link_ + '"
+    for (var i = 0; i < parsedLink.length; i++) {
+        $(".modal-body2").append('<h3><a link="' + parsedLink[i].Link_ + '" role="' + parsedLink[i].role + '" onclick="SendToPage(this)" style="cursor:pointer">' + parsedLink[i].LinkText_ + '</a></h1><hr/>')
+    }
+    parsedLink = [];
+    // console.log(parsedLink)
+    var modal = document.getElementById('myModal2');
+    var span = document.getElementsByClassName("close_")[0];
+    modal.style.display = "block";
+    $("#close_,#cls").click(function () {
+        modal.style.display = "none";
+        //link_.splice(0, link_.length)
+        // link_ = [];
+        // link_.pop();
+        $(".modal-body2").empty();
+
+    })
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+            // link_.splice(0, link_.length)
+            // link_ = [];
+            $(".modal-body2").empty();
+        }
+    }
+}
 function LoginProcedure(data)
 {
     console.log(data.d)
@@ -1374,7 +1375,7 @@ function IdendityLogin() {
     var cookie = document.cookie;
 
     console.log(cookie)
-    cookie = cookie.substring(cookie.indexOf('=') + 1, cookie.indexOf(';'))
+    cookie = cookie.substring(cookie.indexOf('=') + 1)
     cookie = JSON.parse(cookie);
    // var LoginId = cookie.preferred_username.substring(cookie.preferred_username.indexOf('_') + 1, cookie.preferred_username.length)
     console.log(cookie);
@@ -1394,6 +1395,19 @@ function IdendityLogin() {
         error: function (r) {
             alert(r.responseText)
             console.log(r)
+        }
+    })
+
+
+    var obj = { "id_token_hint": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjMwQzQ5MzAzOUMyNjlDNzgxRTU1NTkyNTNFMzBDMkU4RTExNjZENkVSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6Ik1NU1RBNXdtbkhnZVZWa2xQakRDNk9FV2JXNCJ9.eyJuYmYiOjE2MTg5Mjc1MzksImV4cCI6MTYxODkzMTEzOSwiaXNzIjoiaHR0cHM6Ly91cHJhdmJvdC5ydS9pZHM0IiwiYXVkIjoiaHR0cHM6Ly91cHJhdmJvdC5ydS9pZHM0L3Jlc291cmNlcyIsImNsaWVudF9pZCI6ImFzcHgiLCJzdWIiOiJlOTEyZGFlNC03ZjJmLTQyNTEtYTYwYy1lMTZiZGJkZTQ1ZmIiLCJhdXRoX3RpbWUiOjE2MTg5Mjc1MzksImlkcCI6ImxvY2FsIiwianRpIjoiNzI1NUUyNTNFRDkwQkUxMjhEREVDMjE0MUNBN0YyNUMiLCJzaWQiOiIxQjk2ODZBRTlCQkI5OTgwRDhGNTEwRTg1QzY4QUU5RiIsImlhdCI6MTYxODkyNzUzOSwic2NvcGUiOlsiYXBpQ29yZSIsInByb2ZpbGUiLCJvcGVuaWQiLCJhcGkxIiwib2ZmbGluZV9hY2Nlc3MiXSwiYW1yIjpbInB3ZCJdfQ.V_s6PrD-sywdi-NiTvTkARXDwl7lco80B9XIEVObiUgyo9GTSrFCzpV6b44c7udLLm_BlgyiFVamV95DUMS_fGVco5YtG5uwB_Og2UKcOlwjp2nY77oj4NhTzAGscyLjUd6PTn1T8mwFnieXlR5XhtqpG7AvgCtuGwcTbJ9QRrLAYGTGZJ4twiWPEeOE1kVRKKzaUeZQOn9GPYChSE9FvB96UMQiwvqifZ420OMGeAKM7KTVap__ZsjxWr3jIJooVodOsXWjxKk7Af29wEybObbhapoKBbtDOFolkIgDZ2VurKxsXpJOuPriLeQ_uzSOVUDRcXmvU_0X0rtrE2LRhg" }
+    $.ajax({
+        type: "POST",
+        url: "https://upravbot.ru/IDS4/connect/endsession",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            console.log();
         }
     })
 }

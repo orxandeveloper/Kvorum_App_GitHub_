@@ -17,7 +17,7 @@ namespace Kvorum_App
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
         protected void login_Click(object sender, EventArgs e)
         {
@@ -25,6 +25,7 @@ namespace Kvorum_App
                      new AuthenticationProperties
                      {
                          RedirectUri = "/ClientLogin.aspx",
+                         
                          
                      }, 
                      OpenIdConnectAuthenticationDefaults.AuthenticationType

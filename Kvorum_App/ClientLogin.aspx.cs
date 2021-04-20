@@ -1,4 +1,5 @@
 ﻿using Kvorum_App.Client_Admin.Utilities;
+using Microsoft.Owin.Security.Cookies;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -22,49 +23,11 @@ namespace Kvorum_App
         protected global::System.Web.UI.WebControls.DataList dlClaims;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //var modal = @"<div id='myModal2' class='modal2' style='z-index:1000; display:block;'> <!-- Modal content --> <div class='modal-content2' style=''> <div class='modal-header2'><span class='close2' id='close_'>×</span> <h2 id='mh2' style='text-lign:left;color:white'>Выберите Страницу</h2></div><div class='modal-body2' style='height:60% !important;padding:15px;display:inline-block;'> <h3><a link='/Manager/Apartments.aspx' role='1' onclick='SendToPage(this)' style='cursor:pointer;font-size:77%;color:#337ab7;'>На Страницу Профиль управляющего</a></h3><hr><h3><a link='/Responsible_Admin/Resp_Requests.aspx' role='16' onclick='SendToPage(this)' style='cursor:pointer'> На Страницу Профиль Ответственного</a></h3><hr></div><div class='modal-footer2' style='text-align:left;'></div></div></div>";
-            //Response.Write(modal);
-            // hdnSession.Value= System.Web.HttpContext.Current.Session["Login_Data"].ToString();
-
-            HttpCookie mycookie =  HttpContext.Current.Request.Cookies["mycookie"];
             HttpContext.Current.Response.Cookies.Remove("mycookie");
-            mycookie.Expires =   DateTime.Now.AddDays(-1d);
-            mycookie.Value = System.Web.HttpContext.Current.Session["Login_Data"].ToString(); 
-            HttpContext.Current.Response.SetCookie(mycookie);
-
-            //HttpContext.Current.Response.Cookies.Remove("mycookie");
-            //HttpCookie mycookie = new HttpCookie("mycookie");
-            //mycookie.Expires = DateTime.Now.AddDays(-1d);
-            //mycookie.Value = System.Web.HttpContext.Current.Session["Login_Data"].ToString();
-            //HttpContext.Current.Response.Cookies.Add(mycookie);
-            //response.Cookies.Add()
-
-            //string Login_Data = System.Web.HttpContext.Current.Session["Login_Data"].ToString();
-            //dynamic parsedJson = JsonConvert.DeserializeObject(Login_Data);
-            //string name = parsedJson.name;
-            // LoginSystem(name, "123456Aa");
-            //  var claims = HttpContext.Current.GetOwinContext();
-            //foreach (var claim in ((System.Security.Claims.ClaimsPrincipal)User).Claims)
-            //{
-            //    var type = claim.Type;
-            //    var   value = claim.Value;
-            //}
-
-            //var claims = //ClaimsPrincipal.Current.Claims;
-            //dlClaims.DataSource = claims;
-            //dlClaims.DataBind();
-            //foreach (var item in dlClaims.Items)
-            //{
-            //    Response.Write(item);
-            //}
-            //if (!Request.IsAuthenticated)
-            //{//d
-            //    HttpContext.Current.GetOwinContext().Authentication.Challenge();
-            //}
-            //else
-            //{
-
-            //}
+            HttpContext.Current.Response.Cookies["mycookie"].Expires = DateTime.Now.AddDays(-1); 
+            HttpCookie mycookie = new HttpCookie("mycookie");
+            mycookie.Value = System.Web.HttpContext.Current.Session["Login_Data"].ToString();
+            HttpContext.Current.Response.Cookies.Add(mycookie);
         }
 
         [WebMethod]
@@ -149,6 +112,19 @@ namespace Kvorum_App
                 returnvalue = js.Serialize(lds);
              
             }
+
+            /*
+              return Redirect(AppConstants.AuthServer() + "/connect/endsession?id_token_hint=" + idToken + "&post_logout_redirect_uri=" + AppConstants.ClientServer() + "/signout-callback-oidc");
+             */
+
+
+            //HttpContext.Current.Response.Redirect("https://upravbot.ru/IDS4/Account/Logout?logoutId=CfDJ8JQq6V4gQ1xPva8MeQadqxUh3pMtraOr8jUvW3qBRzq9wjZC_7fNFZKIYrQJb94_dXsQJdLY64yybb8ZktHoTlmfzsLBfLLKRHIAuq7no_fY4fV35KwYxS6yGoQ10iGckHDmBjHS6pJcM8SwTA141e9htZFEwmiA1BQ9klespO6JcD4xZLTWbHbKm9N0juHicGdGySaC0TS5WQBsdJ3CxhDQeAt9lmcNZLTlv-2zOS8aX1bnW3p_UkLyOOszvEij3SsQSdcxo4GzSMW6UJ5ZhVBO9PizBVpxKTgKf-0ntb1_EMTxBC20xBY1h_foAP_vjsAyt2a8mEFSxRdZRcjiBIM");
+              //HttpContext.Current.Response.Cookies.Remove("cookie");
+              //HttpContext.Current.Response.Cookies["cookie"].Expires = DateTime.Now.AddDays(-1);
+              //HttpContext.Current.GetOwinContext().Authentication.SignOut("Cookies");
+              //HttpContext.Current.GetOwinContext().Authentication.SignOut("oidc");
+              //HttpContext.Current.GetOwinContext().Authentication.SignOut();
+              //  HttpContext.Current.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return returnvalue;
         }
 
