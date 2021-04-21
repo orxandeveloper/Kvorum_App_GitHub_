@@ -1274,6 +1274,9 @@ function LoginProcedure(data)
 
     var jsondata = $.parseJSON(data.d);
     // console.log(jsondata[0].ROLE_ID)
+    if (jsondata.result == 'ErrorIdendity') {
+        window.location.href = 'https://upravbot.ru/IDS4/connect/endsession'
+    }
     if (jsondata.result == 3) {
         alertMessage("Неудачное действие", "Пожалуйста, подтвердите свою регистрацию по электронной почте", ":(")
     }
@@ -1367,7 +1370,7 @@ function LoginProcedure(data)
         sessionStorage.setItem("guid_supp", guid)
         window.location.href = "../Supplier_Office/Requests.aspx"
     }
-
+    
 }
 function IdendityLogin() {
   //  var hdnSession = $('#hdnSession').attr('value')
@@ -1393,23 +1396,24 @@ function IdendityLogin() {
             LoginProcedure(data)
         },
         error: function (r) {
-            alert(r.responseText)
-            console.log(r)
+            window.location.href = 'https://upravbot.ru/IDS4/connect/endsession'
+            //alert(r.responseText)
+            //console.log(r)
         }
     })
 
 
-    var obj = { "id_token_hint": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjMwQzQ5MzAzOUMyNjlDNzgxRTU1NTkyNTNFMzBDMkU4RTExNjZENkVSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6Ik1NU1RBNXdtbkhnZVZWa2xQakRDNk9FV2JXNCJ9.eyJuYmYiOjE2MTg5Mjc1MzksImV4cCI6MTYxODkzMTEzOSwiaXNzIjoiaHR0cHM6Ly91cHJhdmJvdC5ydS9pZHM0IiwiYXVkIjoiaHR0cHM6Ly91cHJhdmJvdC5ydS9pZHM0L3Jlc291cmNlcyIsImNsaWVudF9pZCI6ImFzcHgiLCJzdWIiOiJlOTEyZGFlNC03ZjJmLTQyNTEtYTYwYy1lMTZiZGJkZTQ1ZmIiLCJhdXRoX3RpbWUiOjE2MTg5Mjc1MzksImlkcCI6ImxvY2FsIiwianRpIjoiNzI1NUUyNTNFRDkwQkUxMjhEREVDMjE0MUNBN0YyNUMiLCJzaWQiOiIxQjk2ODZBRTlCQkI5OTgwRDhGNTEwRTg1QzY4QUU5RiIsImlhdCI6MTYxODkyNzUzOSwic2NvcGUiOlsiYXBpQ29yZSIsInByb2ZpbGUiLCJvcGVuaWQiLCJhcGkxIiwib2ZmbGluZV9hY2Nlc3MiXSwiYW1yIjpbInB3ZCJdfQ.V_s6PrD-sywdi-NiTvTkARXDwl7lco80B9XIEVObiUgyo9GTSrFCzpV6b44c7udLLm_BlgyiFVamV95DUMS_fGVco5YtG5uwB_Og2UKcOlwjp2nY77oj4NhTzAGscyLjUd6PTn1T8mwFnieXlR5XhtqpG7AvgCtuGwcTbJ9QRrLAYGTGZJ4twiWPEeOE1kVRKKzaUeZQOn9GPYChSE9FvB96UMQiwvqifZ420OMGeAKM7KTVap__ZsjxWr3jIJooVodOsXWjxKk7Af29wEybObbhapoKBbtDOFolkIgDZ2VurKxsXpJOuPriLeQ_uzSOVUDRcXmvU_0X0rtrE2LRhg" }
-    $.ajax({
-        type: "POST",
-        url: "https://upravbot.ru/IDS4/connect/endsession",
-        data: JSON.stringify(obj),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            console.log();
-        }
-    })
+    //var obj = { "id_token_hint": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjMwQzQ5MzAzOUMyNjlDNzgxRTU1NTkyNTNFMzBDMkU4RTExNjZENkVSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6Ik1NU1RBNXdtbkhnZVZWa2xQakRDNk9FV2JXNCJ9.eyJuYmYiOjE2MTg5Mjc1MzksImV4cCI6MTYxODkzMTEzOSwiaXNzIjoiaHR0cHM6Ly91cHJhdmJvdC5ydS9pZHM0IiwiYXVkIjoiaHR0cHM6Ly91cHJhdmJvdC5ydS9pZHM0L3Jlc291cmNlcyIsImNsaWVudF9pZCI6ImFzcHgiLCJzdWIiOiJlOTEyZGFlNC03ZjJmLTQyNTEtYTYwYy1lMTZiZGJkZTQ1ZmIiLCJhdXRoX3RpbWUiOjE2MTg5Mjc1MzksImlkcCI6ImxvY2FsIiwianRpIjoiNzI1NUUyNTNFRDkwQkUxMjhEREVDMjE0MUNBN0YyNUMiLCJzaWQiOiIxQjk2ODZBRTlCQkI5OTgwRDhGNTEwRTg1QzY4QUU5RiIsImlhdCI6MTYxODkyNzUzOSwic2NvcGUiOlsiYXBpQ29yZSIsInByb2ZpbGUiLCJvcGVuaWQiLCJhcGkxIiwib2ZmbGluZV9hY2Nlc3MiXSwiYW1yIjpbInB3ZCJdfQ.V_s6PrD-sywdi-NiTvTkARXDwl7lco80B9XIEVObiUgyo9GTSrFCzpV6b44c7udLLm_BlgyiFVamV95DUMS_fGVco5YtG5uwB_Og2UKcOlwjp2nY77oj4NhTzAGscyLjUd6PTn1T8mwFnieXlR5XhtqpG7AvgCtuGwcTbJ9QRrLAYGTGZJ4twiWPEeOE1kVRKKzaUeZQOn9GPYChSE9FvB96UMQiwvqifZ420OMGeAKM7KTVap__ZsjxWr3jIJooVodOsXWjxKk7Af29wEybObbhapoKBbtDOFolkIgDZ2VurKxsXpJOuPriLeQ_uzSOVUDRcXmvU_0X0rtrE2LRhg" }
+    //$.ajax({
+    //    type: "POST",
+    //    url: "https://upravbot.ru/IDS4/connect/endsession",
+    //    data: JSON.stringify(obj),
+    //    contentType: "application/json; charset=utf-8",
+    //    dataType: "json",
+    //    success: function (data) {
+    //        console.log();
+    //    }
+    //})
 }
 function goToLogin()
 {

@@ -498,16 +498,16 @@
                         <li class="list-inline-item"><a href="/" class="font-weight-bold font18 green-text">Профиль управляющего</a> </li>
                         <li class="list-inline-item reddish font-weight-bold font18 ">
                             <img src="../img/ellipse.svg" class="greenerSvg mr-2" alt="">
-							<span id="project" class="font-weight-bold">ЖК Весна</span></li>
+							<span id="project" class="font-weight-bold">Выберите объект</span></li>
 							
 													<script>
 						$( document ).ready(function() {
 							$('#objsM').change(function() {
-								var txt = $('.select2-selection__rendered').html();
-								console.log(txt);
+								var txt = $('#objsM option:selected').text();
 								$("#project").html(txt);
 							});
 						});
+	
 						</script>
                     </ul>
                 </li>
@@ -552,7 +552,7 @@
                                         <img src="../img/profile.svg" class="w16 mr-3" alt="" />Мой профиль</a>
                                     <a class="dropdown-item" href="#">
                                         <img src="../img/settings.svg" class="w16 mr-3" alt="" />Настройки</a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="#" id="OutD">
                                         <img src="../img/logout.svg" class="w16 mr-3" alt="" />Выход</a>
                                 </div>
                             </div>
@@ -577,44 +577,44 @@
 
                 <li class="nav-link"><a href="#" class="flexHoriz">
                     <img src="../img/home-ic-bl.svg" class="w24 mr-3" alt="" />
-                    <p class="font-weight-bold mb-0">Главная</p>
+                    <p class="font14b mb-0">Главная</p>
                 </a></li>
                 <li><a href="#" class="flexHoriz">
                     <img src="../img/news-ic-bl.svg" class="w24 mr-3" alt="" />
-                    <p class="font-weight-bold mb-0">Новости</p>
+                    <p class="font14b mb-0">Новости</p>
                 </a></li>
                 <li class="nav-link"><a href="#" class="flexHoriz">
                     <img src="../img/key-ic-bl.svg" class="w24 mr-3" alt="" />
-                    <p class="font-weight-bold mb-0">Помещения и&nbsp;лицевые счета</p>
+                    <p class="font14b mb-0">Помещения и&nbsp;лицевые счета</p>
                 </a></li>
                 <li class="nav-link"><a href="#" class="flexHoriz">
                     <img src="../img/user-ic-bl.svg" class="w24 mr-3" alt="" />
-                    <p class="font-weight-bold mb-0">Собственники и&nbsp;пользователи</p>
+                    <p class="font14b mb-0">Собственники и&nbsp;пользователи</p>
                 </a></li>
                 <li class="nav-link"><a href="#" class="flexHoriz">
                     <img src="../img/meter-ic-bl.svg" class="w24 mr-3" alt="" />
-                    <p class="font-weight-bold mb-0">Приборы учета</p>
+                    <p class="font14b mb-0">Приборы учета</p>
                 </a>
                 </li>
                 <li class="nav-link"><a href="#" class="flexHoriz">
                     <img src="../img/stores-ic-bl.svg" class="w24 mr-3" alt="" />
-                    <p class="font-weight-bold mb-0">Услуги</p>
+                    <p class="font14b mb-0">Услуги</p>
                 </a></li>
                 <li class="nav-link"><a href="#" class="flexHoriz">
                     <img src="../img/tasks-ic-bl.svg" class="w24 mr-3" alt="" />
-                    <p class="font-weight-bold mb-0">Заявки</p>
+                    <p class="font14b mb-0">Заявки</p>
                 </a></li>
                 <li class="nav-link"><a href="#" class="flexHoriz">
                     <img src="../img/permit-ic-bl.svg" class="w24 mr-3" alt="" />
-                    <p class="font-weight-bold mb-0">Пропуск</p>
+                    <p class="font14b mb-0">Пропуск</p>
                 </a></li>
                 <li class="nav-link"><a href="#" class="flexHoriz">
                     <img src="../img/polls-ic-bl.svg" class="w24 mr-3" alt="" />
-                    <p class="font-weight-bold mb-0">Опросы и голосования</p>
+                    <p class="font14b mb-0">Опросы и голосования</p>
                 </a></li>
                 <li class="nav-link"><a href="#" class="flexHoriz">
                     <img src="../img/star-ic-bl.svg" class="w24 mr-3" alt="" />
-                    <p class="font-weight-bold mb-0">Отзывы жителей</p>
+                    <p class="font14b mb-0">Отзывы жителей</p>
                 </a></li>
 
 
@@ -681,33 +681,36 @@
 
                     <li class="nav-link active"><a href="Apartments.aspx" class="flexHoriz">
                         <img src="../img/home-ic-bl.svg" class="w24 mr-3" alt="" />
-                        <p class="font-weight-bold mb-0">Помещения и лицевые счета</p>
+                        <p class="font14b mb-0">Помещения и лицевые счета</p>
                     </a></li>
                     <li class="nav-link"><a href="#" class="flexHoriz">
                         <img src="../img/news-ic-bl.svg" class="w24 mr-3" alt="" />
-                        <p class="font-weight-bold mb-0">Новости</p>
+                        <p class="font14b mb-0">Новости</p>
                     </a></li>
                     <li class="nav-link"><a href="CreatePoll.aspx" class="flexHoriz">
                         <img src="../img/tasks-ic-bl.svg" class="w24 mr-3" alt="" />
-                        <p class="font-weight-bold mb-0">Опросы</p>
+                        <p class="font14b mb-0">Опросы</p>
                     </a></li>
                     <li class="nav-link"><a href="Counters.aspx" class="flexHoriz">
                         <img src="../img/meter-ic-bl.svg" class="w24 mr-3" alt="" />
-                        <p class="font-weight-bold mb-0">Счетчики</p>
+                        <p class="font14b mb-0">Счетчики</p>
                     </a></li>
                    
                     <li class="nav-link"><a href="#" class="flexHoriz">
                         <img src="../img/user-ic-bl.svg" class="w24 mr-3" alt="" />
-                        <p class="font-weight-bold mb-0">Пользователи</p>
+                        <p class="font14b mb-0">Пользователи</p>
                     </a></li> 
 
                 </ol>
                 <hr />
 
             </div>
+			
+			<div class="col-lg-9half col-sm-12 p-0 min-vh-100 bgWhite  ">	<!-- bgLightGrey3 -->
+		<span class="h90"></span>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
-        </div>
+        </div></div>
     </main>
 
     <div id="myModal2" class="modal2" style="">

@@ -26,6 +26,9 @@
     //    });
     //    return;
     //}
+    $('#OutD').click(function () {
+        window.location.href = 'https://upravbot.ru/IDS4/connect/endsession'//'../HomePage.aspx';
+    })
     var Log = sessionStorage.getItem("Log");
     var searchParams = new URLSearchParams(window.location.search)
     var eml = searchParams.get('eml')

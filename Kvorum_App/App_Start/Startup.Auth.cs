@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using IdentityModel;
 using IdentityModel.Client;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
@@ -35,12 +36,17 @@ namespace Kvorum_App
                 SlidingExpiration = true
 
             });
+            string url = "http://172.20.20.115/ClientLogin.aspx";
 
+                //"http://localhost:5002/ClientLogin.aspx"; 
+                //
+                //"http://172.20.20.115/ClientLogin.aspx"
+                //HttpContext.Current.Request.Url.Host + "/ClientLogin.aspx";
             var oidcOptions = new OpenIdConnectAuthenticationOptions
             {
                 ClientId = "aspx",
                 Authority = "https://upravbot.ru/IDS4/",
-                RedirectUri = "http://localhost:5002/ClientLogin.aspx",
+                RedirectUri = url,//"http://localhost:5002/ClientLogin.aspx",
                 Scope = "apiCore profile openid offline_access api1",
                 ResponseType = "code",
                 SignInAsAuthenticationType = "cookie",

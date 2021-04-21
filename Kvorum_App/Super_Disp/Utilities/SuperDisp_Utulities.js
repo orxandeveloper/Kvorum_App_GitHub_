@@ -31,7 +31,7 @@ $(document).ready(function () {
 
 
     $('#OutD').click(function () {
-        window.location.href = '../HomePage.aspx';
+        window.location.href = 'https://upravbot.ru/IDS4/connect/endsession'//'../HomePage.aspx';
     })
     $(".logoMain2,.logoImgSmall").click(function () {
         sessionStorage.clear();

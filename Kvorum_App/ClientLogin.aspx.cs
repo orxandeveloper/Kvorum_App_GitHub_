@@ -7,10 +7,13 @@ using System.Collections.Generic;
  
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Services;
@@ -32,101 +35,155 @@ namespace Kvorum_App
 
         [WebMethod]
         public static string LoginIdentity(string Id_,string isTenant)
-        {
-            string returnvalue = null;
-            int Id = 0;
-            if (Id_.Contains('@'))
+        {   string returnvalue = null;
+            try
             {
-                Id =Convert.ToInt32(Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "5"), new SqlParameter("@mail", Id_) }, CommandType.StoredProcedure));
-            }
-            else
-            {
-                Id_ = Id_.Substring(Id_.IndexOf('_')+1);
-                Id = Convert.ToInt32(Id_);
-            }
-            string Client_Id = Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@lg", Id), new SqlParameter("@procType", "1") }, CommandType.StoredProcedure).ToString();//1
+               
+                int Id = 0;
+                if (Id_.Contains('@'))
+                {
+                    Id = Convert.ToInt32(Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "5"), new SqlParameter("@mail", Id_) }, CommandType.StoredProcedure));
+                }
+                else
+                {
+                    Id_ = Id_.Substring(Id_.IndexOf('_') + 1);
+                    Id = Convert.ToInt32(Id_);
+                }
+                string Client_Id = Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@lg", Id), new SqlParameter("@procType", "1") }, CommandType.StoredProcedure).ToString();//1
 
-    
-            int count = (int)Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "2"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure);//2
-            if (count == 1)
-            {
-                string role = Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "3"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure).ToString();//3
-                string RolName = "Нечего";
-                string ModulName = "Нечего";
-                if (role == "4")
-                {
-                    ModulName = "Клиентское администрирование";
-                    RolName = "Администратор";
-                }
-                if (role == "3")
-                {
-                    ModulName = "Диспетчерская";
-                    RolName = "Диспетчер";
-                }
-                if (role == "1")
-                {
-                    ModulName = "Личный кабинет";
-                    RolName = "Управляющий";
-                }
-                if (role == "15")
-                {
-                    ModulName = "Диспетчерская";
-                    RolName = "Диспетчер поставщика";
-                }
-                if (role == "17")
-                {
-                    ModulName = "Диспетчерская";
-                    RolName = "Супер Диспетчер";
-                }
 
-                if (role == "16")
+                int count = (int)Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "2"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure);//2
+                if (count == 1)
                 {
-                    ModulName = "Профиль Управляющего";
-                    RolName = "Ответственный";
-                }
-                Mydb.ExecuteNoNQuery("usp_ConstructorAPI_INSERT_LOG", new SqlParameter[] {
+                    string role = Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "3"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure).ToString();//3
+                    string RolName = "Нечего";
+                    string ModulName = "Нечего";
+                    if (role == "4")
+                    {
+                        ModulName = "Клиентское администрирование";
+                        RolName = "Администратор";
+                    }
+                    if (role == "3")
+                    {
+                        ModulName = "Диспетчерская";
+                        RolName = "Диспетчер";
+                    }
+                    if (role == "1")
+                    {
+                        ModulName = "Личный кабинет";
+                        RolName = "Управляющий";
+                    }
+                    if (role == "15")
+                    {
+                        ModulName = "Диспетчерская";
+                        RolName = "Диспетчер поставщика";
+                    }
+                    if (role == "17")
+                    {
+                        ModulName = "Диспетчерская";
+                        RolName = "Супер Диспетчер";
+                    }
+
+                    if (role == "16")
+                    {
+                        ModulName = "Профиль Управляющего";
+                        RolName = "Ответственный";
+                    }
+                    Mydb.ExecuteNoNQuery("usp_ConstructorAPI_INSERT_LOG", new SqlParameter[] {
                                     new SqlParameter("@EVENT_TYPE","Вход"),
                                     new SqlParameter("@EVENT_STATUS","Систем"),
                                     new SqlParameter("@EVENT_ROLE",RolName),
                                     new SqlParameter("@EVENT_MODULE",ModulName),
                                     new SqlParameter("@EVENT_MESSAGE","Пользователь вошел в систему"),
                                     new SqlParameter("@EVENT_MAKER",Id)}, CommandType.StoredProcedure);
-                returnvalue = "{\"result\" : \"1\",\"Id\" :\"" + Client_Id + "\",\"LogId\" :\"" + Id + "\",\"RoleId\":\"" + role + "\"}";
-            }
-            if (count > 1)
-            {
-                DataTable dt = Mydb.ExecuteReadertoDataTable("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "3"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure);//3
-                List<LoginDatas> lds = new List<LoginDatas>();
-                foreach (DataRow item in dt.Rows)
+                    returnvalue = "{\"result\" : \"1\",\"Id\" :\"" + Client_Id + "\",\"LogId\" :\"" + Id + "\",\"RoleId\":\"" + role + "\"}";
+                }
+                if (count > 1)
                 {
-                    LoginDatas ld = new LoginDatas();
-                    ld.ROLE_ID = item["ROLE_ID"].ToString();
-                    ld.Id = Client_Id;
-                    ld.LogId = Id.ToString();
-                    ld.result = "5";
-                    lds.Add(ld);
+                    DataTable dt = Mydb.ExecuteReadertoDataTable("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "3"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure);//3
+                    List<LoginDatas> lds = new List<LoginDatas>();
+                    foreach (DataRow item in dt.Rows)
+                    {
+                        LoginDatas ld = new LoginDatas();
+                        ld.ROLE_ID = item["ROLE_ID"].ToString();
+                        ld.Id = Client_Id;
+                        ld.LogId = Id.ToString();
+                        ld.result = "5";
+                        lds.Add(ld);
+
+                    }
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+
+                    returnvalue = js.Serialize(lds);
 
                 }
-                JavaScriptSerializer js = new JavaScriptSerializer();
-               
-                returnvalue = js.Serialize(lds);
-             
-            }
 
+            }
+            catch (Exception ex)
+            {
+
+                returnvalue = "{\"result\" : \"ErrorIdendity\"}";
+            }
             /*
               return Redirect(AppConstants.AuthServer() + "/connect/endsession?id_token_hint=" + idToken + "&post_logout_redirect_uri=" + AppConstants.ClientServer() + "/signout-callback-oidc");
              */
 
 
             //HttpContext.Current.Response.Redirect("https://upravbot.ru/IDS4/Account/Logout?logoutId=CfDJ8JQq6V4gQ1xPva8MeQadqxUh3pMtraOr8jUvW3qBRzq9wjZC_7fNFZKIYrQJb94_dXsQJdLY64yybb8ZktHoTlmfzsLBfLLKRHIAuq7no_fY4fV35KwYxS6yGoQ10iGckHDmBjHS6pJcM8SwTA141e9htZFEwmiA1BQ9klespO6JcD4xZLTWbHbKm9N0juHicGdGySaC0TS5WQBsdJ3CxhDQeAt9lmcNZLTlv-2zOS8aX1bnW3p_UkLyOOszvEij3SsQSdcxo4GzSMW6UJ5ZhVBO9PizBVpxKTgKf-0ntb1_EMTxBC20xBY1h_foAP_vjsAyt2a8mEFSxRdZRcjiBIM");
-              //HttpContext.Current.Response.Cookies.Remove("cookie");
-              //HttpContext.Current.Response.Cookies["cookie"].Expires = DateTime.Now.AddDays(-1);
-              //HttpContext.Current.GetOwinContext().Authentication.SignOut("Cookies");
-              //HttpContext.Current.GetOwinContext().Authentication.SignOut("oidc");
-              //HttpContext.Current.GetOwinContext().Authentication.SignOut();
-              //  HttpContext.Current.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+            //HttpContext.Current.Response.Cookies.Remove("cookie");
+            //HttpContext.Current.Response.Cookies["cookie"].Expires = DateTime.Now.AddDays(-1);
+            //HttpContext.Current.GetOwinContext().Authentication.SignOut("Cookies");
+            //HttpContext.Current.GetOwinContext().Authentication.SignOut("oidc");
+            //HttpContext.Current.GetOwinContext().Authentication.SignOut();
+            //  HttpContext.Current.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+           // examplefunction();
             return returnvalue;
         }
+
+        private static void examplefunction()
+        {
+            /*"eyJhbGciOiJSUzI1NiIsImtpZCI6IjMwQzQ5MzAzOUMyNjlDNzgxRTU1NTkyNTNFMzBDMkU4RTExNjZENkVSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6Ik1NU1RBNXdtbkhnZVZWa2xQakRDNk9FV2JXNCJ9.eyJuYmYiOjE2MTg5ODY1MTAsImV4cCI6MTYxODk5MDExMCwiaXNzIjoiaHR0cHM6Ly91cHJhdmJvdC5ydS9pZHM0IiwiYXVkIjoiaHR0cHM6Ly91cHJhdmJvdC5ydS9pZHM0L3Jlc291cmNlcyIsImNsaWVudF9pZCI6ImFzcHgiLCJzdWIiOiJlOTEyZGFlNC03ZjJmLTQyNTEtYTYwYy1lMTZiZGJkZTQ1ZmIiLCJhdXRoX3RpbWUiOjE2MTg5ODY1MDksImlkcCI6ImxvY2FsIiwianRpIjoiMTI2NkY3NUJBMUEzQ0VFQzAyNkRCNEY2Q0FCMUNDMkQiLCJzaWQiOiIxRkZCQjE2OTM2RkQ2RDNFNDU1NUUxNDJERTREQTEzNCIsImlhdCI6MTYxODk4NjUxMCwic2NvcGUiOlsiYXBpQ29yZSIsInByb2ZpbGUiLCJvcGVuaWQiLCJhcGkxIiwib2ZmbGluZV9hY2Nlc3MiXSwiYW1yIjpbInB3ZCJdfQ.Lhg35sdDGN0oG_c14FJh23Q8Xjf_A4dFujzyFsIYG2Z2Oqyl1V62r04nNb4UHhbCdEnnD33ShzCocpsd8OC15mN_06ImFUhYuzeBPOXpB1cTyUvTnzlvAHylmRFR5NAM4tyx-9GnIg_vz-Rxyzh08SoKij-RTaJTeySeCHswSMxYOR4seRwCsnM0kg0wTb0P7gdk1NvMzrQU4Pryk7qjz2SIwwDB8f1cyCIekTq7n8esCDlxLdEiOanLJ2yzfsUn_veAxUq-l0Pzr4I_dTDsa55H53NqVpD5dR8MpyxVRAWck245obyBQr0apOYX3inoJ4sxGSuSqs7KYyWeS_AO-A"*/
+            string URL = "https://upravbot.ru/IDS4/Account/Logout?logoutId=eyJhbGciOiJSUzI1NiIsImtpZCI6IjMwQzQ5MzAzOUMyNjlDNzgxRTU1NTkyNTNFMzBDMkU4RTExNjZENkVSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6Ik1NU1RBNXdtbkhnZVZWa2xQakRDNk9FV2JXNCJ9.eyJuYmYiOjE2MTg5OTMyNzUsImV4cCI6MTYxODk5Njg3NSwiaXNzIjoiaHR0cHM6Ly91cHJhdmJvdC5ydS9pZHM0IiwiYXVkIjoiaHR0cHM6Ly91cHJhdmJvdC5ydS9pZHM0L3Jlc291cmNlcyIsImNsaWVudF9pZCI6ImFzcHgiLCJzdWIiOiJlOTEyZGFlNC03ZjJmLTQyNTEtYTYwYy1lMTZiZGJkZTQ1ZmIiLCJhdXRoX3RpbWUiOjE2MTg5OTMyNzMsImlkcCI6ImxvY2FsIiwianRpIjoiOTRFRDE0MDY3RkQ3RkM0OTk4MzM4QTM5Q0VENkY5RDIiLCJzaWQiOiI5ODE2RUQ2NzNGMDQwQ0Q0NDczREE4RTEzNDdGNzBBNyIsImlhdCI6MTYxODk5MzI3NSwic2NvcGUiOlsiYXBpQ29yZSIsInByb2ZpbGUiLCJvcGVuaWQiLCJhcGkxIiwib2ZmbGluZV9hY2Nlc3MiXSwiYW1yIjpbInB3ZCJdfQ.im5ToY9BMWBAQGzG7WuIggkUW_UfsDmGLsutPdD-LjDeedCdJ2IVNabRxyz5VKQIbxHmP0rYGe9OQMXzx_MYcdGy9HzAVsHJ0afwT5pINLK1lTgi9BHjDofarMC4bdDQzs8dZhjCZW-dIDFMq-XltxZt0pXY0T2FDux6r9GodvYoLv4YVZZGGITXRE8DOKmTVCzsKigLx61LtrfIcDiv_F8v-OjKenJ9fy-2WM8tqBjokiGgxizgKwGCe9giuOqsd6nWwD3tXmRIx6LTZyfyB21Fem_Bv2HnAU4pDRmHa4GeIgwBPuE__RhSAewzYUffw6oINmyTryXn2lgUm6Ezhg";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+            request.Proxy = HttpWebRequest.DefaultWebProxy;
+            request.Proxy.Credentials = CredentialCache.DefaultNetworkCredentials;
+            request.PreAuthenticate = true;
+            request.ContentType = "application/json";
+            WebResponse webResponse = request.GetResponse();
+            Stream webStream = webResponse.GetResponseStream();
+            StreamReader responseReader = new StreamReader(webStream);
+            string result = responseReader.ReadToEnd();
+            result = result.Replace("\n", "");
+           // result = result.Replace('\', "");
+            HttpContext.Current.Response.Write(responseReader.ReadToEnd());
+
+            /*
+             CfDJ8GERkKiZiUBGtLehhXdUqiTWaCzG5sGCh8AIshs-h1fJ7vIpHOlULL0s7ANtW_V7b3S7zmgBuFlIIznnEQ8jD1bglu1nPfjI4TMf8VHXVL1sO7qYku5QmkpeG0OV5tiOz-gCxVP1CimlhWeqUvigTk23Ot6roYfp6HFfrcmz1n31578Ut6ZoMKyN9SO5K8eY459LfqT8U8uRWaKvH2SbzulGavKchjMG-LHiqs67T0zR8gLeE_SnKPFYAd_AqvF74TeC8y8F25X3X70iPh9f9DrC7YIk4bgx4DOlXHGpIIQDQuFg5pYP4jX4Lt_zKYUZZql-6aUXl4jrk9e1KUiasFc
+             */
+        }
+
+        /*
+         public async Task EndSessionAsync(LogoutRequest request)
+        {
+            var endpoint = _options.ProviderInformation.EndSessionEndpoint;
+            if (endpoint.IsMissing())
+            {
+                throw new InvalidOperationException("Discovery document has no end session endpoint");
+            }
+
+            var url = CreateEndSessionUrl(endpoint, request);
+
+            var browserOptions = new BrowserOptions(url, _options.PostLogoutRedirectUri ?? string.Empty)
+            {
+                Timeout = TimeSpan.FromSeconds(request.BrowserTimeout),
+                DisplayMode = request.BrowserDisplayMode
+            };
+
+            var browserResult = await _options.Browser.InvokeAsync(browserOptions);
+        }
+             */
+
+
 
         [WebMethod]
         public static string LoginSystem(string email_, string pass_)
