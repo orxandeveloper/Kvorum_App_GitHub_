@@ -2411,6 +2411,7 @@
 
     }
     if (loc == '/Manager/CreateNews.aspx') {
+        $('#loader,.ui-loader-background').hide()
         CKEDITOR.replace('editor1', { height: 100 });
         getDateAndTime();
         getProjectNamebyLogin(Log);
@@ -2421,45 +2422,14 @@
         if (NewsGuid != '') {
             GetNewsDetail(NewsGuid)
             $('#SaveNews').click(function () {
-                var SuccessNews = true
-                var dateNews = $('#dateNews').val();
-                dateNews = dateNews.split('-').reverse().join('.')
-                var timeNews = $('#timeNews').val();
-                var HeaderText = $('#HeaderText').val()
-                if (HeaderText.length == 0) {
-                    $('#HeaderTextLbl').remove()
-                    $('#HeaderText').prev().after('<label  id="HeaderTextLbl"style="color:red">Необходимо заполнит поле "Заголовок новости"</label>')
-                    window.setTimeout(function () { $('#HeaderTextLbl').remove() }, 3000);
-                    SuccessNews = false
-                }
-                var NewText = CKEDITOR.instances["NewText"].getData();
-                if (NewText.length == 0) {
-                    $('#NewTextLbl').remove()
-                    $('#NewText').after('<label  id="NewTextLbl"style="color:red">Необходимо заполнит поле "Текст новости"</label>')
-                    window.setTimeout(function () { $('#NewTextLbl').remove() }, 3000);
-                    SuccessNews = false
-                }
-                var PreviewText = $('#PreviewText').val()
-                if (PreviewText.length == 0) {
-                    $('#PreviewTextLbl').remove()
-                    $('#PreviewText').prev().after('<label  id="PreviewTextLbl"style="color:red">Необходимо заполнит поле "Краткий текст"</label>')
-                    window.setTimeout(function () { $('#PreviewTextLbl').remove() }, 3000);
-                    SuccessNews = false
-                }
-                var FileNews = ($('#FileNews').length != 0) ? $('#FileNews').parent().attr('href') : '';
-                var fileName = ($('#FileNews').length != 0) ? $('#fileName').text() : '';
-                var imgNews = ($('#imgNews').length != 0) ? $('#imgNews').attr('src') : '';
-                var ImpNews = $('#ImpNews').prop('checked');
-                var NewsFor = $("input[type='radio'][name='newsFor']:checked").attr('data-project');
-                NewsFor = (NewsFor == undefined) ? '0' : NewsFor;
-                var fixed = $('#fixed').prop('checked')
 
-                if (SuccessNews == true) {
+
+                if (CheckNewsDatas().SuccessNews == true) {
                     var Active = $('#Active').prop('checked')
 
                     $('.ui-loader-background').show();
                     $('#loader').show();
-                    UpdateNews(dateNews, timeNews, NewText, PreviewText, HeaderText, FileNews, fileName, imgNews, ImpNews, NewsFor, Log, Active, fixed, NewsGuid)
+                    //UpdateNews(dateNews, timeNews, NewText, PreviewText, HeaderText, FileNews, fileName, imgNews, ImpNews, NewsFor, Log, Active, fixed, NewsGuid)
                 }
             })
             $('#SavePublish').click(function () {
@@ -2545,45 +2515,13 @@
                 }
             })
             $('#SaveNews').click(function () {
-                var SuccessNews = true
-                var dateNews = $('#dateNews').val();
-                dateNews = dateNews.split('-').reverse().join('.')
-                var timeNews = $('#timeNews').val();
-                var HeaderText = $('#HeaderText').val()
-                if (HeaderText.length == 0) {
-                    $('#HeaderTextLbl').remove()
-                    $('#HeaderText').prev().after('<label  id="HeaderTextLbl"style="color:red">Необходимо заполнит поле "Заголовок новости"</label>')
-                    window.setTimeout(function () { $('#HeaderTextLbl').remove() }, 3000);
-                    SuccessNews = false
-                }
-                var NewText = CKEDITOR.instances["NewText"].getData();
-                if (NewText.length == 0) {
-                    $('#NewTextLbl').remove()
-                    $('#NewText').after('<label  id="NewTextLbl"style="color:red">Необходимо заполнит поле "Текст новости"</label>')
-                    window.setTimeout(function () { $('#NewTextLbl').remove() }, 3000);
-                    SuccessNews = false
-                }
-                var PreviewText = $('#PreviewText').val()
-                if (PreviewText.length == 0) {
-                    $('#PreviewTextLbl').remove()
-                    $('#PreviewText').prev().after('<label  id="PreviewTextLbl"style="color:red">Необходимо заполнит поле "Краткий текст"</label>')
-                    window.setTimeout(function () { $('#PreviewTextLbl').remove() }, 3000);
-                    SuccessNews = false
-                }
-                var FileNews = ($('#FileNews').length != 0) ? $('#FileNews').parent().attr('href') : '';
-                var fileName = ($('#FileNews').length != 0) ? $('#fileName').text() : '';
-                var imgNews = ($('#imgNews').length != 0) ? $('#imgNews').attr('src') : '';
-                var ImpNews = $('#ImpNews').prop('checked');
-                var NewsFor = $("input[type='radio'][name='newsFor']:checked").attr('data-project');
-                NewsFor = (NewsFor == undefined) ? '0' : NewsFor;
-                var fixed = $('#fixed').prop('checked')
-
-                if (SuccessNews == true) {
-                    SaveNews(dateNews, timeNews, NewText, PreviewText, HeaderText, FileNews, fileName, imgNews, ImpNews, NewsFor, Log, false, fixed)
+                CheckNewsDatas()
+                if (CheckNewsDatas().SuccessNews == true) {
+                    // SaveNews(dateNews, timeNews, NewText, PreviewText, HeaderText, FileNews, fileName, imgNews, ImpNews, NewsFor, Log, false, fixed)
                 }
             })
         }
-
+       
         $("#filesN").change(function () {
 
 
@@ -3474,6 +3412,46 @@
 
 
 })
+function CheckNewsDatas() {
+    var SuccessNews = true
+    var dateNews = $('#dateNews').val();
+    dateNews = dateNews.split('-').reverse().join('.')
+    var timeNews = $('#timeNews').val();
+    var HeaderText = $('#HeaderText').val()
+    if (HeaderText.length == 0) {
+        $('#HeaderTextLbl').remove()
+        $('#HeaderText').prev().after('<label  id="HeaderTextLbl"style="color:red">Необходимо заполнит поле "Заголовок новости"</label>')
+        window.setTimeout(function () { $('#HeaderTextLbl').remove() }, 3000);
+        SuccessNews = false
+    }
+    var NewText = CKEDITOR.instances["NewText"].getData();
+    if (NewText.length == 0) {
+        //$('#NewTextLbl').remove()
+        //$('#NewText').after('<label  id="NewTextLbl"style="color:red">Необходимо заполнит поле "Текст новости"</label>')
+        ErrorForControls($('#HeaderText'),'Необходимо заполнит поле "Текст новости"')
+     //   window.setTimeout(function () { $('#NewTextLbl').remove() }, 3000);
+        SuccessNews = false
+    }
+    var PreviewText = $('#PreviewText').val()
+    if (PreviewText.length == 0) {
+     //   $('#PreviewTextLbl').remove()
+       // $('#PreviewText').prev().after('<label  id="PreviewTextLbl"style="color:red">Необходимо заполнит поле "Краткий текст"</label>')
+        ErrorForControls($('#PreviewText'), 'Необходимо заполнит поле "Краткий текст"')
+     //   window.setTimeout(function () { $('#PreviewTextLbl').remove() }, 3000);
+        SuccessNews = false
+    }
+    var FileNews = ($('#FileNews').length != 0) ? $('#FileNews').parent().attr('href') : '';
+    var fileName = ($('#FileNews').length != 0) ? $('#fileName').text() : '';
+    var imgNews = ($('#imgNews').length != 0) ? $('#imgNews').attr('src') : '';
+    var ImpNews = $('#ImpNews').prop('checked');
+    var NewsFor = $("input[type='radio'][name='newsFor']:checked").attr('data-project');
+    NewsFor = (NewsFor == undefined) ? '0' : NewsFor;
+    var fixed = $('#fixed').prop('checked')
+    var NewsFor = $("input[type='radio'][name='newsFor']:checked").attr('data-project');
+    var retJson = { SuccessNews: SuccessNews, dateNews: dateNews, timeNews: timeNews, HeaderText: HeaderText, NewText: NewText, PreviewText: PreviewText, FileNews: FileNews, fileName: fileName, imgNews: imgNews, ImpNews: ImpNews, NewsFor: NewsFor, fixed: fixed }
+    console.log(retJson)
+    return retJson
+}
 function addTab(lastitm, jdata) {
 
     $('.ls').children('div:first').children('.removing3').remove()
@@ -4495,6 +4473,8 @@ function GetNewsRegister(Log) {
                     }
                 }
             })
+
+            $('#loader,.ui-loader-background').hide()
         }
     })
 }

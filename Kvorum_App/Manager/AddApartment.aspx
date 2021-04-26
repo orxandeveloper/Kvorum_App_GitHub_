@@ -275,7 +275,7 @@
             width: 11%;
         }
 
-        .red_Placeholder::placeholder {
+        .red_Placeholder:placeholder {
             /* Chrome, Firefox, Opera, Safari 10.1+ */
             color: red;
             opacity: 1; /* Firefox */
