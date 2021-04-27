@@ -61,7 +61,7 @@ $('.col-lg-9half').toggleClass('max-vh-100');
 		<div class="col-sm-5">	
 
 
-            <div class="border p-3 rounded8 column-flex">
+            <div id="forNewsDiv" class="border p-3 rounded8 column-flex">
                 <h4 class="font16b">Проект, к которому относится новость</h4>
 				
 				<div class="radio-item pl-0">

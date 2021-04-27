@@ -2425,99 +2425,34 @@
 
 
                 if (CheckNewsDatas().SuccessNews == true) {
-                    var Active = $('#Active').prop('checked')
-
                     $('.ui-loader-background').show();
                     $('#loader').show();
-                    //UpdateNews(dateNews, timeNews, NewText, PreviewText, HeaderText, FileNews, fileName, imgNews, ImpNews, NewsFor, Log, Active, fixed, NewsGuid)
+                    UpdateNews(CheckNewsDatas().dateNews, CheckNewsDatas().timeNews, CheckNewsDatas().NewText, CheckNewsDatas().PreviewText, CheckNewsDatas().HeaderText, CheckNewsDatas().FileNews, CheckNewsDatas().fileName, CheckNewsDatas().imgNews, CheckNewsDatas().ImpNews, CheckNewsDatas().NewsFor, Log, CheckNewsDatas().Active, CheckNewsDatas().fixed,NewsGuid)
                 }
             })
             $('#SavePublish').click(function () {
-                var SuccessNews = true
-                var dateNews = $('#dateNews').val();
-                dateNews = dateNews.split('-').reverse().join('.')
-                var timeNews = $('#timeNews').val();
-                var HeaderText = $('#HeaderText').val()
-                if (HeaderText.length == 0) {
-                    $('#HeaderTextLbl').remove()
-                    $('#HeaderText').prev().after('<label  id="HeaderTextLbl"style="color:red">Необходимо заполнит поле "Заголовок новости"</label>')
-                    window.setTimeout(function () { $('#HeaderTextLbl').remove() }, 3000);
-                    SuccessNews = false
-                }
-                var NewText = CKEDITOR.instances["NewText"].getData();
-                if (NewText.length == 0) {
-                    $('#NewTextLbl').remove()
-                    $('#NewText').after('<label  id="NewTextLbl"style="color:red">Необходимо заполнит поле "Текст новости"</label>')
-                    window.setTimeout(function () { $('#NewTextLbl').remove() }, 3000);
-                    SuccessNews = false
-                }
-                var PreviewText = $('#PreviewText').val()
-                if (PreviewText.length == 0) {
-                    $('#PreviewTextLbl').remove()
-                    $('#PreviewText').prev().after('<label  id="PreviewTextLbl"style="color:red">Необходимо заполнит поле "Краткий текст"</label>')
-                    window.setTimeout(function () { $('#PreviewTextLbl').remove() }, 3000);
-                    SuccessNews = false
-                }
-                var FileNews = ($('#FileNews').length != 0) ? $('#FileNews').parent().attr('href') : '';
-                var fileName = ($('#FileNews').length != 0) ? $('#fileName').text() : '';
-                var imgNews = ($('#imgNews').length != 0) ? $('#imgNews').attr('src') : '';
-                var ImpNews = $('#ImpNews').prop('checked');
-                var NewsFor = $("input[type='radio'][name='newsFor']:checked").attr('data-project');
-                NewsFor = (NewsFor == undefined) ? '0' : NewsFor;
-                var fixed = $('#fixed').prop('checked')
-
-                if (SuccessNews == true) {
+                
+                if (CheckNewsDatas().SuccessNews == true) {
                     $('.ui-loader-background').show();
                     $('#loader').show();
-                    UpdateNews(dateNews, timeNews, NewText, PreviewText, HeaderText, FileNews, fileName, imgNews, ImpNews, NewsFor, Log, true, fixed, NewsGuid)
+                    UpdateNews(CheckNewsDatas().dateNews, CheckNewsDatas().timeNews, CheckNewsDatas().NewText, CheckNewsDatas().PreviewText, CheckNewsDatas().HeaderText, CheckNewsDatas().FileNews, CheckNewsDatas().fileName, CheckNewsDatas().imgNews, CheckNewsDatas().ImpNews, CheckNewsDatas().NewsFor, Log, true, CheckNewsDatas().fixed, NewsGuid)
                 }
             })
         }
         else {
             $('#SavePublish').click(function () {
-                var SuccessNews = true
-                var dateNews = $('#dateNews').val();
-                dateNews = dateNews.split('-').reverse().join('.')
-                var timeNews = $('#timeNews').val();
-                var HeaderText = $('#HeaderText').val()
-                if (HeaderText.length == 0) {
-                    $('#HeaderTextLbl').remove()
-                    $('#HeaderText').prev().after('<label  id="HeaderTextLbl"style="color:red">Необходимо заполнит поле "Заголовок новости"</label>')
-                    window.setTimeout(function () { $('#HeaderTextLbl').remove() }, 3000);
-                    SuccessNews = false
-                }
-                var NewText = CKEDITOR.instances["NewText"].getData();
-                if (NewText.length == 0) {
-                    $('#NewTextLbl').remove()
-                    $('#NewText').after('<label  id="NewTextLbl"style="color:red">Необходимо заполнит поле "Текст новости"</label>')
-                    window.setTimeout(function () { $('#NewTextLbl').remove() }, 3000);
-                    SuccessNews = false
-                }
-                var PreviewText = $('#PreviewText').val()
-                if (PreviewText.length == 0) {
-                    $('#PreviewTextLbl').remove()
-                    $('#PreviewText').prev().after('<label  id="PreviewTextLbl"style="color:red">Необходимо заполнит поле "Краткий текст"</label>')
-                    window.setTimeout(function () { $('#PreviewTextLbl').remove() }, 3000);
-                    SuccessNews = false
-                }
-                var FileNews = ($('#FileNews').length != 0) ? $('#FileNews').parent().attr('href') : '';
-                var fileName = ($('#FileNews').length != 0) ? $('#fileName').text() : '';
-                var imgNews = ($('#imgNews').length != 0) ? $('#imgNews').attr('src') : '';
-                var ImpNews = $('#ImpNews').prop('checked');
-                var NewsFor = $("input[type='radio'][name='newsFor']:checked").attr('data-project');
-                NewsFor = (NewsFor == undefined) ? '0' : NewsFor;
-                var fixed = $('#fixed').prop('checked')
+             
 
-                if (SuccessNews == true) {
+                if (CheckNewsDatas().SuccessNews == true) {
                     $('.ui-loader-background').show();
                     $('#loader').show();
-                    SaveNews(dateNews, timeNews, NewText, PreviewText, HeaderText, FileNews, fileName, imgNews, ImpNews, NewsFor, Log, true, fixed)
+                    SaveNews(CheckNewsDatas().dateNews, CheckNewsDatas().timeNews, CheckNewsDatas().NewText, CheckNewsDatas().PreviewText, CheckNewsDatas().HeaderText, CheckNewsDatas().FileNews, CheckNewsDatas().fileName, CheckNewsDatas().imgNews, CheckNewsDatas().ImpNews, CheckNewsDatas().NewsFor, Log, true, CheckNewsDatas().fixed)
                 }
             })
             $('#SaveNews').click(function () {
-                CheckNewsDatas()
+              
                 if (CheckNewsDatas().SuccessNews == true) {
-                    // SaveNews(dateNews, timeNews, NewText, PreviewText, HeaderText, FileNews, fileName, imgNews, ImpNews, NewsFor, Log, false, fixed)
+                    SaveNews(CheckNewsDatas().dateNews, CheckNewsDatas().timeNews, CheckNewsDatas().NewText, CheckNewsDatas().PreviewText, CheckNewsDatas().HeaderText, CheckNewsDatas().FileNews, CheckNewsDatas().fileName, CheckNewsDatas().imgNews, CheckNewsDatas().ImpNews, CheckNewsDatas().NewsFor,Log, false, CheckNewsDatas().fixed)
                 }
             })
         }
@@ -2622,7 +2557,7 @@
                 //$('#ModalBNP').children('.modal-contentBnp').children('.modal-bodybnp').append('<div>' + NewText + '</div>')
                 //$('#ModalBNP').children('.modal-contentBnp').children('.modal-bodybnp').find('h2').css('color', 'black')
                 //$('#ModalBNP').children('.modal-contentBnp').children('.modal-bodybnp').children('div:eq(1)').append('<input type="button" onclick="closeNewsPreview(this)" id="newsCansel" value="Отмена" style="float: right;background: white;font-size: 18px;width: 103px;">')
-                $('#ModalBNP').children('.modal-contentBnp').children('.modal-bodybnp').append('<div class="newsChunk" ><h4><span class="newsDate">' + dateNews + '</span>' + HeaderText + '</h4><img src="' + imgNews + '" style="float: left; margin: 5px 10px 0 0; height: 8.5em; width: auto;" /><p id="Ptext">' + PreviewText + '...<a onclick="ShowMore()">Подробнее</a></a></p><div style="margin-top: 6%;"><input type="button" onclick="closeNewsPreview(this)" id="newsCansel" value="Отмена" style="float: right;background: white;font-size: 18px;width: 103px;"><input type="button" onclick="SaveNews2(this)" id="newsCansel" value="Сохранить новость" style="float: right;background: white;font-size: 18px;width: auto;margin-right: 3%;margin-left: 3%;"><input type="button" onclick="PublishNews2(this)" id="newsCansel" value="Опубликовать новость" style="float: right;background: white;font-size: 18px;width: auto;"></div></div>')
+                $('#ModalBNP').children('.modal-contentBnp').children('.modal-bodybnp').append('<div class="newsChunk" ><h4><span class="newsDate">' + dateNews + '</span>' + HeaderText + '</h4><img src="' + imgNews + '" style="float: left; margin: 5px 10px 0 0; height: 8.5em; width: auto;" /><p id="Ptext">' + PreviewText + '...<a onclick="ShowMore()">Подробнее</a></a></p><div style="margin-top: 6%;float: right;"><input type="button" onclick="closeNewsPreview(this)" id="newsCansel" value="Отмена" class="ml-auto btn btn1 outline shadow-none mr-3"><input type="button" onclick="PublishNews2(this)" id="newsCansel" value="Опубликовать новость" class="btn btn1 mr-3" style="width: auto;"><input type="button" onclick="SaveNews2(this)" id="newsCansel" value="Сохранить новость" class="btn btn1"></div></div>')
                 if (imgNews.length == 0) {
                     $('.newsChunk').children('img').remove();
                 }
@@ -3447,8 +3382,8 @@ function CheckNewsDatas() {
     var NewsFor = $("input[type='radio'][name='newsFor']:checked").attr('data-project');
     NewsFor = (NewsFor == undefined) ? '0' : NewsFor;
     var fixed = $('#fixed').prop('checked')
-    var NewsFor = $("input[type='radio'][name='newsFor']:checked").attr('data-project');
-    var retJson = { SuccessNews: SuccessNews, dateNews: dateNews, timeNews: timeNews, HeaderText: HeaderText, NewText: NewText, PreviewText: PreviewText, FileNews: FileNews, fileName: fileName, imgNews: imgNews, ImpNews: ImpNews, NewsFor: NewsFor, fixed: fixed }
+    var Active = $('#Active').prop('checked')
+    var retJson = { SuccessNews: SuccessNews, dateNews: dateNews, timeNews: timeNews, HeaderText: HeaderText, NewText: NewText, PreviewText: PreviewText, FileNews: FileNews, fileName: fileName, imgNews: imgNews, ImpNews: ImpNews, NewsFor: NewsFor, fixed: fixed, Active: Active }
     console.log(retJson)
     return retJson
 }
@@ -4518,8 +4453,12 @@ function GetNewsDetail(guid) {
             }
             $('#fixed').prop('checked', j[0].TOP_ATTACHED)
 
-            $('#fixed').before('<div style="border-style: groove; border-color: linen; width: 32%;"><span></span><br><input type="radio" id="Active" name="Activate" data-project="23"><span id="forAlbl" style="margin-right: 15px;"> Активно</span><input type="radio" checked="checked" name="Activate" id="NoneActive"><span> не Активно</span></div>')
+            $('#forNewsDiv').after('<div class="border p-3 rounded8 column-flex"><div class="radio-item pl-0"> <input type="radio" id="Active" name="Activate" data-project="23"> <label for="Active">Активно</label> </div> <div class="radio-item pl-0"> <input type="radio" name="Activate" id="NoneActive"> <label for="NoneActive" >не Активно</label> </div> </div>')
+
+
+            //.after('<div style="border-style: groove; border-color: linen; width: 32%;"><span></span><br><input type="radio" id="Active" name="Activate" data-project="23"><span id="forAlbl" style="margin-right: 15px;"> Активно</span><input type="radio" checked="checked" name="Activate" id="NoneActive"><span> не Активно</span></div>')
             $('#Active').prop('checked', j[0].ACTIVE)
+            $('label[for="dateNews"],label[for="timeNews"],label[for="HeaderText"]').attr('class', 'transp backLab')
         }
     })
 }
@@ -4532,21 +4471,8 @@ function SaveNews2() {
     var Log = sessionStorage.getItem("Log");
     if (NewsGuid != '') {
 
-        var FileNews = ($('#FileNews').length != 0) ? $('#FileNews').parent().attr('href') : '';
-        var fileName = ($('#FileNews').length != 0) ? $('#fileName').text() : '';
-        var imgNews = ($('#imgNews').length != 0) ? $('#imgNews').attr('src') : '';
-        var ImpNews = $('#ImpNews').prop('checked');
-        var NewsFor = $("input[type='radio'][name='newsFor']:checked").attr('data-project');
-        NewsFor = (NewsFor == undefined) ? '0' : NewsFor;
-        var fixed = $('#fixed').prop('checked')
-        var PreviewText = $('#PreviewText').val()
-        var NewText = CKEDITOR.instances["NewText"].getData();
-        var dateNews = $('#dateNews').val();
-        dateNews = dateNews.split('-').reverse().join('.')
-        var timeNews = $('#timeNews').val();
-        var HeaderText = $('#HeaderText').val()
-        var Active = $('#Active').prop('checked')
-        UpdateNews(dateNews, timeNews, NewText, PreviewText, HeaderText, FileNews, fileName, imgNews, ImpNews, NewsFor, Log, Active, fixed, NewsGuid)
+
+        UpdateNews(CheckNewsDatas().dateNews, CheckNewsDatas().timeNews, CheckNewsDatas().NewText, CheckNewsDatas().PreviewText, CheckNewsDatas().HeaderText, CheckNewsDatas().FileNews, CheckNewsDatas().fileName, CheckNewsDatas().imgNews, CheckNewsDatas().ImpNews, CheckNewsDatas().NewsFor, Log, CheckNewsDatas().Active, CheckNewsDatas().fixed,NewsGuid)
     }
     else {
         $('#SaveNews').click();
@@ -4557,20 +4483,8 @@ function PublishNews2() {
     var NewsGuid = sessionStorage.getItem('NewsGuid')
     var Log = sessionStorage.getItem("Log");
     if (NewsGuid != '') {
-        var FileNews = ($('#FileNews').length != 0) ? $('#FileNews').parent().attr('href') : '';
-        var fileName = ($('#FileNews').length != 0) ? $('#fileName').text() : '';
-        var imgNews = ($('#imgNews').length != 0) ? $('#imgNews').attr('src') : '';
-        var ImpNews = $('#ImpNews').prop('checked');
-        var NewsFor = $("input[type='radio'][name='newsFor']:checked").attr('data-project');
-        NewsFor = (NewsFor == undefined) ? '0' : NewsFor;
-        var fixed = $('#fixed').prop('checked')
-        var PreviewText = $('#PreviewText').val()
-        var NewText = CKEDITOR.instances["NewText"].getData();
-        var dateNews = $('#dateNews').val();
-        dateNews = dateNews.split('-').reverse().join('.')
-        var timeNews = $('#timeNews').val();
-        var HeaderText = $('#HeaderText').val()
-        UpdateNews(dateNews, timeNews, NewText, PreviewText, HeaderText, FileNews, fileName, imgNews, ImpNews, NewsFor, Log, true, fixed, NewsGuid)
+       
+        UpdateNews(CheckNewsDatas().dateNews, CheckNewsDatas().timeNews, CheckNewsDatas().NewText, CheckNewsDatas().PreviewText, CheckNewsDatas().HeaderText, CheckNewsDatas().FileNews, CheckNewsDatas().fileName, CheckNewsDatas().imgNews, CheckNewsDatas().ImpNews, CheckNewsDatas().NewsFor, Log, true, CheckNewsDatas().fixed, NewsGuid)
     }
     else {
         $('#SavePublish').click();
@@ -10830,7 +10744,8 @@ function GetMeterTypesFilter() {
 
             for (var i = 0; i < jsondata_.length; i++) {
                 //$("#mtrsTypeF").append('<option value="' + jsondata_[i].ROOM_ID + '">' + jsondata_[i].FIRST_NAME + '</option>')
-                $('#mtrsTypeF').append('<input type="checkbox" data-url="null" value=' + jsondata_[i].ROOM_ID + '   class="dispDatas"><label class="checkBx">' + jsondata_[i].FIRST_NAME + '</label>')
+                $('#mtrsTypeF').append('<input type="checkbox" data-url="null" id="rmFor' + jsondata_[i].ROOM_ID + '" value=' + jsondata_[i].ROOM_ID + '   class="dispDatas checkbox-item"><label class="checkBx" for="rmFor' + jsondata_[i].ROOM_ID + '">' + jsondata_[i].FIRST_NAME + '</label>')
+                //.append('<input type="checkbox" data-url="null" value=' + jsondata_[i].ROOM_ID + '   class="dispDatas"><label class="checkBx">' + jsondata_[i].FIRST_NAME + '</label>')
 
             }
             //$('#mtrsTypeF').multiselect({
@@ -10987,7 +10902,8 @@ function getROomTYpeForfilter() {
 
             for (var i = 0; i < jsondata_.length; i++) {
                 // $("#rmTypeF").append('<option value="' + jsondata_[i].ROOM_ID + '">' + jsondata_[i].ROOM_TYPE + '</option>')
-                $('#rmTypeF').append('<input type="checkbox" data-url="null" value=' + jsondata_[i].ROOM_ID + '   class="dispDatas"><label class="checkBx">' + jsondata_[i].ROOM_TYPE + '</label>')
+                $('#rmTypeF').append('<input type="checkbox" data-url="null" id="rmtype' + jsondata_[i].ROOM_ID + '" value=' + jsondata_[i].ROOM_ID + '   class="dispDatas checkbox-item"><label class="checkBx" for="rmtype' + jsondata_[i].ROOM_ID + '">' + jsondata_[i].ROOM_TYPE + '</label>')
+                //.append('<input type="checkbox" data-url="null" value=' + jsondata_[i].ROOM_ID + '   class="dispDatas"><label class="checkBx">' + jsondata_[i].ROOM_TYPE + '</label>')
             }
             //$('#rmTypeF').multiselect({
 

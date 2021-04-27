@@ -171,8 +171,8 @@
             width: 100%; /* Full width */
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(9, 118, 255, 0.4); /* Black w/ opacity */
+           
+            background-color: rgb(0 0 0 / 20%); /* Black w/ opacity */
         }
 
         /* Modal Content */
@@ -625,7 +625,7 @@
 
     <main class="te p-0">
         <div class="ui-loader-background"></div>
-        <div id="loader" style="position: fixed;display: block;"></div>
+        <div id="loader" style="position: fixed;display: none;"></div>
         <div class="row m-0 h-100">
             <div class="col-lg-2half col-sm-12 p-0 bgWhite shadow-line">
                 <span class="h90"></span>
@@ -718,8 +718,9 @@
         <!-- Modal content -->
         <div class="modal-content2" style="">
             <div class="modal-header2" style="background-color: white">
-                <span class="close2" id="close_">&times;</span>
+                
                 <h2 id="mh2" style="text-align: left; color: black">Ошибка</h2>
+				<span class="close2 ml-auto" id="close_">&times;</span>
             </div>
             <div class="modal-body2" style="height: 100px; height: 100px; padding: 15px; /* min-width: 100px; */display: inline-block;">
                 <p id="txt2" style="font-size: 23px;">Some text in the Modal Body</p>
@@ -770,44 +771,43 @@
     <div id="GenPass" class="modal2" >
 
         <!-- Modal content -->
-        <div class="modal-content2" style="width: 40%">
-            <div class="modal-header2" style="background-color: white">
-                <span class="close2" style="color: black" id="closeGEN">×</span>
-                <h2 id="mh3" style="text-align: left; color: black">ГЕНЕРИРОВАНИЕ ПАРОЛЕЙ "Москва,Краснопахорское,Варварино,Нагорная ул , Д. 43, К. 76"</h2>
+        <div class="modal-content2 bgWhite rounded16 shadow p-4" style="width: fit-content;">
+            <div class="modal-header2 flexHoriz" style="background-color: white">
+                <h2 id="mh3" class="font18b textBlack mr-3">ГЕНЕРИРОВАНИЕ ПАРОЛЕЙ "Москва,Краснопахорское,Варварино,Нагорная ул , Д. 43, К. 76"</h2>
+				<span class="close2 ml-auto mr-3" style="color: black" id="closeGEN"><img src="../img/close.svg" class="w24" alt=""></span>
             </div>
-            <div class="modal-body2" style="height: 100px; height: 100px; padding: 15px; /* min-width: 100px; */display: inline-block;">
+            <div class="modal-body2" style="">
                 <div id="loadLC">
 
                     <div style="padding-left: 20px;">
-
+						
                         <select id="ObjAdr">
                         </select>
 
                         <%--<input type="number" value="7" id="psExp1" style="width: 8%; float: right; text-align: center; margin-right: 60%;">
-
                         <label>Срок действия пароля в днях</label>--%>
                         <div>
                             <br>
-                            <input type="checkbox" id="sms2" data-ras="no" style="margin-right: 15px;">Сделать смс-рассылку
+                            <input type="checkbox" id="sms2" data-ras="no" class="checkbox-item"><label for="sms2">Сделать смс-рассылку</label>
                         <br>
-                            <input type="checkbox" id="em2" data-ras="no" style="margin-right: 15px;">Сделать рассылку на электронную почту
+                            <input type="checkbox" id="em2" data-ras="no" class="checkbox-item"><label for="em2">Сделать рассылку на электронную почту</label>
                 
                         <br>
                         </div>
-                        <br>
+             
                         <label>Лицевые счета для которых необходимо сформировать пароли : </label>
                         <br>
 
-                        <input type="checkbox" id="bezPar" style="margin-right: 15px;">Показать лицевые счета без паролей
+                        <input type="checkbox" id="bezPar" class="checkbox-item"><label for="bezPar">Показать лицевые счета без паролей</label>
                         <br>
                         <%-- <input type="checkbox" id="prosrec" style="margin-right: 15px;">Показать лицевые счета с просроченными паролями--%>
                     </div>
-                    <table class="table">
+                    <table class="mngTable w-100 mb-3">
                         <thead>
                             <tr>
                                 <th>
-                                    <input type="checkbox" id="=SAll" onclick="selectAll(this)" name="name" value="" />
-                                    Выбрать все</th>
+                                   <input type="checkbox" id="=SAll" onclick="selectAll(this)" name="name" value="" class="checkbox-item"/>
+                                   <label for="SAll" class="font14 mb-0">Выбрать все</label></th>
                                 <th>ЛС</th>
                                 <th>Назначение помещения</th>
                                 <th>Тип помещения</th>
@@ -818,13 +818,13 @@
                         <tbody id="roomsPass">
                         </tbody>
                     </table>
-                    <br>
+              
                 </div>
 
             </div>
-            <div class="modal-footer2" style="text-align: left; background-color: white">
+            <div class="modal-footer2 w-100 flexCenter" style=" background-color: white">
 
-                <input type="button" id="GenPassMass" class="btn genBtn" name="name" value="СГЕНЕРИРОВАТЬ" style="width: 25%; height: 78%; background-color: rgb(0,100,223); color: white; font-weight: 700; margin-left: 39%;">
+                <input type="button" id="GenPassMass" class="btn btn1 flexCenter" name="name" value="СГЕНЕРИРОВАТЬ">
             </div>
         </div>
 
@@ -832,46 +832,45 @@
     <div id="ModalBNP" class="modalBnp" style="display: none;">
 
         <!-- Modal content -->
-        <div class="modal-contentBnp">
-            <div class="modal-headerBnp">
-                <span class="closebnp" id="closebnp">×</span>
-                <h2 style="/* padding-top: 10px; */">Загрузка начислений и платежей</h2>
+        <div class="modal-contentBnp bgWhite rounded16 shadow p-4">
+            <div class="modal-headerBnp flexHoriz">
+                <h2 class="font24b textBlack">Загрузка начислений и платежей</h2>
+				<span class="closebnp ml-auto mr-3" id="closebnp">
+					<img src="../img/close.svg" class="w24" alt="Закрыть"/>
+				</span>
             </div>
             <div class="modal-bodybnp">
-                <div id="loadBnP" style="width: 100%; margin-top: -32px;">
-                    <div id="sled" style="padding-left: 20px;">
-                        <br>
+                <div id="loadBnP" class="w-100">
+                    <div id="sled">
+                        
                         <p>Поля, выделенные красным цветом на скачиваемой форме загрузки начислений и платежей, обязательны для заполнения. </p>
                         <p>Тип начисления/платежа «ЖКУ» означает жилищно-коммунальные услуги, «КР» - капитальный ремонт. </p>
                         <p>При заполнении полей «Остаток на начало периода» и «Остаток на конец периода» значения со знаком «+» означают переплату жителя; значения со знаком «-» означают долг жителя.</p>
                         <p>Для услуг «Итого» все поля обязательны для заполнения.</p>
 
-                        <strong>Обратите внимание, если в систему ранее уже была загружена информация по начислениям и платежам по данному л/с за данный период по данной услуге, при повторной загрузке (если все данные заполнены корректно) данные обновляются.</strong>
-                        <br>
-                        <br />
-                        <a href="../img/Форма загрузки начислений и платежей.xlsx">Форма для загрузки начислений и платежей</a><input type="file" onchange="BNPFileChange(this)" style="margin-top: 22px;" id="fileBnP">
+                        <p><strong>Обратите внимание, если в систему ранее уже была загружена информация по начислениям и платежам по данному л/с за данный период по данной услуге, при повторной загрузке (если все данные заполнены корректно) данные обновляются.</strong></p>
+                      
+                        <p><a href="../img/Форма загрузки начислений и платежей.xlsx">Форма для загрузки начислений и платежей</a></p>
+						<input type="file" onchange="BNPFileChange(this)" style="margin-top: 22px;" id="fileBnP">
                     </div>
-                    <br>
-                    <div style="padding-left: 20px;" class="col-md-12">
-                        <div class="col-md-6" style="width: 30%;"
-                            id="SuccessText">
+                  
+                    <div class="row mt-3">
+                        <div class="col-md-6" id="SuccessText">
                             <label id="Successlbl"></label>
                         </div>
                         <div class="col-md-6">
-                            <a id="loadPmnt1" class="btn logBtn" style="display: none; margin-left: 40%; height: 42px;">ЗАГРУЗИТЬ ДАННЫЕ</a>
+                            <a id="loadPmnt1" class="btn btn1 white right">ЗАГРУЗИТЬ ДАННЫЕ</a>
                         </div>
 
                         <!--  <button class="btn logBtn" style="background:#ccc">Отмена</button> -->
                     </div>
-                    <div style="padding-left: 20px;" class="col-md-12">
-                        <div class="col-md-6" style="width: 30%;"
-                            id="ErrorText">
+                    <div class="row">
+                        <div class="col-md-6" id="ErrorText">
                             <label id="Errorlbl"></label>
                         </div>
                         <div class="col-md-6">
-                            <a id="loadPmn_t_Error" class="btn logBtn" style="display: none; margin-left: 43%; width: 31.5%; margin-top: 10px; height: 42px;">СКАЧАТЬ ФАЙЛ</a>
+                            <a id="loadPmn_t_Error" class="btn btn1 white right" style="display: none;">СКАЧАТЬ ФАЙЛ</a>
                         </div>
-                        <div style="clear: both; height: 10px;">&nbsp;</div>
                     </div>
                 </div>
             </div>

@@ -111,17 +111,37 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+<div class="row w-100 m-0 min-vh-100">
+	<div class="col-sm-12 p-0">
 
-    <h2>Счетчики</h2>
+<div class="p-4">	
+    <h2 class="font24b textBlack mt-2 mb-4">Счетчики</h2>
 
-    <div style="padding-left: 20px; margin-top: 20px;">
-        <button id="uplCounter" class="btn genBtn">Загрузить счетчики</button>
-        <button id="downCounter" class="btn genBtn" style="min-width: 15%;">Выгрузить счетчики</button>
-        <a id="Exxcel"  style="display:none"   ></a>
-        <button id="massIndication" onclick="UI_ForIndication(this)" class="btn genBtn" style="float:right;min-width: 15%;">массовая Загрузка показаний</button>
-        <br />
-        <button id="deadLine" class="btn genBtn" style="float: right;">Срок подачи показаний</button>
-        <span id="deadline_txt" style="float: right; margin-right: -27% !important; font-size: 18px; font-weight: 600;"></span>
+    <div class="flexHoriz w-100 ">
+		<a id="arx" title="Счетчики в архиве" class="btn2 btn1 outline shadow-none w56min  h56 mr-3 flexCenter">
+			<img src="../img/zipper.svg" class=" reddishSvg" alt="Счетчики в архиве"></a>		
+		
+	
+		<a id="uplCounter" title="Загрузить счетчики" class="btn2 btn1 outline shadow-none w56 h56 mr-3 flexCenter">
+			<img src="../img/ic-download.svg" class=" reddishSvg" alt="Загрузить счетчики"></a>
+		<a id="downCounter" title="Выгрузить счетчики" class="btn2 btn1 outline shadow-none w56 h56 mr-3 flexCenter">
+			<img src="../img/upload.svg" class=" reddishSvg" alt="Выгрузить счетчики"></a>
+	   
+			<a id="Exxcel"  style="display:none"   ></a>
+			
+	
+	
+		<a id="deadLine" title="Срок подачи показаний" class="btn2 btn1 outline shadow-none w56 h56 mr-3 flexCenter">
+			<img src="../img/time.svg" class=" reddishSvg" alt="Срок подачи показаний"></a>	
+		<span id="deadline_txt" class="font18b mr-3"></span> <!-- margin-right: -27% !important; -->
+
+		
+		<a id="massIndication" onclick="UI_ForIndication(this)" title="массовая Загрузка показаний" class="btn2 btn1 outline shadow-none w56 h56 mr-3 flexCenter">
+			<img src="../img/mass-load.svg" class=" reddishSvg" alt="массовая Загрузка показаний"></a>
+		
+		<a id="addCounter" title="Добавить счетчик" class="btn2 btn1 outline shadow-none w56 h56 mr-3 flexCenter ml-auto">
+				<img src="../img/ic-plus.svg" class=" reddishSvg" alt="Добавить счетчик"></a>	
+
     </div>
     <div style="display: none;">
         <!-- modal -->
@@ -167,53 +187,59 @@
         <button class="btn genBtn">Загрузить</button>
     </div>
 
-    <h4 style="padding-left: 20px;">Фильтр</h4>
-    <div class="row" style="padding-left: 20px; margin-right: -15px;">
+    <h4 class="font18b mt-4">Фильтр</h4>
+    <div class="row mb-4 pr-3">
 
         <div class="col-md-6 col-xs-12">
-            <label>Тип помещения</label>
-            <%-- <select id="rmTypeF"  multiple="multiple" style="width: 100%;display:none">
-                <%--<option value="0">Выберите тип помещения</option> 
+		
+          
+            <%-- <select id="rmTypeF"  multiple="multiple" style="width: 100%;display:none">                <option value="0">Выберите тип помещения</option>             </select>--%>
+		
+		<div class="posRel mb-4">		
+		<input type="hidden" id="temp1" value="1"/>
+            <div class="rmFOr rounded8 border-1" id="rmTypeF" ></div>
+			<label for="temp1" class="transp pointer-none w-50" style="background-color: white !important;">Тип помещения</label>	
+		</div>
+	
+		
+		<div class="posRel w-48 mb-3">	
+           <input id="rumNumF"   type="text" style="width: 100%" value="">
+		    <label for="rumNumF">Номер помещения</label>
+		</div>
 
-            </select>--%>
-            <div class="rmFOr" id="rmTypeF"></div>
-            <label>Номер помещения</label>
-            <input id="rumNumF"   type="text" style="width: 100%" value="">
-
-            <label>Тип счетчика</label>
-            <%--  <select id="mtrsTypeF" multiple="multiple" style="width: 100%;">
-               <%-- <option value="0">Выберите тип счетчика</option> 
-
-            </select>--%>
-            <div class="rmFOr" id="mtrsTypeF"></div>
+		<div class="posRel mb-4">		
+			<input type="hidden" id="temp2" value="1"/>
+			<div class="rmFOr rounded8 border-1" id="mtrsTypeF"></div>
+			<label for="temp2" class="transp pointer-none w-50" style="background-color: white !important;">Тип счетчика</label>
+		</div>	
+			
+            <%--  <select id="mtrsTypeF" multiple="multiple" style="width: 100%;">         <option value="0">Выберите тип счетчика</option>             </select>--%>
+            
         </div>
         <div class="col-md-6 col-xs-12">
-            <label>Номер ЛС</label>
-            <input id="scF" type="text" value="">
+			  <div class="posRel w-100 mb-3">	  
+				<input id="scF" type="text" value="">
+				<label for="scF">Номер ЛС</label>
+			</div>
+			<div class="posRel w-100 mb-3">	 
+				<input id="meterNumF" type="number" min="0" style="width: 100%;" value="">
+				<label for="meterNumF">Номер счетчика</label>
+			</div>
+		
+				<input type="checkbox" id="noArch" class="checkOut checkbox-item" />
+				<label id="noArx" for="noArch">Не показывать счетчики в архиве</label>
+		
 
-            <label>Номер счетчика</label>
-            <input id="meterNumF" type="number" min="0" style="width: 100%;" value="">
-            <input type="checkbox" id="noArch" class="checkOut" style="top: 0;" />
-            <label id="noArx" for="noArch">Не показывать счетчики в архиве</label>
-
-
-            <div class="button" style="top: 0;">
-                <button id="MeterFilter" class="btn genBtn">Применить фильтр</button>
-                <button id="ResetFilter" class="btn genBtn" style="background: #ccc;">Сбросить результаты</button>
+            <div class="flexHoriz w-100 mt-4">
+                <button id="ResetFilter" class="ml-auto btn btn1 outline shadow-none flexCenter">Сбросить результаты</button>
+				<button id="MeterFilter" class="ml-3 btn btn1 flexCenter">Применить фильтр</button>
             </div>
         </div>
     </div>
-    <div class="buttons" style="margin: 10px 0; padding-left: 20px;">
+</div> <!-- p-4 -->
+	<div class="overflowX w-100 mb-4">
 
-
-
-        <br />
-        <button id="addCounter" class="btn logBtn">Добавить счетчик</button>
-        <button id="arx" class="btn logBtn" style="float: right;">Счетчики в архиве</button>
-    </div>
-
-
-    <table class="cntTable">
+    <table class="cntTable mngTable w-100">
         <thead>
             <tr>
 
@@ -231,7 +257,8 @@
         <tbody id="mtrs">
         </tbody>
     </table>
-    <div style="clear: both; margin: 10px;">&nbsp;</div>
+	</div>
+  
     <style>
         #ifr {
             position: absolute;
@@ -241,22 +268,22 @@
             height: 1200px;
         }
     </style>
+	
     <div id="myModal5" class="modal2" style="z-index: 3000; background-color: rgba(9, 118, 255,0.4)">
 
         <!-- Modal content -->
-        <div class="modal-content2" style="height: 900px">
-            <div class="modal-header2" style="background-color: white">
-                <span class="close2" style="color: black" id="close_5">×</span>
-                <h2 id="mh5" style="text-align: left; color: black">Ошибка</h2>
+        <div class="modal-content2 bgWhite rounded16 shadow w-75 p-4">
+            <div class="modal-header2 bgWhite flexHoriz">
+                <h2 id="mh5" class="font24b textBlack">Ошибка</h2>
+				<span id="close5" class="close2 bgWhite pl-2 pr-3 mr-4 border-0 rounded-pill ml-auto">
+					<img src="../img/close.svg" class="w24" alt="">
+				</span>
             </div>
-            <div class="modal-body2" id="mb5" style="height: 100px; height: 100px; padding: 15px; /* min-width: 100px; */display: inline-block;">
+            <div class="modal-body2" id="mb5" >
                 <%--<p id="txt2" style="font-size: 23px;">Some text in the Modal Body</p>--%>
                 <%--<iframe   id="ifr"></iframe>--%>
             </div>
-            <%--<div class="modal-footer2" style="text-align: left;background-color:white">
-      
-        <input type="button" id="cls" name="name" value="Отмена" style="width: 25%; float:right; height: 78%;background-color: white;color: black;font-weight: 700;">
-        <input type="button" id="deleteO" name="name" value="Удалить" style="float: left;width: 25%;height: 78%;background-color: white;color: black;font-weight: 700;">
+            <%--<div class="modal-footer2" style="text-align: left;background-color:white"> <input type="button" id="cls" name="name" value="Отмена" style="width: 25%; float:right; height: 78%;background-color: white;color: black;font-weight: 700;">        <input type="button" id="deleteO" name="name" value="Удалить" style="float: left;width: 25%;height: 78%;background-color: white;color: black;font-weight: 700;">
     </div>--%>
         </div>
 
@@ -264,25 +291,25 @@
     <div id="UploadCounter" class="modal2" style="z-index: 2000; background-color: rgba(9, 118, 255, 0.4); display: none;">
 
         <!-- Modal content -->
-        <div class="modal-content2" style="width: 55%; min-width: 1000px;">
-            <div class="modal-header2" style="background-color: white">
-                <span class="close2" style="color: black" id="closeUplC">×</span>
-                <h2 id="mh2" style="text-align: left; color: black">Загрузка номеров счетчиков</h2>
+        <div class="modal-content2 bgWhite rounded16 shadow w-75 p-0">
+            <div class="modal-header2 bgWhite flexHoriz p-4">
+                <h2 id="mh2" class="font24b bgWhite textBlack">Загрузка номеров счетчиков</h2>
+				<span id="closeUplC" class="close2 bgWhite pl-2 pr-3 mr-4 border-0 rounded-pill ml-auto">
+					<img src="../img/close.svg" class="" alt="">
+				</span>
             </div>
-            <div class="modal-body2" style="height: auto; padding: 15px; display: inline-block; width: 100%">
+            <div class="modal-body2">
                 <div id="loadLC">
-
-                    <div style="padding-left: 20px;">
-
-                        <a href="../img/Форма загрузки счетчиков.xlsx" download="" title="Скачать форму">Форма загрузки номеров счетчиков</a>
+                    <div class="pl-4 pr-4">
+                        <a href="../img/Форма загрузки счетчиков.xlsx" download="" class="darkGreen font16b" title="Скачать форму">Форма загрузки номеров счетчиков</a>
                         <br>
                         <br>
 
                         <input id="filesUPLC" onchange="UPLCounter(this)" type="file">
                         <br>
                     </div>
-                    <table class="table" id="tblCntrs">
-                        <thead>
+                    <table class="mngTable w-100 mb-3 mt-4" id="tblCntrs">
+                        <thead class="bgLightGrey3">
                             <tr>
                                 <th>ЛС</th>
                                 <th>Номер счетчика</th>
@@ -298,14 +325,13 @@
                         <tbody id="cntrs">
                         </tbody>
                     </table>
-                    <br>
+               
                 </div>
                
             </div>
-            <div class="modal-footer2" style="text-align: left; background-color: white">
-
-                <input type="button" id="cancelLast" name="name" value="Отмена" style="width: 25%; float: right; height: 78%; background-color: white; color: black; font-weight: 700;">
-                <input type="button" id="loadExC" name="name" value="Загрузить" style="float: left; width: 25%; height: 78%; background-color: white; color: black; font-weight: 700;">
+            <div class="modal-footer2 bgWhite flexHoriz mb-4">
+                <input type="button" id="cancelLast" name="name" value="Отмена" class="btn btn1 outline shadow-none flexCenter mr-3 ml-auto">
+                <input type="button" id="loadExC" name="name" value="Загрузить" class="btn btn1">
             </div>
         </div>
 
@@ -313,35 +339,34 @@
     <div id="DeadLineCntr" class="modal2" style="z-index: 2000; background-color: rgba(9, 118, 255, 0.4); display: none;">
 
         <!-- Modal content -->
-        <div class="modal-content2" style="width: 0%; min-width: 541px;">
-            <div class="modal-header2" style="background-color: white">
-                <span class="close2" style="color: black" id="closeDead">×</span>
-                <h2 id="mhDead" style="text-align: left; color: black">Адресс</h2>
+        <div class="modal-content2 bgWhite w-50 rounded16 shadow p-4">
+            <div class="modal-header2 bgWhite flexHoriz w-100">
+             
+                <h2 id="mhDead" class="font24b bgWhite textBlack">Адрес</h2>
+				<span id="closeDead" class="close2 bgWhite pl-2 pr-3 mr-4 border-0 rounded-pill ml-auto">
+					<img src="../img/close.svg" class="" alt="">
+				</span>
             </div>
-            <div class="modal-body2" style="height: auto; padding: 15px; display: inline-block; width: 100%">
-                <div>
-                    <label style="font-size: 26px; margin-left: 15% !important;">Крайний срок подачи показаний</label>
-                </div>
-                <br>
+            <div class="modal-body2 p-4 w-100">
+             
+                <h4 class="font18b mb-3">Крайний срок подачи показаний</h4>
 
-                <div style="margin-left: 35%;">
-                    <span>С</span><input type="number" onkeyup="ChangeNumbersStartStop(this)" onchange="ChangeNumbersStartStop(this)" min="0" max="31" value="1" id="startDead" style="margin-left: 5px; margin-right: 10px;">
+				<div class="flexHoriz">
+                    <span>С</span>
+					<input type="number" onkeyup="ChangeNumbersStartStop(this)" onchange="ChangeNumbersStartStop(this)" min="0" max="31" value="1" id="startDead" class="ml-2 mr-3 w90 p-2">
                     <span>По</span>
-                    <input type="number" onkeyup="ChangeNumbersStartStop(this)" onchange="ChangeNumbersStartStop(this)" value="31" id="endDead" style="margin-left: -3px;">
+                    <input type="number" onkeyup="ChangeNumbersStartStop(this)" onchange="ChangeNumbersStartStop(this)" value="31" id="endDead" class="ml-2 w90 p-2">
                 </div>
-                <br>
-                <div style="margin-left: 35%;">
+					<input type="checkbox" onclick="changeStartStop(this)" id="mnth" class="checkbox-item">
+					<label for="mnth" class="pt-4">Последний день месяца</label>
+			
+			</div>
+            <div class="modal-footer2 bgWhite flexHoriz">
 
-                    <span>Последний день месяца</span><input type="checkbox" onclick="changeStartStop(this)" id="mnth" style="margin-right: 10px;">
-                </div>
-
-            </div>
-            <div class="modal-footer2" style="text-align: left; background-color: white">
-
-                <input type="button" id="cancelDead" name="name" value="Отмена" style="width: 25%; float: right; height: 78%; background-color: white; color: black; font-weight: 700;">
-                <input type="button" id="SaveDeadLine" onclick="Cnahge_CNTR_DeadLine(this)" name="name" value="Сохранить" style="float: left; width: 25%; height: 78%; background-color: white; color: black; font-weight: 700;">
+                <input type="button" id="cancelDead" name="name" value="Отмена" class="btn btn1 outline flexCenter shadow-none">
+                <input type="button" id="SaveDeadLine" onclick="Cnahge_CNTR_DeadLine(this)" name="name" value="Сохранить" class=" ml-auto btn btn1 flexCenter ">
             </div>
         </div>
 
-    </div>
+    </div></div></div>
 </asp:Content>
