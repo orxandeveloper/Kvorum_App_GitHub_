@@ -2013,9 +2013,10 @@
             }
 
         })
-        $('#mb5').append('<div class="row"><div class="container"><div class="col-xs-12 col-sm-3"></div></div></div>')
-        $('#mb5 .col-xs-12').load('AddCounter.aspx #pop')
-
+        $('#mb5').append('<div class="row"><div class="container"><div id="CounterAddwindow"></div></div></div>')
+        $('#CounterAddwindow').load('AddCounter.aspx #pop')
+        //modal-content2 bgWhite rounded16 shadow w-30 p-4
+        $('#mb5').parent().attr('class','modal-content2 bgWhite rounded16 shadow w-30 p-4')
 
 
 
@@ -3347,6 +3348,17 @@
 
 
 })
+function closeModal(ModalId) {
+    ModalId = '#' + ModalId
+
+    $(ModalId).hide();
+    if (ModalId == '#myModal5') {
+        $(ModalId).children('#mb5').empty();
+        $(ModalId).children('#mb5').append('<div class="row"><div class="container"><div id="CounterAddwindow"></div></div></div>')//.append('<div class="row"><div class="container"><div class="col-xs-12 col-sm-3"></div></div></div>')
+        $('#RoomType,#RoomNum,#sc,#meterNum').empty();
+        $('#CounterAddwindow').load('AddCounter.aspx #pop')
+    }
+}
 function CheckNewsDatas() {
     var SuccessNews = true
     var dateNews = $('#dateNews').val();
@@ -7598,10 +7610,12 @@ function MakeStop(mid, St_date, cmnt, file, lg) {
         dataType: "json",
         success: function (data) {
             $('#SaveUp,#zamen,#Pove,#delC').attr('disabled', 'disabled').css('background', " #999");
+            $('#delspan').attr('class', 'font16b delCSpan')
             $('#close_St').click();
             $('#StopC').text('Возобновить работу');
             $('#hist').empty();
-            $('#lblDataPosProver').after('<div id="iconStop_C" style="width: 40%;/* height: 53%; */border-style:  ridge;float:  right;font-size:  large;text-align: center;border-color:  red;"><i style="font-size:24px;color:  red;float: left;margin-left: 11px;margin-top: 3px;" class="fa fa-pause-circle"></i><label style="font-weight:100;color:red;font-size:14px;">Счетчик приостановлен</label></div>')
+            $('#infoCount').after('<div id="iconStop_C" class="w177 rounded8 border-red right h56 flexHoriz" ><i style="" class="fa fa-pause-circle font24 reddish m-2"></i><p class="lineHtNorm reddish mb-0">Счетчик приостановлен</p></div>')
+            //$('#lblDataPosProver').after('<div id="iconStop_C" style="width: 40%;/* height: 53%; */border-style:  ridge;float:  right;font-size:  large;text-align: center;border-color:  red;"><i style="font-size:24px;color:  red;float: left;margin-left: 11px;margin-top: 3px;" class="fa fa-pause-circle"></i><label style="font-weight:100;color:red;font-size:14px;">Счетчик приостановлен</label></div>')
             $('#tab1 .row:eq(1) .btn').attr('disabled', 'disabled').css('background-color', 'rgb(149,153,156)')
             getHistoryMeter(mid);
         }
@@ -8049,7 +8063,7 @@ function MakePoverka(mid, last, next, HistImg, ObjId, dRemoval, dInstal, removal
 function PopupPove(Header_, text_, footer_) {
     //$('#CtypeP').append($('#TRoomC > option').clone()).val($('#TRoomC').val()).attr('disabled', 'disabled').css('backgroun-color', 'rgb(235, 235, 228);');
     $('#CtypeP').css('background-color', 'rgb(235, 235, 228);')
-    $('#CtypeP').append($('#TMeterC > option').clone()).val($('#TMeterC').val()).attr('disabled', 'disabled');
+    $('#CtypeP').select2('destroy').append($('#TMeterC > option').clone()).val($('#TMeterC').val()).select2().attr('disabled', 'disabled');
     $('#CnumP').val($('#meterNum').text().substring($('#meterNum').text().indexOf('№ ') + 2, $('#meterNum').text().length))
     //if (footer_ !='Возобновить работу') {
     // $('#lstP').val($('#lst').val()).attr('value', $('#lst').val()).removeAttr('disabled').removeAttr('style');
@@ -8575,17 +8589,18 @@ function PopupZamen(Header_, text_, footer_) {
     var optionsRoomNum = $("#roomNum > option").clone();
     $('#rmNumZ,label[for="selNA"],label[for="selLC"],#PsZ').hide();
     $('#rmNumZ').append(optionsRoomNum);
-    $('#rmNumZ').val($("#roomNum").val())
+    $('#rmNumZ').select2('destroy')
+    $('#rmNumZ').val($("#roomNum").val()).hide()//.select2()
     var OptionsPs = $('#Ps > option').clone();
     $('#PsZ').empty();
     $('#PsZ').append(OptionsPs);
-    $('#PsZ').val($('#Ps').val())
+    $('#PsZ').select2('destroy').val($('#Ps').val())
     $('#typeCountZ').empty();
     $('#oldCNum').val("");
     $('#oldCNum').val($('#meterNum').text().substring($('#meterNum').text().indexOf('№ ') + 2, $('#meterNum').text().length))
     var OptionsTYpeCounter = $('#TMeterC > option').clone()
     $('#typeCountZ').append(OptionsTYpeCounter);
-    $('#typeCountZ').val($('#TMeterC').val())
+    $('#typeCountZ').select2('destroy').val($('#TMeterC').val()).select2()
     $('#typeCountZ,#PsZ,#rmNumZ').attr('disabled', 'disabled').css('background-color', 'rgb(235, 235, 228)')
     $('#PrevnxtZ').val($('#lst').val())
     if ($('#istPok').attr('data-active') != '1') {
@@ -8593,7 +8608,7 @@ function PopupZamen(Header_, text_, footer_) {
         $('#PrevnxtZ').removeAttr('style').attr('onchange', 'chekPrevData(this)')
     }
     if ($('#typeCountZ').val() != 4) {
-        var LastDataC = $('#tab1 .row:eq(1) .table tbody tr:eq(0) td:eq(1)').text();
+        var LastDataC = $('#theLast').text();
         if ($('#istPok').attr('data-active') != '1') {
             //.removeAttr('disabled')
             $('#PrevClstData').val("").val(LastDataC).removeAttr('style').attr('onkeyup', 'checkPokaz(this,' + $('#typeCountZ').val() + ')');
@@ -8786,17 +8801,21 @@ function getMeterCard(mid) {
             }
             if (Arxive_Susbend[1] == "True") {
                 $('#SaveUp,#zamen,#Pove,#delC').attr('disabled', 'disabled').css('background', " #999");
+                $('#delspan').attr('class','font16b delCSpan')
                 $('#StopC').text('Возобновить работу');
-                $('#lblDataPosProver').after('<div style="width: 40%;/* height: 53%; */border-style:  ridge;float:  right;font-size:  large;text-align: center;border-color:  red;"><i style="font-size:24px;color:  red;float: left;margin-left: 11px;margin-top: 3px;" class="fa fa-pause-circle"></i><label style="font-weight: 100;color:red;font-size:14px;">Счетчик приостановлен</label></div>')
+                $('#infoCount').after('<div id="iconStop_C" class="w177 rounded8 border-red right h56 flexHoriz"><i style="" class="fa fa-pause-circle font24 reddish m-2"></i><p class="lineHtNorm reddish mb-0">Счетчик приостановлен</p></div>')
+                //$('#lblDataPosProver').after('<div style="width: 40%;/* height: 53%; */border-style:  ridge;float:  right;font-size:  large;text-align: center;border-color:  red;"><i style="font-size:24px;color:  red;float: left;margin-left: 11px;margin-top: 3px;" class="fa fa-pause-circle"></i><label style="font-weight: 100;color:red;font-size:14px;">Счетчик приостановлен</label></div>')
 
             }
             $('#meterNum').text('Счетчик № ' + j[0].METERS_NUMBER + '').attr('data-obj', j[0].OBJECT_ID)
+            $('#roomNum').select2('destroy')
             $('#roomNum').append('<option value="' + j[0].ROOM_NUMBER + '">' + j[0].ROOM_NUMBER + '</option>')
-            $('#roomNum').val(j[0].ROOM_NUMBER)
+            $('#roomNum').val(j[0].ROOM_NUMBER).select2();
             $('#amT').val(j[0].AMUNT_TARIF)
             var IS_AUTO = (j[0].IS_AUTO == "Y") ? true : false;
             $('#is_auto').prop('checked', IS_AUTO)
             $('#MeterN').val(j[0].METERS_NUMBER)
+            
             getROomTYpeCardC(j[0].ROOM_TYPE_ID);
             GetMeterTypesCard(j[0].TYPE_ID);
             getPerScores(j[0].OBJECT_ID, j[0].ROOM_TYPE_ID, j[0].ROOM_NUMBER, j[0].SCORE_ID);
@@ -8815,6 +8834,8 @@ function getMeterCard(mid) {
             day = cNextDate[0];
             cNextDate = year + '-' + month + '-' + day;
             $('#nxt').val(cNextDate).attr('value', cNextDate);
+
+            $('label[for="MeterN"],label[for="nxt"],label[for="lst"]').attr('class', 'transp backLab')
         }
     })
 }
@@ -8833,33 +8854,39 @@ function MeterHistoryVals(mid, type_, nxtDate) {
             var strDate = d.getDate() + "." + d.getMonth() + "." + d.getFullYear();
             if (type_ == 'ГВС') {
                 for (var i = 0; i < jsond.length; i++) {
+                    var theLast=''
                     if (i == 0) {
+                        theLast ='id="theLast"'
                         $('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>ГВС</td></tr></thead><tbody id="qvs"></tbody></table></div><div class="col-xs-6" style="padding-left:30px;float: right;"><strong>	ГВС:  </strong><input id="nm_qvs" type="number" onkeyup="validateNegative(this)" min=0 style="width:30%;"><button  onclick=AddValue(this,"qvs") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div>')
                     }
                     if (jsond.lenght != 0) {
-                        $('#qvs').append('<tr><td>' + jsond[i].NEXT_DATE.substring(0, jsond[i].NEXT_DATE.indexOf(' ')) + '</td><td>' + jsond[i].AMUNT_TARIF + '</td></tr>')
+                        $('#qvs').append('<tr><td >' + jsond[i].NEXT_DATE.substring(0, jsond[i].NEXT_DATE.indexOf(' ')) + '</td><td ' + theLast +'>' + jsond[i].AMUNT_TARIF + '</td></tr>')
 
                     }
                 }
             }
             if (type_ == 'ХВС') {
                 for (var i = 0; i < jsond.length; i++) {
+                    var theLast = '';
                     if (i == 0) {
+                        theLast = 'id="theLast"'
                         $('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>ХВС</td></tr></thead><tbody id="xvs"></tbody></table></div><div class="col-xs-6" style="padding-left:30px;float: right;"><strong>ХВС:  </strong><input id="nm_xvs" type="number" onkeyup="validateNegative(this)" min=0 style="width:30%;"><button  onclick=AddValue(this,"xvs") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div>')
                     }
                     if (jsond.lenght != 0) {
-                        $('#xvs').append('<tr><td>' + jsond[i].NEXT_DATE.substring(0, jsond[i].NEXT_DATE.indexOf(' ')) + '</td><td>' + jsond[i].AMUNT_TARIF + '</td></tr>')
+                        $('#xvs').append('<tr><td>' + jsond[i].NEXT_DATE.substring(0, jsond[i].NEXT_DATE.indexOf(' ')) + '</td><td '+theLast+'>' + jsond[i].AMUNT_TARIF + '</td></tr>')
 
                     }
                 }
             }
             if (type_ == 'Теплоэнергия') {
                 for (var i = 0; i < jsond.length; i++) {
+                    var theLast = '';
                     if (i == 0) {
+                        theLast = 'id="theLast"'
                         $('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Теплоэнергия</td></tr></thead><tbody id="teplo"></tbody></table></div><div class="col-xs-6" style="padding-left:30px;float: right;"><strong>Теплоэнергия:  </strong><input id="nm_teplo" type="number" onkeyup="validateNegative(this)" min=0 style="width:30%;"><button onclick=AddValue(this,"teplo") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div>')
                     }
                     if (jsond.lenght != 0) {
-                        $('#teplo').append('<tr><td>' + jsond[i].NEXT_DATE.substring(0, jsond[i].NEXT_DATE.indexOf(' ')) + '</td><td>' + jsond[i].AMUNT_TARIF + '</td></tr>')
+                        $('#teplo').append('<tr><td>' + jsond[i].NEXT_DATE.substring(0, jsond[i].NEXT_DATE.indexOf(' ')) + '</td><td ' + theLast+'>' + jsond[i].AMUNT_TARIF + '</td></tr>')
 
                     }
                 }
@@ -8917,11 +8944,13 @@ function MeterHistoryVals(mid, type_, nxtDate) {
             }
             if (type_ == 'Газ') {
                 for (var i = 0; i < jsond.length; i++) {
+                    theLast=''
                     if (i == 0) {
+                        theLast = 'id="theLast"'
                         $('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Газ</td></tr></thead><tbody id="Gas"></tbody></table></div><div class="col-xs-6" style="padding-left:30px;float: right;"><strong>Газ:  </strong><input id="nm_gas" type="number" onkeyup="validateNegative(this)" min=0 style="width:30%;"><button onclick=AddValue(this,"gas") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div>')
                     }
                     if (jsond.lenght != 0) {
-                        $('#Gas').append('<tr><td>' + jsond[i].NEXT_DATE.substring(0, jsond[i].NEXT_DATE.indexOf(' ')) + '</td><td>' + jsond[i].AMUNT_TARIF + '</td></tr>')
+                        $('#Gas').append('<tr><td>' + jsond[i].NEXT_DATE.substring(0, jsond[i].NEXT_DATE.indexOf(' ')) + '</td><td ' + theLast+'>' + jsond[i].AMUNT_TARIF + '</td></tr>')
 
                     }
 
@@ -9188,23 +9217,7 @@ function AddValue(e, id) {
         var inpVal = $('#nm_qvs').val();
         if (inpVal.length != 0) {
             var lastValTable = $('#qvs tr:eq(0) td:eq(1)').text();
-            //if (parseFloat(lastValTable) > parseFloat(inpVal)) {
-            //    if ($('#errM').length == 0) {
-            //        $(e).after('<label id="errM" style="color:red">Введенные показание меньше предыдущих. Введите корректные данные</label>')
-            //        window.setTimeout(function () {
-            //            $('#errM').hide(1000);
-            //            $('#errM').remove();
-            //        }, 3000);
-            //    }
-
-            //}
-            //else {
-            //    var Mid = sessionStorage.getItem("mid");
-            //    var cnum = $('#meterNum').text().substring($('#meterNum').text().indexOf('№ ') + 2, $('#meterNum').text().length);
-            //    // //console.log(cnum);
-            //    AddMeterVal(e, Mid, 'ГВС', cnum, inpVal);
-            //    $('#nm_qvs').val(0)
-            //}
+            
             var Mid = sessionStorage.getItem("mid");
             var cnum = $('#meterNum').text().substring($('#meterNum').text().indexOf('№ ') + 2, $('#meterNum').text().length);
             // //console.log(cnum);
@@ -9715,7 +9728,8 @@ function getPerScores(obj, rt, rm, s) {
             }
             if (s != "") {
                 $('#Ps').find('option').get(0).remove();
-                $('#Ps').val(s)
+                $('#Ps').select2('destroy');
+                $('#Ps').val(s).select2();
             }
         }
     })
@@ -9735,7 +9749,8 @@ function GetMeterTypesCard(s) {
 
             }
             if (s != "") {
-                $("#TMeterC").val(s)
+                $("#TMeterC").select2('destroy')
+                $("#TMeterC").val(s).select2();
             }
         }
 
@@ -9756,7 +9771,8 @@ function getROomTYpeCardC(s) {
 
             }
             if (s != "") {
-                $("#TRoomC").val(s);
+                $('#TRoomC').select2('destroy')
+                $("#TRoomC").val(s).select2();
             }
 
         }
