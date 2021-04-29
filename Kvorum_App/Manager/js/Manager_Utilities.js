@@ -1172,9 +1172,9 @@
             GetRoomTypesFor_QRCodes(Log, $('#objsM').val());
 
 
+            $('#myModal4').children('.modal-content2').children('.modal-footer2').append('<a id="qrAccept" onclick="CreateQrCode(this)"  class="btn btn1 qr" href="#">Применить</a>')//Andrey Version
 
-
-            $('#myModal4').children('.modal-content2').children('.modal-footer2').append('<a id="qrAccept" onclick="CreateQrCode(this)"  class="btn genBtn qr" href="#">Применить</a>')
+            /*$('#myModal4').children('.modal-content2').children('.modal-footer2').append('<a id="qrAccept" onclick="CreateQrCode(this)"  class="btn genBtn qr" href="#">Применить</a>')*/
             $('#myModal4').children('.modal-content2').children('.modal-footer2').css('height', '50px')
         })
         $('#close_4').click(function () {
@@ -2013,10 +2013,9 @@
             }
 
         })
-        $('#mb5').append('<div class="row"><div class="container"><div id="CounterAddwindow"></div></div></div>')
-        $('#CounterAddwindow').load('AddCounter.aspx #pop')
-        //modal-content2 bgWhite rounded16 shadow w-30 p-4
-        $('#mb5').parent().attr('class','modal-content2 bgWhite rounded16 shadow w-30 p-4')
+        $('#mb5').append('<div class="row"><div class="container"><div class="col-lg-12"></div></div></div>')
+        $('#mb5 .col-lg-12').load('AddCounter.aspx #pop')
+    
 
 
 
@@ -2558,7 +2557,10 @@
                 //$('#ModalBNP').children('.modal-contentBnp').children('.modal-bodybnp').append('<div>' + NewText + '</div>')
                 //$('#ModalBNP').children('.modal-contentBnp').children('.modal-bodybnp').find('h2').css('color', 'black')
                 //$('#ModalBNP').children('.modal-contentBnp').children('.modal-bodybnp').children('div:eq(1)').append('<input type="button" onclick="closeNewsPreview(this)" id="newsCansel" value="Отмена" style="float: right;background: white;font-size: 18px;width: 103px;">')
-                $('#ModalBNP').children('.modal-contentBnp').children('.modal-bodybnp').append('<div class="newsChunk" ><h4><span class="newsDate">' + dateNews + '</span>' + HeaderText + '</h4><img src="' + imgNews + '" style="float: left; margin: 5px 10px 0 0; height: 8.5em; width: auto;" /><p id="Ptext">' + PreviewText + '...<a onclick="ShowMore()">Подробнее</a></a></p><div style="margin-top: 6%;float: right;"><input type="button" onclick="closeNewsPreview(this)" id="newsCansel" value="Отмена" class="ml-auto btn btn1 outline shadow-none mr-3"><input type="button" onclick="PublishNews2(this)" id="newsCansel" value="Опубликовать новость" class="btn btn1 mr-3" style="width: auto;"><input type="button" onclick="SaveNews2(this)" id="newsCansel" value="Сохранить новость" class="btn btn1"></div></div>')
+                //$('#ModalBNP').children('.modal-contentBnp').children('.modal-bodybnp').append('<div class="newsChunk" ><h4><span class="newsDate">' + dateNews + '</span>' + HeaderText + '</h4><img src="' + imgNews + '" style="float: left; margin: 5px 10px 0 0; height: 8.5em; width: auto;" /><p id="Ptext">' + PreviewText + '...<a onclick="ShowMore()">Подробнее</a></a></p><div style="margin-top: 6%;float: right;"><input type="button" onclick="closeNewsPreview(this)" id="newsCansel" value="Отмена" class="ml-auto btn btn1 outline shadow-none mr-3"><input type="button" onclick="PublishNews2(this)" id="newsCansel" value="Опубликовать новость" class="btn btn1 mr-3" style="width: auto;"><input type="button" onclick="SaveNews2(this)" id="newsCansel" value="Сохранить новость" class="btn btn1"></div></div>')
+
+                $('#ModalBNP').children('.modal-contentBnp').children('.modal-bodybnp').append('<div class="newsChunk column-flex"><h4 class="font18b textBlack mt-n2 mb-3">' + HeaderText + '</h4><div><span class="gray1 font14">' + dateNews + '</span><img src="' + imgNews + '" class="left mr-4 h72 w-auto" /><p id="Ptext">' + PreviewText + '...<a onclick="ShowMore()" class="reddish pl-2">Подробнее</a></a></p></div><div class="flexHoriz mt-4"><input type="button" onclick="closeNewsPreview(this)" id="newsCansel" value="Отмена" class="ml-auto btn btn1 outline shadow-none mr-3"><input type="button" onclick="PublishNews2(this)" id="newsCansel" value="Опубликовать новость" class="btn btn1 mr-3" style="width: auto;"><input type="button" onclick="SaveNews2(this)" id="newsCansel" value="Сохранить новость" class="btn btn1"></div></div>')//Andrey Version
+
                 if (imgNews.length == 0) {
                     $('.newsChunk').children('img').remove();
                 }
@@ -2578,8 +2580,8 @@
             window.location.href = "Counters.aspx"
         }
         else {
-            $('#tab1 .row:eq(0) select').attr('disabled', 'disabled').css('background-color', 'rgb(235, 235, 228)');
-            $('#tab1 .row:eq(0) input[type="number"],input[type="text"],input[type="date"]').attr('disabled', 'disabled').css('background-color', 'rgb(235, 235, 228)')
+            $('#tab1 .row:eq(0) select').attr('disabled', 'disabled').css('background-color', '#eee');
+            $('#tab1 .row:eq(0) input[type="number"],input[type="text"],input[type="date"],input[type="number"]').attr('disabled', 'disabled').css('background-color', '#eee')
             //$('#tab1 .row:eq(1) .btn').attr('disabled', 'disabled').css('background-color', 'rgb(235, 235, 228)')
 
             $('#SaveUp').click(function () {
@@ -3589,7 +3591,8 @@ function GetRoomTypesFor_QRCodes(lg, obj) {
             var j = JSON.parse(data.d)
             $('#myModal4').children('.modal-content2').children('.modal-body2').empty();
             for (var i = 0; i < j.length; i++) {
-                $('#myModal4').children('.modal-content2').children('.modal-body2').append('<input type="checkbox" class="chk" value="' + j[i].ROOM_TYPE_ID + '"/><label class="labelQr">' + j[i].ROOM_TYPE + ' (' + j[i].COUNTS + ')</label>')
+                //$('#myModal4').children('.modal-content2').children('.modal-body2').append('<input type="checkbox" class="chk" value="' + j[i].ROOM_TYPE_ID + '"/><label class="labelQr">' + j[i].ROOM_TYPE + ' (' + j[i].COUNTS + ')</label>')
+                $('#myModal4').children('.modal-content2').children('.modal-body2').append('<input type="checkbox" class="chk checkbox-item" value="' + j[i].ROOM_TYPE_ID + '"/><label class="labelQr">' + j[i].ROOM_TYPE + ' (' + j[i].COUNTS + ')</label>')//Andrey Version
             }
 
 
@@ -4450,13 +4453,18 @@ function GetNewsDetail(guid) {
             CKEDITOR.instances["NewText"].setData(j[0].NEWS_TEXT);
             $('#PreviewText').val(j[0].PREVIEW_TEXT)
             if (j[0].FILE_NAME != null) {
-                $('#NewsFile').after('<a href="' + j[0].FILES + '"><img id="FileNews" src="../img/prik.png" style="width: 8%;"></a><i class="fa fa-close removing3" itemid="1" onclick="removeNewsFayl(this)" style="font-size: 14px; float: left;" aria-hidden="true"></i><label id="fileName">' + j[0].FILE_NAME + '</label>')
+                //$('#NewsFile').after('<a href="' + j[0].FILES + '"><img id="FileNews" src="../img/prik.png" style="width: 8%;"></a><i class="fa fa-close removing3" itemid="1" onclick="removeNewsFayl(this)" style="font-size: 14px; float: left;" aria-hidden="true"></i><label id="fileName">' + j[0].FILE_NAME + '</label>')
+
+                $('#NewsFile').after('<div class="flexHoriz w-100"><a href="' + j[0].FILES + '"><img id="FileNews" src="../img/prik.png" class="w24"></a><label id="fileName" class="ml-3 mb-0 font16b w-auto">' + j[0].FILE_NAME + '</label><i class="fa fa-close removing3 ml-3" itemid="1" onclick="removeNewsFayl(this)" style="" aria-hidden="true"></i></div>')//Andrey version
                 $('#NewsFile').hide();
             }
 
 
             if (j[0].IMAGE != null) {
-                $('#filesN').after('<img id="imgNews" src="' + j[0].IMAGE + '" style="width: 8%;"><i class="fa fa-close removing3" itemid="1" onclick="removeNewsImg(this)" style="font-size: 14px; float: left;" aria-hidden="true"></i>')
+                //$('#filesN').after('<img id="imgNews" src="' + j[0].IMAGE + '" style="width: 8%;"><i class="fa fa-close removing3" itemid="1" onclick="removeNewsImg(this)" style="font-size: 14px; float: left;" aria-hidden="true"></i>')
+
+                $('#filesN').after('<div class="flexHoriz w-100"><img id="imgNews" src="' + j[0].IMAGE + '" class="w42"><i class="fa fa-close removing3 ml-3" itemid="1" onclick="removeNewsImg(this)" style="" aria-hidden="true"></i></div>')// Andrey Version
+
                 $('#filesN').hide();
             }
             $('#ImpNews').prop('checked', j[0].IS_IMPORTANT)
@@ -4646,10 +4654,12 @@ function readURLNews(input, imgName) {
                     var extention = F_ile.substr(F_ile.lastIndexOf(".") + 1)
                     if (idFiles == 'filesN') {
                         $("#filesN").hide();
-                        $("#filesN").after('<img id="imgNews" src=' + F_ile + ' style="width: 8%;"><i class="fa fa-close removing3" itemid="1" onclick="removeNewsImg(this)" style="font-size: 14px; float: left;" aria-hidden="true"></i>')
+                        //$("#filesN").after('<img id="imgNews" src=' + F_ile + ' style="width: 8%;"><i class="fa fa-close removing3" itemid="1" onclick="removeNewsImg(this)" style="font-size: 14px; float: left;" aria-hidden="true"></i>')
+                        $("#filesN").after('<div class="flexHoriz w-100"><img id="imgNews" src=' + F_ile + ' class="w42"><i class="fa fa-close removing3 ml-3" itemid="1" onclick="removeNewsImg(this)" style="" aria-hidden="true"></i></div>')//Andrey Version
                     }
                     else {
-                        $("#NewsFile").after('<a href=' + F_ile + '><img id="FileNews" src="../img/prik.png" style="width: 8%;"/></a><i class="fa fa-close removing3" itemid="1" onclick="removeNewsFayl(this)" style="font-size: 14px; float: left;" aria-hidden="true"></i><label id="fileName"> ' + imgName + '</label>')
+                        //$("#NewsFile").after('<a href=' + F_ile + '><img id="FileNews" src="../img/prik.png" style="width: 8%;"/></a><i class="fa fa-close removing3" itemid="1" onclick="removeNewsFayl(this)" style="font-size: 14px; float: left;" aria-hidden="true"></i><label id="fileName"> ' + imgName + '</label>')
+                        $("#NewsFile").after('<div class="flexHoriz w-100"><a href=' + F_ile + '><img id="FileNews" src="../img/prik.png" class="w24"/></a><label id="fileName" class="ml-3 mb-0 font16b w-auto"> ' + imgName + '</label><i class="fa fa-close removing3 ml-3" itemid="1" onclick="removeNewsFayl(this)" style="" aria-hidden="true"></i></div>')//Andrey Version
                         $('#NewsFile').hide();
                     }
 
@@ -8795,8 +8805,12 @@ function getMeterCard(mid) {
             var Arxive_Susbend = j[0].LOG_IN_ID
             Arxive_Susbend = Arxive_Susbend.split("|");
             if (Arxive_Susbend[0] == "True") {
-                $('#btns').hide();
-                $('#lblDFuture').after('<div style="width: 40%;/* height: 53%; */border-style:  ridge;float:  right;font-size:  large;text-align: center;border-color:  red;"><i style="font-size:24px;color: gray;float: left;margin-left: 11px;margin-top:  6px;" class="fa"></i><label style="font-weight:300;">Счетчик в архиве</label></div>')
+                $('#btns,#delC').hide();
+                /*
+                 <div ><i style="font - size: 24px; color: gray; float: left; margin - left: 11px; margin - top: 6px; " class="fa"></i><label style="font - weight: 300; ">Счетчик в архиве</label></div>
+                 */
+                /**/
+                $('#meterNum').after('<div id="iconStop_C" class="w177 rounded8 border-red right h56 flexHoriz"><i style="" class="fa fa-minus-circle font24 reddish m-2"></i><p class="lineHtNorm reddish mb-0">Счетчик в архиве</p></div>')
                 $('#meterNum').attr('data-arxiv', 'true')
             }
             if (Arxive_Susbend[1] == "True") {
@@ -8810,15 +8824,16 @@ function getMeterCard(mid) {
             $('#meterNum').text('Счетчик № ' + j[0].METERS_NUMBER + '').attr('data-obj', j[0].OBJECT_ID)
             $('#roomNum').select2('destroy')
             $('#roomNum').append('<option value="' + j[0].ROOM_NUMBER + '">' + j[0].ROOM_NUMBER + '</option>')
-            $('#roomNum').val(j[0].ROOM_NUMBER).select2();
+            $('#roomNum').val(j[0].ROOM_NUMBER).select2().select2('enable',false);
             $('#amT').val(j[0].AMUNT_TARIF)
             var IS_AUTO = (j[0].IS_AUTO == "Y") ? true : false;
             $('#is_auto').prop('checked', IS_AUTO)
             $('#MeterN').val(j[0].METERS_NUMBER)
             
             getROomTYpeCardC(j[0].ROOM_TYPE_ID);
-            GetMeterTypesCard(j[0].TYPE_ID);
             getPerScores(j[0].OBJECT_ID, j[0].ROOM_TYPE_ID, j[0].ROOM_NUMBER, j[0].SCORE_ID);
+            GetMeterTypesCard(j[0].TYPE_ID);
+         
             MeterHistoryVals(mid, j[0].TYPE, j[0].NEXT_DATE.substring(0, j[0].NEXT_DATE.indexOf(' ')))
             cLastDate = j[0].PREVIOUS_DATE.substring(0, j[0].PREVIOUS_DATE.indexOf(' ')).split('.')
             var year = cLastDate[2];
@@ -8835,7 +8850,7 @@ function getMeterCard(mid) {
             cNextDate = year + '-' + month + '-' + day;
             $('#nxt').val(cNextDate).attr('value', cNextDate);
 
-            $('label[for="MeterN"],label[for="nxt"],label[for="lst"]').attr('class', 'transp backLab')
+            $('label[for="MeterN"],label[for="nxt"],label[for="lst"],label[for="amT"]').attr('class', 'transp backLab')
         }
     })
 }
@@ -8856,8 +8871,9 @@ function MeterHistoryVals(mid, type_, nxtDate) {
                 for (var i = 0; i < jsond.length; i++) {
                     var theLast=''
                     if (i == 0) {
-                        theLast ='id="theLast"'
-                        $('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>ГВС</td></tr></thead><tbody id="qvs"></tbody></table></div><div class="col-xs-6" style="padding-left:30px;float: right;"><strong>	ГВС:  </strong><input id="nm_qvs" type="number" onkeyup="validateNegative(this)" min=0 style="width:30%;"><button  onclick=AddValue(this,"qvs") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div>')
+                        theLast = 'id="theLast"'
+                        $('#istPok').after('<div class="row"><div class="col-lg-6 col-sm-12"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>ГВС</td></tr></thead><tbody id="qvs"></tbody></table></div><div class="col-lg-6 col-sm-12"><div class="posRel w-100 mb-3"><input id="nm_qvs" type="number" onkeyup="validateNegative(this)" min=0><label for="nm_qvs"> ГВС:  </label></div><button  onclick=AddValue(this,"qvs") class="btn btn1 right">Внести показания</button></div></div>')//AndreyVersion
+                        //$('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>ГВС</td></tr></thead><tbody id="qvs"></tbody></table></div><div class="col-xs-6" style="padding-left:30px;float: right;"><strong>	ГВС:  </strong><input id="nm_qvs" type="number" onkeyup="validateNegative(this)" min=0 style="width:30%;"><button  onclick=AddValue(this,"qvs") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div>')
                     }
                     if (jsond.lenght != 0) {
                         $('#qvs').append('<tr><td >' + jsond[i].NEXT_DATE.substring(0, jsond[i].NEXT_DATE.indexOf(' ')) + '</td><td ' + theLast +'>' + jsond[i].AMUNT_TARIF + '</td></tr>')
@@ -8870,7 +8886,8 @@ function MeterHistoryVals(mid, type_, nxtDate) {
                     var theLast = '';
                     if (i == 0) {
                         theLast = 'id="theLast"'
-                        $('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>ХВС</td></tr></thead><tbody id="xvs"></tbody></table></div><div class="col-xs-6" style="padding-left:30px;float: right;"><strong>ХВС:  </strong><input id="nm_xvs" type="number" onkeyup="validateNegative(this)" min=0 style="width:30%;"><button  onclick=AddValue(this,"xvs") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div>')
+                        $('#istPok').after('<div class="row"><div class="col-lg-6 col-sm-12"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>ХВС</td></tr></thead><tbody id="xvs"></tbody></table></div><div class="col-lg-6 col-sm-12"><div class="posRel w-100 mb-3"><input id="nm_xvs" type="number" onkeyup="validateNegative(this)" min=0 style=""><label for="nm_xvs">ХВС:  </label></div><button  onclick=AddValue(this,"xvs") class="btn btn1 right">Внести показания</button></div></div>')//AndreyVersion
+                        //$('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>ХВС</td></tr></thead><tbody id="xvs"></tbody></table></div><div class="col-xs-6" style="padding-left:30px;float: right;"><strong>ХВС:  </strong><input id="nm_xvs" type="number" onkeyup="validateNegative(this)" min=0 style="width:30%;"><button  onclick=AddValue(this,"xvs") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div>')
                     }
                     if (jsond.lenght != 0) {
                         $('#xvs').append('<tr><td>' + jsond[i].NEXT_DATE.substring(0, jsond[i].NEXT_DATE.indexOf(' ')) + '</td><td '+theLast+'>' + jsond[i].AMUNT_TARIF + '</td></tr>')
@@ -8883,7 +8900,9 @@ function MeterHistoryVals(mid, type_, nxtDate) {
                     var theLast = '';
                     if (i == 0) {
                         theLast = 'id="theLast"'
-                        $('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Теплоэнергия</td></tr></thead><tbody id="teplo"></tbody></table></div><div class="col-xs-6" style="padding-left:30px;float: right;"><strong>Теплоэнергия:  </strong><input id="nm_teplo" type="number" onkeyup="validateNegative(this)" min=0 style="width:30%;"><button onclick=AddValue(this,"teplo") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div>')
+                        $('#istPok').after('<div class="row"><div class="col-lg-6 col-sm-12"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Теплоэнергия</td></tr></thead><tbody id="teplo"></tbody></table></div><div class="col-lg-6 col-sm-12"><div class="posRel w-100 mb-3"><input id="nm_teplo" type="number" onkeyup="validateNegative(this)" min=0 style=""><label for="nm_teplo">Теплоэнергия:  </label></div><button onclick=AddValue(this,"teplo") class="btn btn1 right">Внести показания</button></div></div>')//Andrey Version
+
+                        //$('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Теплоэнергия</td></tr></thead><tbody id="teplo"></tbody></table></div><div class="col-xs-6" style="padding-left:30px;float: right;"><strong>Теплоэнергия:  </strong><input id="nm_teplo" type="number" onkeyup="validateNegative(this)" min=0 style="width:30%;"><button onclick=AddValue(this,"teplo") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div>')
                     }
                     if (jsond.lenght != 0) {
                         $('#teplo').append('<tr><td>' + jsond[i].NEXT_DATE.substring(0, jsond[i].NEXT_DATE.indexOf(' ')) + '</td><td ' + theLast+'>' + jsond[i].AMUNT_TARIF + '</td></tr>')
@@ -8900,26 +8919,33 @@ function MeterHistoryVals(mid, type_, nxtDate) {
                         var value2 = jsond[i].LOG_IN_ID;
                         var value3 = jsond[i].METERS_ID;
                         if (value1 != "" && value2 != "" && value3 != "") {
-                            //$('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Т1</td><td>Т2</td><td>Т3</td></tr></thead><tbody id="Elekt_T3"></tbody></table></div><div class="col-xs-6" style="padding-left:30px;float: right;"><strong>Электроэнергия T1:</strong><input  type="number" id="nm_T1" style="width:30%;"><button onclick=AddValue(this,"T1") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div><div class="col-xs-6" style="padding-left:30px;"><strong>Электроэнергия T2:</strong><input id="nm_T2" type="number" style="width:30%;"><button onclick=AddValue(this,"T2") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div><div class="col-xs-6" style="padding-left:30px;float: right;"><strong>Электроэнергия T3:</strong><input type="number" id="nm_T3" style="width:30%;"><button onclick=AddValue(this,"T3") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div>')
+                    
+                            $('#istPok').parent().children('.row:eq(0)').remove();
+                            $('#istPok').after('<div class="row"><div class="col-lg-6 col-sm-12"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Т1</td><td>Т2</td><td>Т3</td></tr></thead><tbody id="Elekt_T3"></tbody></table></div><div class="col-lg-6 col-sm-12"><div class="posRel w-100 mb-3"><input type="number" onkeyup="validateNegative(this)" min=0 id="nm_T1" style=""><label for="nm_T1">Электроэнергия T1:</label> </div><div class="posRel w-100 mb-3"><input id="nm_T2" type="number" onkeyup="validateNegative(this)" min=0 style=""><label for="nm_T2">Электроэнергия T2:</label></div><div class="posRel w-100"><input type="number" onkeyup="validateNegative(this)" min=0 id="nm_T3" style=""><label for="nm_T3">Электроэнергия T3:</label></div><br/><button onclick=AddValue(this,"") class="btn btn1 right">Внести показания</button></div></div>')// Andrey version
 
-                            //$('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Т1</td><td>Т2</td><td>Т3</td></tr></thead><tbody id="Elekt_T3"></tbody></table></div><div class="col-xs-6 col-xs-12" style="padding-left:30px;float: right;"><div><strong>Электроэнергия T1:</strong><input type="number" id="nm_T1" style="width:30%;"><button onclick=AddValue(this,"T1") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div><div><strong>Электроэнергия T2:</strong><input id="nm_T2" type="number" style="width:30%;"><button onclick=AddValue(this,"T2") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div><div><strong>Электроэнергия T3:</strong><input type="number" id="nm_T3" style="width:30%;"><button onclick=AddValue(this,"T3") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div></div>')
-                            $('#istPok').parent().children('.row:eq(1)').remove();
-                            $('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Т1</td><td>Т2</td><td>Т3</td></tr></thead><tbody id="Elekt_T3"></tbody></table></div><div class="col-xs-6 col-xs-12" style="padding-left:30px;float: right;"><div><strong>Электроэнергия T1:</strong><input type="number" onkeyup="validateNegative(this)" min=0 id="nm_T1" style="width:30%;"> </div><br/><div><strong>Электроэнергия T2:</strong><input id="nm_T2" type="number" onkeyup="validateNegative(this)" min=0 style="width:30%;"></div><br/><div><strong>Электроэнергия T3:</strong><input type="number" onkeyup="validateNegative(this)" min=0 id="nm_T3" style="width:30%;"></div><br/><button onclick=AddValue(this,"") class="btn genBtn" style="margin-left:124px;">Внести показания</button></div></div>')
+                            //$('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Т1</td><td>Т2</td><td>Т3</td></tr></thead><tbody id="Elekt_T3"></tbody></table></div><div class="col-xs-6 col-xs-12" style="padding-left:30px;float: right;"><div><strong>Электроэнергия T1:</strong><input type="number" onkeyup="validateNegative(this)" min=0 id="nm_T1" style="width:30%;"> </div><br/><div><strong>Электроэнергия T2:</strong><input id="nm_T2" type="number" onkeyup="validateNegative(this)" min=0 style="width:30%;"></div><br/><div><strong>Электроэнергия T3:</strong><input type="number" onkeyup="validateNegative(this)" min=0 id="nm_T3" style="width:30%;"></div><br/><button onclick=AddValue(this,"") class="btn genBtn" style="margin-left:124px;">Внести показания</button></div></div>')
                         }
                         if (value1 != "" && value2 != "" && value3 == "") {
-                            //$('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Т1</td><td>Т2</td></tr></thead><tbody id="Elekt_T2" ></tbody></table></div><div class="col-xs-6" style="padding-left:30px;float: right;"><strong>Электроэнергия T1:</strong><input id="nm_T1" type="number" style="width:30%;"><button  onclick=AddValue(this,"T1") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div><div class="col-xs-6" style="padding-left:30px;"><strong>Электроэнергия T2:</strong><input id="nm_T2" type="number" style="width:30%;"><button onclick=AddValue(this,"T2") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div>')
+                         
 
-                            //$('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Т1</td><td>Т2</td></tr></thead><tbody id="Elekt_T2" ></tbody></table></div><div class= "col-xs-6" style = "padding-left:30px;float: right;"><div><strong>Электроэнергия T1:</strong><input id="nm_T1" type="number" style="width:30%;"><button onclick=AddValue(this,"T1") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div><div><strong>Электроэнергия T2:</strong><input id="nm_T2" type="number" style="width:30%;"><button onclick=AddValue(this,"T2") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div></div> ')
+                            
 
-                            $('#istPok').parent().children('.row:eq(1)').remove();
-                            $('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Т1</td><td>Т2</td></tr></thead><tbody id="Elekt_T2"></tbody></table></div><div class="col-xs-6 col-xs-12" style="padding-left:30px;float: right;"><div><strong>Электроэнергия T1:</strong><input type="number" onkeyup="validateNegative(this)" min=0 id="nm_T1" style="width:30%;"> </div><br/><div><strong>Электроэнергия T2:</strong><input id="nm_T2" type="number"  onkeyup="validateNegative(this)" min=0 style="width:30%;"></div><br/><br/><button onclick=AddValue(this,"") class="btn genBtn" style="margin-left:124px;">Внести показания</button></div></div>')
+                           
+                            $('#istPok').parent().children('.row:eq(0)').remove();
+                            $('#istPok').after('<div class="row"><div class="col-lg-6 col-sm-12"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Т1</td><td>Т2</td></tr></thead><tbody id="Elekt_T2"></tbody></table></div><div class="col-lg-6 col-sm-12"><div class="posRel w-100 mb-3"><input type="number" onkeyup="validateNegative(this)" min=0 id="nm_T1" style=""><label for="nm_T1">Электроэнергия T1:</label> </div><div class="posRel w-100"><input id="nm_T2" type="number"  onkeyup="validateNegative(this)" min=0 style=""><label for="nm_T2">Электроэнергия T2:</label></div><br/><br/><button onclick=AddValue(this,"") class="btn btn1 right">Внести показания</button></div></div>')// Andrey Version
+
+                                //$('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Т1</td><td>Т2</td></tr></thead><tbody id="Elekt_T2"></tbody></table></div><div class="col-xs-6 col-xs-12" style="padding-left:30px;float: right;"><div><strong>Электроэнергия T1:</strong><input type="number" onkeyup="validateNegative(this)" min=0 id="nm_T1" style="width:30%;"> </div><br/><div><strong>Электроэнергия T2:</strong><input id="nm_T2" type="number"  onkeyup="validateNegative(this)" min=0 style="width:30%;"></div><br/><br/><button onclick=AddValue(this,"") class="btn genBtn" style="margin-left:124px;">Внести показания</button></div></div>')
+                           
                         }
 
                         if (value1 != "" && value2 == "" && value3 == "") {
                             //$('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Т1</td></tr></thead><tbody id="Elekt_T1"></tbody></table></div><div class="col-xs-6" style="padding-left:30px;float: right;"><strong>Электроэнергия T1:</strong><input id="nm_T1" type="number" style="width:30%;"><button onclick=AddValue(this,"T1") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div>')
 
-                            $('#istPok').parent().children('.row:eq(1)').remove();
-                            $('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Т1</td></tr></thead><tbody id="Elekt_T1"></tbody></table></div><div class="col-xs-6 col-xs-12" style="padding-left:30px;float: right;"><div><strong>Электроэнергия T1:</strong><input type="number" id="nm_T1" onkeyup="validateNegative(this)" min=0 style="width:30%;"> </div><br/><br/><button onclick=AddValue(this,"") class="btn genBtn" style="margin-left:124px;">Внести показания</button></div></div>')
+                            $('#istPok').parent().children('.row:eq(0)').remove();
+
+                            $('#istPok').after('<div class="row"><div class="col-lg-6 col-sm-12"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Т1</td></tr></thead><tbody id="Elekt_T1"></tbody></table></div><div class="col-lg-6 col-sm-12"><div class="posRel w-100"><input type="number" onkeyup="validateNegative(this)" min="0" id="nm_T1" style=""><label for="nm_T1">Электроэнергия T1:</label></div><br/><br/><button onclick=AddValue(this,"") class="btn btn1 right">Внести показания</button></div></div>') //Andrey Version
+
+                            //$('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Т1</td></tr></thead><tbody id="Elekt_T1"></tbody></table></div><div class="col-xs-6 col-xs-12" style="padding-left:30px;float: right;"><div><strong>Электроэнергия T1:</strong><input type="number" id="nm_T1" onkeyup="validateNegative(this)" min=0 style="width:30%;"> </div><br/><br/><button onclick=AddValue(this,"") class="btn genBtn" style="margin-left:124px;">Внести показания</button></div></div>')
 
 
 
@@ -8947,7 +8973,8 @@ function MeterHistoryVals(mid, type_, nxtDate) {
                     theLast=''
                     if (i == 0) {
                         theLast = 'id="theLast"'
-                        $('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Газ</td></tr></thead><tbody id="Gas"></tbody></table></div><div class="col-xs-6" style="padding-left:30px;float: right;"><strong>Газ:  </strong><input id="nm_gas" type="number" onkeyup="validateNegative(this)" min=0 style="width:30%;"><button onclick=AddValue(this,"gas") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div>')
+                        $('#istPok').after('<div class="row"><div class="col-lg-6 col-sm-12"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Газ</td></tr></thead><tbody id="Gas"></tbody></table></div><div class="col-lg-6 col-sm-12"><div class="posRel w-100"><input id="nm_gas" type="number" onkeyup="validateNegative(this)" min=0 ><label for="nm_gas">Газ:  </label></div><button onclick=AddValue(this,"gas") class="btn btn1 right">Внести показания</button></div></div>')// Andrey Version
+                        //$('#istPok').after('<div class="row"><div class="col-xs-6"><table class="table" style="margin:0;"><thead><tr><td>Дата подачи</td><td>Газ</td></tr></thead><tbody id="Gas"></tbody></table></div><div class="col-xs-6" style="padding-left:30px;float: right;"><strong>Газ:  </strong><input id="nm_gas" type="number" onkeyup="validateNegative(this)" min=0 style="width:30%;"><button onclick=AddValue(this,"gas") class="btn genBtn" style="margin-left:15px;">Внести показания</button></div></div>')
                     }
                     if (jsond.lenght != 0) {
                         $('#Gas').append('<tr><td>' + jsond[i].NEXT_DATE.substring(0, jsond[i].NEXT_DATE.indexOf(' ')) + '</td><td ' + theLast+'>' + jsond[i].AMUNT_TARIF + '</td></tr>')
@@ -9130,13 +9157,14 @@ function AddValue(e, id) {
             AddMeterVal(e, Mid, 'Газ', cnum, inpVal);
         }
         else {
-            if ($('#errM').length == 0) {
-                $(e).after('<label id="errM" style="color:red">Необходимо заполнить данное поле</label>')
-                window.setTimeout(function () {
-                    $('#errM').hide(1000);
-                    $('#errM').remove();
-                }, 3000);
-            }
+            ErrorForControls($('#nm_gas'), "Необходимо заполнить данное поле")
+            //if ($('#errM').length == 0) {
+            //    $(e).after('<label id="errM" style="color:red">Необходимо заполнить данное поле</label>')
+            //    window.setTimeout(function () {
+            //        $('#errM').hide(1000);
+            //        $('#errM').remove();
+            //    }, 3000);
+            //}
         }
     }
     if (id == "teplo") {
@@ -9167,13 +9195,14 @@ function AddValue(e, id) {
             $('#nm_teplo').val(0)
         }
         else {
-            if ($('#errM').length == 0) {
-                $(e).after('<label id="errM" style="color:red">Необходимо заполнить данное поле</label>')
-                window.setTimeout(function () {
-                    $('#errM').hide(1000);
-                    $('#errM').remove();
-                }, 3000);
-            }
+            ErrorForControls($('#nm_teplo'), "Необходимо заполнить данное поле")
+            //if ($('#errM').length == 0) {
+            //    $(e).after('<label id="errM" style="color:red">Необходимо заполнить данное поле</label>')
+            //    window.setTimeout(function () {
+            //        $('#errM').hide(1000);
+            //        $('#errM').remove();
+            //    }, 3000);
+            //}
         }
     }
     if (id == "xvs") {
@@ -9204,33 +9233,55 @@ function AddValue(e, id) {
             $('#nm_xvs').val(0)
         }
         else {
-            if ($('#errM').length == 0) {
-                $(e).after('<label id="errM" style="color:red">Необходимо заполнить данное поле</label>')
-                window.setTimeout(function () {
-                    $('#errM').hide(1000);
-                    $('#errM').remove();
-                }, 3000);
-            }
+            ErrorForControls($('#nm_xvs'),"Необходимо заполнить данное поле")
+            //if ($('#errM').length == 0) {
+            //    $(e).after('<label id="errM" style="color:red">Необходимо заполнить данное поле</label>')
+            //    window.setTimeout(function () {
+            //        $('#errM').hide(1000);
+            //        $('#errM').remove();
+            //    }, 3000);
+            //}
         }
     }
     if (id == "qvs") {
         var inpVal = $('#nm_qvs').val();
         if (inpVal.length != 0) {
             var lastValTable = $('#qvs tr:eq(0) td:eq(1)').text();
+            //if (parseFloat(lastValTable) > parseFloat(inpVal)) { 
+            //    if ($('#errM').length == 0) { 
+            //        $(e).after('<label id="errM" style="color:red">Введенные показание меньше предыдущих. Введите корректные данные</label>')
+           
+            //        window.setTimeout(function () { 
+            //            $('#errM').hide(1000); 
+            //            $('#errM').remove();
             
+            //        }, 3000);
+           
+            //    }
+           
+            //}
+           
+            //else { 
+            //    var Mid = sessionStorage.getItem("mid"); 
+            //    var cnum = $('#meterNum').text().substring($('#meterNum').text().indexOf('№ ') + 2, $('#meterNum').text().length); 
+            //    // //console.log(cnum); 
+            //    AddMeterVal(e, Mid, 'ГВС', cnum, inpVal); 
+            //    $('#nm_qvs').val(0) 
+            //}
             var Mid = sessionStorage.getItem("mid");
             var cnum = $('#meterNum').text().substring($('#meterNum').text().indexOf('№ ') + 2, $('#meterNum').text().length);
             // //console.log(cnum);
             AddMeterVal(e, Mid, 'ГВС', cnum, inpVal);
         }
         else {
-            if ($('#errM').length == 0) {
-                $(e).after('<label id="errM" style="color:red">Необходимо заполнить данное поле</label>')
-                window.setTimeout(function () {
-                    $('#errM').hide(1000);
-                    $('#errM').remove();
-                }, 3000);
-            }
+            ErrorForControls($('#nm_qvs'), "Необходимо заполнить данное поле")
+            //if ($('#errM').length == 0) {
+            //    $(e).after('<label id="errM" style="color:red">Необходимо заполнить данное поле</label>')
+            //    window.setTimeout(function () {
+            //        $('#errM').hide(1000);
+            //        $('#errM').remove();
+            //    }, 3000);
+            //}
         }
     }
     if (id == "") {
@@ -9298,29 +9349,32 @@ function AddValue(e, id) {
             else {
                 succElektro = false
                 if ($('#errM').length == 0) {
-                    $('#nm_T1').prev('strong').before('<label id="errM" style="color:red">Необходимо заполнить  все поля для показании</label>')
-                    window.setTimeout(function () {
-                        $('#errM').remove();
-                    }, 3000);
+                   // $('#nm_T1').parent().prev().before('<label id="errM" style="color:red">Необходимо заполнить  все поля для показании</label>')
+                    //window.setTimeout(function () {
+                    //    $('#errM').remove();
+                    //}, 3000);
+                    ErrorForControls($('#nm_T1'),"Необходимо заполнить  все поля для показании")
+                    ErrorForControls($('#nm_T2'),"Необходимо заполнить  все поля для показании")
+                    ErrorForControls($('#nm_T3'), "Необходимо заполнить  все поля для показании")
                 }
             }
             if (succElektro == true && nm_T1.length != 0) {
                 var Mid = sessionStorage.getItem("mid");
                 var cnum = $('#meterNum').text().substring($('#meterNum').text().indexOf('№ ') + 2, $('#meterNum').text().length);
-                var table_id = $('#tab1 .row:eq(1) .table tbody').attr('id');
+                var table_id = $('#home .row div:eq(0) .table tbody').attr('id');
                 AddMeterVal(e, Mid, "T1", cnum, nm_T1, table_id);
             }
             if (succElektro == true && nm_T2.length != 0) {
                 var Mid = sessionStorage.getItem("mid");
                 var cnum = $('#meterNum').text().substring($('#meterNum').text().indexOf('№ ') + 2, $('#meterNum').text().length);
-                var table_id = $('#tab1 .row:eq(1) .table tbody').attr('id');
+                var table_id = $('#home .row div:eq(0) .table tbody').attr('id');
                 //alert('ok')
                 AddMeterVal(e, Mid, "T2", cnum, nm_T2, table_id);
             }
             if (succElektro == true && nm_T3.length != 0) {
                 var Mid = sessionStorage.getItem("mid");
                 var cnum = $('#meterNum').text().substring($('#meterNum').text().indexOf('№ ') + 2, $('#meterNum').text().length);
-                var table_id = $('#tab1 .row:eq(1) .table tbody').attr('id');
+                var table_id = $('#home .row div:eq(0) .table tbody').attr('id');
                 AddMeterVal(e, Mid, "T3", cnum, nm_T3, table_id);
             }
         }
@@ -9371,23 +9425,25 @@ function AddValue(e, id) {
             }
             else {
                 succElektro = false
-                if ($('#errM').length == 0) {
-                    $('#nm_T1').prev('strong').before('<label id="errM" style="color:red">Необходимо заполнить все поля для показании</label>')
-                    window.setTimeout(function () {
-                        $('#errM').remove();
-                    }, 3000);
-                }
+                ErrorForControls($('#nm_T1'), "Необходимо заполнить  все поля для показании")
+                ErrorForControls($('#nm_T2'), "Необходимо заполнить  все поля для показании")
+                //if ($('#errM').length == 0) {
+                //    $('#nm_T1').prev('strong').before('<label id="errM" style="color:red">Необходимо заполнить все поля для показании</label>')
+                //    window.setTimeout(function () {
+                //        $('#errM').remove();
+                //    }, 3000);
+                //}
             }
             if (succElektro == true && nm_T1.length != 0) {
                 var Mid = sessionStorage.getItem("mid");
                 var cnum = $('#meterNum').text().substring($('#meterNum').text().indexOf('№ ') + 2, $('#meterNum').text().length);
-                var table_id = $('#tab1 .row:eq(1) .table tbody').attr('id');
+                var table_id = $('#home .row div:eq(0) .table tbody').attr('id');
                 AddMeterVal(e, Mid, "T1", cnum, nm_T1, table_id);
             }
             if (succElektro == true && nm_T2.length != 0) {
                 var Mid = sessionStorage.getItem("mid");
                 var cnum = $('#meterNum').text().substring($('#meterNum').text().indexOf('№ ') + 2, $('#meterNum').text().length);
-                var table_id = $('#tab1 .row:eq(1) .table tbody').attr('id');
+                var table_id = $('#home .row div:eq(0) .table tbody').attr('id');
                 //alert('ok')
                 AddMeterVal(e, Mid, "T2", cnum, nm_T2, table_id);
             }
@@ -9422,17 +9478,18 @@ function AddValue(e, id) {
             }
             else {
                 succElektro = false
-                if ($('#errM').length == 0) {
-                    $('#nm_T1').prev('strong').before('<label id="errM" style="color:red">Необходимо заполнить поля для показании</label>')
-                    window.setTimeout(function () {
-                        $('#errM').remove();
-                    }, 3000);
-                }
+                ErrorForControls($('#nm_T1'), "Необходимо заполнить данное поле")
+                //if ($('#errM').length == 0) {
+                //    $('#nm_T1').prev('strong').before('<label id="errM" style="color:red">Необходимо заполнить поля для показании</label>')
+                //    window.setTimeout(function () {
+                //        $('#errM').remove();
+                //    }, 3000);
+                //}
             }
             if (succElektro == true && nm_T1.length != 0) {
                 var Mid = sessionStorage.getItem("mid");
                 var cnum = $('#meterNum').text().substring($('#meterNum').text().indexOf('№ ') + 2, $('#meterNum').text().length);
-                var table_id = $('#tab1 .row:eq(1) .table tbody').attr('id');
+                var table_id = $('#home .row div:eq(0) .table tbody').attr('id');
                 AddMeterVal(e, Mid, "Elekt_T1", cnum, nm_T1, table_id);
             }
 
@@ -9670,43 +9727,50 @@ function AddMeterVal(event, mid, ctip, cnum, val, tblName) {
             if (ctip == "Газ") {
                 //$('#Gas').prepend('<tr style="display:none"><td>' + strDate+'</td><td>' + val+'</td></tr>');
                 //$('#Gas tr:eq(0)').show('3000');
-                $('#tab1 .row:eq(1)').remove();
+                //   $('#tab1 .row:eq(1)').remove();
+                $('#home .row').remove();
                 MeterHistoryVals(mid, 'Газ')
 
             }
             if (ctip == "Теплоэнергия") {
                 //$('#teplo').prepend('<tr style="display:none"><td>' + strDate + '</td><td>' + val + '</td></tr>');
                 //$('#teplo tr:eq(0)').show('3000');
-                $('#tab1 .row:eq(1)').remove();
+               // $('#tab1 .row:eq(1)').remove();
+                $('#home .row').remove();
                 MeterHistoryVals(mid, 'Теплоэнергия')
 
             }//
             if (ctip == "ХВС") {
                 //$('#xvs').prepend('<tr style="display:none"><td>' + strDate + '</td><td>' + val + '</td></tr>');
                 //$('#xvs tr:eq(0)').show('3000');
-                $('#tab1 .row:eq(1)').remove();
+              //  $('#tab1 .row:eq(1)').remove();
+                $('#home .row').remove();
                 MeterHistoryVals(mid, 'ХВС')
 
             }
             if (ctip == "ГВС") {
                 //$('#qvs').prepend('<tr style="display:none"><td>' + strDate + '</td><td>' + val + '</td></tr>');
                 //$('#qvs tr:eq(0)').show('3000');
-                $('#tab1 .row:eq(1)').remove();
+               // $('#tab1 .row:eq(1)').remove();
+                $('#home .row').remove();
                 MeterHistoryVals(mid, 'ГВС')
 
             }
             if (ctip == "Elekt_T1") {
                 //$('#Elekt_T1').prepend('<tr style="display:none"><td>' + strDate + '</td><td>' + val + '</td></tr>');
                 //$('#Elekt_T1 tr:eq(0)').show('3000');
-                $('#tab1 .row:eq(1)').remove();
+              //  $('#tab1 .row:eq(1)').remove();
+                $('#home .row').remove();
                 MeterHistoryVals(mid, 'Электроэнергия')
             }
             if (tblName == 'Elekt_T2') {
-                $('#tab1 .row:eq(1)').remove();
+               // $('#tab1 .row:eq(1)').remove();
+                $('#home .row').remove();
                 MeterHistoryVals(mid, 'Электроэнергия')
             }
             if (tblName == 'Elekt_T3') {
-                $('#tab1 .row:eq(1)').remove();
+             //   $('#tab1 .row:eq(1)').remove();
+                $('#home .row').remove();
                 MeterHistoryVals(mid, 'Электроэнергия')
             }
         }
@@ -9729,7 +9793,7 @@ function getPerScores(obj, rt, rm, s) {
             if (s != "") {
                 $('#Ps').find('option').get(0).remove();
                 $('#Ps').select2('destroy');
-                $('#Ps').val(s).select2();
+                $('#Ps').val(s).select2().select2('enable', false);
             }
         }
     })
@@ -9750,7 +9814,7 @@ function GetMeterTypesCard(s) {
             }
             if (s != "") {
                 $("#TMeterC").select2('destroy')
-                $("#TMeterC").val(s).select2();
+                $("#TMeterC").val(s).select2().select2('enable', false);;
             }
         }
 
@@ -9772,7 +9836,7 @@ function getROomTYpeCardC(s) {
             }
             if (s != "") {
                 $('#TRoomC').select2('destroy')
-                $("#TRoomC").val(s).select2();
+                $("#TRoomC").val(s).select2().select2('enable',false);
             }
 
         }
@@ -10795,9 +10859,9 @@ function PopupIframe(header, src, div) {
     $("#close_5,#cls").click(function () {
         modal.style.display = "none";
         $('#mb5').empty();
-        $('#mb5').append('<div class="row"><div class="container"><div class="col-xs-12 col-sm-3"></div></div></div>')
+        $('#mb5').append('<div class="row"><div class="container"><div class="col-lg-12"></div></div></div>')
         $('#RoomType,#RoomNum,#sc,#meterNum').empty();
-        $('#mb5 .col-xs-12').load('AddCounter.aspx #pop')
+        $('#mb5 .col-lg-12').load('AddCounter.aspx #pop')
         //$('#RoomType,#RoomNum','#sc').empty();
 
     })

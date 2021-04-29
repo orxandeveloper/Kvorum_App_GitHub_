@@ -26,23 +26,23 @@ $(document).ready(function() {
 		<div class="flexHoriz flex-wrap justify-content-between" id="pop">
 
    
-		<div class="mb-3 w-48">
+		<div class="posRel mb-3 w-48">
             <select id="RoomType" class=" w-100 ">
                 <option>Тип помещения</option>
             </select>
-		<!--	<label for="RoomType">Тип помещения</label> -->
+		<label for="RoomType">Тип помещения</label>
      	</div>	   
-	    <div class="mb-3 w-48">  
+	    <div class="posRel mb-3 w-48">  
             <select id="RoomNum" class=" w-100">
                 <option >Номер помещения</option>
             </select>
-        <!--    <label for="RoomNum">Номер помещения</label> -->
+        <label for="RoomNum">Номер помещения</label> 
 		</div>	   
-	    <div class="mb-3 w-48">  	
+	    <div class="posRel mb-3 w-48">  	
             <select id="sc" class=" w-100">
                <option >ЛС</option>
             </select>
-            <!-- <label for="sc">ЛС</label> -->
+            <label for="sc">ЛС</label>
 		</div>	   
 			
 		<div class="posRel w-48 mb-3">
@@ -50,25 +50,25 @@ $(document).ready(function() {
              <label for="meterNum" class="">Номер счетчика</label> 
 		</div>
 
-	    <div class="mb-2 w-100">    
+	    <div class="posRel mb-2 w-48">    
             <select id="mtrsType" class=" w-100">
                 <option value="0">Выберите тип счетчика</option>
             </select>
-		<!--	<label for="mtrsType">Тип счетчика</label> -->
+			<label for="mtrsType">Тип счетчика</label> 
 		</div>
 		
-	
-            <input type="checkbox" id="is_auto" class="checkbox-item">
-            <label class="" for="is_auto">Показания передаются автоматически</label>
-     
-		
-		<div class="posRel w-100 mb-3 mt-2">	    
+		<div class="posRel w-48 mb-3 mt-2">	    
             <input type="number" max="3" min="0" onkeyup="PositiveValues(this)" id="AmntTarif" class="w-100">
 			<label id="KolTarif" for="AmntTarif" class="">Количество тарифов</label>
-        </div>
+        </div>	
+		
+            <input type="checkbox" id="is_auto" class="checkbox-item">
+            <label class="w-90 mb-3" for="is_auto">Показания передаются автоматически</label>
+     
+		
+
 		
 		<div class="posRel w-48 mb-3">	    
-            
             <input type="date" id="lstControl" value="02.02.2020">
 			<label for="lstControl">Дата последней поверки</label>
         </div>

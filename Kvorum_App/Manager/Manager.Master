@@ -171,8 +171,8 @@
             width: 100%; /* Full width */
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
-           
-            background-color: rgb(0 0 0 / 20%); /* Black w/ opacity */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(9, 118, 255, 0.4); /* Black w/ opacity */
         }
 
         /* Modal Content */
@@ -383,7 +383,7 @@
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
             background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0 0 0 / 42%); /* Black w/ opacity */
+            background-color: rgba(9, 118, 255, 0.4); /* Black w/ opacity */
         }
 
         /* Modal Content */
@@ -579,7 +579,7 @@
                     <img src="../img/home-ic-bl.svg" class="w24 mr-3" alt="" />
                     <p class="font14b mb-0">Главная</p>
                 </a></li>
-                <li><a href="#" class="flexHoriz">
+                <li><a href="NewsRegister.aspx" class="flexHoriz">
                     <img src="../img/news-ic-bl.svg" class="w24 mr-3" alt="" />
                     <p class="font14b mb-0">Новости</p>
                 </a></li>
@@ -683,7 +683,7 @@
                         <img src="../img/home-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font14b mb-0">Помещения и лицевые счета</p>
                     </a></li>
-                    <li class="nav-link"><a href="#" class="flexHoriz">
+                    <li class="nav-link"><a href="NewsRegister.aspx" class="flexHoriz">
                         <img src="../img/news-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font14b mb-0">Новости</p>
                     </a></li>
@@ -737,16 +737,16 @@
     <div id="myModal4" class="modal2" >
 
         <!-- Modal content -->
-        <div class="modal-content2" style="width: 17%;">
-            <div class="modal-header2" style="background-color: white">
-                <span class="close2" style="color: black" id="close_4">×</span><br>
-
-                <label style="color: black; font-size: 21px; text-align: center; font-weight: 500;">
+        <div class="modal-content2 bgWhite rounded16 p-4 shadow w-50" > <!-- style="width: 17%;" -->
+            <div class="modal-header2 bgWhite flexHoriz">
+                <label class="textBlack font24b w-90 mb-0">
                     Сгенерированный пароль
-    
                 </label>
+				<span class="close2 ml-auto mr-3" id="close_4">
+					<img src="../img/close.svg" alt="Закрыть" class="w24"/>
+				</span>
             </div>
-            <div class="modal-body2" style="width: 100%; padding: 15px; display: inline-block;">
+            <div class="modal-body2 mt-4" style="width: 100%; height: 400px; overflow: hidden; overflow-y: scroll; padding: 15px; display: inline-block;">
                 <input type="text" id="genPass"><%--<input type="number" min="0" value="7" id="psExp" style="width: 28%; float: right; text-align: center;">--%>
                 <span id="" style="color: red; display: none;" class="domOk"></span>
                 <%-- <label>Срок действия пароля в днях</label>
@@ -758,12 +758,12 @@
 
             <div class="modal-footer2" id="modal-footer4" style="text-align: left; height: 150px; background-color: white; margin-top: 0px; color: black;">
 
-                <input type="checkbox" id="sms" style="margin-right: 15px;">Сделать смс-рассылку<br>
-                <input type="checkbox" id="em" style="margin-right: 15px;">Сделать рассылку на электронную почту
+                <input type="checkbox" id="sms" class="checkbox-item"><label for="sms">Сделать смс-рассылку</label>
+                <input type="checkbox" id="em" class="checkbox-item"><label for="em">Сделать рассылку на электронную почту</label>
                 <br>
-                <button style="margin-left: 26%; margin-top: 3%; width: 47%; font-size: 16px;" onclick="GetValuesG(this)" id="GENER" class="btn genBtn">ОК</button>
-                <label style="font-style: italic; font-weight: 100; width: 100%; float: left;">
-                    <i class="fa fa-info-circle" aria-hidden="true" style="color: grey; font-size: 16px; margin-right: 11px;"></i>Выбранная рассылка будет произведена после нажатия на кнопку "Сохранить" на карточке помещения.</label>
+                <button onclick="GetValuesG(this)" id="GENER" class="btn btn1 right w-15">ОК</button>
+                <p class="font12 left w-75">
+                    <i class="fa fa-info-circle" aria-hidden="true" style="color: grey; font-size: 16px; margin-right: 11px;"></i>Выбранная рассылка будет произведена после нажатия на кнопку "Сохранить" на карточке помещения.</p>
             </div>
         </div>
 
