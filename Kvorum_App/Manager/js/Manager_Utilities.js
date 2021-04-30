@@ -2014,11 +2014,25 @@
 
         })
         $('#mb5').append('<div class="row"><div class="container"><div class="col-lg-12"></div></div></div>')
-        $('#mb5 .col-lg-12').load('AddCounter.aspx #pop')
-    
+        $('#mb5 .col-lg-12').load('AddCounter.aspx #pop', function () {
+           
+           
+            $('#pop').find('input').each(function () {
+                var id = $(this).attr('id')
+                $('label[for="' + id + '"]').attr('class', 'transp backLab')
+            })
+                $('#pop').find('select').each(function () {
+                    var id = $(this).attr('id')
+                    $('label[for="' + id + '"]').attr('class', 'transp backLab')
+                    $(this).select2({
+                        width:'100%',
+                        dropdownParent: $('#myModal5')
 
+                    })
+                })
+            
 
-
+        })
         $(document).on('blur', '#nextControl', function () {
             var lst = $('#lstControl').val().split('-')
             var lstday = lst[2];
@@ -2067,9 +2081,7 @@
                 getDateM();
             }
         })
-
         $(document).on('change', '#sc', function () { $('#Hsc').remove(); })
-
         $(document).on('change', '#meterNum', function () {
             $('#HmeterNum').remove();
             checkMeterNum($(this))
@@ -2082,17 +2094,23 @@
         $(document).on('change', '#mtrsType', function () {
             $('#HmtrsType').remove();
             if ($(this).val() != 4) {
-                $('#AmntTarif+br,#AmntTarif,#KolTarif,.TarifH,.Tarif').remove();
-                if ($('#readingH1').length == 0) {
+                $('div[data-T="tarif"]').remove()
+                $('#AmntTarif').parent().remove();
+                $('#nextControl').parent().after('<div class="posRel w-48 mb-3" data-t="tarif"> <input type="number" data-num="1" min="0" onkeyup="PositiveValues(this)" id="reading1" class="w-100"> <label data-num="1" id="readingH1" for="reading1" class="transp backLab">Начальное показание</label> </div>')
+                $('label[for="is_auto"]').css('width','47%')
+                //$('#AmntTarif+br,#AmntTarif,#KolTarif,.TarifH,.Tarif').remove();
+                //if ($('#readingH1').length == 0) {
 
-                    $('#nextControl').after('<label data-num="1" id="readingH1">Начальное показание</label><input type="number" data-num="1" min="0" onkeyup="PositiveValues(this)" id="reading1" style="width: 50%;">')
-                }
+                //    $('#nextControl').after('<label data-num="1" id="readingH1">Начальное показание</label><input type="number" data-num="1" min="0" onkeyup="PositiveValues(this)" id="reading1" style="width: 50%;">')
+                //}
 
             }
             else {
+                $('label[for="is_auto"]').removeAttr('style')
                 if ($('#KolTarif').length != 1) {
-                    $(this).after('<label id="KolTarif">Количество тарифов</label>')
-                    $('#KolTarif').after('<input type="number" onkeyup="PositiveValues(this)" max="3" min=0 id="AmntTarif" style="width: 50%;"><br>')
+                    //$(this).parent().after('<label id="KolTarif">Количество тарифов</label>')
+                    //$('#KolTarif').after('<input type="number" onkeyup="PositiveValues(this)" max="3" min=0 id="AmntTarif" style="width: 50%;"><br>')
+                    $(this).parent().after('<div class="posRel w-48 mb-3 mt-2"> <input type="number" max="3" min="0" onkeyup="PositiveValues(this)" id="AmntTarif" class="w-100"> <label id="KolTarif" for="AmntTarif" class="transp backLab">Количество тарифов</label> </div>')
                 }
 
             }
@@ -2119,33 +2137,38 @@
             }
         })
         $(document).on('keyup', '#AmntTarif', function () {
-            $('.modal-content2').css('height', '900px')
+            //$('.modal-content2').css('height', '900px')
             if ($('#mtrsType').val() == 4) {
-                $('#HAmntTarif').remove();
-                $('label[data-num="1"]').remove();
-                $('input[data-num="1"]').remove();
+                //$('#HAmntTarif').remove();
+                //$('label[data-num="1"]').remove();
+                //$('input[data-num="1"]').remove();
                 var mntval = $(this).val();
                 if (mntval > 3) {
                     mntval = 3
                     $(this).val(3)
                 }
                 if (mntval > 1) {
-                    $('#readingH1,#reading1').remove();
+                    //$('#readingH1,#reading1').remove();
+                    $('div[data-T="tarif"]').remove()
                     for (var i = mntval; i >= 1; i--) {
-                        $('#nextControl').after('<label data-num="1" class="TarifH" id="readingH' + i + '">Начальное показание T ' + i + '</label><input type="number" data-num="1"  min="0" onkeyup="PositiveValues(this)" class="Tarif" id="reading' + i + '" style="width: 50%;">')
-                        var mch = $('#myModal5').children('div:eq(0)').css('height');
-                        mch = mch.substring(0, mch.indexOf('p'));
-                        mch = parseInt(mch) + 25;
-                        mch = mch + 'px'
-                        $('.modal-content2').css('height', mch)
+                        //$('#nextControl').after('<label data-num="1" class="TarifH" id="readingH' + i + '">Начальное показание T ' + i + '</label><input type="number" data-num="1"  min="0" onkeyup="PositiveValues(this)" class="Tarif" id="reading' + i + '" style="width: 50%;">')
+                       
+                        $('#nextControl').parent().after('<div class="posRel w-48 mb-3" data-t="tarif"> <input type="number" data-num=' + i + ' min="0" onkeyup="PositiveValues(this)" id="reading' + i + '" class="w-100"> <label data-num="' + i + '" id="readingH' + i + '" for="reading' + i +'" class="transp backLab">Начальное показание T '+i+'</label> </div>')
+                        //var mch = $('#myModal5').children('div:eq(0)').css('height');
+                        //mch = mch.substring(0, mch.indexOf('p'));
+                        //mch = parseInt(mch) + 25;
+                        //mch = mch + 'px'
+                        //$('.modal-content2').css('height', mch)
 
                     }
                 }
                 if (mntval == "" || mntval == 0 || mntval == 1) {
-                    $('label[data-num="1"]').remove();
-                    $('input[data-num="1"]').remove();
-                    $('#nextControl').after('<label data-num="1" class="TarifH"  id="readingH1">Начальное показание</label><input  type="number" min="0" onkeyup="PositiveValues(this)" class="Tarif"  data-num="1" id="reading1" style="width: 50%;">')
-                    $('#myModal5 .modal-content2').css('height', '35vw')
+                    $('div[data-T="tarif"]').remove()
+                    $('#nextControl').parent().after('<div class="posRel w-48 mb-3" data-t="tarif"> <input type="number" data-num="1" min="0" onkeyup="PositiveValues(this)" id="reading1" class="w-100"> <label data-num="1" id="readingH1" for="reading1" class="transp backLab">Начальное показание</label> </div>')
+                    //$('label[data-num="1"]').remove();
+                    //$('input[data-num="1"]').remove();
+                    //$('#nextControl').after('<label data-num="1" class="TarifH"  id="readingH1">Начальное показание</label><input  type="number" min="0" onkeyup="PositiveValues(this)" class="Tarif"  data-num="1" id="reading1" style="width: 50%;">')
+                    //$('#myModal5 .modal-content2').css('height', '35vw')
                 }
             }
         })
@@ -2193,7 +2216,7 @@
                     $.ajax({
                         error: function (e) { $('.ui-loader-background').hide(); $('#loader').hide(); alert(e.responseJSON.Message) },
                         type: "POST",
-                        url: window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/UploadFile",//window.location.protocol + '//' + window.location.host + "
+                        url:"http://172.20.20.24/WCFServices/Constructor_API.svc/UploadFile",//window.location.protocol + '//' + window.location.host + "
                         data: formData,
                         type: 'POST',
                         contentType: false,
@@ -2205,27 +2228,24 @@
                         success: function (result) {
                             $("#loader").hide();
                             $("#files").hide();
-                            var F_ile = result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/")
+                            var F_ile = result.URL.replace('~',"http://172.20.20.24/")// window.location.protocol + '//' + window.location.host + "/"
                             var extention = F_ile.substr(F_ile.lastIndexOf(".") + 1)
                             //
                             if (extention != "docx" && extention != "doc" && extention != "xls" && extention != "xlsx" && extention != "pdf" && extention != "PDF" && extention != "txt" && extention != "TXT") {
-                                $("#files").after('<img class="HistImg"  data-url="' + F_ile + '" src="' + F_ile + '"  ><i class="fa fa-close removing" onclick="removeFM(this)"  aria-hidden="true"></i>')
+                                //$("#files").after('<img class="HistImg"  data-url="' + F_ile + '" src="' + F_ile + '"  ><i class="fa fa-close removing" onclick="removeFM(this)"  aria-hidden="true"></i>')
+                                $('#files').after('<div class="flexHoriz w-100"><img id="imgNews" src="' + F_ile + '" class="w42"><i class="fa fa-close removing3 ml-3" itemid="1" onclick="removeFM(this)" style="" aria-hidden="true"></i></div>')// Andrey Version
                             }
                             if (extention == "docx" || extention == "doc") {
-
-                                $("#files").after('<img class="HistImg"  data-url="' + F_ile + '"  src="' + window.location.protocol + '//' + window.location.host + '/img/word.png"  ><i class="fa fa-close removing" onclick="removeFM(this)" aria-hidden="true"></i><h4  class="titleF2">' + file.name + '</h4>')
+                                $("#files").after('<div class="flexHoriz"><img class="HistImg mr-3"  data-url="' + F_ile + '"  src="' + window.location.protocol + '//' + window.location.host + '/img/word.png"  ><h4  class="titleF2 mb-0 mr-3">' + file.name + '</h4><i class="fa fa-close removing" onclick="removeFM(this)" aria-hidden="true"></i></div>')
                             }
                             if (extention == "xlsx" || extention == "xls") {
-
-                                $("#files").after('<img class="HistImg"  data-url="' + F_ile + '" src="' + window.location.protocol + '//' + window.location.host + '/img/excel.png"  ><i class="fa fa-close removing" onclick="removeFM(this)" aria-hidden="true"></i><h4  class="titleF2">' + file.name + '</h4>')
+                                $("#files").after('<div class="flexHoriz"><img class="HistImg mr-3"  data-url="' + F_ile + '" src="' + window.location.protocol + '//' + window.location.host + '/img/excel.png"  ><h4  class="titleF2 mb-0 mr-3">' + file.name + '</h4><i class="fa fa-close removing" onclick="removeFM(this)" aria-hidden="true"></i></div>')
                             }
                             if (extention == "pdf" || extention == "PDF") {
-
-                                $("#files").after('<img class="HistImg"  data-url="' + F_ile + '" src="' + window.location.protocol + '//' + window.location.host + '/img/pedefe.png"  ><i class="fa fa-close removing" onclick="removeFM(this)" aria-hidden="true"></i><h4  class="titleF2">' + file.name + '</h4>')
+                                $("#files").after('<div class="flexHoriz"><img class="HistImg mr-3"  data-url="' + F_ile + '" src="' + window.location.protocol + '//' + window.location.host + '/img/pedefe.png"  ><h4  class="titleF2 mb-0 mr-3">' + file.name + '</h4><i class="fa fa-close removing" onclick="removeFM(this)" aria-hidden="true"></i></div>')
                             }
                             if (extention == "txt" || extention == "TXT") {
-
-                                $("#files").after('<img class="HistImg"  data-url="' + F_ile + '" src="' + window.location.protocol + '//' + window.location.host + '/img/texete.png"><i class="fa fa-close removing" onclick="removeFM(this)" aria-hidden="true"></i><h4  class="titleF2">' + file.name + '</h4>')
+                                $("#files").after('<div class="flexHoriz"><img class="HistImg mr-3"  data-url="' + F_ile + '" src="' + window.location.protocol + '//' + window.location.host + '/img/texete.png"><h4  class="titleF2 mb-0 mr-3">' + file.name + '</h4><i class="fa fa-close removing" onclick="removeFM(this)" aria-hidden="true"></i></div>')
                             }
 
 
@@ -4057,7 +4077,12 @@ function UI_ForIndication(e) {
     $('#UploadCounter').children('.modal-content2').children('.modal-header2').append('<h2 id="mh2" style="text-align: left; color: black">Массовая загрузка показаний счетчиков</h2>')
 
     $('#UploadCounter').children('.modal-content2').children('.modal-body2').children('#loadLC').hide()
-    $('#UploadCounter').children('.modal-content2').children('.modal-body2').append('<div id="loadLC"><div style="padding-left: 20px;"><a href="../img/Форма загрузки показаний счетчиков.xlsx" download="" title="Скачать форму">Форма загрузки показаний счетчиков</a><br><br><input id="filesInd" onchange="CounterIndication(this)" type="file"><br></div><table class="table" id="tblIndics"><thead><tr><th>ЛС</th><th>Номер счетчика</th><th>Тип счетчика</th><th>Количество тарифов</th><th>Тариф</th><th>Показания</th><th>Дата внесения показаний</th></tr></thead><tbody id="Indics"></tbody></table><br></div>')
+    //$('#UploadCounter').children('.modal-content2').children('.modal-body2').append('<div id="loadLC"><div style="padding-left: 20px;"><a href="../img/Форма загрузки показаний счетчиков.xlsx" download="" title="Скачать форму">Форма загрузки показаний счетчиков</a><br><br><input id="filesInd" onchange="CounterIndication(this)" type="file"><br></div><table class="table" id="tblIndics"><thead><tr><th>ЛС</th><th>Номер счетчика</th><th>Тип счетчика</th><th>Количество тарифов</th><th>Тариф</th><th>Показания</th><th>Дата внесения показаний</th></tr></thead><tbody id="Indics"></tbody></table><br></div>')
+    $('#UploadCounter').children('.modal-content2').children('.modal-body2').append('<div id="loadLC"><div style="padding-left: 20px;"><a href="../img/Форма загрузки показаний счетчиков.xlsx" download="" title="Скачать форму">Форма загрузки показаний счетчиков</a><br><br><input id="filesInd" onchange="CounterIndication(this)" type="file"><br></div><table class="mngTable mt-3 w-100" id="tblIndics"><thead><tr><th>ЛС</th><th>Номер счетчика</th><th>Тип счетчика</th><th>Количество тарифов</th><th>Тариф</th><th>Показания</th><th>Дата внесения показаний</th></tr></thead><tbody id="Indics"></tbody></table><br></div>')//Andre Version
+
+
+
+    $('#UploadCounter').children('.modal-content2').children('.modal-footer2').append('<input type="button" id="loadExC" onclick="AddCounterValue_mass(this)" name="name" value="Загрузить" class="btn btn1 flexCenter w177 mr-3">')//Andrey Version
 
     //  $('#UploadCounter').children('.modal-content2').children('.modal-body2').children('#loadLC_2').show();
 
@@ -10863,6 +10888,7 @@ function PopupIframe(header, src, div) {
         $('#RoomType,#RoomNum,#sc,#meterNum').empty();
         $('#mb5 .col-lg-12').load('AddCounter.aspx #pop')
         //$('#RoomType,#RoomNum','#sc').empty();
+     
 
     })
     //window.onclick = function (event) {
@@ -10872,6 +10898,7 @@ function PopupIframe(header, src, div) {
     //        $('#close_5').click();
     //    }
     //}
+   
 
 }
 function removeFM(e) {
@@ -10934,9 +10961,10 @@ function getRoomTYpeByO(o) {
                 $("#RoomType").append('<option value="' + jsondata_1[0].ROOM_ID + '">' + jsondata_1[0].ROOM_TYPE + '</option>').attr('disabled', 'disabled')
                 GetRoomNumber(o, jsondata_1[0].ROOM_ID)
             }
+            $('label[for="RoomType"]').remove();
 
-
-
+          //  $("#RoomType").select2('destroy');
+          /// $("#RoomType").select2()
 
 
 
@@ -10963,7 +10991,9 @@ function GetRoomNumber(o, st) {
                 $("#RoomNum").append('<option value="' + jsondata_1[i].ROOM_ID + '">' + jsondata_1[i].ROOM_NUMBER + '</option>')
             }
 
-            $("#RoomNum").val(jsondata_1[0].ROOM_ID)
+            $("#RoomNum").select2('destroy').val(jsondata_1[0].ROOM_ID).select2({
+                dropdownParent: $('#myModal5')
+            })
             getScore(jsondata_1[0].ROOM_ID);
         }
 
@@ -11011,13 +11041,19 @@ function getScore(r) {
             var jsondata_1 = JSON.parse(data.d)
             //$("#RoomType").removeAttr('disabled')
 
-            $("#sc").empty();
+           $("#sc").empty();
 
             for (var i = 0; i < jsondata_1.length; i++) {
                 $("#sc").append('<option value="' + jsondata_1[i].ROOM_FOR + '">' + jsondata_1[i].ROOM_FOR + '</option>')
             }
+           // $("#sc").select2('destroy')
+            $("#sc").select2('destroy').val(jsondata_1[0].ROOM_FOR).select2({
+               
+                dropdownParent: $('#myModal5')
 
-            $("#sc").val(jsondata_1[0].ROOM_FOR)
+            });
+           
+
             //getScore(jsondata_1[i].ROOM_ID);
         }
 

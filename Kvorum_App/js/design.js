@@ -1,18 +1,33 @@
 $(document).ready(function (){
 	// гугловские поля ввода
-	$('.posRel input').click(function(){
+	$('.posRel input, .posRel select').click(function(){
 		$("label[for='" + this.id + "']").addClass("transp");
 	});
-	$('.posRel input').focusout(function(){
+	$('.posRel input, .posRel select').focusout(function(){
 		$("label[for='" + this.id + "']").addClass("backLab");
 		$("label[for='" + this.id + "']").removeClass("w-95");
 	});
-	$('.posRel select').click(function(){		
-		$("label[for='" + this.id + "']").addClass("transp");
+
+setTimeout(function(){ 
+	$('.posRel input, .posRel select').each(function(){
+		if( $(this).val() ) {
+          $("label[for='" + this.id + "']").addClass("backLab");
+		  $("label[for='" + this.id + "']").addClass("transp");
+		}
 	});
-	$('.posRel select').focusout(function(){
-		$("label[for='" + this.id + "']").addClass("backLab");
-		$("label[for='" + this.id + "']").removeClass("w-95");
+	
+}, 2000);
+
+	$('.posRel').each(function(){
+		if ($(this).children().hasClass('rmFOr')) {
+			$(this).addClass('bordered');
+		}
+	});
+	
+	$('.posRel').focusin( function(){ 
+		if ($(this).children().hasClass('rmFOr')) {
+			$(this).addClass('toggleHeight');
+		};	
 	});
 
 

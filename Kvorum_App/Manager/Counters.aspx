@@ -272,10 +272,10 @@
     <div id="myModal5" class="modal2" style="z-index: 3000; background-color: rgba(9, 118, 255,0.4)">
 
         <!-- Modal content -->
-        <div class="modal-content2 bgWhite rounded16 shadow w-75 p-4">
-            <div class="modal-header2 bgWhite flexHoriz">
-                <h2 id="mh5" class="font24b textBlack">Ошибка</h2>
-				<span id="close5" onclick="closeModal('myModal5')" class="close2 bgWhite pl-2 pr-3 mr-4 border-0 rounded-pill ml-auto">
+        <div class="modal-content2 bgWhite rounded16 shadow w-50 p-4">
+            <div class="modal-header2 bgWhite flexHoriz mb-4">
+                <h2 id="mh5" class="font24b textBlack mb-0">Ошибка</h2>
+				<span id="close5" class="close2 bgWhite pl-2 pr-3 mr-4 border-0 rounded-pill ml-auto">
 					<img src="../img/close.svg" class="w24" alt="">
 				</span>
             </div>

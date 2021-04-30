@@ -835,7 +835,7 @@
         <div class="modal-contentBnp bgWhite rounded16 shadow p-4">
             <div class="modal-headerBnp flexHoriz">
                 <h2 class="font24b textBlack">Загрузка начислений и платежей</h2>
-				<span class="closebnp ml-auto mr-3" id="closebnp">
+				<span class="closebnp ml-auto" id="closebnp">
 					<img src="../img/close.svg" class="w24" alt="Закрыть"/>
 				</span>
             </div>

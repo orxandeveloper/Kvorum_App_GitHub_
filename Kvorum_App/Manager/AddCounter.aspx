@@ -34,13 +34,13 @@ $(document).ready(function() {
      	</div>	   
 	    <div class="posRel mb-3 w-48">  
             <select id="RoomNum" class=" w-100">
-                <option >Номер помещения</option>
+                 
             </select>
         <label for="RoomNum">Номер помещения</label> 
 		</div>	   
 	    <div class="posRel mb-3 w-48">  	
             <select id="sc" class=" w-100">
-               <option >ЛС</option>
+               
             </select>
             <label for="sc">ЛС</label>
 		</div>	   
@@ -79,7 +79,7 @@ $(document).ready(function() {
 			<label for="nextControl">Дата следующей поверки</label>
         </div>
 		
-		<div class="posRel w-48 mb-3">	    
+		<div class="posRel w-48 mb-3" data-T="tarif">	    
             
             <input type="number" data-num="1" min="0" onkeyup="PositiveValues(this)" id="reading1" class="w-100">
 			<label data-num="1" id="readingH1" for="reading1" class="">Начальное показание</label>
