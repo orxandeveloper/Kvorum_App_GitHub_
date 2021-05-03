@@ -26,7 +26,7 @@
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
             background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(255,0,0,0.4); /* Black w/ opacity */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
         }
 
         /* Modal Content */
@@ -103,7 +103,7 @@
 
         .rmFOr {
             border: 1px solid #000;
-            box-shadow: 3px 4px 5px rgba(0,0,0,0.3);
+            box-shadow: 3px 4px 5px rgba(0,0,0,0.4);
             height: 65px;
             overflow: auto;
             width: 67.5%;
@@ -195,7 +195,7 @@
           
             <%-- <select id="rmTypeF"  multiple="multiple" style="width: 100%;display:none">                <option value="0">Выберите тип помещения</option>             </select>--%>
 		
-		<div class="posRel mb-4">		
+		<div id="TR_rmFOr" class="posRel mb-4">		
 		<input type="hidden" id="temp1" value="1"/>
             <div class="rmFOr rounded8 border-1" id="rmTypeF" ></div>
 			<label for="temp1" class="transp pointer-none w-50" style="background-color: white !important;">Тип помещения</label>	
@@ -207,7 +207,7 @@
 		    <label for="rumNumF">Номер помещения</label>
 		</div>
 
-		<div class="posRel mb-4">		
+		<div id="TCdiv_rmFOr" class="posRel mb-4">		
 			<input type="hidden" id="temp2" value="1"/>
 			<div class="rmFOr rounded8 border-1" id="mtrsTypeF"></div>
 			<label for="temp2" class="transp pointer-none w-50" style="background-color: white !important;">Тип счетчика</label>
@@ -269,13 +269,13 @@
         }
     </style>
 	
-    <div id="myModal5" class="modal2" style="z-index: 3000; background-color: rgba(9, 118, 255,0.4)">
+    <div id="myModal5" class="modal2" style="z-index: 3000; background-color: rgba(0, 0, 0, 0.4)">
 
         <!-- Modal content -->
         <div class="modal-content2 bgWhite rounded16 shadow w-50 p-4">
             <div class="modal-header2 bgWhite flexHoriz mb-4">
                 <h2 id="mh5" class="font24b textBlack mb-0">Ошибка</h2>
-				<span id="close5" class="close2 bgWhite pl-2 pr-3 mr-4 border-0 rounded-pill ml-auto">
+				<span id="close_5" class="close2 bgWhite pl-2 pr-3 mr-4 border-0 rounded-pill ml-auto">
 					<img src="../img/close.svg" class="w24" alt="">
 				</span>
             </div>
@@ -288,7 +288,7 @@
         </div>
 
     </div>
-    <div id="UploadCounter" class="modal2" style="z-index: 2000; background-color: rgba(9, 118, 255, 0.4); display: none;">
+    <div id="UploadCounter" class="modal2" style="z-index: 2000; background-color: rgba(0,0,0,0.4); display: none;">
 
         <!-- Modal content -->
         <div class="modal-content2 bgWhite rounded16 shadow w-75 p-0">
@@ -336,7 +336,7 @@
         </div>
 
     </div>
-    <div id="DeadLineCntr" class="modal2" style="z-index: 2000; background-color: rgba(9, 118, 255, 0.4); display: none;">
+    <div id="DeadLineCntr" class="modal2" style="z-index: 2000; background-color: rgba(0, 0, 0, 0.4); display: none;">
 
         <!-- Modal content -->
         <div class="modal-content2 bgWhite w-50 rounded16 shadow p-4">

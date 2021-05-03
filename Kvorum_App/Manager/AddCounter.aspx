@@ -28,9 +28,9 @@ $(document).ready(function() {
    
 		<div class="posRel mb-3 w-48">
             <select id="RoomType" class=" w-100 ">
-                <option>Тип помещения</option>
+                <option value="0">Выберите Тип помещения</option>
             </select>
-		<label for="RoomType">Тип помещения</label>
+		<label for="RoomType" class="transp backLab">Тип помещения</label>
      	</div>	   
 	    <div class="posRel mb-3 w-48">  
             <select id="RoomNum" class=" w-100">

@@ -1688,7 +1688,7 @@
         $('.ui-loader-background').show();
         $('#rumNumF,#scF,#meterNumF').val('')
         $('#loader').show();
-
+        $('#TR_rmFOr,#TCdiv_rmFOr').attr('class', 'posRel mb-4 bordered toggleHeight');
         var SMAsterObj = sessionStorage.getItem("SMAsterObj")
         if (SMAsterObj == null || SMAsterObj == undefined || SMAsterObj == 0) {
             getMeter(Log)
@@ -1727,10 +1727,10 @@
             }
         })
         $('#arx').click(function () {
-            var arxName = $(this).text();
+            var arxName = $(this).attr('title');
             var objId = $('#objsM').val();
             if (arxName == 'Счетчики в архиве') {
-                $(this).text('Активные счетчики')
+                $(this).attr('title', 'Активные счетчики').text('Активные счетчики').attr('style', 'color:#D11B25')
                 $('#mtrs').empty();
                 $('.ui-loader-background').show();
                 $('#loader').show();
@@ -1738,7 +1738,7 @@
                 getArxMeter(Log, objId)
             }
             else {
-                $(this).text('Счетчики в архиве')
+                $(this).attr('title', 'Счетчики в архиве').text('Счетчики в архиве').attr('style','color:#D11B25')
                 $('#mtrs').empty();
                 $('.ui-loader-background').show();
                 $('#loader').show();
@@ -2216,7 +2216,7 @@
                     $.ajax({
                         error: function (e) { $('.ui-loader-background').hide(); $('#loader').hide(); alert(e.responseJSON.Message) },
                         type: "POST",
-                        url:"http://172.20.20.24/WCFServices/Constructor_API.svc/UploadFile",//window.location.protocol + '//' + window.location.host + "
+                        url: window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/UploadFile",//
                         data: formData,
                         type: 'POST',
                         contentType: false,
@@ -2228,7 +2228,7 @@
                         success: function (result) {
                             $("#loader").hide();
                             $("#files").hide();
-                            var F_ile = result.URL.replace('~',"http://172.20.20.24/")// window.location.protocol + '//' + window.location.host + "/"
+                            var F_ile = result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/")// 
                             var extention = F_ile.substr(F_ile.lastIndexOf(".") + 1)
                             //
                             if (extention != "docx" && extention != "doc" && extention != "xls" && extention != "xlsx" && extention != "pdf" && extention != "PDF" && extention != "txt" && extention != "TXT") {
@@ -2344,9 +2344,11 @@
                                             readings.push({ "VALUE_": r })
                                         }
                                         else {
-                                            var lblIdErr = '#H' + $(this).attr('id');
-                                            $(lblIdErr).remove();
-                                            $(this).after('<label style="color:red" data-lbl="lblErr" id="H' + $(this).attr('id') + '">Необходимо заполнить поле "Начальное показание"</label>')
+                                            ErrorForControls($(this), 'Необходимо заполнить поле "Начальное показание"')
+                                            //var lblIdErr = '#H' + $(this).attr('id');
+                                            //$(lblIdErr).remove();
+                                           
+                                            //$(this).after('<label style="color:red" data-lbl="lblErr" id="H' + $(this).attr('id') + '">Необходимо заполнить поле "Начальное показание"</label>')
 
                                             window.setTimeout(function () {
                                                 // $('#cntrs tr:eq(' + i - 1 + ')').removeAttr('style')
@@ -2368,64 +2370,34 @@
 
                                 }
                                 else {
-                                    $('#HAmntTarif').remove();
-                                    $('#AmntTarif').after('<label style="color:red" id ="HAmntTarif"> Необходимо заполнить поле "Количество тарифов"</label>')
-                                    window.setTimeout(function () {
-                                        // $('#cntrs tr:eq(' + i - 1 + ')').removeAttr('style')
-                                        $('#HAmntTarif').hide(1000);
-                                        $('#HAmntTarif').remove();
-                                    }, 2000);
+                                    ErrorForControls($('#AmntTarif'), 'Необходимо заполнить поле "Количество тарифов"')
+                                   
                                 }
                             }
                             else {
-                                $('#HmtrsType').remove();
-                                $('#mtrsType').after('<label  style="color:red" id ="HmtrsType"> Необходимо выбрать тип счетчика</label>')
-                                window.setTimeout(function () {
-                                    // $('#cntrs tr:eq(' + i - 1 + ')').removeAttr('style')
-                                    $('#HmtrsType').hide(1000);
-                                    $('#HmtrsType').remove();
-                                }, 2000);
+                                ErrorForControls($('#mtrsType'), 'Необходимо выбрать тип счетчика')
+                               
                             }
                         }
                         else {
-                            $('#HmeterNum').remove();
-                            $('#meterNum').after('<label style="color:red" id ="HmeterNum"> Необходимо заполнить поле "Номер счетчика"</label>')
-                            window.setTimeout(function () {
-                                // $('#cntrs tr:eq(' + i - 1 + ')').removeAttr('style')
-                                $('#HmeterNum').hide(1000);
-                                $('#HmeterNum').remove();
-                            }, 2000);
+                            ErrorForControls($('#meterNum'), 'Необходимо заполнить поле "Номер счетчика"')
+                          
                         }
 
                     }
                     else {
-                        $('#Hsc').remove()
-                        $('#sc').after('<label style="color:red" id ="Hsc"> Необходимо выбрать ЛС</label>')
-                        window.setTimeout(function () {
-
-                            $('#Hsc').hide(1000);
-                            $('#Hsc').remove();
-                        }, 2000);
+                        ErrorForControls($('#sc'), "Необходимо выбрать ЛС")
+                        
                     }
                 }
                 else {
-                    $('#HRoomNum').remove()
-                    $('#RoomNum').after('<label style="color:red" id ="HRoomNum"> Необходимо выбрать номер помещения</label>')
-                    window.setTimeout(function () {
-
-                        $('#HRoomNum').hide(1000);
-                        $('#HRoomNum').remove();
-                    }, 2000);
+                    ErrorForControls($('#RoomNum'), "Необходимо выбрать номер помещения")
+                    
                 }
             }
             else {
-                $('#HRoomType').remove()
-                $('#RoomType').after('<label style="color:red" id ="HRoomType"> Необходимо выбрать тип помещения</label>')
-                window.setTimeout(function () {
-                    // $('#cntrs tr:eq(' + i - 1 + ')').removeAttr('style')
-                    $('#HRoomType').hide(1000);
-                    $('#HRoomType').remove();
-                }, 2000);
+                ErrorForControls($('#RoomType'),"Необходимо выбрать тип помещения")
+               
             }
         })
 
@@ -7187,7 +7159,7 @@ function removeTD(e) {
 }
 function ErrorForControls(e, text) {
     var e_class = $(e).attr('class')
-    if (e_class == 'select2-hidden-accessible') {
+    if (e_class.indexOf('select2-hidden-accessible') !=-1 ) {
         $(e).parent().find('.select2-selection').attr('style', 'border-color:#f06d06 !important')
         if (text != undefined) {
             //var originalText = $(e).next().next('label').text()
@@ -10961,7 +10933,7 @@ function getRoomTYpeByO(o) {
                 $("#RoomType").append('<option value="' + jsondata_1[0].ROOM_ID + '">' + jsondata_1[0].ROOM_TYPE + '</option>').attr('disabled', 'disabled')
                 GetRoomNumber(o, jsondata_1[0].ROOM_ID)
             }
-            $('label[for="RoomType"]').remove();
+            //$('label[for="RoomType"]').remove();
 
           //  $("#RoomType").select2('destroy');
           /// $("#RoomType").select2()
