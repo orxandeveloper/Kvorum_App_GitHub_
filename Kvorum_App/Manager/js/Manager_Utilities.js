@@ -646,10 +646,10 @@
         $("#SaveUp").click(function () {
             var SuccesResult = checkControlsM().Issuccess
 
-            //  console.log(checkControlsM().obj)
+             console.log(checkControlsM().obj)
             if (SuccesResult == true) {
                 if (apartId == "null") {
-                    SaveApart(checkControlsM().obj, Log)
+                   SaveApart(checkControlsM().obj, Log)
                 }
                 else {
                     var roomtype = $('#r_t').val();
@@ -657,375 +657,7 @@
                     UpdateApart(checkControlsM().obj, Log, rnum, roomtype);
                 }
             }
-            if (true) {
-                //var objs = $("#objs").val();
-                //           if (objs != 0) {
-                //               var entr = ($("#entr").val().length == 0) ? 0 : $("#entr").val();
-                //               if (entr.length != 0) {
-                //                   var floor = ($("#floor").val().length == 0) ? 0 : $("#floor").val();//$("#floor").val();
-                //                   if (floor.length != 0) {
-                //                       var rnum = $("#rnum").val();
-                //                       if (rnum.length != 0) {
-                //                           var RoomF = $('#RoomF').val();
-                //                           if (RoomF != 0) {
-                //                               var r_t = $('#r_t').val();
-                //                               if (r_t != 0) {
-                //                                   var countR = ($("#countR").val().length == 0) ? 0 : $("#countR").val(); //$("#countR").val();
-                //                                   if (countR.length != 0) {
-                //                                       var GenS = ($("#GenS").val().length == 0) ? 0 : $("#GenS").val();//$("#GenS").val();
-                //                                       if (GenS.length != 0) {
-                //                                           var LiveS = ($("#LiveS").val().length == 0) ? 0 : $("#LiveS").val();//$("#LiveS").val();
-                //                                           if (LiveS.length != 0) {
-                //                                               var txtDatas = []
-                //                                               var success = true
-                //                                               $('.tab-pane').each(function () {
-                //                                                   var data_tab = $(this).attr('data-tab')
-                //                                                   var lc = $(this).children().find('#lc').val().trim();
-                //                                                   var ID_lc = $(this).children().find('#lc').attr('data-id')//scoreGuid
-                //                                                   var pass = $(this).children().find('#pss').val().trim();
-                //                                                   var typeProp = $(this).children().find('#typeProp').val();
-
-                //                                                   var LiveSq = $(this).children().find('#LiveSq').val().trim()
-                //                                                   LiveSq = (LiveSq.length == 0) ? " " : LiveSq
-
-                //                                                   var GenSq = $(this).children().find('#GenSq').val().trim();
-                //                                                   GenSq = (GenSq.length == 0) ? " " : GenSq
-
-                //                                                   var LiveSqB = $(this).children().find('#LiveSqB').val().trim();
-                //                                                   LiveSqB = (LiveSqB.length == 0) ? " " : LiveSqB
-
-                //                                                   var AmRoom = $(this).children().find('#AmRoom').val().trim();
-                //                                                   AmRoom = (AmRoom.length == 0) ? " " : AmRoom
-                //                                                   var data_sms = "";
-                //                                                   var data_em = "";
-                //                                                   var data_exp = "";
-                //                                                   ID_lc = (ID_lc == undefined) ? '0' : ID_lc
-
-                //                                                   if (lc != undefined && lc.length == 0) {
-                //                                                       $('#lc_E+br').remove()
-                //                                                       $('#lc_E').remove()
-                //                                                       $(this).children().find('#lc').after('<label id="lc_E" class="lc_E">Необходимо заполнить поле "Номер лицевого счета"</label><br/>')
-                //                                                       success = false
-                //                                                       $('.tab-pane').attr('class', 'tab-pane fade')
-                //                                                       $(this).attr('class', 'tab-pane fade active in')
-
-                //                                                       $('#nav-tab').children('li').attr('class', '');
-                //                                                       $('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                //                                                       return false;
-                //                                                   }
-                //                                                   //console.log('lc: '+lc)
-                //                                                   if (pass != undefined && pass.length != 0) {
-                //                                                       data_sms = $(this).children().find('#pss').attr('data-sms')
-                //                                                       data_sms = (data_sms == undefined) ? "" : data_sms
-
-                //                                                       data_em = $(this).children().find('#pss').attr('data-em')
-                //                                                       data_em = (data_em == undefined) ? "" : data_em
-
-                //                                                       data_exp = $(this).children().find('#pss').attr('data-exp')
-                //                                                       data_exp = (data_exp == undefined) ? "" : data_exp
-                //                                                   }
-                //                                                   lc = lc + "|" + pass + "|" + data_sms + "|" + data_em + "|" + data_exp
-                //                                                   //console.log('pass: '+pass)
-                //                                                   //console.log('data_sms: '+data_sms)
-                //                                                   //console.log('data_em: '+data_em)
-                //                                                   //console.log('data_exp: ' + data_exp)
-                //                                                   if (typeProp != undefined && typeProp == 0) {
-                //                                                       //$('#typeProp_E').remove()
-                //                                                       //$('#typeProp_E+br').remove()
-                //                                                       //$(this).children().find('#typeProp').after('<label id="typeProp_E" class="typeProp_E">Пожалуйста, Выберите собственность</label><br/>')
-
-                //                                                       //success = false
-                //                                                       //$('.tab-pane').attr('class', 'tab-pane fade')
-                //                                                       //$(this).attr('class', 'tab-pane fade active in')
-
-                //                                                       //$('#nav-tab').children('li').attr('class', '');
-                //                                                       //$('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                //                                                       //break;
-                //                                                   }
-                //                                                   //console.log('typeProp: ' + typeProp)
-                //                                                   if (LiveSq != undefined && LiveSq.length == 0) {
-                //                                                       LiveSq = " "
-                //                                                       //$('#LiveSq_E').remove()
-                //                                                       //    $('#LiveSq_E+br').remove()
-                //                                                       //  $(this).children().find('#LiveSq').after('<label id="LiveSq_E"  class="LiveSq_E">Необходимо заполнить поле "Жилая площадь по данному"</label><br/>')
-                //                                                       //success = false
-                //                                                       //$('.tab-pane').attr('class', 'tab-pane fade')
-                //                                                       //$(this).attr('class', 'tab-pane fade active in')
-
-                //                                                       //$('#nav-tab').children('li').attr('class', '');
-                //                                                       //$('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                //                                                       // return break;
-
-                //                                                   }
-                //                                                   //console.log('LiveSq 1 : ' + LiveSq)
-                //                                                   if (GenSq != undefined && GenSq.length == 0) {
-                //                                                       //   $('#GenSq_E').remove();
-                //                                                       //$('#GenSq_E+br').remove();
-                //                                                       //   $(this).children().find('#GenSq').after('<label id="GenSq_E" class="GenSq_E">Необходимо заполнить поле "Общая площадь по данному"</label><br/>')
-
-                //                                                       //success = false
-                //                                                       //$('.tab-pane').attr('class', 'tab-pane fade')
-                //                                                       //$(this).attr('class', 'tab-pane fade active in')
-
-                //                                                       //$('#nav-tab').children('li').attr('class', '');
-                //                                                       //$('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                //                                                       // return break;
-                //                                                       GenSq = " ";
-                //                                                   }
-                //                                                   //console.log("GenSq 2 : " + GenSq)
-                //                                                   if (LiveSqB != undefined && LiveSqB.length == 0) {
-
-                //                                                       //$('#LiveSqB_E+br').remove()
-                //                                                       //$('#LiveSqB_E').remove()
-                //                                                       //$(this).children().find('#LiveSqB').after('<label id="LiveSqB_E" class="LiveSqB_E">Необходимо заполнить поле "Общая площадь без летних зон по данному "</label><br/>')
-                //                                                       //success = false
-                //                                                       //$('.tab-pane').attr('class', 'tab-pane fade')
-                //                                                       //$(this).attr('class', 'tab-pane fade active in')
-
-                //                                                       //$('#nav-tab').children('li').attr('class', '');
-                //                                                       //$('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                //                                                       // return  break;
-                //                                                       LiveSqB = " ";
-                //                                                   }
-                //                                                   //console.log("LiveSqB 3 : " + LiveSqB)
-
-                //                                                   if (AmRoom != undefined && AmRoom.length == 0) {
-
-                //                                                       //$('#AmRoom_E+br').remove()
-                //                                                       //$('#AmRoom_E').remove()
-                //                                                       //$(this).children().find('#AmRoom').after('<label id="AmRoom_E" class="AmRoom_E">Необходимо заполнить поле "Количество комнат"</label><br/>')
-                //                                                       //success = false
-                //                                                       //$('.tab-pane').attr('class', 'tab-pane fade')
-                //                                                       //$(this).attr('class', 'tab-pane fade active in')
-
-                //                                                       //$('#nav-tab').children('li').attr('class', '');
-                //                                                       //$('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                //                                                       // return break;
-                //                                                       AmRoom = " ";
-                //                                                   }
-                //                                                   // //console.log("AmRoom 4 : " + AmRoom)
-
-                //                                                   var itms = $(this).children().find('#itms')
-                //                                                   var itmsS = []
-                //                                                   $(itms).children('.row').each(function () {
-                //                                                       var itemid = $(this).attr('itemid');
-                //                                                       var sobs = $(this).children().find('#sobs' + itemid + '').val().trim()
-                //                                                       var dol = "";
-                //                                                       var tel = $(this).children().find('#tel' + itemid + '').val().trim()
-                //                                                       var email = $(this).children().find('#email' + itemid + '').val().trim()
-                //                                                       if (sobs == undefined) {
-                //                                                           spobs = "";
-                //                                                       }
-                //                                                       //console.log('sobs 1: ' + sobs)
-                //                                                       if (typeProp == 3) {
-                //                                                           dol = $(this).children().find('#dol' + itemid + '').val().trim();
-                //                                                           if (dol.length == 0) {
-                //                                                               // $('dol' + itemid + '_E').remove()
-                //                                                               // $('dol' + itemid + '_E+br').remove()
-                //                                                               $('.dols+br').remove();
-                //                                                               $('.dols').remove();
-                //                                                               $(this).children().find('#dol' + itemid + '').after('<label id="dol_E" class="dols">Необходимо заполнить поле "Доля"</label><br/>')
-
-                //                                                               success = false
-                //                                                               $('.tab-pane').attr('class', 'tab-pane fade')
-                //                                                               // $(this).parent().find('.tab-pane').attr('class', 'tab-pane fade active in')
-                //                                                               $('#tab' + data_tab + '').attr('class', 'tab-pane fade active in')
-                //                                                               $('#nav-tab').children('li').attr('class', '');
-                //                                                               $('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                //                                                               return false;
-                //                                                           }
-                //                                                           else {
-                //                                                               var dol_ = dol.replace(',', '.')
-                //                                                               var dol_ = (dol_)
-                //                                                               if (dol_ <= 0 || dol_ >= 1) {
-                //                                                                   $('.dols+br').remove();
-                //                                                                   $('.dols').remove();
-                //                                                                   $(this).children().find('#dol' + itemid + '').after('<label id="dol_E" class="dols">Некорректное значение</label><br/>')
-
-                //                                                                   success = false
-                //                                                                   $('.tab-pane').attr('class', 'tab-pane fade')
-                //                                                                   // $(this).parent().find('.tab-pane').attr('class', 'tab-pane fade active in')
-                //                                                                   $('#tab' + data_tab + '').attr('class', 'tab-pane fade active in')
-                //                                                                   $('#nav-tab').children('li').attr('class', '');
-                //                                                                   $('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                //                                                                   return false;
-                //                                                               }
-                //                                                           }
-                //                                                       }
-                //                                                       //console.log('dol 2: ' + dol)
-                //                                                       if (tel != undefined) {
-                //                                                           if (pass.length != 0 && data_sms == "has" && tel.length == 0) {
-                //                                                               //    $('.tels+br').remove()
-                //                                                               //  $('.tels').remove()
-                //                                                               $(this).children().find('#tel' + itemid + '').after('<label id="tel_E"  class="tels">Для рассылки пароля не хватает следующих данных "Номер телефона"</label><br/>')
-
-                //                                                               success = false
-                //                                                               $('.tab-pane').attr('class', 'tab-pane fade')
-                //                                                               $('#tab' + data_tab + '').attr('class', 'tab-pane fade active in')
-                //                                                               // $(this).parent().find('.tab-pane').attr('class', 'tab-pane fade active in')
-
-                //                                                               $('#nav-tab').children('li').attr('class', '');
-                //                                                               $('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                //                                                               return false;
-
-                //                                                           }
-                //                                                           else {
-                //                                                               tel = (tel.length == 0) ? "" : tel;
-                //                                                           }
-                //                                                       }
-                //                                                       else {
-                //                                                           tel = "";
-                //                                                       }
-
-                //                                                       //console.log('tel 3: ' + tel)
-                //                                                       if (email != undefined) {
-                //                                                           if (pass.length != 0 && data_em == "has" && email.length == 0) {
-                //                                                               //   $('.emails+br').remove()
-                //                                                               //   $('.emails').remove()
-                //                                                               $(this).children().find('#email' + itemid + '').after('<label id="email_E" class="emails" style="color:red;padding: 0px 0;">Для рассылки пароля не хватает следующих данных: "E-mail"</label><br/>')
-
-                //                                                               success = false
-                //                                                               $('.tab-pane').attr('class', 'tab-pane fade')
-                //                                                               //  $(this).parent().find('.tab-pane').attr('class', 'tab-pane fade active in')
-                //                                                               $('#tab' + data_tab + '').attr('class', 'tab-pane fade active in')
-                //                                                               $('#nav-tab').children('li').attr('class', '');
-                //                                                               $('#nav-tab').children('li[itemid="' + data_tab + '"]').attr('class', 'active')
-                //                                                               return false;
-                //                                                           }
-                //                                                           else {
-                //                                                               email = (email.length == 0) ? "" : email;
-                //                                                           }
-
-                //                                                       }
-                //                                                       else {
-                //                                                           email = "";
-                //                                                       }
-
-                //                                                       //console.log('email 4: ' + tel)
-                //                                                       itmsS.push({ "FIRST_NAME": sobs, "SHARE": dol, "PHONE": tel, "EMAIL": email })
-
-                //                                                   })
-                //                                                   if (lc != undefined && typeProp != undefined && LiveSq != undefined && GenSq != undefined && LiveSqB != undefined && AmRoom != undefined) {
-                //                                                       txtDatas.push({ "NUMBER": lc, "OWNERSHIP_TYPE_ID": typeProp, "LIVE_SQUARE": LiveSq, "GEN_SQUARE": GenSq, "WITHOUT_SUMMER_SQUARE": LiveSqB, "ROOM_QUANT": AmRoom, "A_D": itmsS, "ID": ID_lc })
-                //                                                   }
-                //                                               })
-                //                                               console.log(txtDatas)
-                //                                               //var lc_e = $('#lc_E').length;
-                //                                               //if (lc_e != 0) {
-                //                                               //    success = false
-
-                //                                               //}
-                //                                               //if ($('#emailV_E').length != 0) {
-                //                                               //    success = false
-                //                                               //}
-                //                                               //if ($('#PhoneV_E').length != 0) {
-                //                                               //    success = false
-                //                                               //}
-                //                                               //if ($('#LiveS_E').length != 0) {
-                //                                               //    success = false
-                //                                               //}
-                //                                               //if ($('#LiveSq_E').length != 0) {
-                //                                               //    success = false
-                //                                               //}
-                //                                               //if ($('#GenS_E').length != 0) {
-                //                                               //    success = false
-                //                                               //}
-                //                                               //if ($('#GenSq_E').length != 0) {
-                //                                               //    success = false
-                //                                               //}
-                //                                               //if ($('#countRErr').length != 0 && $('#LiveSqBErr').length == 0 && $('#GenSErrA').length == 0 && $('#countRErrA').length != 0 && $('#LiveS_').length != 0) {
-                //                                               //    success = false
-                //                                               //    
-                //                                               //}
-
-
-
-                //                                               if (success == true) {
-                //                                                   //--Saving
-
-                //                                                   ////console.log(obj)
-                //                                                   if (apartId == "null") {
-                //                                                       var obj = { "OBJECT_ID": objs, "ENTRANCE": entr, "FLOOR": floor, "ROOM_NUMBER": rnum, "ROOM_FOR_ID": RoomF, "ROOM_TYPE_ID": r_t, "CHAMB_AMOUNT": countR, "GEN_SQUARE": GenS, "LIVE_SQUARE": LiveS, "adbs": txtDatas };
-                //                                                       $('.ui-loader-background').show();
-                //                                                       $('#loader').show();
-                //                                                       SaveApart(obj, Log)
-                //                                                       //alert('Ok')
-                //                                                   }
-                //                                                   else {
-                //                                                       //var IDROom = sessionStorage.getItem("ID")
-                //                                                       var objUp = { "ROOM_ID": apartId, "OBJECT_ID": objs, "ENTRANCE": entr, "FLOOR": floor, "ROOM_NUMBER": rnum, "ROOM_FOR_ID": RoomF, "ROOM_TYPE_ID": r_t, "CHAMB_AMOUNT": countR, "GEN_SQUARE": GenS, "LIVE_SQUARE": LiveS, "adbs": txtDatas };
-                //                                                       var roomtype = $("#r_t option:selected").text();
-                //                                                       $('.ui-loader-background').show();
-                //                                                       $('#loader').show();
-                //                                                       UpdateApart(objUp, Log, rnum, roomtype);
-                //                                                   }
-
-                //                                               }
-
-                //                                           }
-                //                                           else {
-                //                                               if ($('#LiveSE').length == 0) {
-                //                                                   $("#LiveS").after('<label id= "LiveSE" class="errs">Необходимо заполнить поле "Жилая площадь"</label>')
-                //                                               }
-
-                //                                           }
-                //                                       }
-                //                                       else {
-                //                                           if ($('#GenSE').length == 0) {
-                //                                               $("#GenS").after('<label id= "GenSE" class="errs">Необходимо заполнить поле "Общая площадь"</label>')
-                //                                           }
-
-                //                                       }
-                //                                   }
-                //                                   else {
-                //                                       if ($('#countRE').length == 0) {
-                //                                           $("#countR").after('<label id= "countRE" class="errs">Необходимо заполнить поле "Количество комнат"</label>')
-                //                                       }
-
-                //                                   }
-                //                               }
-                //                               else {
-                //                                   if ($('#r_tE').length == 0) {
-                //                                       $("#r_tH").after('<label id= "r_tE" class="errs">Необходимо выбрать "Тип помещения"</label>')
-                //                                   }
-
-                //                               }
-                //                           }
-                //                           else {
-                //                               if ($('#RoomFE').length == 0) {
-                //                                   $("#RoomFH").after('<label id= "RoomFE" class="errs">Необходимо выбрать "Назначение помещения"</label>')
-                //                               }
-
-                //                           }
-                //                       }
-                //                       else {
-                //                           if ($('#rnumE').length == 0) {
-                //                               $("#rnumH").after('<label id= "rnumE" class="errs">Необходимо заполнить поле "Номер помещения"</label>')
-                //                           }
-
-                //                       }
-                //                   }
-                //                   else {
-                //                       if ($('#floorE').length == 0) {
-                //                           $("#floorH").after('<label id= "floorE" class="errs">Необходимо заполнить поле "Этаж"</label>')
-                //                       }
-
-                //                   }
-                //               }
-                //               else {
-                //                   if ($('#entrE').length == 0) {
-                //                       $("#entrH").after('<label id= "entrE" class="errs">Необходимо заполнить поле "Подъезд"</label>')
-                //                   }
-
-                //               }
-                //           }
-                //           else {
-                //               if ($('#objsE').length == 0) {
-                //                   $("#objsH").after('<label id= "objsE" class="errs">Необходимо выбрать объект</label>')
-                //               }
-
-                //           }
-            }
+        
         })
 
         $('#RoomF').change(function () {
@@ -3412,7 +3044,7 @@ function addTab(lastitm, jdata) {
 
     if (jdata != undefined) {
         var lsVal = (jdata.NUMBER == undefined) ? '' : jdata.NUMBER
-        $('#lc_' + itmNumb).val(lsVal)
+        $('#lc_' + itmNumb).val(lsVal).attr('data-id', jdata.ID)
         var ROOM_QUANT = jdata.ROOM_QUANT;
         ROOM_QUANT = ROOM_QUANT.split('|')
         var pass = ROOM_QUANT[1]
@@ -7265,6 +6897,7 @@ function checkControlsM() {
         var countR = ($("#countR").val().length == 0) ? 0 : $("#countR").val();
         var GenS = ($("#GenS").val().length == 0) ? 0 : $("#GenS").val();
         var LiveS = ($("#LiveS").val().length == 0) ? 0 : $("#LiveS").val();
+        var apartId = sessionStorage.getItem("apart")
         var txtDatas = []
         $('.ls').each(function () {
             var itemid = $(this).attr('itemid')
@@ -7295,7 +6928,7 @@ function checkControlsM() {
                 data_exp = (data_exp == undefined) ? "" : data_exp
             }
             var itmsS = []
-            var ItemCount = $(this).children('div[data-tabid="2"]').find('div[itemid]').last().attr('itemid')
+            var ItemCount = (apartId == 'null') ? $(this).children('div[data-tabid="2"]').find('div[itemid]').last().attr('itemid') : $(this).children('div[data-tabid="2"]').find('div[itemid]').first().attr('itemid')
             for (var i = 0; i <= ItemCount; i++) {
                 var itemid = i//$(this).attr('itemid');
                 var data_tab_Children = $(this).children('div[data-tabid="2"]').children('div[itemid="' + itemid + '"]')
@@ -7335,7 +6968,7 @@ function checkControlsM() {
             txtDatas.push({ "NUMBER": lc, "OWNERSHIP_TYPE_ID": typeProp, "LIVE_SQUARE": LiveSq, "GEN_SQUARE": GenSq, "WITHOUT_SUMMER_SQUARE": LiveSqB, "ROOM_QUANT": AmRoom, "A_D": itmsS, "ID": ID_lc })
         })
 
-        var apartId = sessionStorage.getItem("apart")
+ 
         var obj = { "ROOM_ID": apartId,"OBJECT_ID": objs, "ENTRANCE": entr, "FLOOR": floor, "ROOM_NUMBER": rnum, "ROOM_FOR_ID": RoomF, "ROOM_TYPE_ID": r_t, "CHAMB_AMOUNT": countR, "GEN_SQUARE": GenS, "LIVE_SQUARE": LiveS, "adbs": txtDatas };
         console.log(obj)
     }
@@ -11115,7 +10748,7 @@ function UpdateApart(obj, lg, RoomNumber, RoomType) {
     $.ajax({
         error: function (e) { $('.ui-loader-background').hide(); $('#loader').hide(); alert(e.responseJSON.Message) },
         type: "POST",
-        url: "AddApartment.aspx/UpdateRoom_",
+        url: "AddApartment.aspx/UpdateRoom",
         data: JSON.stringify(obj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -11306,13 +10939,16 @@ function getBasAccountDatas(rmId, OBJECT_ID) {
             }
 
             $(".tab-content").empty();
-       
-            for (var i = jsondata_.length - 1; i >= 0; i--) {
-                
-                console.log(jsondata_[i])
-                addTab(i, jsondata_[i])
 
+            for (var i = 0; i < jsondata_.length; i++) {
+                addTab(i, jsondata_[i])
             }
+            //for (var i = jsondata_.length - 1; i >= 0; i--) {
+                
+            //    console.log(jsondata_[i])
+            //    addTab(i, jsondata_[i])
+
+            //}
 
           AddPayment(jsondata_.length, jsondata_[0].ENTRANCE);
         }
@@ -12776,7 +12412,8 @@ function Generate(e) {
     $("#txt2").append("");
     $("#mf2").text("")
     var PassControlId = Math.floor(Math.random() * 10000000)
-    $(e).parent().children().find('#pss').attr('random-id', PassControlId)
+    var itemid = $(e).parents('.ls').attr('itemid')
+    $(e).parent().children().find('#pss_' + itemid).attr('random-id', PassControlId)
     $('#genPass').val($('.tab-content').children('.active').children('.row').children('div:eq(0)').children('#pss').val())
     GenPas()// Для суббота не надо. Дата (08.02.2019);
     $('#GENER').attr('onclick', 'GetValuesG(' + PassControlId + ')')
@@ -12821,7 +12458,7 @@ function GetValuesG(e) {
         else {
             em = "not"
         }
-        var psExp = ($('#psExp').val() == 0) ? " бессрочный" : $('#psExp').val();
+        var psExp = ($('#psExp').val() == 0 || $('#psExp').val() == undefined) ? "бессрочный" : $('#psExp').val();
         //   $('#lblpssText').remove();
         if (lblpssText.trim().length != 0) {
             if ($('[random-id=' + e + ']').parent().parent().prev('div').children('#lblpssText').length == 0) {

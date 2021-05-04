@@ -275,7 +275,7 @@
             width: 11%;
         }
 
-        .red_Placeholder:placeholder {
+        .red_Placeholder::placeholder {
             /* Chrome, Firefox, Opera, Safari 10.1+ */
             color: red;
             opacity: 1; /* Firefox */
@@ -330,10 +330,40 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="col-lg-9half col-sm-12 p-0 min-vh-100  bgLightGrey3 ">
-        <!--  -->
-        <span class="h90"></span>
 
+<script>
+$(document).ready(function() {
+	$('.col-lg-9half').toggleClass('bgWhite');
+	$('.col-lg-9half').toggleClass('bgLightGrey3');
+	
+
+// Select2
+	/*
+	$('div[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+	console.log('tabs');
+    changeSelect();
+})
+
+function changeSelect() {
+    $("select.select2").select2({
+        tags: true
+    })
+}
+	
+if ($('select').data('select2')) {
+   $('select').select2('destroy');
+ }	
+	
+	$("select.select2-hidden-accessible").select2('destroy');
+	
+	elm.bind("$destroy", function () {
+		if (elm.hasClass('.select2-offscreen')) {
+			elm.select2("destroy");
+		}
+	});*/
+});
+ 
+</script>
 
         <div class="row w-100 m-0">
             <div class="col-sm-5 m-0">
@@ -341,84 +371,76 @@
 
 
                 <div class="bgWhite rounded16 mt-4 ml-3 p-4 shadow">
-                    <div>
-                        <button class="btn genBtn" id="backAppart" style="background: #ccc">Назад</button>
-                        <button id="SaveUp" class="btn genBtn">Сохранить</button>
-                        <a id="DeletePOM" href="#" role="button" class="create" style="display: none;"><i class="fa fa-times-circle" aria-hidden="true"></i>&nbsp;Удалить</a>
-                    </div>
+					<div class="flexHoriz w-100 mb-4">
+                    <h3 class="font18b " id="PageH">Помещение и лицевой счет</h3>
+					<a id="DeletePOM" href="#" role="button" class="create font18b position-relative ml-auto" style="display: none;">
+							<img src="../img/ic-bin.svg" class="mr-3 position-absolute d-flex ml-n4" alt=""/>
+							<!--<i class="fa fa-times-circle" aria-hidden="true"></i>&nbsp;-->Удалить
+						</a>
+					</div>
 
-                    <h3 class="font24 font-weight-bold p-3 w-100" id="PageH">Помещение и лицевой счет
-	
-			
-                    </h3>
-
-
-                    <div class="posRel h56 rounded-lg mb-3">
-                        <select id="objs" required>
+               
+                        <select id="objs" required class="h56 w-100 ">
                             <option value="0">Выберите объект</option>
                         </select>
-                        <label for="obj" class="w-95 transp backLab">Объект</label>
-                    </div>
+                       <!-- <label for="objs" class="">Выберите объект</label>-->
 
 
-                    <div class="flexHoriz justify-content-between mb-2">
+
+                    <div class="flexHoriz justify-content-between mt-3">
 
                         <div class="posRel h56 rounded-lg w-48">
                             <input id="rnum" required>
-                            <label for="rnum" class="w-95 transp backLab">Номер помещения</label>
+                            <label for="rnum" class="">Номер помещения</label>
                         </div>
                         <div class="posRel h56 rounded-lg  w-48">
                             <input id="countR" class="countR" onkeyup="hideErrsMessage2(this)">
-                            <label for="countR" class="w-95 transp backLab">Количество комнат</label>
+                            <label for="countR" class="">Количество комнат</label>
                         </div>
                     </div>
 
-                    <div class="flexHoriz justify-content-between mb-2">
+                    <div class="flexHoriz justify-content-between mt-3">
                         <div class="posRel h56 rounded-lg w-48">
                             <input id="entr">
-                            <label for="entr" class="w-95 transp backLab">Подъезд</label>
+                            <label for="entr" class="">Подъезд</label>
                         </div>
 
                         <div class="posRel h56 rounded-lg w-48">
                             <input id="floor">
-                            <label for="floor" class="w-95 transp backLab">Этаж</label>
+                            <label for="floor" class="">Этаж</label>
                         </div>
                     </div>
 
 
 
 
-                    <div class="flexHoriz justify-content-between mb-2">
+                    <div class="flexHoriz justify-content-between mt-3">
                         <div class="posRel h56 rounded-lg w-48">
                             <input id="LiveS" class="LiveS" onkeyup="hideErrsMessage2(this)">
-                            <label for="LiveS" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label>
+                            <label for="LiveS" class="">Жилая площадь, м<sup>2</sup></label>
                         </div>
                         <div class="posRel h56 rounded-lg w-48">
                             <input id="GenS" class="GenS" onkeyup="hideErrsMessage2(this)">
-                            <label for="GenS" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label>
+                            <label for="GenS" class="">Общая площадь, м<sup>2</sup></label>
                         </div>
                     </div>
 
-                    <div class="flexHoriz justify-content-between mb-2">
-                        <div class="posRel h56 rounded-lg w-48">
-                            <select id="RoomF" required style="width: 100%;">
-                                <option value="0">Выберите Назначение помещения</option>
+                    <div class="flexHoriz justify-content-between mt-3">
+					
+                            <select id="RoomF" required class="w-48">
+                                <option value="0">Выберите назначение помещения</option>
 
                             </select>
-                            <label for="naznS" class="w-95 transp backLab">Назначение помещения</label>
-                        </div>
-                        <div class="posRel h56 rounded-lg  w-48">
-                            <select id="r_t" required style="width: 100%;">
+                           <!-- <label for="RoomF" class="">Выберите назначение помещения</label> <!--naznS 
+					
+                        <div class="posRel h56 rounded-lg  w-48">-->
+                            <select id="r_t" required class="w-48">
                                 <option value="0">Выберите Тип помещения</option>
 
                             </select>
-                            <label for="r_t" class="w-95 transp backLab">Тип помещения</label>
-                        </div>
+                          <!--  <label for="r_t" class="">Тип помещения</label> -->
 
                     </div>
-
-
-
 
 
 
@@ -427,9 +449,16 @@
 
                         <div style="display: none" class="posRel h56 rounded-lg w-48">
                             <input id="regDt" class="" value="2012-02-30" type="date">
-                            <label for="regDt" class="w-95 transp backLab">Зарегистрирована</label>
+                            <label for="regDt" class="">Зарегистрирована</label>
                         </div>
                     </div>
+					
+					<div class="flexHoriz w-100 mt-4">
+                        <button class="btn btn1 outline shadow-none ml-auto" id="backAppart">Назад</button>
+                        <button id="SaveUp" class="btn btn1 ml-3">Сохранить</button>
+                      
+                    </div>
+					
                 </div>
             </div>
 
@@ -452,20 +481,18 @@
                         </ol>
                     </div>
 
-                    <div data-tabid="2" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
-
-
-                        <div class="posRel h56 rounded-lg  w-100">
-                            <select onchange="typePropChange(this)" id="typeProp">
-                                <option value="0">Выберите собственность</option>
-
-                            </select>
-                            <label for="typeProp" class="w-95 transp backLab">Тип собственности</label>
-                        </div>
-
-
-
-                    </div>
+					<div data-tabid="2" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
+						 <div class="posRel h56 rounded-lg  w-100">
+							 <select onchange="typePropChange(this)" id="typeProp_0" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true"> 
+								 <option value="0">Выберите собственность</option> 
+								 <option value="1">Совместная</option>
+								 <option value="2">Единоличная</option>
+								 <option value="3">Долевая</option>
+								 <option value="4">Социальный найм</option>
+							 </select>
+					 	 <label for="typeProp_0" class="w-95 transp backLab">Тип собственности</label> 
+						 </div>
+					 </div>
 
                     <div data-tabid="1" style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
 
@@ -475,15 +502,15 @@
                         <div class="row mb-3 mr-2 ml-1 w-100 p-0 rounded8">
                             <div class="col-md-12 m-0 p-0">
                                 <div class="posRel h56 rounded-lg mb-3">
-                                    <input class="lc" onkeyup="hideErrsMessage2(this)" required type="text" id="lc">
-                                    <label for="lc" class="w-95 transp backLab">Лицевой счет</label>
+                                    <input class="lc" onkeyup="hideErrsMessage2(this)" required type="text" id="lc_0">
+                                    <label for="lc_0" class="">Лицевой счет</label>
                                 </div>
                             </div>
 
-                            <div class="flexHoriz justify-content-between mb-2 w-100">
+                            <div class="flexHoriz justify-content-between mb-3 w-100">
                                 <div class="posRel h56 rounded-lg w-48 m-0">
-                                    <input disabled="disabled" onkeyup="hideErrsMessage2(this)" class="pss" type="text" id="pss" style="width: 71%;">
-                                    <label for="pss" class="w-95 transp backLab">Пароль</label>
+                                    <input disabled="disabled" onkeyup="hideErrsMessage2(this)" class="pss h56 disabled" type="text" id="pss_0" > <!--style="width: 71%;" -->
+                                    <label for="pss_0" class="w-95 transp backLab">Пароль</label>
                                 </div>
 
                                 <button onclick="Generate(this)" id="GENER_Modal" class="btn btn1 outline shadow-none m-0 rounded-lg w-48 h56">
@@ -494,24 +521,24 @@
                                 </button>
                             </div>
 
-                            <div class="flexHoriz justify-content-between mb-2 w-100">
+                            <div class="flexHoriz justify-content-between mb-3 w-100">
                                 <div class="posRel h56 rounded-lg w-48">
-                                    <input id="LiveSq" class="LiveSq"  onkeyup="hideErrsMessage2(this)">
-                                    <label for="LiveSq" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label>
+                                    <input id="LiveSq_0" class="LiveSq"  onkeyup="hideErrsMessage2(this)">
+                                    <label for="LiveSq_0" class="">Жилая площадь, м<sup>2</sup></label>
                                 </div>
                                 <div class="posRel h56 rounded-lg w-48">
-                                    <input id="GenSq" class="GenSq" onkeyup="hideErrsMessage2(this)">
-                                    <label for="GenSq" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label>
+                                    <input id="GenSq_0" class="GenSq" onkeyup="hideErrsMessage2(this)">
+                                    <label for="GenSq_0" class="">Общая площадь, м<sup>2</sup></label>
                                 </div>
                             </div>
-                            <div class="flexHoriz justify-content-between mb-2 w-100">
+                            <div class="flexHoriz justify-content-between mb-3 w-100">
                                 <div class="posRel h56 rounded-lg w-48">
-                                    <input id="LiveSqB" class="LiveSqB" onkeyup="hideErrsMessage2(this)">
-                                    <label for="LiveSqB" class="w-95 transp backLab">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label>
+                                    <input id="LiveSqB_0" class="LiveSqB" onkeyup="hideErrsMessage2(this)">
+                                    <label for="LiveSqB_0" class="">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label> <!-- w-95 transp backLab -->
                                 </div>
                                 <div class="posRel h56 rounded-lg w-48">
-                                    <input id="AmRoom" class="AmRoom" onkeyup="hideErrsMessage2(this)">
-                                    <label for="AmRoom" class="w-95 transp backLab">Количество комнат<sup>2</sup></label>
+                                    <input id="AmRoom_0" class="AmRoom" onkeyup="hideErrsMessage2(this)">
+                                    <label for="AmRoom_0" class="">Количество комнат<sup>2</sup></label>
                                 </div>
                             </div>
                         </div>
@@ -522,15 +549,14 @@
                 </div>
 
 
-                <button class="btn btn1 outline shadow-none rounded-pill" title="Добавить лицевой счет" id="plus">
-                    <span class="bgLightGrey w24 rounded-pill"></span>
-                    <img src="../img/ic-plus.svg" class="w12 reddishSvg position-absolute" alt="" id="plusImg">
+                <button class="btn btn1 outline shadow-none w56  h56 rounded16 flexCenter" title="Добавить лицевой счет" id="plus">
+                  <!--  <span class="bgLightGrey w24 rounded-pill"></span> -->
+                    <img src="../img/ic-plus.svg" class="w24 reddishSvg position-absolute" alt="" id="plusImg">
                 </button>
             </div>
             <!-- 2 block -->
-        </div>
-        <!-- row -->
-    </div>
+        </div>        <!-- main -->
+
 
 
     <div id="myModalVn" class="modalVn">

@@ -597,7 +597,7 @@ namespace Kvorum_App.Manager
         [WebMethod]
         public static string GetBaseAccountDatas(int RoomId,int OBJECT_ID)
         {
-            DataTable dt = Mydb.ExecuteReadertoDataTable("select * from PER_SCORE where ROOM_ID=@rmId and IS_DELETED=0", new SqlParameter[] { new SqlParameter("@rmId", RoomId) }, CommandType.Text);
+            DataTable dt = Mydb.ExecuteReadertoDataTable("GetScoresByRoomId", new SqlParameter[] { new SqlParameter("@rmId", RoomId) }, CommandType.StoredProcedure);//select * from PER_SCORE where ROOM_ID=@rmId and IS_DELETED=0
 
             List<AccountDatas_Base> acbs = new List<AccountDatas_Base>();
             foreach (DataRow item in dt.Rows)
@@ -613,8 +613,11 @@ namespace Kvorum_App.Manager
                 acb.ENTRANCE = System.Configuration.ConfigurationManager.AppSettings["NewStructure"];
 
                 // acb.A_D = null;
-                DataTable dt2 = Mydb.ExecuteReadertoDataTable("select  distinct ip.SHARE,im.* from INDIVIDUAL_PERSCORE ip INNER JOIN IND_NAME im ON ip.INDIVIDUAL_ID = im.INDIVIDUAL_ID where  im.IS_DELETED=0 and  im.INDIVIDUAL_ID in (select INDIVIDUAL_ID from INDIVIDUAL_PERSCORE where SCORE_ID=@nmbr1 and IS_DELETED= 0 and OBJECT_ID=@OBJECT_ID) ", new SqlParameter[] { new SqlParameter("@nmbr1", acb.NUMBER),new SqlParameter("@OBJECT_ID", OBJECT_ID) },
-                    CommandType.Text);
+                DataTable dt2 = Mydb.ExecuteReadertoDataTable("GetAccountDatasByScoreAndObject", new SqlParameter[] { new SqlParameter("@nmbr1", acb.NUMBER),new SqlParameter("@OBJECT_ID", OBJECT_ID) },
+                    CommandType.StoredProcedure);
+                /*
+                 select  distinct ip.SHARE,im.* from INDIVIDUAL_PERSCORE ip INNER JOIN IND_NAME im ON ip.INDIVIDUAL_ID = im.INDIVIDUAL_ID where  im.IS_DELETED=0 and  im.INDIVIDUAL_ID in (select INDIVIDUAL_ID from INDIVIDUAL_PERSCORE where SCORE_ID=@nmbr1 and IS_DELETED= 0 and OBJECT_ID=@OBJECT_ID) 
+                 */
                 List<AccountDatas> acs = new List<AccountDatas>();
                 foreach (DataRow item2 in dt2.Rows)
                 {
@@ -1183,21 +1186,7 @@ namespace Kvorum_App.Manager
                 int delete_operation = 1;
                 string[] num_pass = item.NUMBER.Split('|');
 
-                //Mydb.ExecuteNoNQuery("update PER_SCORE set SCORE_ID=@SCORE_ID,NUMBER=@NUMBER,ROOM_ID=@ROOM_ID,LIVE_SQUARE=@LIVE_SQUARE,GEN_SQUARE=@GEN_SQUARE,ROOM_QUANT=@ROOM_QUANT,WITHOUT_SUMMER_SQUARE=@WITHOUT_SUMMER_SQUARE,OWNERSHIP_TYPE_ID=@OWNERSHIP_TYPE_ID,PASS=@PASS where ROOM_ID=@ROOM_ID", new SqlParameter[] {
-                //    new SqlParameter("@SCORE_ID",num_pass[0]),
-                //    new SqlParameter("@NUMBER",num_pass[0]),
-                //    new SqlParameter("@LIVE_SQUARE",(item.LIVE_SQUARE==" ")?"0":item.LIVE_SQUARE),
-                //    new SqlParameter("@GEN_SQUARE",(item.GEN_SQUARE==" ")?"0":item.GEN_SQUARE),
-                //    new SqlParameter("@ROOM_QUANT",Convert.ToInt32((item.ROOM_QUANT==" ")?"0":item.ROOM_QUANT)),
-                //    new SqlParameter("@WITHOUT_SUMMER_SQUARE",(item.WITHOUT_SUMMER_SQUARE==" ")?"0" :item.WITHOUT_SUMMER_SQUARE),
-                //    new SqlParameter("@OWNERSHIP_TYPE_ID",item.OWNERSHIP_TYPE_ID),
-                //    new SqlParameter("@PASS",num_pass[1]),
-                //     new SqlParameter("@ROOM_ID",ROOM_ID)
-
-                //}, CommandType.Text);
-
-
-                /*insert into PER_SCORE (SCORE_ID,NUMBER,ROOM_ID,LIVE_SQUARE,GEN_SQUARE,ROOM_QUANT,WITHOUT_SUMMER_SQUARE,OWNERSHIP_TYPE_ID,PASS,DATA_EXP,OBJECT_ID)values(@SCORE_ID,@NUMBER,@ROOM_ID,@LIVE_SQUARE,@GEN_SQUARE,@ROOM_QUANT,@WITHOUT_SUMMER_SQUARE,@OWNERSHIP_TYPE_ID,@PASS,@DATA_EXP,@OBJECT_ID)*/
+            
                 string[] datas = item.NUMBER.Split('|');
                // int id = (int) Mydb.ExecuteScalar("select COUNT (*) from PER_SCORE where ID=@ID", new SqlParameter[] { new SqlParameter("@ID", item.ID) },CommandType.Text);
 
@@ -1394,65 +1383,67 @@ namespace Kvorum_App.Manager
         public static string SendSms(string Phone_, string score_,string Pass, string G=null)
         {
             string success = "";
-            string nm = Phone_;
-            nm = nm.Replace('(', ' ').Replace(')', ' ').Replace('-', ' ').Replace('+',' ');
-            nm = nm.Replace(" ", string.Empty);
-            if (nm.Length == 10)
-            {
-                nm = "7" + nm;
-               // Console.WriteLine("10simvol");
-            }
-            if (nm.Length > 10)
-            {
-              //  Console.WriteLine("nm.Length>10");
-                string is_seven = nm.Substring(0, 1);
-                if (is_seven == "8")
+            
+                string nm = Phone_;
+                nm = nm.Replace('(', ' ').Replace(')', ' ').Replace('-', ' ').Replace('+', ' ');
+                nm = nm.Replace(" ", string.Empty);
+                if (nm.Length == 10)
                 {
-                    //Console.WriteLine("is_seven==8");
-                    nm = nm.Remove(0, 1);
                     nm = "7" + nm;
+                    // Console.WriteLine("10simvol");
                 }
-                is_seven = nm.Substring(0, 1);
-                if (is_seven != "7")
+                if (nm.Length > 10)
                 {
-                   // Console.WriteLine("is_seven!=7");
-                    nm = "7" + nm;
+                    //  Console.WriteLine("nm.Length>10");
+                    string is_seven = nm.Substring(0, 1);
+                    if (is_seven == "8")
+                    {
+                        //Console.WriteLine("is_seven==8");
+                        nm = nm.Remove(0, 1);
+                        nm = "7" + nm;
+                    }
+                    is_seven = nm.Substring(0, 1);
+                    if (is_seven != "7")
+                    {
+                        // Console.WriteLine("is_seven!=7");
+                        nm = "7" + nm;
+                    }
                 }
-            }
-            // string protocol = "test Link";//Mydb.ExecuteScalar("select DOMAIN_NAME from OBJECT_DOMAIN where OBJECT_ID=@o", new SqlParameter[] { new SqlParameter("@o", ObjectId_) }, CommandType.Text).ToString();
-            // protocol = protocol = protocol.Substring(0, protocol.IndexOf('.'));
-            //protocol = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + "/" + protocol + "/MainPage.aspx";
-            //string text = "Uvazhaemyj zhitel'! Vam vystavlen schet za ZHKU. Dlya oplaty ispol'zujte mobil'prilozhenie: " + protocol + ". Vash MATORIN";
-            string protocolForApps = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + "/getmobile.aspx";
-            //"http://www.matorin-un.ru/getmobile";
-            string text = "Dlya Vas sozdana uchetnaya zapis' v sisteme Upravbot. Login: "+score_+ ", Parol: "+ Pass + " . ("+ protocolForApps + ")"; //"Для Вас создана учётная запись в системе \"Управбот\". Логин: " + score_ + ". Пароль: " + Pass + " . Скачать приложение: " + protocolForApps;
-            if (G!=null)
-            {
-                text = G+ " v sisteme Upravbot. Login: " + score_ + ", Parol: " + Pass + " . (" + protocolForApps + ")";
-                //"Dlya Vas sozdan parol’ v sisteme Upravbot. Login: " + score_ + ", Parol: " + Pass + " . (" + protocolForApps + ")";
-            }
-            string URL = "https://my5.pir.company/sendsms.php?user=matorin&pwd=MAT0R1N&sadr=MATORIN&dadr=" + nm + "&text=" + text + "";
-            //https://my5.t-sms.ru/sendsms.php
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
-                request.Proxy = HttpWebRequest.DefaultWebProxy;
-                request.Proxy.Credentials = CredentialCache.DefaultNetworkCredentials;
-                request.PreAuthenticate = true;
-                request.ContentType = "application/json";
-                WebResponse webResponse = request.GetResponse();
-                Stream webStream = webResponse.GetResponseStream();
-                StreamReader responseReader = new StreamReader(webStream);
-                string rspns = responseReader.ReadToEnd();
+                // string protocol = "test Link";//Mydb.ExecuteScalar("select DOMAIN_NAME from OBJECT_DOMAIN where OBJECT_ID=@o", new SqlParameter[] { new SqlParameter("@o", ObjectId_) }, CommandType.Text).ToString();
+                // protocol = protocol = protocol.Substring(0, protocol.IndexOf('.'));
+                //protocol = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + "/" + protocol + "/MainPage.aspx";
+                //string text = "Uvazhaemyj zhitel'! Vam vystavlen schet za ZHKU. Dlya oplaty ispol'zujte mobil'prilozhenie: " + protocol + ". Vash MATORIN";
+                string protocolForApps = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + "/getmobile.aspx";
+                //"http://www.matorin-un.ru/getmobile";
+                string text = "Dlya Vas sozdana uchetnaya zapis' v sisteme Upravbot. Login: " + score_ + ", Parol: " + Pass + " . (" + protocolForApps + ")"; //"Для Вас создана учётная запись в системе \"Управбот\". Логин: " + score_ + ". Пароль: " + Pass + " . Скачать приложение: " + protocolForApps;
+                if (G != null)
+                {
+                    text = G + " v sisteme Upravbot. Login: " + score_ + ", Parol: " + Pass + " . (" + protocolForApps + ")";
+                    //"Dlya Vas sozdan parol’ v sisteme Upravbot. Login: " + score_ + ", Parol: " + Pass + " . (" + protocolForApps + ")";
+                }
+                string URL = "https://my5.pir.company/sendsms.php?user=matorin&pwd=MAT0R1N&sadr=MATORIN&dadr=" + nm + "&text=" + text + "";
+                //https://my5.t-sms.ru/sendsms.php
+                try
+                {
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                    request.Proxy = HttpWebRequest.DefaultWebProxy;
+                    request.Proxy.Credentials = CredentialCache.DefaultNetworkCredentials;
+                    request.PreAuthenticate = true;
+                    request.ContentType = "application/json";
+                    WebResponse webResponse = request.GetResponse();
+                    Stream webStream = webResponse.GetResponseStream();
+                    StreamReader responseReader = new StreamReader(webStream);
+                    string rspns = responseReader.ReadToEnd();
 
-                Mydb.ExecuteNoNQuery("INSERT INTO SMS_GATE(SMS_TEXT,SMS_RESPONSE,SCORE_ID,SEND_NUMBER,SMS_DATE) VALUES(@SMS_TEXT,@SMS_RESPONSE,@SCORE_ID,@SEND_NUMBER,GETDATE())", new SqlParameter[] { new SqlParameter("@SMS_TEXT", text), new SqlParameter("@SMS_RESPONSE", rspns), new SqlParameter("@SCORE_ID", score_), new SqlParameter("@SEND_NUMBER", nm) }, CommandType.Text);
-                success = "1";
-            }
-            catch (Exception)
-            {
+                    Mydb.ExecuteNoNQuery("INSERT INTO SMS_GATE(SMS_TEXT,SMS_RESPONSE,SCORE_ID,SEND_NUMBER,SMS_DATE) VALUES(@SMS_TEXT,@SMS_RESPONSE,@SCORE_ID,@SEND_NUMBER,GETDATE())", new SqlParameter[] { new SqlParameter("@SMS_TEXT", text), new SqlParameter("@SMS_RESPONSE", rspns), new SqlParameter("@SCORE_ID", score_), new SqlParameter("@SEND_NUMBER", nm) }, CommandType.Text);
+                    success = "1";
+                }
+                catch (Exception)
+                {
 
-                success = "0";
-            }
+                    success = "0";
+                } 
+             
             return success;
         }
         [WebMethod]
