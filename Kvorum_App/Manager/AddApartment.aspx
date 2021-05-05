@@ -454,6 +454,9 @@ if ($('select').data('select2')) {
                     </div>
 					
 					<div class="flexHoriz w-100 mt-4">
+                        <a id="QRGenerate" href="#" role="button" class="create font18b position-relative ml-auto" style="display:none" onclick="GenerateQr_For_Room(this)">
+							<span class="fa fa-qrcode"></span>
+							Распечатать QR-код помещения</a>
                         <button class="btn btn1 outline shadow-none ml-auto" id="backAppart">Назад</button>
                         <button id="SaveUp" class="btn btn1 ml-3">Сохранить</button>
                       
@@ -481,7 +484,7 @@ if ($('select').data('select2')) {
                         </ol>
                     </div>
 
-					<div data-tabid="2" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
+					<div data-tabid="2" onclick="FocusTab(this)" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
 						 <div class="posRel h56 rounded-lg  w-100">
 							 <select onchange="typePropChange(this)" id="typeProp_0" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true"> 
 								 <option value="0">Выберите собственность</option> 
@@ -494,7 +497,7 @@ if ($('select').data('select2')) {
 						 </div>
 					 </div>
 
-                    <div data-tabid="1" style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
+                    <div data-tabid="1" onclick="FocusTab(this)"  style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
 
 
 

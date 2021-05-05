@@ -38,25 +38,22 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+<div class="p-4">
 
+        <h2 class=" font24b textBlack ml-0 pb-4">Помещения и лицевые счета</h2> <!-- h2New -->
 
-    <div class="col-lg-9half col-sm-12 p-0 min-vh-100 bgWhite  ">
-        <!-- bgLightGrey3 -->
-        <span class="h90"></span>
-        <h2 class="h2New">Помещения и лицевые счета</h2>
-
-        <div style="padding: 20px;">
-            <a id="myBtn1" class="btn genBtn" href="AddApartment.aspx">Добавить помещение</a>
+        <div class="flexHoriz w-100">
+            <a id="myBtn1" class="btn btn1 mr-3" href="AddApartment.aspx">Добавить помещение</a>
             <%-- <a id="myBtn2" class="btn genBtn" href="#">Загрузить номера помещений</a>--%>
-            <a id="UplAcc" class="btn genBtn" href="#">Загрузить лицевые счета</a>
-            <a id="PassGen" class="btn genBtn" href="#">СГЕНЕРИРОВАТЬ ПАРОЛИ</a>
-            <a id="qr" class="btn genBtn qr" href="#">Распечатать QR-коды</a>
+            <a id="UplAcc" class="btn btn1 mr-3" href="#">Загрузить лицевые счета</a>
+            <a id="PassGen" class="btn btn1 mr-3" href="#">СГЕНЕРИРОВАТЬ ПАРОЛИ</a>
+            <a id="qr" class="btn btn1 mr-3 ml-auto mt-0 qr" href="#">Распечатать QR-коды</a>
         </div>
-
+ </div>
         <div class="row w-100 m-0 min-vh-100">
             <div class="col-sm-12 p-0">
 
-                <div class="flexHoriz w-100 m-0 p-3">
+                <div  id="TableTools" class="flexHoriz w-100 m-0 p-4">
                     <div class=" w-15 mr-3">
                         <div id="ListLength" class="posRel mb-0 mr-3">
                             <%--	<select id="jk" class="pl-2 pr-2 border w-100 h56  rounded-lg">
@@ -83,16 +80,16 @@
 					</select>--%>
                     </div>
 
-                    <button class="btn btn1 outline shadow-none w56 h56 mr-3 flexCenter">
-                        <img src="../img/ic-plus.svg" class="w18 reddishSvg" alt="" /></button>
+           <%--         <button class="btn btn1 outline shadow-none w56 h56 mr-3 flexCenter">
+                        <img src="../img/ic-plus.svg" class="w18 reddishSvg" alt="" /></button>--%>
 
                     <%--<button class="btn btn1 outline shadow-none w56 h56 mr-3 flexCenter">
 					<img src="../img/ic-sobs.svg" class="w18 reddishSvg" alt=""/></button>--%>
                 </div>
                 <div class="overflowX w-100">
 
-                    <table id="ScoresAndRooms">
-                        <thead>
+					<table class="mngTable w-100" id="ScoresAndRooms">
+						<thead class="bgLightGrey">
                             <tr>
                                 <th>Объект</th>
                                 <th>Назначение помещения</th>
@@ -110,113 +107,55 @@
                 </div>
 
 
-                <%--<div id="loadNA">
-         <h2>Загрузка номеров помещений</h2>
-         <div style="padding-left:20px;">
-             <br />
-            <a href="#">Форма загрузки номеров помещений без ЛС</a>
-            <br />
-            <a href="#">Форма загрузки номеров помещений вместе с ЛС</a>
-            <br />
-            <br />
-      
-            <input type="file" />
-            <br />
-
-            <input type="checkbox" style="margin-right:5px;"/>
-             <label>Загрузить номера помещений вместе с ЛС</label>
-            <br />
-
-            <br />
-            <p>Следующие данные будут загружены:</p>
-         </div>
-         <table>
-             <thead><tr>
-                    <th>ЛС</th>
-                    <th>№помещения</th>
-                    <th>Этаж</th>
-                    <th>Подъезд</th>
-                    <th>Назначение помещения</th>
-                    <th>Тип помещения</th>
-                </tr></thead>
-             <tbody><tr>
-                    <td>123456789</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>Квартира</td>
-                    <td>Квартира</td>
-                </tr>
-                <tr>
-                    <td>123456788</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>Квартира</td>
-                    <td>Квартира</td>
-                </tr>
-                <tr>
-                    <td>123456787</td>
-                    <td>3</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>Квартира</td>
-                    <td>Квартира</td>
-                </tr></tbody>
-            </table>
-            <br />
-            <div style="padding-left:20px;">
-                <button class="btn logBtn">Загрузить</button>
-                <button class="btn logBtn" style="background:#ccc">Отмена</button>
-            </div>
-            
-    </div>--%>
+                <%--<div id="loadNA">         <h2>Загрузка номеров помещений</h2>         <div style="padding-left:20px;">             <br />            <a href="#">Форма загрузки номеров помещений без ЛС</a>            <br />            <a href="#">Форма загрузки номеров помещений вместе с ЛС</a>            <br />            <br />                  <input type="file" />            <br />            <input type="checkbox" style="margin-right:5px;"/>             <label>Загрузить номера помещений вместе с ЛС</label>            <br />            <br />            <p>Следующие данные будут загружены:</p>         </div>         <table>             <thead><tr>                    <th>ЛС</th>                    <th>№помещения</th>                    <th>Этаж</th>                    <th>Подъезд</th>                    <th>Назначение помещения</th>                    <th>Тип помещения</th>                </tr></thead>             <tbody><tr>                    <td>123456789</td>                    <td>1</td>                    <td>1</td>                    <td>1</td>                    <td>Квартира</td>                    <td>Квартира</td>                </tr>                <tr>                    <td>123456788</td>                    <td>2</td>                    <td>1</td>                    <td>1</td>                    <td>Квартира</td>                    <td>Квартира</td>                </tr>                <tr>                    <td>123456787</td>                    <td>3</td>                    <td>1</td>                   <td>1</td>                    <td>Квартира</td>                    <td>Квартира</td>                </tr></tbody>            </table>            <br />            <div style="padding-left:20px;">                <button class="btn logBtn">Загрузить</button>                <button class="btn logBtn" style="background:#ccc">Отмена</button>            </div>    </div>--%>
             </div>
         </div>
-    </div>
+
 
 
 
     <div id="UploadAcc" class="modal2" style="min-width: 110%">
 
         <!-- Modal content -->
-        <div class="modal-content2" style="width: 75%">
-            <div class="modal-header2" style="background-color: white">
-                <span class="close2" style="color: white" id="closeUpl">×</span>
-                <h2 id="mh2" style="text-align: left; color: black">Загрузка лицевых счетов</h2>
-            </div>
-            <div class="modal-body2" style="height: 100px; height: 100px; padding: 15px; /* min-width: 100px; */display: inline-block;">
+        <div class="modal-content2 bgWhite rounded16 shadow w-75 p-4">
+	<div class="modal-header2 bgWhite flexHoriz">
+		<h2 id="mh2" class="font24b textBlack flexHoriz w-75">Загрузка лицевых счетов</h2>
+		
+		<span id="closeUpl" class=" bgWhite pl-2  ml-auto"> <!-- .close2 -->
+			<img src="../img/close.svg" class="" alt="" style="cursor: default;">
+		</span>
+    </div>
+            <div class="modal-body2" >
                 <div id="loadLC2">
 
-                    <div style="padding-left: 20px;">
+                    <div >
                         <p>Пожалуйста, выбирайте только те типы и назначения помещений, которые указаны в форме загрузки</p>
-                        <a href="../../img/Форма загрузки ЛС.xlsx" download title="Скачать форму">Форма загрузки лицевых счетов</a>
-                        <br />
-                        <br />
+                        <a href="../../img/Форма загрузки ЛС.xlsx" download title="Скачать форму" class="font16b darkGreen">Форма загрузки лицевых счетов</a>
 
-                        <input id="filesLC" onchange="LCFileChange(this)" type="file" />
-                        <br />
+						<div class="mt-3 mb-3">
+							<input id="filesLC" onchange="LCFileChange(this)" type="file" />
+                        </div>
 
 
                         <p id="sledUpLC">Следующие данные будут загружены:</p>
                     </div>
-                    <table class="table" id="datatable">
+                    <table class="mngTable mt-2" id="datatable">
                         <thead>
-                            <tr>
+                            <tr class="bgLightGrey3">
                                 <th>ЛС</th>
                                 <th>Подъезд</th>
                                 <th>Этаж</th>
                                 <th>№помещения</th>
-                                <th>Назначение помещения</th>
-                                <th>Тип помещения</th>
-                                <th>Тип собственности</th>
-                                <th>Номер телефона</th>
+                                <th class="text-wrap">Назначение помещения</th>
+                                <th class="text-wrap">Тип помещения</th>
+                                <th class="text-wrap">Тип собственности</th>
+                                <th class="text-wrap">Номер телефона</th>
                                 <th>E-mail</th>
-                                <th>Доля собственности</th>
-                                <th>ФИО собственника</th>
-                                <th>Общая площадь</th>
-                                <th>Жилая площадь</th>
-                                <th>Общая площадь без летних зон</th>
+                                <th class="text-wrap">Доля собственности</th>
+                                <th class="text-wrap">ФИО собственника</th>
+                                <th class="text-wrap">Общая площадь</th>
+                                <th class="text-wrap">Жилая площадь</th>
+                                <th class="text-wrap">Общая&nbsp;площадь без&nbsp;летних&nbsp;зон</th>
                                 <th>Пароль</th>
                             </tr>
                         </thead>
@@ -224,17 +163,14 @@
                         </tbody>
                     </table>
                     <br />
-                    <%--  <div style="padding-left:20px;">
-            <button id="loadEx" class="btn logBtn">Загрузить</button>
-            <button id="cancelLast" class="btn logBtn" style="background:#ccc">Отмена</button>
-        </div>--%>
+                    <%--  <div style="padding-left:20px;">  <button id="loadEx" class="btn logBtn">Загрузить</button>  <button id="cancelLast" class="btn logBtn" style="background:#ccc">Отмена</button>        </div>--%>
                 </div>
 
             </div>
-            <div class="modal-footer2" style="text-align: left; background-color: white">
+            <div class="modal-footer2 flexHoriz w-100" style="background-color:white">
 
-                <input type="button" id="cancelLast" name="name" value="Отмена" style="width: 25%; float: right; height: 78%; background-color: white; color: black; font-weight: 700;">
-                <input type="button" id="loadEx" name="name" value="Загрузить" style="float: left; width: 25%; height: 78%; background-color: white; color: black; font-weight: 700;">
+                <input type="button" id="cancelLast" name="name" value="Отмена" class="flexCenter btn3 outline shadow-none btn1 w120 mr-3">
+                <input type="button" id="loadEx" name="name" value="Загрузить" class=" ml-auto btn btn1 w120 flexCenter">
             </div>
         </div>
 

@@ -677,7 +677,7 @@
                 </ol>
 
 
-                <ol class="navbar-nav mt-3 show-desktop">
+                <ol id="ol_li" class="navbar-nav mt-3 show-desktop">
 
                     <li class="nav-link active"><a href="Apartments.aspx" class="flexHoriz">
                         <img src="../img/home-ic-bl.svg" class="w24 mr-3" alt="" />
@@ -687,11 +687,11 @@
                         <img src="../img/news-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font14b mb-0">Новости</p>
                     </a></li>
-                    <li class="nav-link"><a href="CreatePoll.aspx" class="flexHoriz">
+                    <li id="polls" class="nav-link"><a href="CreatePoll.aspx" class="flexHoriz">
                         <img src="../img/tasks-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font14b mb-0">Опросы</p>
                     </a></li>
-                    <li class="nav-link"><a href="Counters.aspx" class="flexHoriz">
+                    <li id="counters" class="nav-link"><a href="Counters.aspx" class="flexHoriz">
                         <img src="../img/meter-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font14b mb-0">Счетчики</p>
                     </a></li>

@@ -988,7 +988,7 @@
             $('#appNum').val("")
             $("#fio,#persAcc").val("");
             $("#rooms").empty();
-            $('#objsM').val(0);
+            $('#objsM').select2('destroy').val(0).select2();
             sessionStorage.setItem('SMAsterObj', '0')
             getRoom(Log);
             $('#appPurp input[type="checkbox"]').each(function () { $(this).prop('checked', false) })
@@ -1317,6 +1317,8 @@
         })
     }
     if (loc == "/Manager/Counters.aspx") {
+        $('#ol_li').children('li').attr('class','nav-link')
+        $('#counters').attr('class','nav-link active')
         $('.ui-loader-background').show();
         $('#rumNumF,#scF,#meterNumF').val('')
         $('#loader').show();
@@ -2949,6 +2951,8 @@
         })
     }
     if (loc == "/Manager/CreatePoll.aspx") {
+        $('#ol_li').children('li').attr('class', 'nav-link')
+        $('#polls').attr('class', 'nav-link active')
         getProjectNamebyLogin(Log)
         GetDatePoll_And_Control(undefined, null)
         CKEDITOR.replace('editor1', { height: 100 });
@@ -3087,9 +3091,9 @@ function giveElements(i, jdata,rfp) {
 
     var data_tab4 ='<div id="PayingHistory"  data-tabid="4" style="display:none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"><table class="table orderList" id="tblHistory" style="width: 87%; display: table;"><thead><tr><td>Дата</td><td>Поступило (руб.)</td></tr></thead><tbody id="HistoryPays_'+i+'"></tbody></table></div>'
 
-    var data_tab2 = '<div data-tabid="2" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="posRel h56 rounded-lg  w-100"> <select onchange="typePropChange(this)" id="typeProp_' + i + '" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true"> <option value="0">Выберите собственность</option> <option value="1">Совместная</option><option value="2">Единоличная</option><option value="3">Долевая</option><option value="4">Социальный найм</option></select><br> <label for="typeProp_' + i + '" class="w-95 transp backLab">Тип собственности</label> </div> </div>'
+    var data_tab2 = '<div data-tabid="2" onclick="FocusTab(this)" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="posRel h56 rounded-lg  w-100"> <select onchange="typePropChange(this)" id="typeProp_' + i + '" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true"> <option value="0">Выберите собственность</option> <option value="1">Совместная</option><option value="2">Единоличная</option><option value="3">Долевая</option><option value="4">Социальный найм</option></select><br> <label for="typeProp_' + i + '" class="w-95 transp backLab">Тип собственности</label> </div> </div>'
 
-    var data_tab1 = '<div data-tabid="1" style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="row mb-3 mr-2 ml-1 w-100 p-0 rounded8"> <div class="col-md-12 m-0 p-0"> <div class="posRel h56 rounded-lg mb-3"> <input onkeyup="hideErrsMessage2(this)" required="" type="text" id="lc_' + i + '"> <label for="lc_' + i + '" class="w-95 transp backLab">Лицевой счет</label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48 m-0"> <input disabled="disabled" onkeyup="hideErrsMessage2(this)" type="text" id="pss_' + i + '" style="width: 71%;"> <label for="pss_' + i + '" class="w-95 transp backLab">Пароль</label> </div> <button onclick="Generate(this)" id="GENER_Modal_' + i + '" class="btn btn1 outline shadow-none m-0 rounded-lg w-48 h56"> <span> <img src="../img/ic-pass.svg" class="mr-2" alt=""> <span class="text-truncate">Сгенерировать</span> </span> </button> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSq_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="LiveSq_' + i + '" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="GenSq_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="GenSq_' + i + '" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSqB_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="LiveSqB_' + i + '" class="w-95 transp backLab">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="AmRoom_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="AmRoom_' + i + '" class="w-95 transp backLab">Количество комнат<sup>2</sup></label> </div> </div> </div> </div>'
+    var data_tab1 = '<div data-tabid="1" onclick="FocusTab(this)" style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"> <div class="row mb-3 mr-2 ml-1 w-100 p-0 rounded8"> <div class="col-md-12 m-0 p-0"> <div class="posRel h56 rounded-lg mb-3"> <input onkeyup="hideErrsMessage2(this)" required="" type="text" id="lc_' + i + '"> <label for="lc_' + i + '" class="w-95 transp backLab">Лицевой счет</label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48 m-0"> <input disabled="disabled" onkeyup="hideErrsMessage2(this)" type="text" id="pss_' + i + '" style="width: 71%;"> <label for="pss_' + i + '" class="w-95 transp backLab">Пароль</label> </div> <button onclick="Generate(this)" id="GENER_Modal_' + i + '" class="btn btn1 outline shadow-none m-0 rounded-lg w-48 h56"> <span> <img src="../img/ic-pass.svg" class="mr-2" alt=""> <span class="text-truncate">Сгенерировать</span> </span> </button> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSq_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="LiveSq_' + i + '" class="w-95 transp backLab">Жилая площадь, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="GenSq_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="GenSq_' + i + '" class="w-95 transp backLab">Общая площадь, м<sup>2</sup></label> </div> </div> <div class="flexHoriz justify-content-between mb-2 w-100"> <div class="posRel h56 rounded-lg w-48"> <input id="LiveSqB_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="LiveSqB_' + i + '" class="w-95 transp backLab">Общая площадь без летних зон по данному л/с, м<sup>2</sup></label> </div> <div class="posRel h56 rounded-lg w-48"> <input id="AmRoom_' + i + '" onkeyup="hideErrsMessage2(this)"> <label for="AmRoom_' + i + '" class="w-95 transp backLab">Количество комнат<sup>2</sup></label> </div> </div> </div> </div>'
 
     
     var NewTab = '<div id="ls" class="ls" itemid="' + i + '"> <div class=" h60 w-100 bgWhite shadow rounded16 pl-3 mt-4 pr-3 "><i class="fa fa-close removing3" itemid="' + i + '" onclick="deltab(this)" aria-hidden="true"></i>' + tab_headers + '</div>' + data_tab4+'' + data_tab3 + '' + data_tab2 + '' + data_tab1 + '<hr> </div>'
@@ -12758,15 +12762,18 @@ function changeDatatableElementStructures(e) {
     var Tablewrapper = '#' + E_id + '_wrapper'
     var TableLength = E_id + '_length'
     var TableFilter = '#' + E_id + '_filter'
-    $(Tablewrapper).prepend($('#TableTools'))
+   // $(Tablewrapper).prepend($('#TableTools'))
     $('#ListLength').append($('select[name="' + TableLength + '"]:eq(0)'))
     $('select[name="' + TableLength + '"]').children('option').each(function () {
         // .text('Показывать ' + $(this).val() + ' записей')
         $(this).text('Показывать ' + $(this).val() + ' записей')
     })
     $('#' + TableLength).remove();
+   // $(TableFilter).children('label').children('input[type="search"]').remove()
     $('#SearchForTable').append($(TableFilter).children('label').children('input[type="search"]').attr('class', 'w-100 transp border-0 ml-2 pr-2 pt-1'))
+    
     $(TableFilter).remove();
+  
 }
 function deltab(itm) {
     var apartId = sessionStorage.getItem("apart")
@@ -12852,7 +12859,7 @@ function getObjectForMaster(lg_) {
             if (SMAsterObj == null) {
                 SMAsterObj = 0
             }
-            $('#objsM').val(SMAsterObj).select2('val', SMAsterObj)
+            $('#objsM').select2('destroy').val(SMAsterObj).select2()
 
         }
     })
@@ -13563,10 +13570,7 @@ function hideErrsMessage2(e) {
 
      
         var phone = $(e).val();
-        var success = true
-        //var PhoneNumbers = phone.match(/\d/g)
-
-      
+        var success = true 
         $(e).inputmask("(999) 999-99-99");
     }
     if (ids.indexOf('email') > -1) {
@@ -13579,44 +13583,15 @@ function hideErrsMessage2(e) {
             if (isValidEmailAddress(email)) {
                 success = true
                 $('#emailV_E').remove();
-                var tabCOunt = $('.tab-content .tab-pane').length;
-                var emailCntCOunt = $('.tab-content .tab-pane #itms input[type="email"]').length
-                for (var i = 0; i < tabCOunt; i++) {
-                    $('.tab-content .tab-pane:eq(' + i + ') #itms input[type="email"]').each(function () {
-                        var otheremail = $(this).val()
-                        if ($(this).attr('id') != $(e).attr('id')) {
-                            if (otheremail == email) {
-                                success = false
-                                if ($('#emailV_E').length == 0) {
-
-                                    $('#SaveUp').attr('disabled', 'disabled')
-
-
-                                    ErrorForControls($(e), 'Электронная почта повторяется')
-                                }
-                            }
-                            else {
-                                success = true
-                                $('#SaveUp').removeAttr('disabled')
-                                $('#emailV_E').remove();
-                            }
-                        }
-                    }
-
-                    )
-                }
-                // //console.log("emailCntCOunt " + emailCntCOunt);
             }
             else {
                 success = false
                 if ($('#emailV_E').length == 0) {
-
                     $('#SaveUp').attr('disabled', 'disabled')
                     ErrorForControls($(e), 'Введенное значение не соответствует формату электронной почты')
                 }
                 else {
                     $('#SaveUp').removeAttr('disabled')
-
                 }
             }
         }
@@ -13629,7 +13604,7 @@ function hideErrsMessage2(e) {
     $(ids + '+ br').remove();
     $(ids).remove();
     var lc = $(e).attr("id");
-    if (lc == "lc") {
+    if (lc.indexOf("lc")!=-1) {
         var obj = $("#objs").val();
         CHeckAccNumber(e, $(e).val(), obj)
     }
@@ -13638,21 +13613,17 @@ function hideErrsMessage2(e) {
     //    var number = $(e).val().replace('-', '')
     //    $(e).val(number)
     //}
-    if ($(e).attr('id') === 'countR' || $(e).attr('id') === 'AmRoom') {
+    if ($(e).attr('id').indexOf('countR') != -1 || $(e).attr('id').indexOf('AmRoom') !=-1 ) {
 
         var countR = ($('#countR').val().length == 0) ? 0 : parseInt($('#countR').val());
-        var AmRoom = ($('#AmRoom').val().length == 0) ? 0 : parseInt($('#AmRoom').val());
+        var AmRoom = $('[data-focus="true"]').children().find('.AmRoom').val()
+        AmRoom = (AmRoom != undefined)?(AmRoom.length == 0) ? 0 : parseInt(AmRoom):0;
         if (countR < AmRoom) {
-
             $('#SaveUp').attr('disabled', 'disabled')
             $('#countRErr,#AmRoomErr').remove();
-            $('#countR').after('<label id="countRErr" style="color:red"></label>')
-
+          //  $('#countR').after('<label id="countRErr" style="color:red"></label>')
             ErrorForControls($('#countR'), 'Количество комнат л/с не может быть больше, чем общее количество комнат в помещении')
-
-
-            ErrorForControls($('#AmRoom'), 'Количество комнат л/с не может быть больше, чем общее количество комнат в помещении')
-
+            ErrorForControls($('[data-focus="true"]').children().find('.AmRoom'), 'Количество комнат л/с не может быть больше, чем общее количество комнат в помещении')
         }
         else {
             $('#countRErr,#AmRoomErr').remove();
@@ -13661,9 +13632,10 @@ function hideErrsMessage2(e) {
 
     }
 
-    if ($(e).attr('id') === 'GenS' || $(e).attr('id') === 'GenSq') {
+    if ($(e).attr('id').indexOf('GenS') != -1 || $(e).attr('id').indexOf('GenSq') !=-1 ) {
         var GenS = ($('#GenS').val().length == 0) ? 0 : parseFloat($('#GenS').val());
-        var GenSq = ($('#GenSq').val().length == 0) ? 0 : parseFloat($('#GenSq').val());
+        var GenSq = $('[data-focus="true"]').children().find('.GenSq').val()
+        GenSq = (GenSq != undefined) ? (GenSq.length == 0) ? 0 : parseFloat(GenSq) : 0;
         if (GenS < GenSq) {
 
             $('#SaveUp').attr('disabled', 'disabled')
@@ -13672,40 +13644,31 @@ function hideErrsMessage2(e) {
             ErrorForControls($('#GenS'), 'Общая площадь по данному л/с не может быть больше, чем  Общая площадь в помещении')
 
 
-            ErrorForControls($('#GenSq'), 'Общая площадь по данному л/с не может быть больше, чем  Общая площадь в помещении')
+            ErrorForControls($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь по данному л/с не может быть больше, чем  Общая площадь в помещении')
 
         }
         else {
             $('#GenSErr,#GenSqErr').remove();
             $('#SaveUp').removeAttr('disabled')
-            var LiveSq = ($('#LiveSq').val().length == 0) ? 0 : parseFloat($('#LiveSq').val());
+            var LiveSq = $('[data-focus="true"]').children().find('.LiveSq').val()
+            LiveSq = (LiveSq.length == 0) ? 0 : parseFloat(LiveSq);
             if (LiveSq > GenSq) {
 
-                $('#SaveUp').attr('disabled', 'disabled')
-
-                $('#GenSq').after('<label id="GenSqErr2" style="color:red">Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с</label>')
-
-                ErrorForControls($('#GenSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с')
-
-
-
-                ErrorForControls($('#LiveSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с')
+                $('#SaveUp').attr('disabled', 'disabled') 
+                ErrorForControls($('[data-focus="true"]').children().find('.GenSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с')
+                ErrorForControls($('[data-focus="true"]').children().find('.LiveSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с')
                 $('#SaveUp').attr('disabled', 'disabled')
             }
             else {
 
                 $('#SaveUp').removeAttr('disabled')
-                var LiveSqB = ($('#LiveSqB').val().length == 0) ? 0 : parseFloat($('#LiveSqB').val());
+                var LiveSqB = $('[data-focus="true"]').children().find('.LiveSqB').val()
+                LiveSqB = (LiveSqB.length == 0) ? 0 : parseFloat(LiveSqB);
 
                 if (LiveSqB > GenSq) {
                     $('#SaveUp').attr('disabled', 'disabled')
-
-
-
-                    ErrorForControls($('#GenSq'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с')
-
-
-                    ErrorForControls($('#LiveSqB'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с')
+                    ErrorForControls($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с')
+                    ErrorForControls($('[data-focus="true"]').children().find('.LiveSqB'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с')
 
                 }
                 else {
@@ -13729,29 +13692,28 @@ function hideErrsMessage2(e) {
 
     }
 
-    if ($(e).attr('id') === 'LiveS' || $(e).attr('id') === 'LiveSq') {
+    if ($(e).attr('id').indexOf('LiveS') != -1 || $(e).attr('id').indexOf('LiveSq') !=-1 ) {
         var LiveS = ($('#LiveS').val().length == 0) ? 0 : parseFloat($('#LiveS').val());
-        var LiveSq = ($('#LiveSq').val().length == 0) ? 0 : parseFloat($('#LiveSq').val());
+        var LiveSq = $('[data-focus="true"]').children().find('.LiveSq').val()
+        LiveSq = (LiveSq.length == 0) ? 0 : parseFloat(LiveSq);
         if (LiveS < LiveSq) {
 
             $('#SaveUp').attr('disabled', 'disabled')
             ErrorForControls($('#LiveS'), 'Жилая площадь по данному л/с не может быть больше, чем  Жилая площадь в помещении')
-
-            ErrorForControls($('#LiveSq'), 'Жилая площадь по данному л/с не может быть больше, чем  Жилая площадь в помещении')
-
-
+            ErrorForControls($('[data-focus="true"]').children().find('.LiveSq'), 'Жилая площадь по данному л/с не может быть больше, чем  Жилая площадь в помещении')
         }
         else {
             $('#LiveSErr,#LiveSqErr').remove();
             $('#SaveUp').removeAttr('disabled')
-            var GenSq = ($('#GenSq').val().length == 0) ? 0 : parseFloat($('#GenSq').val());
+            var GenSq = $('[data-focus="true"]').children().find('.GenSq').val()
+            GenSq(GenSq.length == 0) ? 0 : parseFloat(GenSq);
             if (LiveSq > GenSq) {
 
 
 
-                ErrorForControls($('#GenSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с')
+                ErrorForControls($('[data-focus="true"]').children().find('.GenSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с')
 
-                ErrorForControls($('#LiveSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с')
+                ErrorForControls($('[data-focus="true"]').children().find('.LiveSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с')
 
                 $('#SaveUp').attr('disabled', 'disabled')
             }
@@ -13760,7 +13722,8 @@ function hideErrsMessage2(e) {
                 $('#SaveUp').removeAttr('disabled')
             }
 
-            var GenS_ = ($('#GenS').val().length == 0) ? 0 : parseFloat($('#GenS').val())
+            var GenS_ = $('[data-focus="true"]').children().find('.GenSq').val()
+            GenS_(GenS_.length == 0) ? 0 : parseFloat(GenS_)
             if (LiveS > GenS_) {
 
                 $('#SaveUp').attr('disabled', 'disabled')
@@ -13777,14 +13740,16 @@ function hideErrsMessage2(e) {
     }
 
 
-    if ($(e).attr('id') === 'LiveSqB') {
-        var LiveSqB = ($('#LiveSqB').val().length == 0) ? 0 : parseFloat($('#LiveSqB').val());
-        var GenSq = ($('#GenSq').val().length == 0) ? 0 : parseFloat($('#GenSq').val());
+    if ($(e).attr('id').indexOf('LiveSqB') !=-1 ) {
+        var LiveSqB = $('[data-focus="true"]').children().find('.LiveSqB').val();
+        LiveSqB = (LiveSqB.length == 0) ? 0 : parseFloat(LiveSqB);
+        var GenSq = $('[data-focus="true"]').children().find('.GenSq').val();
+        GenSq = (GenSq.length == 0) ? 0 : parseFloat(GenSq);
         if (LiveSqB > GenSq) {
             $('#SaveUp').attr('disabled', 'disabled')
             $('#GenSqErr3,#LiveSqBErr3').remove();
-            ErrorForControls($('#GenSq'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с')
-            ErrorForControls($('#LiveSqB'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с')
+            ErrorForControls($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с')
+            ErrorForControls($('[data-focus="true"]').children().find('.LiveSqB'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с')
 
         }
         else {
@@ -13798,6 +13763,12 @@ function hideErrsMessage2(e) {
         var countR = $(e).val().replace(/[^0-9\.\,]/g, '');
         $(e).val(countR)
     }
+}
+function FocusTab(e)
+{
+    $('[data-tabid="1"],[data-tabid="2"]').removeAttr('data-focus')
+    $(e).attr('data-focus','true')
+    //console.log('focused: '+id)
 }
 function CheckEmail_or_Phone(e, phone, Email) {
     var dObj = { "Email": Email, "Phone": phone }
@@ -13870,7 +13841,8 @@ function CHeckAccNumber(e, lc, objId) {
             else {
 
                 $('#SaveUp').attr('disabled', 'disabled')
-                $(e).after('<label id="lc_E" class="errs">Номер лицевого счёта уже зарегистрирован на этом объекте</label>')
+                //$(e).after('<label id="lc_E" class="errs">Номер лицевого счёта уже зарегистрирован на этом объекте</label>')
+                ErrorForControls($(e),'Номер лицевого счёта уже зарегистрирован на этом объекте')
             }
         }
     })
