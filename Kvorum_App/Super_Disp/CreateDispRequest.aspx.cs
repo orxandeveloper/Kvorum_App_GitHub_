@@ -37,7 +37,16 @@ namespace Kvorum_App.Super_Disp
         {
             if (lg == 0)
             {
-                return Mydb.ExecuteAsJson("TestDB.dbo.usp_QUICK_API_get_mp_services_search", new SqlParameter[] { new SqlParameter("@PROJECT_GUID", PROJECT_GUID),new SqlParameter("@baseDirectionId",baseDirectionId) }, CommandType.StoredProcedure);
+                   string AllServices= Mydb.ExecuteAsJson("TestDB.dbo.usp_QUICK_API_get_mp_services_search", new SqlParameter[] { new SqlParameter("@PROJECT_GUID", PROJECT_GUID),new SqlParameter("@baseDirectionId",baseDirectionId) }, CommandType.StoredProcedure);
+                string ServicesResponsibles = Mydb.ExecuteAsJson("GET_RESPONSIBLES_BY_GROUP", new SqlParameter[] {new SqlParameter("@PROJECT_GUID", PROJECT_GUID) }, CommandType.StoredProcedure);
+
+                string js = new JavaScriptSerializer().Serialize(new
+                {
+                    AllServices = AllServices,
+                    ServicesResponsibles = ServicesResponsibles
+
+                });
+                return js;
             }
             else
             {
