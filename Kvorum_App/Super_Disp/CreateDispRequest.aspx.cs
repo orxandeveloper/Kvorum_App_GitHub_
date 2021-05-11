@@ -82,6 +82,11 @@ namespace Kvorum_App.Super_Disp
            });
             return js;//Mydb.ExecuteAsJson("TestDB.dbo.sp_QUICK_API_get_ub_services", new SqlParameter[] { new SqlParameter("@PROJECT_GUID", PROJECT_GUID), new SqlParameter("@DIRECTION_GUID", DIRECTION_GUID), new SqlParameter("@SERVICE_GUID", servc) }, CommandType.StoredProcedure);
         }
+
+        [WebMethod]
+        public static string getResponsibels_ForCheckGroup(string gg) {
+            return Mydb.ExecuteAsJson("GET_RESPONSIBLES_BY_GROUP", new SqlParameter[] { new SqlParameter("@SERVICE_GUID", gg) }, CommandType.StoredProcedure);
+        }
         [WebMethod]
         public static string get_ub_directions(string PROJECT_GUID, int respid,object Supp_Guid,int RequestKind)
         {
