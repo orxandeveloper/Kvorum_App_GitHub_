@@ -18,7 +18,7 @@ namespace Kvorum_App.Manager
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string adressUrl= HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + "/Super_Disp/DispRequests.aspx";
+            string adressUrl= System.Configuration.ConfigurationManager.AppSettings["ExternalIp"]+ "Super_Disp/DispRequests.aspx";// HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + "/Super_Disp/DispRequests.aspx";
 
 
 
