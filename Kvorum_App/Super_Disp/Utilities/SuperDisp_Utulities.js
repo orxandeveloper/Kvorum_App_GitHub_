@@ -534,7 +534,7 @@ $(document).ready(function () {
         $('#hstComh').after('<label id="attention_hstComh" style="color:red">Внимание! Комментарий не будет отображаться в приложении для жителей.</label>')
         if (R_id == "" || R_id == undefined || R_id == null) {
 
-            $('label[class="w-95"],label[class="transp backLab"]').remove()
+       //     $('label[class="w-95"],label[class="transp backLab"]').remove()
 
             $('select').select2({
                 containerCssClass: "wrap"

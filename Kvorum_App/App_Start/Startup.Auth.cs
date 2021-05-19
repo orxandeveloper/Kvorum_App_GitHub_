@@ -46,7 +46,7 @@ namespace Kvorum_App
             {
                 ClientId = "aspx",
                 Authority = "https://upravbot.ru/IDS4/",
-                RedirectUri = url,//"http://localhost:5002/ClientLogin.aspx",
+                RedirectUri = url,//"http://localhost:5002/ClientLogin.aspx", 
                 Scope = "apiCore profile openid offline_access api1",
                 ResponseType = "code",
                 SignInAsAuthenticationType = "cookie",

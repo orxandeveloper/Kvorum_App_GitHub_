@@ -1233,12 +1233,12 @@ $(function () {
         return pattern_.test(password_)
     }
 });
-//$(document).ready(function () {
-//    $('#idendityLogin').click();
-//})
-//$(window).load(function () {
-//    $('#idendityLogin').click();
-//})
+$(document).ready(function () {
+    $('#idendityLogin').click();
+})
+$(window).load(function () {
+    $('#idendityLogin').click();
+})
 function PopupSelect(Header_, link_) {
     $("#mh2").text(Header_);
     var parsedLink = JSON.parse(link_)
