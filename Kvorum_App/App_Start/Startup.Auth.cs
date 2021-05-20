@@ -36,7 +36,7 @@ namespace Kvorum_App
                 SlidingExpiration = true
 
             });
-            string url = "http://172.20.20.115/ClientLogin.aspx";
+            string url = "http://localhost:5002/ClientLogin.aspx";
 
                 //"http://localhost:5002/ClientLogin.aspx"; 
                 //
