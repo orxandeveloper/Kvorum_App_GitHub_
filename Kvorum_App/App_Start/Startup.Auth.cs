@@ -52,7 +52,7 @@ namespace Kvorum_App
                 SignInAsAuthenticationType = "cookie",
 
                 RequireHttpsMetadata = false,
-                UseTokenLifetime = false,
+                UseTokenLifetime = true,
 
                 RedeemCode = true,
                 SaveTokens = true,
