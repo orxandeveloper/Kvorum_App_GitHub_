@@ -17,10 +17,11 @@ namespace Kvorum_App
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            string szCookieHeader = Request.Headers["Cookie"];
         }
         protected void login_Click(object sender, EventArgs e)
         {
+            
             HttpContext.Current.GetOwinContext().Authentication.Challenge(
                      new AuthenticationProperties
                      {

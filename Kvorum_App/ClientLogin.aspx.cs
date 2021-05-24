@@ -31,6 +31,8 @@ namespace Kvorum_App
             HttpCookie mycookie = new HttpCookie("mycookie");
             mycookie.Value = System.Web.HttpContext.Current.Session["Login_Data"].ToString();
             HttpContext.Current.Response.Cookies.Add(mycookie);
+          
+            // Response.Redirect("https://upravbot.ru/IDS4/");
         }
 
         [WebMethod]

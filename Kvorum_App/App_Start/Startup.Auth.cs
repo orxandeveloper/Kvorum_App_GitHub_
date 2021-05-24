@@ -90,13 +90,14 @@ namespace Kvorum_App
 
 
                             var client = new HttpClient();
-                          
-                           // System.Web.HttpContext.Current.Session["tt"] = tt;
-                           var userInfoClient = await client.GetUserInfoAsync(new UserInfoRequest
+                            System.Web.HttpContext.Current.Session["Token"] = n.ProtocolMessage.AccessToken;
+                            // System.Web.HttpContext.Current.Session["tt"] = tt;
+                            var userInfoClient = await client.GetUserInfoAsync(new UserInfoRequest
                             {
                                 Address = "https://upravbot.ru/IDS4/connect/userinfo",
                                 Token = n.ProtocolMessage.AccessToken
-                            });
+                                
+                           });
 
 
 
