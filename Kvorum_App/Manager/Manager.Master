@@ -514,23 +514,23 @@
                 <li class="nav-item ml-auto mr-4">
                     <ul class="nav w-100">
                         <li class="nav-item"></li>
-                        <li class="nav-item p-0 w300 mr-2">
+                       <%-- <li class="nav-item p-0 w300 mr-2">
                             <form class="shadow-in mt-2 mb-2 text-left w-100 te-posrel rounded-lg bgLightGrey3">
                                 <button class="ml-2 pl-1 transp border-0" type="submit">
                                     <img src="../img/search-ic.svg" class="w16" alt="" /></button>
                                 <input class="w-100 transp border-0 pl-2 pt-2 pr-2 pb-1" type="search" placeholder="Поиск" aria-label="Search">
                             </form>
-                        </li>
+                        </li>--%>
                         <!--	<li class="nav-item p-0">
 					<a class="nav-link phone transp" href="tel:+79646274444">
 						<i class="fa fa-phone" aria-hidden="true"></i> +7 964 627-44-44</a>
 				</li> -->
-                        <li class="nav-item p-0">
+                      <%--  <li class="nav-item p-0">
                             <a class="nav-link transp">
                                 <img src="../img/mail.svg" class="reddishSvg w24" alt="" /></a>
-                        </li>
+                        </li>--%>
                         <li class="divider40"></li>
-                        <li class="nav-item p-0">
+                    <%--    <li class="nav-item p-0">
                             <a class="nav-link position-relative transp" href="#">
                                 <img src="../img/comments.svg" class="reddishSvg w24" alt="" />
                                 <span class="flexCenter position-absolute ml-n3">
@@ -538,7 +538,7 @@
                                     <span class="font12 white position-absolute">99</span>
                                 </span>
                             </a>
-                        </li>
+                        </li>--%>
 
                         <li class="nav-item login">
 
@@ -548,10 +548,10 @@
                                     <img src="../img/user.svg" class="w42 mt-n2" alt="" />
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <a class="dropdown-item" href="#">
+                                  <%--  <a class="dropdown-item" href="#">
                                         <img src="../img/profile.svg" class="w16 mr-3" alt="" />Мой профиль</a>
                                     <a class="dropdown-item" href="#">
-                                        <img src="../img/settings.svg" class="w16 mr-3" alt="" />Настройки</a>
+                                        <img src="../img/settings.svg" class="w16 mr-3" alt="" />Настройки</a>--%>
                                     <a class="dropdown-item" href="#" id="OutD">
                                         <img src="../img/logout.svg" class="w16 mr-3" alt="" />Выход</a>
                                 </div>
@@ -587,10 +587,10 @@
                     <img src="../img/key-ic-bl.svg" class="w24 mr-3" alt="" />
                     <p class="font14b mb-0">Помещения и&nbsp;лицевые счета</p>
                 </a></li>
-                <li class="nav-link"><a href="#" class="flexHoriz">
+              <%--  <li class="nav-link"><a href="#" class="flexHoriz">
                     <img src="../img/user-ic-bl.svg" class="w24 mr-3" alt="" />
                     <p class="font14b mb-0">Собственники и&nbsp;пользователи</p>
-                </a></li>
+                </a></li>--%>
                 <li class="nav-link"><a href="#" class="flexHoriz">
                     <img src="../img/meter-ic-bl.svg" class="w24 mr-3" alt="" />
                     <p class="font14b mb-0">Приборы учета</p>
@@ -633,7 +633,7 @@
                 <ol class="block navbar-nav pt-3 w-100 shadow-menu "> <!-- block added -->
                     <li class="nav-link flexHoriz ml-2">
 
-                        <span class="d-block w48 h48 rounded8 flex-shrink-0 mr-3" style="background: #eaeaea url('../img/hand.png') center center; background-size: cover;">&nbsp;</span>
+                        <span class="d-block w48 h48 rounded8 flex-shrink-0 mr-3" style="background: #eaeaea url('../img/han.png') center center; background-size: cover;">&nbsp;</span>
 
                         <div class="">
                             <strong id="fiodsp" class="font15 darkGreen"></strong>
@@ -643,14 +643,14 @@
                     <!--    <button class="ml-auto mr-2 transp border-0 flexCenter">
                             <img src="../img/chevron-up.svg" class="w16 mt-n1" alt="" />
                         </button> -->
-						<a class="ml-auto flex-1" data-toggle="collapse" href="#collapseP1" aria-expanded="true">
+					<%--	<a class="ml-auto flex-1" data-toggle="collapse" href="#collapseP1" aria-expanded="true">
 							<span class=" if-collapsed">
 								<img src="../img/chev-down.svg" class="w16" alt="">
 							</span>
 							<span class=" reddish if-not-collapsed">
 								<img src="../img/chev-up.svg" class=" w16" alt="">
 							</span>
-						</a> 
+						</a> --%>
                     </li>
                     <li class="dividerH ml-4 mr-4"></li>
                     <li class="nav-link ml-2"> <!-- flexHoriz -->
@@ -687,19 +687,19 @@
                         <img src="../img/news-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font14b mb-0">Новости</p>
                     </a></li>
-                    <li id="polls" class="nav-link"><a href="CreatePoll.aspx" class="flexHoriz">
+                   <%-- <li id="polls" class="nav-link"><a href="CreatePoll.aspx" class="flexHoriz">
                         <img src="../img/tasks-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font14b mb-0">Опросы</p>
-                    </a></li>
+                    </a></li>--%>
                     <li id="counters" class="nav-link"><a href="Counters.aspx" class="flexHoriz">
                         <img src="../img/meter-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font14b mb-0">Счетчики</p>
                     </a></li>
                    
-                    <li class="nav-link"><a href="#" class="flexHoriz">
+                 <%--   <li class="nav-link"><a href="#" class="flexHoriz">
                         <img src="../img/user-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font14b mb-0">Пользователи</p>
-                    </a></li> 
+                    </a></li> --%>
 
                 </ol>
                 <hr />
@@ -746,7 +746,7 @@
 					<img src="../img/close.svg" alt="Закрыть" class="w24"/>
 				</span>
             </div>
-            <div class="modal-body2 mt-4" style="width: 100%; height: 400px; overflow: hidden; overflow-y: scroll; padding: 15px; display: inline-block;">
+            <div class="modal-body2 mt-4" id="genpassParentDiv" style="width: 100%; height: 400px; overflow: hidden; overflow-y: scroll; padding: 15px; display: inline-block;">
                 <input type="text" id="genPass"><%--<input type="number" min="0" value="7" id="psExp" style="width: 28%; float: right; text-align: center;">--%>
                 <span id="" style="color: red; display: none;" class="domOk"></span>
                 <%-- <label>Срок действия пароля в днях</label>

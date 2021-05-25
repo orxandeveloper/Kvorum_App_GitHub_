@@ -26,12 +26,16 @@ namespace Kvorum_App
         protected global::System.Web.UI.WebControls.DataList dlClaims;
         protected void Page_Load(object sender, EventArgs e)
         {
-            HttpContext.Current.Response.Cookies.Remove("mycookie");
-            HttpContext.Current.Response.Cookies["mycookie"].Expires = DateTime.Now.AddDays(-1);
-            HttpCookie mycookie = new HttpCookie("mycookie");
-            mycookie.Value = System.Web.HttpContext.Current.Session["Login_Data"].ToString();
-            HttpContext.Current.Response.Cookies.Add(mycookie);
-          
+            string LoginNew= System.Configuration.ConfigurationManager.AppSettings["Idendity"];
+            if (LoginNew=="true")
+            {
+                HttpContext.Current.Response.Cookies.Remove("mycookie");
+                HttpContext.Current.Response.Cookies["mycookie"].Expires = DateTime.Now.AddDays(-1);
+                HttpCookie mycookie = new HttpCookie("mycookie");
+                mycookie.Value = System.Web.HttpContext.Current.Session["Login_Data"].ToString();
+                HttpContext.Current.Response.Cookies.Add(mycookie); 
+            }
+
             // Response.Redirect("https://upravbot.ru/IDS4/");
         }
 

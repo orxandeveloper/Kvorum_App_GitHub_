@@ -12422,6 +12422,8 @@ function Generate(e) {
     GenPas()// Для суббота не надо. Дата (08.02.2019);
     $('#GENER').attr('onclick', 'GetValuesG(' + PassControlId + ')')
     var modal = document.getElementById('myModal4');
+    $('#myModal4').children('.modal-content2').attr('class', 'modal-content2 bgWhite rounded16 p-4 shadow')
+    $('#genpassParentDiv').attr('style','padding: 15px;')
     var span = document.getElementById("close_4")[0];
     modal.style.display = "block";
     $("#close_4").click(function () {
@@ -13583,6 +13585,7 @@ function hideErrsMessage2(e) {
             if (isValidEmailAddress(email)) {
                 success = true
                 $('#emailV_E').remove();
+                $('#SaveUp').removeAttr('disabled')
             }
             else {
                 success = false
@@ -13603,7 +13606,7 @@ function hideErrsMessage2(e) {
     ids = '#' + ids + '_E';
     $(ids + '+ br').remove();
     $(ids).remove();
-    var lc = $(e).attr("id");
+    var lc = $(e).attr("class");
     if (lc.indexOf("lc")!=-1) {
         var obj = $("#objs").val();
         CHeckAccNumber(e, $(e).val(), obj)
@@ -13696,7 +13699,7 @@ function hideErrsMessage2(e) {
         var LiveS = ($('#LiveS').val().length == 0) ? 0 : parseFloat($('#LiveS').val());
         var LiveSq = $('[data-focus="true"]').children().find('.LiveSq').val()
         LiveSq = (LiveSq.length == 0) ? 0 : parseFloat(LiveSq);
-        if (LiveS < LiveSq) {
+        if (LiveS < LiveSq && LiveSq != undefined) {
 
             $('#SaveUp').attr('disabled', 'disabled')
             ErrorForControls($('#LiveS'), 'Жилая площадь по данному л/с не может быть больше, чем  Жилая площадь в помещении')
@@ -13706,7 +13709,7 @@ function hideErrsMessage2(e) {
             $('#LiveSErr,#LiveSqErr').remove();
             $('#SaveUp').removeAttr('disabled')
             var GenSq = $('[data-focus="true"]').children().find('.GenSq').val()
-            GenSq(GenSq.length == 0) ? 0 : parseFloat(GenSq);
+            GenSq=(GenSq.length == 0) ? 0 : parseFloat(GenSq);
             if (LiveSq > GenSq) {
 
 
@@ -13722,9 +13725,9 @@ function hideErrsMessage2(e) {
                 $('#SaveUp').removeAttr('disabled')
             }
 
-            var GenS_ = $('[data-focus="true"]').children().find('.GenSq').val()
-            GenS_(GenS_.length == 0) ? 0 : parseFloat(GenS_)
-            if (LiveS > GenS_) {
+            var GenS_n = $('#GenS').val()
+            GenS_n = (GenS_n.length == 0) ? 0 : parseFloat(GenS_n)
+            if (LiveS > GenS_n) {
 
                 $('#SaveUp').attr('disabled', 'disabled')
                 ErrorForControls($('#LiveS'), 'Жилая площадь не может быть больше, чем  Общая площадь в помещении')
@@ -13735,7 +13738,12 @@ function hideErrsMessage2(e) {
             }
         }
 
-
+        if ($(e).attr('id').indexOf('LiveS') != -1) {
+            var GenS_ = ($('#GenS').val().length == 0) ? 0 : parseFloat($('#GenS').val());
+            if (GenS_ < LiveS) {
+                ErrorForControls($('#LiveS'), 'Жилая площадь с не может быть больше, чем  Общая площадь в помещении')
+            }
+        }
 
     }
 
@@ -14145,9 +14153,12 @@ function AddElem(e, i) {
         $(e).before(giveElements(nexti).dol)
         $(e).before(giveElements(nexti).tel)
         $(e).before(giveElements(nexti).email)
+       // $(e).before(giveElements(k).deleteInd)
         $('span[id="delInd"]').remove()
         for (var k = 0; k <= nexti; k++) {
-            $('input[id="email' + k + '"]').parent().parent().parent().after(giveElements(k).deleteInd)
+          //   $('input[id="email' + k + '"]')
+            $('.email'+k+'').parent().parent().parent().after(giveElements(k).deleteInd)
+            
         }
         $(e).attr('onclick', 'AddElem(this,' + nexti + ')')
         if (nexti == 9) {

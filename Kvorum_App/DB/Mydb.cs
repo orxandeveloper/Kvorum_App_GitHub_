@@ -589,20 +589,30 @@ namespace Kvorum_App
 
         public  static void CheckSession()
         {
-            string Token= System.Web.HttpContext.Current.Session["Token"].ToString();
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://upravbot.ru/IDS4/connect/checksession?id_token="+Token+"");
-            request.Proxy = HttpWebRequest.DefaultWebProxy;
-            request.Proxy.Credentials = CredentialCache.DefaultNetworkCredentials;
-            request.PreAuthenticate = true;
-            request.ContentType = "application/json";
-            HttpWebResponse response=(HttpWebResponse)request.GetResponse();
-            if (response.StatusCode==HttpStatusCode.Unauthorized)
-            {
-                //  System.Web.HttpContext.Current.Session["Login_Data"] = "https://upravbot.ru/IDS4/";
-                HttpContext.Current.Response.Redirect("https://upravbot.ru/IDS4/");
+            //string Token = System.Web.HttpContext.Current.Session["Token"].ToString();
+            //var client = new HttpClient();
+            //var userInfoClient =  client.GetUserInfoAsync(new UserInfoRequest
+            //{
+            //    Address = "https://upravbot.ru/IDS4/connect/userinfo",
+            //    Token = Token//n.ProtocolMessage.AccessToken
+
+            //});
+
+          
+            //
+          //  HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://upravbot.ru/IDS4/connect/userinfo?access_token=Bearer " + Token + "");
+          // // request.Proxy = HttpWebRequest.DefaultWebProxy;
+          ////  request.Proxy.Credentials = CredentialCache.DefaultNetworkCredentials;
+          // // request.PreAuthenticate = true;
+          //  request.ContentType = "application/json";
+          //  HttpWebResponse response=(HttpWebResponse)request.GetResponse();
+          //  if (response.StatusCode==HttpStatusCode.Unauthorized)
+          //  {
+          //      //  System.Web.HttpContext.Current.Session["Login_Data"] = "https://upravbot.ru/IDS4/";
+          //      HttpContext.Current.Response.Redirect("https://upravbot.ru/IDS4/");
                  
-            }
-            // WebResponse webResponse = request.GetResponse();
+          //  }
+          //  // WebResponse webResponse = request.GetResponse();
 
             //Stream webStream = webResponse.GetResponseStream();
             //StreamReader responseReader = new StreamReader(webStream);

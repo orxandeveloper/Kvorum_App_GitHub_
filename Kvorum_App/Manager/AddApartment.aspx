@@ -497,7 +497,7 @@ if ($('select').data('select2')) {
 						 </div>
 					 </div>
 
-                    <div data-tabid="1" onclick="FocusTab(this)"  style="display: none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
+                    <div data-tabid="1" onclick="FocusTab(this)"  style="display: none !important" data-focus="true" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4">
 
 
 

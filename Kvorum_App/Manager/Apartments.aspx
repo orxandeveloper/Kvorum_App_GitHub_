@@ -46,7 +46,7 @@
             <a id="myBtn1" class="btn btn1 mr-3" href="AddApartment.aspx">Добавить помещение</a>
             <%-- <a id="myBtn2" class="btn genBtn" href="#">Загрузить номера помещений</a>--%>
             <a id="UplAcc" class="btn btn1 mr-3" href="#">Загрузить лицевые счета</a>
-            <a id="PassGen" class="btn btn1 mr-3" href="#">СГЕНЕРИРОВАТЬ ПАРОЛИ</a>
+            <a id="PassGen" class="btn btn1 mr-3" href="#">Сгенерировать пароли</a>
             <a id="qr" class="btn btn1 mr-3 ml-auto mt-0 qr" href="#">Распечатать QR-коды</a>
         </div>
  </div>
