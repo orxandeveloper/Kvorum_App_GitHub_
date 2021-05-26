@@ -575,7 +575,7 @@ namespace Kvorum_App.Manager
         [WebMethod]
         public static string CHeckAccNumber(string number, int ObjId)
         {
-            string Count = Mydb.ExecuteScalar("select COUNT(*) from ROOM where ROOM_ID in (select ROOM_ID from PER_SCORE where NUMBER=@nmbr and IS_DELETED=0) and OBJECT_ID=@objId", new SqlParameter[] { new SqlParameter("@nmbr", number), new SqlParameter("@objId", ObjId) }, CommandType.Text).ToString();
+            string Count = Mydb.ExecuteScalar("CHeckAccNumber", new SqlParameter[] { new SqlParameter("@nmbr", number), new SqlParameter("@objId", ObjId) }, CommandType.StoredProcedure).ToString();
             return "{\"result\" : \"" + Count + "\"}";
         }
         [WebMethod]

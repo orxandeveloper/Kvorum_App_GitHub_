@@ -3087,7 +3087,7 @@ function giveElements(i, jdata,rfp) {
     var Rfpshow = (jdata == undefined) ? 'style="display: none"' : '';
     var tab_headers = '<ol class="list-unstyled list-inline flexHoriz te-menu m-0 h-100 "> <li onclick="OpenTab(1,this)" class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">' + lsText + '</a> </li> <li onclick="OpenTab(2,this)" class="w200 mr-3 h-100 m-0 active pointer"> <a class=" font-weight-bold">Собственники</a> </li> <li onclick="OpenTab(3,this)" ' + Rfpshow + ' class="w200 mr-3 h-100 m-0 pointer"> <a class=" font-weight-bold">Начисления и платежи</a> </li><li onclick ="OpenTab(4,this)" ' + Rfpshow+' class="w200 mr-3 h-100 m-0 pointer"> <a class="font-weight-bold">История оплат</a> </li></ol>'
 
-    var data_tab3 = '<div data-tabid="3" style="display:none !important" id="Paying" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"><div id="tab-4" style="min-height: 100px;"><input type="button" class="btn genBtn" disabled="disabled" id="DelPay" style="display:none" onclick="DeletingPay(this)" value="Удалить"><input type="button" class="btn genBtn" id="AddNac" onclick="AddNac(this,-1)" value="Внести начисления"><input type="button" class="btn genBtn" id="AddPay" value="Внести платежи" onclick="AddPlatej(this)" style="margin-left: 6px; display:none"> <div style="clear: both;height: 20px;">&nbsp;</div><table class="table orderList" style="width: 100%;"><thead><tr><td>Период / Услуги <i  onclick="SortingPay(this)" class="fa fa-angle-down sortingArrow" aria-hidden="true"></i></td><td> Остаток на начало периода (-/+) руб.</td> <td>Начислено руб.</td><td>Поступило руб.</td><td>Итого к оплате руб.</td><td style="display:none">Оплатить до:</td></tr></thead><tbody id="paytbl_' + i + '"></tbody></table></div></div>'
+    var data_tab3 = '<div data-tabid="3" style="display:none !important" id="Paying" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"><div id="tab-4" style="min-height: 100px;"><input type="button" class="btn genBtn" disabled="disabled" id="DelPay" style="display:none" onclick="DeletingPay(this)" value="Удалить"><input type="button" style="display:none" class="btn genBtn" id="AddNac" onclick="AddNac(this,-1)" value="Внести начисления"><input type="button" class="btn genBtn" id="AddPay" value="Внести платежи" onclick="AddPlatej(this)" style="margin-left: 6px; display:none"> <div style="clear: both;height: 20px;">&nbsp;</div><table class="table orderList" style="width: 100%;"><thead><tr><td>Период / Услуги <i  onclick="SortingPay(this)" class="fa fa-angle-down sortingArrow" aria-hidden="true"></i></td><td> Остаток на начало периода (-/+) руб.</td> <td>Начислено руб.</td><td>Поступило руб.</td><td>Итого к оплате руб.</td><td style="display:none">Оплатить до:</td></tr></thead><tbody id="paytbl_' + i + '"></tbody></table></div></div>'
 
     var data_tab4 ='<div id="PayingHistory"  data-tabid="4" style="display:none !important" class="w-100 flexHoriz flex-wrap bgWhite shadow rounded16 p-4 mt-4"><table class="table orderList" id="tblHistory" style="width: 87%; display: table;"><thead><tr><td>Дата</td><td>Поступило (руб.)</td></tr></thead><tbody id="HistoryPays_'+i+'"></tbody></table></div>'
 
@@ -4356,7 +4356,17 @@ function getProjectNamebyLogin(lg) {
         dataType: "json",
         success: function (data) {
             var j = JSON.parse(data.d)
-            $('#forAlbl').text(j[0].PROJECT_NAME)
+            for (var i = 0; i < j.length; i++) {
+                if (i==0) {
+                    $('#forAlbl').text(j[i].PROJECT_NAME)
+                }
+                else {
+                    var prName = $('#forAlbl').text();
+                    prName = prName + ', ' + j[i].PROJECT_NAME
+                    $('#forAlbl').text(prName);
+                }
+            }
+           
             $('#forAlbl').prev().prop('checked', 'checked').attr('data-project', j[0].PROJECT_ID);
         }
     })
@@ -6855,13 +6865,13 @@ function checkControlsM() {
         if (tagName == 'SELECT') {
             var val=$(this).val()
             if ($(this).val() == 0) {
-                ErrorForControls(this, 'Необходимо выбрать "' + labelName + '"')
+                ErrorForControls($(this), 'Необходимо выбрать "' + labelName + '"')
                 Issuccess = false
             }
         }
         if (tagName == 'INPUT') {
             if ($(this).val().trim().length == 0) {
-                ErrorForControls(this, 'Необходимо заполнить поле "' + labelName + '"')
+                ErrorForControls($(this), 'Необходимо заполнить поле "' + labelName + '"')
                 Issuccess = false
             }
         }
@@ -6891,6 +6901,57 @@ function checkControlsM() {
             }
         }
     })
+    if ($('[data-focus="true"]').length!=0) {
+        var countR = $('#countR').val()
+        var AmRoom = $('[data-focus="true"]').children().find('.AmRoom').val()
+
+        if (countR.length != 0 && AmRoom.length != 0) {
+            if (parseInt(countR) < parseInt(AmRoom)) {
+                Issuccess=false
+                ErrorTextWithoutHiding($('#countR'), 'Количество комнат л/с не может быть больше, чем общее количество комнат в помещении', true)
+                ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.AmRoom'), 'Количество комнат л/с не может быть больше, чем общее количество комнат в помещении', true)
+            }
+        }
+        var GenS = $('#GenS').val();
+        var LiveS_ =$('#LiveS').val()
+        var GenSq = $('[data-focus="true"]').children().find('.GenSq').val()
+        var LiveSq = $('[data-focus="true"]').children().find('.LiveSq').val()
+        var LiveSqB = $('[data-focus="true"]').children().find('.LiveSqB').val()
+        if (GenS.length != 0 && GenSq.length != 0)
+        {
+            if (parseInt(GenS) < parseInt(GenSq))
+            {
+                Issuccess = false
+                ErrorTextWithoutHiding($('#GenS'), 'Общая площадь по данному л/с не может быть больше, чем  Общая площадь в помещении', true)
+                ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь по данному л/с не может быть больше, чем  Общая площадь в помещении', true)
+
+            }
+            else {
+                if (LiveSq.length != 0 && parseInt(LiveSq) > parseInt(GenSq)) {
+                    ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.GenSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с', true)
+                    ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.LiveSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с', true)
+                }
+                else {
+                    if (LiveSqB.length != 0) {
+                        if (parseInt(LiveSqB) > parse(GenSq)) {
+                            ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с', true)
+                            ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.LiveSqB'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с', true)
+
+                        }
+                    }
+                }
+
+                if (LiveS.length != 0) {
+                    if (parseInt(LiveS_) > parseInt(GenS))
+                    {
+                        ErrorTextWithoutHiding($('#GenS'), 'Жилая площадь не может быть больше, чем  Общая площадь в помещении', true)
+                    }
+                }
+
+            }
+        }
+    }
+  
     if (Issuccess == true) {
         var objs = $("#objs").val();
         var entr = ($("#entr").val().length == 0) ? 0 : $("#entr").val();
@@ -6977,6 +7038,7 @@ function checkControlsM() {
         console.log(obj)
     }
     console.log(obj)
+    Issuccess=false
     return { Issuccess: Issuccess, obj: obj }
 }
 function CHeck_Obj_RMF_RMT_RMN(e, OBJECT_ID, ROOM_FOR_ID, ROOM_TYPE_ID, ROOM_NUMBER, LOG_IN_ID, FLOOR) {
@@ -9544,7 +9606,13 @@ function generatePassMass(ss, o, sms2, em2, exp2) {
 }
 function PassModal(obj) {
     $('#GenPass').show();
+    $('#objsM,#ObjAdr').select2('destroy')
+    $('#ObjAdr').empty();
     $('#ObjAdr').append($('#objsM > option').clone())
+    $('#objsM').select2()
+    $('#ObjAdr').select2({
+        dropdownParent: $('#GenPass')
+    })
     $('#closeGEN').click(function () {
         $("#roomsPass").empty();
         $('#GenPass').hide();
@@ -9554,26 +9622,7 @@ function PassModal(obj) {
         $('#Errchk').remove()
     })
     $('#mh3').text('ГЕНЕРИРОВАНИЕ ПАРОЛЕЙ ');
-    //for (var i = 0; i < $('#rooms tr').length; i++) {
-    //    // var ss = ;
-    //    // $('#roomsPass tr:eq(' + i + ') td:eq(0)').text();
-    //    $('#roomsPass').append('<tr><td><input onclick=removechkerr(this) type="checkbox" value="' + $('#rooms tr:eq(' + i + ') td:eq(5)').text() + '"/></td><td>' + $('#rooms tr:eq(' + i + ') td:eq(5)').text() + '</td><td>' + $('#rooms tr:eq(' + i + ') td:eq(0)').text() + '</td><td>' + $('#rooms tr:eq(' + i + ') td:eq(1)').text() + '</td><td>' + $('#rooms tr:eq(' + i + ') td:eq(2)').text() + '</td></tr>')
-    //    var lc = $('#rooms tr:eq(' + i + ') td:eq(5)').text()
-    //    var twodata = $('#roomsPass tr td:contains('+lc+')').length
-    //    if (i != 0) {
-    //        if (twodata == 2) {
-    //            // $('#roomsPass tr:eq(' + (i+1) + ')').remove();
-    //            $('#roomsPass tr td:contains(' + lc + '):first').parent().remove()
-    //        }
-    //    }
-
-    //    //$('#roomsPass tr:eq(' + i + ') td:eq(1)').text()
-    //    //$('#roomsPass tr:eq(' + i + ') td:eq(2)').text()
-    //    //$('#roomsPass tr:eq(' + i + ') td:eq(3)').text()
-
-    //}
-
-    ////console.log("paxra"+paxra);
+    
 }
 function selectAll(e) {
     $('#Errchk').remove();
@@ -13559,123 +13608,138 @@ function hideErrsMessage(e) {
     $(ids).hide();
 
 }
-function hideErrsMessage2(e) {
-    var ids = $(e).attr('class');
-    if (ids.indexOf('dol') > -1) {
-        $('.dols').next('br').remove();
-        $('.dols').remove();
-       
+function ErrorTextWithoutHiding(e, text, isErr) {
+    if (isErr == true) {
+        $(e).next('label').empty()
+        $(e).next('label').append(text).attr('title', text).attr('style', 'color:red')
     }
-    if (ids.indexOf('tel') > -1) {
-        $('.tels').next('br').remove()
-        $('.tels').remove()
-
-     
-        var phone = $(e).val();
-        var success = true 
+    else {
+        $(e).next('label').empty()
+        $(e).next('label').append(text).removeAttr('title').removeAttr('style')
+    }
+}
+function hideErrsMessage2(e) {
+    var success = true;
+    var ids = $(e).attr('class');
+    //if (ids.indexOf('dol') > -1) {
+    //    $('.dols').next('br').remove();
+    //    $('.dols').remove();
+       
+    //}
+    if (ids.indexOf('tel') > -1)
+    {
+        //$('.tels').next('br').remove()
+        //$('.tels').remove()
+        //var phone = $(e).val();
+       
         $(e).inputmask("(999) 999-99-99");
     }
-    if (ids.indexOf('email') > -1) {
-        $('.emails').next('br').remove();
-        $('.emails').remove();
+    var Save_disable = $('#SaveUp').attr('disabled')
+     
+    if (ids.indexOf('email') > -1 ) {
+            $('.emails').next('br').remove();
+            $('.emails').remove();
 
-        var email = $(e).val();
-        var success = true
-        if (email.length != 0) {
-            if (isValidEmailAddress(email)) {
-                success = true
-                $('#emailV_E').remove();
-                $('#SaveUp').removeAttr('disabled')
-            }
-            else {
-                success = false
-                if ($('#emailV_E').length == 0) {
-                    $('#SaveUp').attr('disabled', 'disabled')
-                    ErrorForControls($(e), 'Введенное значение не соответствует формату электронной почты')
+            var email = $(e).val();
+
+            if (email.length != 0) {
+                if (isValidEmailAddress(email)) {
+
+                    $('#emailV_E').remove();
+                    $('#SaveUp').removeAttr('disabled')
+                    ErrorTextWithoutHiding($(e), 'E-mail', false)
                 }
                 else {
-                    $('#SaveUp').removeAttr('disabled')
+                    ErrorTextWithoutHiding($(e), 'Введенное значение не соответствует формату электронной почты', true)
+                    $('#SaveUp').attr('disable','disabled')
                 }
             }
-        }
-        if (success == true) {
-            //  CheckEmail_or_Phone(e, "", email)
+            if (success == true) {
+                //  CheckEmail_or_Phone(e, "", email)
 
+            }
         }
-    }
+     
     ids = '#' + ids + '_E';
     $(ids + '+ br').remove();
     $(ids).remove();
     var lc = $(e).attr("class");
-    if (lc.indexOf("lc")!=-1) {
+    if (lc.indexOf("lc") != -1) {
         var obj = $("#objs").val();
         CHeckAccNumber(e, $(e).val(), obj)
     }
     var email = $(e).attr('class')
-    //if ($(e).attr('id') != 'floor' && $(e).attr('type') != 'tel' && email.indexOf('email') == -1 && email.indexOf('lc') == -1) {
-    //    var number = $(e).val().replace('-', '')
-    //    $(e).val(number)
-    //}
+    if ($(e).attr('id') != 'floor' && email.indexOf('tel')==-1 && email.indexOf('email') == -1 && email.indexOf('lc') == -1) {
+        var number = $(e).val().replace('-', '')
+        $(e).val(number)
+    }
     if ($(e).attr('id').indexOf('countR') != -1 || $(e).attr('id').indexOf('AmRoom') !=-1 ) {
-
-        var countR = ($('#countR').val().length == 0) ? 0 : parseInt($('#countR').val());
-        var AmRoom = $('[data-focus="true"]').children().find('.AmRoom').val()
-        AmRoom = (AmRoom != undefined)?(AmRoom.length == 0) ? 0 : parseInt(AmRoom):0;
-        if (countR < AmRoom) {
-            $('#SaveUp').attr('disabled', 'disabled')
-            $('#countRErr,#AmRoomErr').remove();
-          //  $('#countR').after('<label id="countRErr" style="color:red"></label>')
-            ErrorForControls($('#countR'), 'Количество комнат л/с не может быть больше, чем общее количество комнат в помещении')
-            ErrorForControls($('[data-focus="true"]').children().find('.AmRoom'), 'Количество комнат л/с не может быть больше, чем общее количество комнат в помещении')
-        }
-        else {
-            $('#countRErr,#AmRoomErr').remove();
-            $('#SaveUp').removeAttr('disabled')
-        }
+        ErrorTextWithoutHiding($('#countR'), 'Количество комнат', false)
+        ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.AmRoom'), 'Количество комнат', false)
+        //var countR = ($('#countR').val().length == 0) ? 0 : parseInt($('#countR').val());
+        //var AmRoom = $('[data-focus="true"]').children().find('.AmRoom').val()
+        //AmRoom = (AmRoom != undefined)?(AmRoom.length == 0) ? 0 : parseInt(AmRoom):0;
+        //if (countR < AmRoom) {
+        //    $('#SaveUp').attr('disabled', 'disabled')
+        //    $('#countRErr,#AmRoomErr').remove();
+        //    //  $('#countR').after('<label id="countRErr" style="color:red"></label>')
+        //    ErrorTextWithoutHiding($('#countR'), 'Количество комнат л/с не может быть больше, чем общее количество комнат в помещении',true)
+           
+        //    ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.AmRoom'), 'Количество комнат л/с не может быть больше, чем общее количество комнат в помещении',true)
+        //}
+        //else {
+          
+        //    $('#countRErr,#AmRoomErr').remove();
+        //    $('#SaveUp').removeAttr('disabled')
+        //}
 
     }
 
-    if ($(e).attr('id').indexOf('GenS') != -1 || $(e).attr('id').indexOf('GenSq') !=-1 ) {
+    if ( $(e).attr('id').indexOf('GenS') != -1 || $(e).attr('id').indexOf('GenSq') !=-1 ) {
+
+        ErrorTextWithoutHiding($('#GenS'), 'Общая площадь, м <sup>2</sup>', false)
+        ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь, м <sup>2</sup>', false)
+
         var GenS = ($('#GenS').val().length == 0) ? 0 : parseFloat($('#GenS').val());
         var GenSq = $('[data-focus="true"]').children().find('.GenSq').val()
         GenSq = (GenSq != undefined) ? (GenSq.length == 0) ? 0 : parseFloat(GenSq) : 0;
         if (GenS < GenSq) {
 
             $('#SaveUp').attr('disabled', 'disabled')
-
-
-            ErrorForControls($('#GenS'), 'Общая площадь по данному л/с не может быть больше, чем  Общая площадь в помещении')
-
-
-            ErrorForControls($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь по данному л/с не может быть больше, чем  Общая площадь в помещении')
+            ErrorTextWithoutHiding($('#GenS'), 'Общая площадь по данному л/с не может быть больше, чем  Общая площадь в помещении',true)
+            ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь по данному л/с не может быть больше, чем  Общая площадь в помещении',true)
 
         }
         else {
             $('#GenSErr,#GenSqErr').remove();
             $('#SaveUp').removeAttr('disabled')
+            ErrorTextWithoutHiding($('#GenS'), 'Общая площадь, м <sup>2</sup>', false)
+            ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь, м <sup>2</sup>', false)
             var LiveSq = $('[data-focus="true"]').children().find('.LiveSq').val()
             LiveSq = (LiveSq.length == 0) ? 0 : parseFloat(LiveSq);
             if (LiveSq > GenSq) {
 
                 $('#SaveUp').attr('disabled', 'disabled') 
-                ErrorForControls($('[data-focus="true"]').children().find('.GenSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с')
-                ErrorForControls($('[data-focus="true"]').children().find('.LiveSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с')
-                $('#SaveUp').attr('disabled', 'disabled')
+                ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.GenSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с',true)
+                ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.LiveSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с',true)
+            
             }
             else {
-
+                ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь, м<sup>2</sup>', false)
+                ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.LiveSq'), 'Жилая площадь, м<sup>2</sup>', false)
                 $('#SaveUp').removeAttr('disabled')
                 var LiveSqB = $('[data-focus="true"]').children().find('.LiveSqB').val()
                 LiveSqB = (LiveSqB.length == 0) ? 0 : parseFloat(LiveSqB);
 
                 if (LiveSqB > GenSq) {
                     $('#SaveUp').attr('disabled', 'disabled')
-                    ErrorForControls($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с')
-                    ErrorForControls($('[data-focus="true"]').children().find('.LiveSqB'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с')
+                    ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с',true)
+                    ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.LiveSqB'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с',true)
 
                 }
                 else {
-
+                    ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь, м<sup>2</sup>', false)
+                    ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.LiveSqB'), 'Общая площадь без летних зон по данному л/с, м<sup>2</sup>', false)
                     $('#SaveUp').removeAttr('disabled')
                 }
 
@@ -13684,10 +13748,10 @@ function hideErrsMessage2(e) {
             if (LiveS_ > GenS) {
 
                 $('#SaveUp').attr('disabled', 'disabled')
-                ErrorForControls($('#GenS'), 'Жилая площадь не может быть больше, чем  Общая площадь в помещении')
+                ErrorTextWithoutHiding($('#GenS'), 'Жилая площадь не может быть больше, чем  Общая площадь в помещении',true)
             }
             else {
-
+                ErrorTextWithoutHiding($('#GenS'), 'Общая площадь, м<sup>2</sup>', false)
                 $('#SaveUp').remove('disabled')
             }
         }
@@ -13695,33 +13759,37 @@ function hideErrsMessage2(e) {
 
     }
 
-    if ($(e).attr('id').indexOf('LiveS') != -1 || $(e).attr('id').indexOf('LiveSq') !=-1 ) {
+    if ($('#SaveUp').attr('disabled') == undefined && $(e).attr('id').indexOf('LiveS') != -1 || $(e).attr('id').indexOf('LiveSq') !=-1 ) {
         var LiveS = ($('#LiveS').val().length == 0) ? 0 : parseFloat($('#LiveS').val());
         var LiveSq = $('[data-focus="true"]').children().find('.LiveSq').val()
         LiveSq = (LiveSq.length == 0) ? 0 : parseFloat(LiveSq);
         if (LiveS < LiveSq && LiveSq != undefined) {
 
             $('#SaveUp').attr('disabled', 'disabled')
-            ErrorForControls($('#LiveS'), 'Жилая площадь по данному л/с не может быть больше, чем  Жилая площадь в помещении')
-            ErrorForControls($('[data-focus="true"]').children().find('.LiveSq'), 'Жилая площадь по данному л/с не может быть больше, чем  Жилая площадь в помещении')
+            ErrorTextWithoutHiding($('#LiveS'), 'Жилая площадь по данному л/с не может быть больше, чем  Жилая площадь в помещении',true)
+            ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.LiveSq'), 'Жилая площадь по данному л/с не может быть больше, чем  Жилая площадь в помещении',true)
         }
         else {
             $('#LiveSErr,#LiveSqErr').remove();
             $('#SaveUp').removeAttr('disabled')
+            ErrorTextWithoutHiding($('#LiveS'), 'Жилая площадь, м<sup>2</sup>', false)
+            ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.LiveSq'), 'Жилая площадь, м<sup>2</sup>', false)
             var GenSq = $('[data-focus="true"]').children().find('.GenSq').val()
             GenSq=(GenSq.length == 0) ? 0 : parseFloat(GenSq);
             if (LiveSq > GenSq) {
 
 
 
-                ErrorForControls($('[data-focus="true"]').children().find('.GenSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с')
+                ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.GenSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с',true)
 
-                ErrorForControls($('[data-focus="true"]').children().find('.LiveSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с')
+                ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.LiveSq'), 'Жилая площадь по данному л/с не может быть больше, чем Общая площадь по данному л/с',true)
 
                 $('#SaveUp').attr('disabled', 'disabled')
             }
             else {
+                ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь, м<sup>2</sup>', false)
 
+                ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.LiveSq'), 'Жилая площадь, м<sup>2</sup>', false)
                 $('#SaveUp').removeAttr('disabled')
             }
 
@@ -13730,10 +13798,11 @@ function hideErrsMessage2(e) {
             if (LiveS > GenS_n) {
 
                 $('#SaveUp').attr('disabled', 'disabled')
-                ErrorForControls($('#LiveS'), 'Жилая площадь не может быть больше, чем  Общая площадь в помещении')
+                ErrorTextWithoutHiding($('#LiveS'), 'Жилая площадь не может быть больше, чем  Общая площадь в помещении',true)
             }
             else {
                 $('#GenSErr2,#LiveSErr2').remove()
+                ErrorTextWithoutHiding($('#LiveS'), 'Жилая площадь, м<sup>2</sup>', false)
                 $('#SaveUp').remove('disabled')
             }
         }
@@ -13741,14 +13810,17 @@ function hideErrsMessage2(e) {
         if ($(e).attr('id').indexOf('LiveS') != -1) {
             var GenS_ = ($('#GenS').val().length == 0) ? 0 : parseFloat($('#GenS').val());
             if (GenS_ < LiveS) {
-                ErrorForControls($('#LiveS'), 'Жилая площадь с не может быть больше, чем  Общая площадь в помещении')
+                ErrorTextWithoutHiding($('#LiveS'), 'Жилая площадь с не может быть больше, чем  Общая площадь в помещении',true)
+            }
+            else {
+                ErrorTextWithoutHiding($('#LiveS'), 'Жилая площадь, м<sup>2</sup>', false)
             }
         }
 
     }
 
 
-    if ($(e).attr('id').indexOf('LiveSqB') !=-1 ) {
+    if ($('#SaveUp').attr('disabled') == undefined && $(e).attr('id').indexOf('LiveSqB') !=-1 ) {
         var LiveSqB = $('[data-focus="true"]').children().find('.LiveSqB').val();
         LiveSqB = (LiveSqB.length == 0) ? 0 : parseFloat(LiveSqB);
         var GenSq = $('[data-focus="true"]').children().find('.GenSq').val();
@@ -13756,12 +13828,13 @@ function hideErrsMessage2(e) {
         if (LiveSqB > GenSq) {
             $('#SaveUp').attr('disabled', 'disabled')
             $('#GenSqErr3,#LiveSqBErr3').remove();
-            ErrorForControls($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с')
-            ErrorForControls($('[data-focus="true"]').children().find('.LiveSqB'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с')
+            ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с',true)
+            ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.LiveSqB'), 'Общая площадь без летних зон по данному л/с не может быть больше, чем Общая площадь по данному л/с',true)
 
         }
         else {
-
+            ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.GenSq'), 'Общая площадь, м<sup>2</sup>', false)
+            ErrorTextWithoutHiding($('[data-focus="true"]').children().find('.LiveSqB'), 'Жилая площадь, м<sup>2</sup>', false)
             $('#SaveUp').removeAttr('disabled')
         }
     }
@@ -13771,6 +13844,10 @@ function hideErrsMessage2(e) {
         var countR = $(e).val().replace(/[^0-9\.\,]/g, '');
         $(e).val(countR)
     }
+
+
+
+    
 }
 function FocusTab(e)
 {
@@ -13843,14 +13920,16 @@ function CHeckAccNumber(e, lc, objId) {
             var jsondata = $.parseJSON(data.d);
             if (jsondata.result == 0) {
                 $("#lc_E").remove();
-                $('#SaveUp').removeAttr('disabled')
 
+                $('#SaveUp').removeAttr('disabled')
+                ErrorTextWithoutHiding($(e),'Лицевой счет',false)
             }
             else {
 
                 $('#SaveUp').attr('disabled', 'disabled')
                 //$(e).after('<label id="lc_E" class="errs">Номер лицевого счёта уже зарегистрирован на этом объекте</label>')
-                ErrorForControls($(e),'Номер лицевого счёта уже зарегистрирован на этом объекте')
+              //  ErrorForControls($(e),'Номер лицевого счёта уже зарегистрирован на этом объекте')
+                ErrorTextWithoutHiding($(e), 'Номер лицевого счёта уже зарегистрирован на этом объекте', true)
             }
         }
     })

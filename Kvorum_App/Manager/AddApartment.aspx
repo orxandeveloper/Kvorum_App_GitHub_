@@ -390,7 +390,7 @@ if ($('select').data('select2')) {
                     <div class="flexHoriz justify-content-between mt-3">
 
                         <div class="posRel h56 rounded-lg w-48">
-                            <input id="rnum" required>
+                            <input id="rnum" class="rnum" required>
                             <label for="rnum" class="">Номер помещения</label>
                         </div>
                         <div class="posRel h56 rounded-lg  w-48">

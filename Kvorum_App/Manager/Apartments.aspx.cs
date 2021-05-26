@@ -567,7 +567,7 @@ namespace Kvorum_App.Manager
                         {
                             //sendSsms
 
-                            string resultSms = AddApartment.SendSms(phone, item.NUMBER, Pass, "Dlya Vas sozdan novyi parol'");
+                            string resultSms = "Dlya Vas sozdan novyi parol'";//AddApartment.SendSms(phone, item.NUMBER, Pass, "Dlya Vas sozdan novyi parol'");
                             // Mydb.ExecuteNoNQuery("Update IND_NAME set SMS_OK=@sms where PHONE=@phn", new SqlParameter[] {new SqlParameter("@sms", resultSms), new SqlParameter("@phn", item2["PHONE"].ToString()) }, CommandType.Text);
                             Mydb.ExecuteNoNQuery("UpdateIndName_forGenerationPas", new SqlParameter[] { new SqlParameter("@smsok", resultSms), new SqlParameter("@phn", item2["PHONE"].ToString()), new SqlParameter("@sc", item.NUMBER) }, CommandType.StoredProcedure);
 
