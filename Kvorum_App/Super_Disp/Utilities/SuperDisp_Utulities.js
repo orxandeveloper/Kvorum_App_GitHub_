@@ -535,7 +535,8 @@ $(document).ready(function () {
         if (R_id == "" || R_id == undefined || R_id == null) {
 
        //     $('label[class="w-95"],label[class="transp backLab"]').remove()
-
+            $('label[class="w-95"],label[class="transp backLab"]').attr('class', 'transp backLab')
+          //  $('label[for="prjcts"],label[for="objctZ"],label[for="RequestKind"],label[for="Room_Type"],label[for="IspolList"],label[for="Otven"]').remove()
             $('select').select2({
                 containerCssClass: "wrap"
             })
@@ -630,9 +631,7 @@ $(document).ready(function () {
             }
         }
 
-        if (R_id != "" && R_id != undefined && R_id != null) {
-            //$('label[class="w-95"]').remove()
-
+        if (R_id != "" && R_id != undefined && R_id != null) { 
             $('#IspolList').select2({
                 containerCssClass: "wrap"
             })
@@ -654,11 +653,7 @@ $(document).ready(function () {
                     readURLHSuper(this, filename);
 
                 })
-                //$("#hstCom").animate({
-                //    scrollDown: $('#hstCom')[0].scrollHeight - $('#hstCom')[0].clientHeight
-                //}, 1000);
-                // $('#hstCom').scroll($('#hstCom')[0].scrollHeight);
-                //$('#hstCom').animate({ scrollTop: $('#hstCom h4:last-child').position().top }, 'slow');
+               
                 
                 if ($.isNumeric(R_id)) {
                     GetRequesByR(R_id)
@@ -1172,6 +1167,7 @@ $(document).ready(function () {
 
                 }
                 if (st == 3) {
+                    $("#lstcmnt").show();
                     $('#SaveMO').hide()
                     $('#opl').attr('disabled', 'disabled');
                     // $("#shServ").hide();
@@ -1203,7 +1199,7 @@ $(document).ready(function () {
                         $("#SaveDD").hide();
                     }
                     $("#backUo").text("Вернуть заявку в работу ")
-                    $("#lstcmnt").show();
+                   
                     if (!$.isNumeric(R_id)) {
                         $("#lstcmnt").hide();
                     }
@@ -1424,6 +1420,7 @@ $(document).ready(function () {
                     })
                     $('#GServices').attr('disabled', 'disabled').css('background-color', 'rgb(235, 235, 228)')
                     $('#shServ,#Acnum').attr('disabled', 'disable');
+                  
                 }
             })
         }
@@ -1733,6 +1730,7 @@ function checkControls(e) {
         //}
     }
     var SLogId = sessionStorage.getItem("Log")
+    RESPONSIBLE_EMAIL = (RESPONSIBLE_EMAIL == undefined) ? "no@mail.com" : RESPONSIBLE_EMAIL
     var obj = {
         'slcObj': slcObj,
         'IndId_': indid,
@@ -3780,6 +3778,8 @@ function GetRSComment(rid) {
             dataType: "json",
             success: function (data) {
                 //
+                //$('#divlst').append('<i id="lstcmnt" class="fa fa-exclamation-circle" style ="font-size: 300%; color: green;" ></i>')
+               
                 $('#myModal4').children('.modal-content2').children('.modal-header2').children('label').remove();
                 $('#myModal4').children('.modal-content2').children('.modal-footer2').empty()
                 $('#myModal4').children('.modal-content2').children('.modal-body2').children('#cmntsts,#genPass').remove()
@@ -6253,6 +6253,7 @@ function getResponsibels_(s) {
         success: function (data) {
             var j = JSON.parse(data.d);
             $('#Otven').empty();
+            $('#Otven').append('<option value="0" email="no@mail.com"></option>');
             for (var i = 0; i < j.length; i++) {
                 var has = false
                 if ($('#Otven option').length != 0) {
@@ -6282,6 +6283,7 @@ function getResponsibels_(s) {
             if (s != undefined && s != "") {
                 $('#Otven').val(s)
             }
+            $('#Otven').select2('destroy').select2();
         }
     })
 }

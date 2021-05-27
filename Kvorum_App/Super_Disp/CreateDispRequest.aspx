@@ -3,106 +3,104 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-   
+
     <div class="col-lg-9half col-sm-12 p-0 min-vh-100 bgLightGrey3  " id="contentRegister">
-         <style>
-        .close2{
-            cursor:pointer
-        }
-        .removing2{
-            color:red
-        }
-        .modal-content2 {
-            width: 50% !important;
-            position: fixed;
+        <style>
+            .close2 {
+                cursor: pointer
+            }
+
+            .removing2 {
+                color: red
+            }
+
+            .modal-content2 {
+                width: 50% !important;
+                position: fixed;
                 margin-top: 160em;
-        }
+            }
 
-        .modal2 {
-            display:none;
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 215em !important;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 10000;
-        }
+            .modal2 {
+                display: none;
+                position: fixed;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 215em !important;
+                background-color: rgba(0,0,0,0.5);
+                z-index: 10000;
+            }
 
-        .foto-disp {
-            width: 70px
-        }
+            .foto-disp {
+                width: 70px
+            }
 
-        #hstCom {
-            border-radius: 8px;
-            border: 1px dotted #777777;
-            overflow: auto;
-            height: 190px;
-            max-height: 190px;
-        }
+            #hstCom {
+                border-radius: 8px;
+                border: 1px dotted #777777;
+                overflow: auto;
+                height: 190px;
+                max-height: 190px;
+            }
 
-        .SuppGrupRelations {
-            color: #095c68;
-            margin-left: 5px;
-            margin-right: 5px;
-        }
+            .SuppGrupRelations {
+                color: #095c68;
+                margin-left: 5px;
+                margin-right: 5px;
+            }
 
-        .drct, .GrupOpenIcon, .chkGrups {
-            cursor: pointer
-        }
+            .drct, .GrupOpenIcon, .chkGrups {
+                cursor: pointer
+            }
 
-        .icon {
-            width: 40px
-        }
+            .icon {
+                width: 40px
+            }
 
-        .selectdrc {
-            border: 5px solid #b02014;
-        }
+            .selectdrc {
+                border: 5px solid #b02014;
+            }
 
-        .totalh7 {
-            height: 35px
-        }
+            .totalh7 {
+                height: 35px
+            }
 
-        .accMenu {
-            width: 100%;
-            cursor: pointer
-        }
+            .accMenu {
+                width: 100%;
+                cursor: pointer
+            }
 
-        .changeCost {
-            background-color: #FFF1F1;
-            height: 70px;
-            display: none
-        }
+            .changeCost {
+                background-color: #FFF1F1;
+                height: 70px;
+                display: none
+            }
 
-        .CostTd {
-            width: 120px;
-            text-align: center;
-        }
+            .CostTd {
+                width: 120px;
+                text-align: center;
+            }
 
-        .doqOk {
-            float: left;
-            height: 35px !important;
-            background: rgb(0, 147, 233);
-        }
+            .doqOk {
+                float: left;
+                height: 35px !important;
+                background: rgb(0, 147, 233);
+            }
 
-        .doqClose {
-            float: right;
-            height: 35px !important;
-        }
-    </style>
+            .doqClose {
+                float: right;
+                height: 35px !important;
+            }
+        </style>
         <span class="h90"></span>
         <div class="w-100 pt-2 bgWhite pl-2">
             <ol class="list-inline list-unstyled mb-0">
                 <li class="list-inline-item">
-                    <a href="te-metr.html">
-                        
-                    </a>
+                    <a href="te-metr.html"></a>
                 </li>
-                <li class="list-inline-item">
-                    
-                </li>
+                <li class="list-inline-item"></li>
             </ol>
         </div>
 
@@ -114,7 +112,7 @@
             <div class="bgWhite rounded16 mt-4 ml-3 p-4 shadow">
 
                 <h3 class="font24 font-weight-bold pb-3 pt-3 w-100 flexHoriz " id="hedrZ">Создание заявки
-				<div class="ml-auto">
+				<div id="divlst" class="ml-auto">
 
                     <!--<img id="lstcmnt" src="../../img/unlem.png" style="width:10%; display:block" /> -->
                     <i id="lstcmnt" class="fa fa-exclamation-circle" style="font-size: 300%; color: green; display: none"></i>
@@ -133,6 +131,15 @@
                         font-size: 75%;
                         padding: 0 0 0 1rem;
                         color: red;
+                    }
+
+                    #grups {
+                        overflow: overlay;
+                        height: 500px;
+                    }
+                    #subMenu{
+                        overflow: overlay;
+    height: 272px;
                     }
                 </style>
                 <form>

@@ -536,7 +536,7 @@ header .nav-link {
 
 
 .subMenu {
-    position: absolute;
+    /*position: absolute;*/
     z-index: 1000;
     background-color: #fff;
     padding: 0;

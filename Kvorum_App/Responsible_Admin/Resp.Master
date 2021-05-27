@@ -76,12 +76,12 @@
                     </a>
                 </li>
                 <li class="nav-item col-lg-2half">
-                    <a class="" href="te-main.html">
+                    <a class="" href="Resp_Requests.aspx">
                         <img src="../img/app-logo.png" class="d-block mt-n1 w100 h48" alt="УправБот">
                     </a></li>
                 <li class="nav-item">
                     <ul class=" list-unstyled list-inline pl-2 mt-2 crumbs">
-                        <li class="list-inline-item"><a href="/" class="font-weight-bold font18 green-text">Портал для Ответственных</a> </li>
+                        <li class="list-inline-item"><a href="Resp_Requests.aspx" class="font-weight-bold font18 green-text">Портал для Ответственных</a> </li>
                         <li class="list-inline-item reddish font-weight-bold font18 ">
                             <img src="../img/ellipse.svg" class="greenerSvg mr-2" alt="">Информационно-справочная служба</li>
                     </ul>
