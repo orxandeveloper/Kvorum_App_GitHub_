@@ -19,6 +19,7 @@
     <link rel="shortcut icon" href="img/favicon.ico">-->
 
     <!-- Google Fonts & Fontawesome -->
+      <link rel="shortcut icon" href="../img/favicon.png"> 
     <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">

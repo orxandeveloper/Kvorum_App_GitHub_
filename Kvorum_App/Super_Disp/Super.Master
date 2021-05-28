@@ -13,9 +13,9 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Favicons 
-    <link rel="shortcut icon" href="../img/favicon.ico"> 
-	-->
+    <%-- Favicons --%>
+    <link rel="shortcut icon" href="../img/favicon.png"> 
+	
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link href="../css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../css/swiper.min.css">

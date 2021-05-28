@@ -2719,7 +2719,7 @@ function getDirection_K(selected, PROJECT_GUID, otv, RequestKind) {
             $('#grups').remove();
             var j = JSON.parse(data.d)
             //  ////console.log(selected)
-            $('#SerchService').parent().after('<div id="directions" class="w-100 flexHoriz flex-wrap justify-content-between"></div>')
+            $('#SerchService').parent().after('<div id="directions" class="w-100 flexHoriz flex-wrap justify-content-arround"></div>')
             for (var i = 0; i < j.length; i++) {
                 var class_ = 'class="col-md-3 drct w-24 drct border-1 rounded8 text-center"'//
 
@@ -2790,6 +2790,16 @@ function selectGrupOnly_K(e, otv) {
         $('#PrServiceH thead tr th:eq(0)').text('Наименование услуг')
         $('#PrServiceH tbody tr:not([grup-guid])').remove();
         $('#PrServiceH thead tr th:eq(1),#PrServiceH thead tr th:eq(2)').show()
+        var data_child = $(e).attr('data-child')
+        if (data_child == 1) {
+            
+            var subMenichildDivLength = $('.subMenu').children('table[grup-guid="' + grupGuid + '"]').length
+            if (subMenichildDivLength == 0) {
+               
+                $(e).parent('div').children('#grup[grup-guid="' + grupGuid + '"]').trigger('click');
+            }
+
+        }
         //  $('#PrServiceH tbody').empty();
         //  $('#subMenu,#grups').find('input[type="checkbox"]').prop('checked', false).not($(e))
         //' + SuppName + '<i class="	glyphicon glyphicon-arrow-right SuppGrupRelations"></i>
@@ -2978,7 +2988,7 @@ function GetRelatedGroups_K(selected, PROJECT_GUID, DIRECTION_GUID, otv) {
                     }
                 })
                 //' + checkboxDissable + '
-                $('#grups').append('<div guid-direction=\"' + DIRECTION_GUID + '\"><div class="p-3 flexHoriz" ><input type="checkbox"  ismc="' + j[i].IS_MC + '" class="chkGrups mr-3" ' + checkedGrup + ' grup-guid=\"' + j[i].SERVICE_GUID + '\"   onclick="selectGrupOnly_K(this)"><div Id="grup" supp-name=\"' + j[i].NAME + '\" supp-guid=\"' + j[i].GUID + '\"  onclick=getServices_K(this,\"' + j[i].SERVICE_GUID + '\",0) data-active="on" class="accMenu" grup-guid=\"' + j[i].SERVICE_GUID + '\"> <img src=\"' + j[i].ICON + '" class="icon mr-2">' + j[i].SERVICE_NAME + '<i class="fa fa-chevron-down GrupOpenIcon ml-3" aria-hidden="true"> </i></div></div></div>')
+                $('#grups').append('<div guid-direction=\"' + DIRECTION_GUID + '\"><div class="p-3 flexHoriz" ><input type="checkbox"  ismc="' + j[i].IS_MC + '" class="chkGrups mr-3" ' + checkedGrup + ' data-child="' + j[i].CHILDS +'"  grup-guid=\"' + j[i].SERVICE_GUID + '\"   onclick="selectGrupOnly_K(this)"><div Id="grup" supp-name=\"' + j[i].NAME + '\" supp-guid=\"' + j[i].GUID + '\"  onclick=getServices_K(this,\"' + j[i].SERVICE_GUID + '\",0) data-active="on" class="accMenu" grup-guid=\"' + j[i].SERVICE_GUID + '\"> <img src=\"' + j[i].ICON + '" class="icon mr-2">' + j[i].SERVICE_NAME + '<i class="fa fa-chevron-down GrupOpenIcon ml-3" aria-hidden="true"> </i></div></div></div>')
 
                 //  }
             }
@@ -3130,11 +3140,17 @@ function getServices_K(e, SERVICE_GUID, selected, otv) {
                         $('#subMenu').append('<table class="mngTable border-0  w-100" id="Services_" grup-guid="' + SERVICE_GUID + '" ><thead class="bgLightGrey rad-top16"><tr><th>Наименование услуг</th><th>Ед.изм</th><th style="width: 120px;">Стоимость(руб.)</th></tr></thead><tbody></tbody></table>')
                     }
 
-                    $('.mngTable[grup-guid="' + SERVICE_GUID + '"] tbody').append('<tr title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + SERVICE_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\" ><td><div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + SERVICE_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\"  class="col-md-12" ><input type="checkbox" ' + checkedService + ' ' + checkboxDissable + ' grup-name=\"' + $(e).text().trim() + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label   itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_NAME + '</label></div></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + '</label></td></tr>')
+                    $('.mngTable[grup-guid="' + SERVICE_GUID + '"] tbody').append('<tr title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + SERVICE_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\" ><td><div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + SERVICE_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\"  class="col-md-12" ><input type="checkbox" ' + checkedService + ' ' + checkboxDissable + ' grup-name=\"' + $(e).text().trim() + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc checkbox-item" id="chk' + i + '" supp-guid=\"' + jsondata[i].GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label   itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName" for="chk' + i +'">' + jsondata[i].SERVICE_NAME + '</label></div></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + '</label></td></tr>')
 
                      
 
 
+                }
+                if (jsondata.length == 1) {
+                    var is_grupChecked = $(e).parent('div').children('input[type="checkbox"]').prop('checked');
+                    if (is_grupChecked == true) {
+                        $('.subMenu').children('table').find('input[type="checkbox"]').trigger('click')
+                    }
                 }
                 if (selected != 0) {
                     $('#Otven').val(selected[0].RESPONSIBLE_ID)

@@ -51,10 +51,20 @@
                 margin-right: 5px;
             }
 
-            .drct, .GrupOpenIcon, .chkGrups {
+            .drct, .GrupOpenIcon  {
                 cursor: pointer
             }
+             .chkGrups {
+                 cursor: pointer;
+                 transform: scale(1.7);
+				box-shadow: inset 0 0 1px 1px #D11B25;
+            }
 
+            .chkGrups:checked {
+                filter: hue-rotate(138deg) brightness(0.88);
+				box-shadow: none;
+                }
+				
             .icon {
                 width: 40px
             }
@@ -144,13 +154,13 @@
                 </style>
                 <form>
                     <div class="flexHoriz mb-4">
-                        <label class="mr-4 w-auto ">
-                            <input id="opl" type="checkbox" class="mr-1">
-                            Оплачено
+                       
+                            <input id="opl" type="checkbox" class="checkbox-item">
+                            <label for="opl" class="mr-4 w-auto "> Оплачено
                         </label>
-                        <label id="lblEm" class="pr-2 w-auto ">
-                            <input id="chkem" type="checkbox" class="mr-1">
-                            Аварийное обращение
+                        
+                            <input id="chkem" type="checkbox" class="checkbox-item">
+                           <label id="lblEm" for="chkem" class="pr-2 w-auto "> Аварийное обращение
                         </label>
                     </div>
 
@@ -187,9 +197,8 @@
                     </div>
 
                     <div class="posRel h56 rounded-lg mb-4">
-                        <%-- <label class="w-95" for="SerchService">Поиск по Услугам</label>--%>
-                        <input type="text" id="SerchService" onfocus="showResultArea(&quot;open&quot;)" onblur="showResultArea(&quot;close&quot;)" onkeyup="Search_Service(this)" placeholder="Поиск по Услугам">
-
+                        <input type="text" id="SerchService" onfocus="showResultArea(&quot;open&quot;)" onblur="showResultArea(&quot;close&quot;)" onkeyup="Search_Service(this)" placeholder="Поиск по Услугам" class="pt-0">
+						<%-- <label class="w-95" for="SerchService">Поиск по Услугам</label>--%>
                         <!-- lblsearchtxt onblur="showResultArea(&quot;close&quot;)" -->
                     </div>
 
@@ -375,9 +384,9 @@
                     <div class="buttons1">
                         <%--  <button id="updateRequest" style="display: block" class="h48 btn btn1 flexCenter">Сохранить</button>--%>
 
-                        <input type="button" id="updateRequest" style="" class="h48 btn btn1" value="Сохранить">
-                        <button id="SaveDD" data-status="1" class="h48 btn btn1" type="button" style="background: rgb(0,147,233);">Принять в работу</button>
-                        <button id="SaveMO" data-status="2" class="h48 btn btn1" type="button" style="background: rgb(0,147,233);">Отправить</button>
+                        <input type="button" id="updateRequest" style="" class="h48 btn btn1 mr-2 font-weight-bold" value="Сохранить">
+                        <button id="SaveDD" data-status="1" class="h48 btn btn1 mr-2" type="button"><strong>Принять в работу</strong></button>
+                        <button id="SaveMO" data-status="2" class="h48 btn btn1 mr-2" type="button"><strong>Отправить</strong></button>
                         <button id="backUo" class="h48 btn btn1 outline shadow-none" type="button">Отмена</button>
                     </div>
                 </form>
