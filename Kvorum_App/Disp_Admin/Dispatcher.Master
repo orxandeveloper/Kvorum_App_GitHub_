@@ -305,12 +305,9 @@
     </div>
     <div id="myModal3" class="modal2" style="z-index: 1000; background-color: rgba(0,100,223,0.4);">
 
-        <!-- Modal content -->
+       
         <div class="modal-content2" style="">
-            <%-- <div class="modal-header2">
-      <span class="close2" id="close_3">&times;</span>
-      <h2 id="mh3" style="text-align: left;color:white">Modal Header</h2>
-    </div>--%>
+          
             <div class="modal-body2" style="height: 100px; height: 100px; padding: 15px; /* min-width: 100px; */display: inline-block;">
                 <p id="txt3" style="font-size: 23px;">Статистика по заявкам,созданным в период... </p>
                 <span style="margin-left: 13%;">с</span>
@@ -321,7 +318,7 @@
             </div>
             <hr />
             <div class="modal-footer2" style="text-align: left; background-color: white">
-                <%--<h3 id="mf2">Modal Footer</h3>--%>
+              
                 <input type="button" id="OkOt" name="name" disabled="disabled" value="ОК" style="width: 25%; height: 78%; background-color: white; color: black; font-weight: 700;" />
                 <input type="button" id="OtmenOt" name="name" value="Отмена" style="float: right; width: 25%; height: 78%; background-color: white; color: black; font-weight: 700;" />
             </div>
@@ -334,7 +331,7 @@
         <div class="modal-content2" style="">
             <div class="modal-header2" style="background-color: white">
                 <span class="close2" style="color: black" id="close_4">&times;</span>
-                <%-- <h2 id="mh3" style="text-align: left;color:white">Modal Header</h2>--%>
+              
             </div>
             <div class="modal-body2" style="height: 100px; width: 100%; padding: 15px; /* min-width: 100px; */display: inline-block;">
                 <textarea disabled="disabled" style="width: 522px; height: 205px; max-width: 100%; min-width: 100%; max-height: 109px; min-height: 109px; margin: 0px;" id="cmntsts">Все работы по данной заявке выполнены</textarea>
@@ -342,7 +339,7 @@
             <hr />
             <div class="modal-footer2" id="modal-footer4" style="text-align: left; height: 100px; background-color: white">
 
-                <%-- --%>
+             
             </div>
         </div>
 
@@ -411,10 +408,7 @@
                 
                 <div style="border: 1px solid #000; box-shadow: 3px 4px 5px rgba(0,0,0,0.3); height: 150px; overflow: auto; width: 99.5%" id="NewServs">
 
-                    <%--id="Servs"(ParentId)
-                        
-                        <input type="checkbox" itemid="197" onclick="SObjdata(this,197)" style="margin-left:5px">
-         <label class="checkBx">345, Д. 76, К. 98</label>--%>
+                   
                 </div>
 
             </div>
@@ -440,25 +434,17 @@
             </div>
             <div class="modal-body2" style="height: 100px; width: 100%; height: 100px; padding: 15px; /* min-width: 100px; */display: inline-block;">
 
-                <%--  <input type="checkbox" itemid="197" onclick="SObjdata(this,197)" style="margin-left:5px">
-         <label class="checkBx">345, Д. 76, К. 98</label>--%>
-                <%-- <iframe id="ifr"  style="height:660%; width:100%" >This is an embedded   document, powered b</iframe>--%>
+            
                 <iframe id="ifr"></iframe>
 
             </div>
             <hr />
-            <%--  <div class="modal-footer2" style="text-align: left;height: 80px; background-color:white">
-       
-        
-         <%-- <input type="button" id="AddT" name="name"  value="Добавить услугу/товар" style="width: 43%;height: 37%;background-color: white;color: black;font-weight: 700;margin-left:  27%;margin-bottom: -26px;"/>
-        <input type="button" id="CloseServ" name="name" value="Отмена" style="width: 25%;height: 37%;background-color: white;color: black;font-weight: 700;margin-top: -20px;" /> 
-
-    </div>--%>
+          
         </div>
 
     </div>
    
 </body>
-<%--<script src="Script/caller3.js"></script>--%>
+
   
 </html>

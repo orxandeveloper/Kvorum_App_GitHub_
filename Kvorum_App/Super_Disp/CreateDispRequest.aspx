@@ -6,6 +6,11 @@
 
     <div class="col-lg-9half col-sm-12 p-0 min-vh-100 bgLightGrey3  " id="contentRegister">
         <style>
+            #subMenuSearch {
+                overflow: overlay;
+                height: 300px;
+            }
+
             .close2 {
                 cursor: pointer
             }
@@ -51,20 +56,21 @@
                 margin-right: 5px;
             }
 
-            .drct, .GrupOpenIcon  {
+            .drct, .GrupOpenIcon {
                 cursor: pointer
             }
-             .chkGrups {
-                 cursor: pointer;
-                 transform: scale(1.7);
-				box-shadow: inset 0 0 1px 1px #D11B25;
+
+            .chkGrups {
+                cursor: pointer;
+                transform: scale(1.7);
+                box-shadow: inset 0 0 1px 1px #D11B25;
             }
 
-            .chkGrups:checked {
-                filter: hue-rotate(138deg) brightness(0.88);
-				box-shadow: none;
+                .chkGrups:checked {
+                    filter: hue-rotate(138deg) brightness(0.88);
+                    box-shadow: none;
                 }
-				
+
             .icon {
                 width: 40px
             }
@@ -147,20 +153,23 @@
                         overflow: overlay;
                         height: 500px;
                     }
-                    #subMenu{
+
+                    #subMenu {
                         overflow: overlay;
-    height: 272px;
+                        height: 272px;
                     }
                 </style>
                 <form>
                     <div class="flexHoriz mb-4">
-                       
-                            <input id="opl" type="checkbox" class="checkbox-item">
-                            <label for="opl" class="mr-4 w-auto "> Оплачено
+
+                        <input id="opl" type="checkbox" class="checkbox-item">
+                        <label for="opl" class="mr-4 w-auto ">
+                            Оплачено
                         </label>
-                        
-                            <input id="chkem" type="checkbox" class="checkbox-item">
-                           <label id="lblEm" for="chkem" class="pr-2 w-auto "> Аварийное обращение
+
+                        <input id="chkem" type="checkbox" class="checkbox-item">
+                        <label id="lblEm" for="chkem" class="pr-2 w-auto ">
+                            Аварийное обращение
                         </label>
                     </div>
 
@@ -198,7 +207,7 @@
 
                     <div class="posRel h56 rounded-lg mb-4">
                         <input type="text" id="SerchService" onfocus="showResultArea(&quot;open&quot;)" onblur="showResultArea(&quot;close&quot;)" onkeyup="Search_Service(this)" placeholder="Поиск по Услугам" class="pt-0">
-						<%-- <label class="w-95" for="SerchService">Поиск по Услугам</label>--%>
+                        <%-- <label class="w-95" for="SerchService">Поиск по Услугам</label>--%>
                         <!-- lblsearchtxt onblur="showResultArea(&quot;close&quot;)" -->
                     </div>
 

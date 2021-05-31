@@ -216,7 +216,7 @@ $(document).ready(function () {
             //  $('.ui-loader-background,#loader').show()
             $('#PrServiceH tbody').empty();
             $('#PrServiceH').hide();
-            GetAllServicesOfProject($(this).children('option:selected').attr('guid'))
+        //    GetAllServicesOfProject($(this).children('option:selected').attr('guid'))
             //getDirection_K("", $(this).children('option:selected').attr('guid'));
 
         })
@@ -235,7 +235,7 @@ $(document).ready(function () {
                 $('#reqType').prepend('<option value="0">Внутренняя</option>')
                 $('#chkem,#lblEm').show();
             }
-            //  GetAllServicesOfProject($(this).children('option:selected').attr('guid'))
+            GetAllServicesOfProject($('#prjcts').children('option:selected').attr('guid'), $(this).val())
             getDirection_K("", $('#prjcts').children('option:selected').attr('guid'), "", $(this).val());
 
         })
@@ -2533,9 +2533,9 @@ function Search_Service(e) {
 
             return srv.SEARCH_STRING.indexOf(SText) > -1
         })
-      //  console.log('SearchResult')
+      console.log('SearchResult')
 
-       // console.log(jsondata)
+        console.log(jsondata)
         for (var i = 0; i < jsondata.length; i++) {
             var grupOrService = (jsondata[i].PARENT_GUID == 0) ? 'grup-guid="' + jsondata[i].SERVICE_GUID + '"' : 'service-guid="' + jsondata[i].SERVICE_GUID + '"'
             var onlyGrupGuid = (jsondata[i].PARENT_GUID == 0) ? jsondata[i].SERVICE_GUID : jsondata[i].PARENT_GUID
@@ -2548,8 +2548,6 @@ function Search_Service(e) {
                 //guid-direction=\"' + DIRECTION_GUID + '\"
                 //' + jsondata[i].SERVICE_SUPPLIER + '<i class="	glyphicon glyphicon-arrow-right SuppGrupRelations"></i>
                 if (role == 17) {
-                    //$('#subMenuSearch').prepend('<div ><input type="checkbox" class="chkGrups"  grup-guid=\"' + jsondata[i].SERVICE_GUID + '\" ismc=\"' + jsondata[i].IS_MC + '\"   onclick="selectGrupOnly_K(this)"><div Id="grup" supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  class="accMenu" style="display:none" grup-guid=\"' + jsondata[i].SERVICE_GUID + '\">' + jsondata[i].SERVICE_NAME + '</div><div>' + jsondata[i].SERVICE_NAME + '</div></div>')
-
                     $('#subMenuSearch .mngTable tbody').append('<tr title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\" ><td><div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].NAME + '\"  class="col-md-12" ><input type="checkbox"  grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label   itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_NAME + '</label></div></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_COST + '</label></td></tr>')
                 }
 
@@ -2575,14 +2573,14 @@ function Search_Service(e) {
                 }
                 //' + jsondata[i].SERVICE_SUPPLIER + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>
                 if (role == 17 || role == 3) {
-                    //$('#subMenuSearch').prepend('<div grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12 serviceDivs" ><input type="checkbox" grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + ' </i></label><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label><label   itemid="' + jsondata[i].SERVICE_GUID + '" style="display:none" class="serviceName">' + jsondata[i].SERVICE_NAME + '</label><div>' + jsondata[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</div></div><br/>')
-                    $('#subMenuSearch .mngTable tbody').append('<tr title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" ><td><div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12" ><input type="checkbox"  grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label   itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_GROUP +'<i class="fa fa-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</label></div></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_COST + '</label></td></tr>')
+                     
+                    $('#subMenuSearch .mngTable tbody').append('<tr title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" ><td><div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12" ><input type="checkbox" id="chk_' + i + '" grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc checkbox-item" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label for="chk_' + i +'"  itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_GROUP +'<i class="fa fa-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</label></div></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_COST + '</label></td></tr>')
                 }
 
                 if (role == 15) {
                     if (suppguid == jsondata[i].SUPPLIER_GUID) {
-                        //$('#subMenuSearch').prepend('<div grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12 serviceDivs" ><input type="checkbox" grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + ' </i></label><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label><label   itemid="' + jsondata[i].SERVICE_GUID + '" style="display:none" class="serviceName">' + jsondata[i].SERVICE_NAME + '</label><div>' + jsondata[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</div></div><br/>')
-                        $('#subMenuSearch .mngTable tbody').append('<tr title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" ><td><div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12" ><input type="checkbox"  grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label   itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_GROUP + '<i class="fa fa-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</label></div></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_COST + '</label></td></tr>')
+                         
+                        $('#subMenuSearch .mngTable tbody').append('<tr title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" ><td><div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12" ><input type="checkbox"  id="chk_' + i + '" grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc checkbox-item" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label for="chk_' + i +'"  itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_GROUP + '<i class="fa fa-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</label></div></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_COST + '</label></td></tr>')
 
                     }
                 }
@@ -2591,7 +2589,7 @@ function Search_Service(e) {
                     if (jsondata[i].IS_MC == "True") {
                         //$('#subMenuSearch').prepend('<div grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12 serviceDivs" ><input type="checkbox" grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + SCost + ' </i></label><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label><label   itemid="' + jsondata[i].SERVICE_GUID + '" style="display:none" class="serviceName">' + jsondata[i].SERVICE_NAME + '</label><div>' + jsondata[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</div></div><br/>')
 
-                        $('#subMenuSearch .mngTable tbody').append('<tr title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" ><td><div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12" ><input type="checkbox"  grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label   itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_GROUP + '<i class="fa fa-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</label></div></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_COST + '</label></td></tr>')
+                        $('#subMenuSearch .mngTable tbody').append('<tr title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\" ><td><div title="' + jsondata[i].SERVICE_NOTES + '" grup-guid="' + jsondata[i].PARENT_GUID + '"  supp-name=\"' + jsondata[i].SERVICE_SUPPLIER + '\"  class="col-md-12" ><input type="checkbox" id="chk_' + i + '"  grup-name=\"' + jsondata[i].SERVICE_GROUP + '\" ismc=\"' + jsondata[i].IS_MC + '\" onclick=SelectService_K(this,\"' + jsondata[i].SERVICE_GUID + '\") service-guid=' + jsondata[i].SERVICE_GUID + ' service-cost=\"' + jsondata[i].SERVICE_COST + '\" class="col-md-1 chkServc checkbox-item" supp-guid=\"' + jsondata[i].SUPPLIER_GUID + '\"  data-edizm="' + jsondata[i].SERVICE_UNIT + '"  itemid="' + jsondata[i].SERVICE_GUID + '"  ><label  for="chk_' + i +'"  itemid="' + jsondata[i].SERVICE_GUID + '"  class="serviceName">' + jsondata[i].SERVICE_GROUP + '<i class="fa fa-arrow-right SuppGrupRelations"></i>' + jsondata[i].SERVICE_NAME + '</label></div></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_UNIT + '</label></td><td><label class="serviceCost"   itemid="' + jsondata[i].SERVICE_GUID + '">' + jsondata[i].SERVICE_COST + '</label></td></tr>')
 
                     }
                 }
@@ -2640,13 +2638,13 @@ function showResultArea(text) {
         }
     }
 }
-function GetAllServicesOfProject(PROJECT_GUID) {
+function GetAllServicesOfProject(PROJECT_GUID, RKind) {
     var loc_ = window.location.pathname
     var respid = 0
     if (loc_ == '/Responsible_Admin/CreateRequest.aspx') {
         respid = sessionStorage.getItem("Log")
     }
-    var obj2 = { "PROJECT_GUID": PROJECT_GUID, "lg": respid }
+    var obj2 = { "PROJECT_GUID": PROJECT_GUID, "lg": respid, "baseDirectionId": RKind }
     $.ajax({
         type: "POST",
         url: "../Super_Disp/CreateDispRequest.aspx/GetAllServicesOfProject",
@@ -2656,9 +2654,22 @@ function GetAllServicesOfProject(PROJECT_GUID) {
         success: function (data) {
 
             var j = JSON.parse(data.d);
+            var ServicesResponsibles = j.ServicesResponsibles;
+            ServicesResponsibles = JSON.parse(ServicesResponsibles)
+            j = j.AllServices
+            j = JSON.parse(j)
+
+            $('body').data('search', j);
+            $('body').data('resps', ServicesResponsibles)
+            $('#SerchService').show()
+
+            /*
+             
+             var j = JSON.parse(data.d);
 
             $('body').data('search', j);
             $('#SerchService').show()
+             */
             // $('#SerchService').remove();
             //$('#RequestKind').after('<input type="text" id="SerchService" onfocus=showResultArea("open") onblur=showResultArea("close") onkeyup=Search_Service(this) placeholder="Поиск Услуг"/>')
         }
@@ -3004,6 +3015,10 @@ function GetRelatedGroups_K(selected, PROJECT_GUID, DIRECTION_GUID, otv) {
 
                     //}
                     $('input[type="checkbox"][grup-guid=\"' + selected[k].SERVICE_GUID + '\"]').prop('checked', true);
+                    if ($('input[type="checkbox"][grup-guid=\"' + selected[k].SERVICE_GUID + '\"]').length!=0) {
+                        var position = $('input[type="checkbox"][grup-guid=\"' + selected[k].SERVICE_GUID + '\"]').offset().top;
+                        $("#grups").animate({ scrollTop: position }, "slow");
+                    }
                     if (role == 15) {
                         //  var selectedGuid = (selected[k].PARENT_GUID != "0") ? selected[k].PARENT_GUID : selected[k].SERVICE_GUID
                         $('#drct[guid=\"' + selected[k].BASE_DIRECTION_GUID + '\"]').attr('direct-suppguid', selected[k].SUPPLIER_GUID)
@@ -3163,6 +3178,14 @@ function getServices_K(e, SERVICE_GUID, selected, otv) {
 
                             //$('#subMenu #Services_ tbody tr[grup-guid=\"' + selected[i].PARENT_GUID + '\"] td:eq(0) div[grup-guid=\"' + selected[i].PARENT_GUID + '\"]').children('input[type="checkbox"][service-guid=\"' + selected[i].SERVICE_GUID + '\"]').prop('checked', true)
                             $('input[type="checkbox"][service-guid=\"' + selected[i].SERVICE_GUID + '\"]').prop('checked', true)
+                            var position = $('input[type="checkbox"][service-guid=\"' + selected[i].SERVICE_GUID + '\"]').length
+                            if ($('input[type="checkbox"][service-guid=\"' + selected[i].SERVICE_GUID + '\"]').length != 0) {
+                                var positionSubmenu = $("#subMenu").offset().top
+                                $("#grups").animate({ scrollTop: positionSubmenu }, "slow");
+                                var positionService = $('input[type="checkbox"][service-guid=\"' + selected[i].SERVICE_GUID + '\"]').offset().top;
+                                $("#subMenu").animate({ scrollTop: positionService }, "slow");
+                              
+                            }
                             $('#PrServiceH thead tr th:eq(0)').text('Наименование услуг')
                             var edizm = selected[i].SERVICE_UNIT
 
@@ -4795,7 +4818,7 @@ function GetSuppRequesByR(R) {
                 GetProjects(Slog, json_Project_guid_andId[0].PROJECT_ID, jsondata_[i].RESPONSIBLE_ID);
                 getObjectByProjectId(jsondata_[i].ADRESS, json_Project_guid_andId[0].PROJECT_ID)
                 if (st != 4 && st != 5 && st != 3) {
-                    GetAllServicesOfProject(json_Project_guid_andId[0].GUID)
+                    GetAllServicesOfProject(json_Project_guid_andId[0].GUID,1)
                 }
                 $('#reqType').attr('disabled', 'disabled').css('background-color', 'rgb(235, 235, 228)')
                 //GetDispsByObjectid(jsondata_[i].DISP_ID, jsondata_[i].ADRESS)
@@ -6267,6 +6290,7 @@ function getResponsibels_(s) {
         url: "../Super_Disp/CreateDispRequest.aspx/GetResponsibels_",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
+          //  $('#Otven').select2('destroy')
             var j = JSON.parse(data.d);
             $('#Otven').empty();
             $('#Otven').append('<option value="0" email="no@mail.com"></option>');
@@ -6299,7 +6323,7 @@ function getResponsibels_(s) {
             if (s != undefined && s != "") {
                 $('#Otven').val(s)
             }
-            $('#Otven').select2('destroy').select2();
+            $('#Otven').select2();
         }
     })
 }

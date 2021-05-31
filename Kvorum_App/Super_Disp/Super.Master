@@ -14,8 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <%-- Favicons --%>
-    <link rel="shortcut icon" href="../img/favicon.png"> 
-	
+    <link rel="shortcut icon" href="../img/favicon.png">
+
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link href="../css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../css/swiper.min.css">
@@ -24,10 +24,10 @@
     <script src="../js/swiper.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
-   <%-- <script src="../js/design.js"></script>--%>
+    <%-- <script src="../js/design.js"></script>--%>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-    <style>
+   <style>
         .ui-loader-background {
             width: 100%;
             height: 100%;
@@ -52,15 +52,27 @@
     border-top: 16px solid #D11B25;
     width: 120px;
     height: 120px;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
-        }
+	
+	  animation-name: spin;
+	  animation-duration: 5000ms;
+	  animation-iteration-count: infinite;
+	  animation-timing-function: linear; 
+    }
+	
+	@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
     </style>
 
 </head>
 <body>
-     <div class="ui-loader-background"></div>
-        <div id="loader" style="position: fixed;display: block;"></div>
+    <div class="ui-loader-background"></div>
+    <div id="loader" style="position: fixed; display: block;"></div>
     <header class="internal1 h90">
         <div class="headerWrapper">
             <ul class="nav h-100 ml-3 w-100">
@@ -119,7 +131,7 @@
                                     <!-- <span class="circle0 w42 h42">&nbsp;</span> -->
                                     <img src="../img/user.svg" class="w42 mt-n2" alt="" />
                                 </button>
-                                <span id="" style="display:none"></span>
+                                <span id="" style="display: none"></span>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <%--<a class="dropdown-item" href="#">
                                         <img src="../img/profile.svg" class="w16 mr-3" alt="" />Мой профиль</a>
@@ -139,12 +151,12 @@
         <div class="collapse show-mobile" id="collapse0">
             <ul class="mobileMenu mm-top">
                 <li class="nav-item mt-5 mr-5 mb-0">
-                 <%--   <form class="text-left w-100 posRel border-0 rounded-lg">--%>
-                        <input class="border-0 p-3 rounded-lg w-95" type="search" placeholder="Поиск" aria-label="Search">
-                        <button class="searchIcon transp border-0 mt-3" type="submit">
-                            <i class="fa white fa-search" aria-hidden="true"></i>
-                        </button>
-                 <%--   </form>--%>
+                    <%--   <form class="text-left w-100 posRel border-0 rounded-lg">--%>
+                    <input class="border-0 p-3 rounded-lg w-95" type="search" placeholder="Поиск" aria-label="Search">
+                    <button class="searchIcon transp border-0 mt-3" type="submit">
+                        <i class="fa white fa-search" aria-hidden="true"></i>
+                    </button>
+                    <%--   </form>--%>
                     <hr class="h-0 w-100" />
                 </li>
 
@@ -204,21 +216,21 @@
                 <span class="h90"></span>
 
                 <ol class="navbar-nav pt-3 w-100 shadow-menu ">
-					<li class="nav-link flexHoriz ml-2">
+                    <li class="nav-link flexHoriz ml-2">
 
-						<span class="d-block w48 h48 rounded8 flex-shrink-0 mr-3" style="background: #eaeaea url('') center center; background-size: cover;">&nbsp;</span>
-					
-						<div class="">
-							<strong id="fiodsp" class="font15 darkGreen"></strong>
-							<p class="font14 m-0" id="lgId"></p>
-						</div>
-						<button class="ml-auto mr-2 transp border-0 flexCenter">
-							<img src="" class="w16 mt-n1" alt="">
-						</button>
-					</li>
-					<li class="dividerH ml-4 mr-4"></li>
-				 
-			</ol>
+                        <span class="d-block w48 h48 rounded8 flex-shrink-0 mr-3" style="background: #eaeaea url('') center center; background-size: cover;">&nbsp;</span>
+
+                        <div class="">
+                            <strong id="fiodsp" class="font15 darkGreen"></strong>
+                            <p class="font14 m-0" id="lgId"></p>
+                        </div>
+                        <button class="ml-auto mr-2 transp border-0 flexCenter">
+                            <img src="" class="w16 mt-n1" alt="">
+                        </button>
+                    </li>
+                    <li class="dividerH ml-4 mr-4"></li>
+
+                </ol>
 
 
                 <ol class="navbar-nav mt-3 show-desktop">
