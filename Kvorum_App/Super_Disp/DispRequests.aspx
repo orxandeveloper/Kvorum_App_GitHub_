@@ -74,7 +74,7 @@
                     </div>--%>
                  <%--   <button class="btn2 btn1 mb-0 mr-3 outline shadow-none w56 h56 flexCenter ">
                         <img src="../../img/upload.svg" class="w16 reddishSvg" alt="" /></button>--%>
-                       <button onclick="GotoCreateFunction()" class="btn2 btn1 mb-0 outline shadow-none w56 h56 flexCenter ">
+                       <button onclick="GotoCreateFunction()" class="btn btn1 mb-0 outline shadow-none w56 h56 flexCenter ml-auto">
                         <img src="../../img/ic-plus.svg" class="w16 reddishSvg" alt="" /></button>
                     <!--	<button class="btn btn1 outline shadow-none w42 h42 flexCenter">
 					<img src="../../img/dreidots2.svg" class="" alt=""/></button>				-->

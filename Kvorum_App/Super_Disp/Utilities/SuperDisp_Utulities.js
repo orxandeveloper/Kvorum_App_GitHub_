@@ -543,6 +543,7 @@ $(document).ready(function () {
             $('#RequestKind').select2({
                 minimumResultsForSearch: "Infinity"
             })
+            $('#dvSendUppl').attr('style','display:none !important');
             
             $('#updateRequest').hide();
             $(document).on('click', '#Close_Ot', function () {
@@ -564,7 +565,7 @@ $(document).ready(function () {
                 GetKindOfRequest("")
                 getTime();
                 $('#SearchService').show();
-                $('#SendComent').hide();
+                $('#dvSendUppl').hide();
                 $('#hedrZ').attr('Z_id', '0')
                 $('#SaveDD').attr('data-status', '1')
                 $('#SaveMO').attr('data-status', '2')
@@ -664,7 +665,7 @@ $(document).ready(function () {
                     GetSuppRequesByR(R_id)
                 }
                 var st = urlParam('st')// Rid_st.st//appDatas.RId//localStorage.getItem("st")
-                $('#file_btn').hide();
+                //$('#file_btn').hide();
                 $('.w-95').attr('class','transp backLab')
                 if (st == 2) {
                     $('#SearchService').show();
@@ -703,7 +704,7 @@ $(document).ready(function () {
                     //  $("#tm").attr('disabled', 'disabled')
                     // $("#IspolList").attr('disabled', 'disabled').css('background-color', 'rgb(235,235,228)');
                     $("#Room_Type,#GServices").attr('disabled', 'disabled').css('background-color', 'rgb(235,235,228)');
-                    $("#SendComent,#hstCom,#hstComh").show();
+                    $("#dvSendUppl,#hstCom,#hstComh").show();
                     $("#RText").attr('disabled', 'disabled');
                     // $("#files").attr('disabled', 'disabled');
                     $("#files").hide();
@@ -760,7 +761,7 @@ $(document).ready(function () {
                         if (successOtmen == true) {
                             $('#myModal5').show();
                             $('#reasonlbl').remove();
-                            $('#myModal5').children('.modal-content2').children('.modal-header2').append('<label id="reasonlbl" style="font-size: 20px;color: rgb(0,147,233);">Укажите причину отмены заявки</label>').css('color', 'black')
+                            $('#myModal5').children('.modal-content2').children('.modal-header2').prepend('<label id="reasonlbl" class="textBlack font24b w-90 mb-0" >Укажите причину отмены заявки</label>').css('color', 'black')
                             $('#cmntsts2').text('');
                             $('#f_iles2').attr('onchange', 'FileForOtmen(this)')
                             $('#OkVipol').click(function () {
@@ -811,38 +812,39 @@ $(document).ready(function () {
                     $(document).on('click', '#updateRequest', function () {
                         var successRequest = checkControls().isSuccess;
                       
-                        var obj = {
-                            'slcObj': checkControls().obj.slcObj,
-                            'IndId_': checkControls().obj.IndId_,
-                            'Lg': checkControls().obj.Lg,
-                            'em': checkControls().obj.em,
-                            'Pdate': checkControls().obj.Pdate,
-                            'Ptime': checkControls().obj.Ptime,
-                            'spId': checkControls().obj.spId,
-                            'Rt': checkControls().obj.Rt,
-
-                            'Rc': checkControls().obj.Rc,
-
-                            'RoomT': checkControls().obj.RoomT,
-                            'NUMBER': checkControls().obj.NUMBER,
-                            'opl': checkControls().obj.opl,
-                            'phn': checkControls().obj.phn,
-                            'HReq': checkControls().obj.HReq,
-                            'indName': checkControls().obj.indName,
-                            'TOTAL_COST': checkControls().obj.TOTAL_COST,
-                            'RESPONSIBLE_ID': checkControls().obj.RESPONSIBLE_ID,
-                            'RESPONSIBLE_EMAIL': checkControls().obj.RESPONSIBLE_EMAIL,
-                            'AUTHOR_COMMENT': checkControls().obj.AUTHOR_COMMENT,
-                            'PERFORMER_EMAIL': checkControls().obj.PERFORMER_EMAIL,
-                            'STATUS_ID': 0,
-                            'request_type': checkControls().obj.request_type,
-                            'RequestKind': checkControls().obj.RequestKind,
-                            'path': window.location.pathname
-
-
-                        }
+                      
 
                         if (successRequest == true) {
+                            var obj = {
+                                'slcObj': checkControls().obj.slcObj,
+                                'IndId_': checkControls().obj.IndId_,
+                                'Lg': checkControls().obj.Lg,
+                                'em': checkControls().obj.em,
+                                'Pdate': checkControls().obj.Pdate,
+                                'Ptime': checkControls().obj.Ptime,
+                                'spId': checkControls().obj.spId,
+                                'Rt': checkControls().obj.Rt,
+
+                                'Rc': checkControls().obj.Rc,
+
+                                'RoomT': checkControls().obj.RoomT,
+                                'NUMBER': checkControls().obj.NUMBER,
+                                'opl': checkControls().obj.opl,
+                                'phn': checkControls().obj.phn,
+                                'HReq': checkControls().obj.HReq,
+                                'indName': checkControls().obj.indName,
+                                'TOTAL_COST': checkControls().obj.TOTAL_COST,
+                                'RESPONSIBLE_ID': checkControls().obj.RESPONSIBLE_ID,
+                                'RESPONSIBLE_EMAIL': checkControls().obj.RESPONSIBLE_EMAIL,
+                                'AUTHOR_COMMENT': checkControls().obj.AUTHOR_COMMENT,
+                                'PERFORMER_EMAIL': checkControls().obj.PERFORMER_EMAIL,
+                                'STATUS_ID': 0,
+                                'request_type': checkControls().obj.request_type,
+                                'RequestKind': checkControls().obj.RequestKind,
+                                'path': window.location.pathname
+
+
+                            }
                             //  alert(ok)
                             var HReq = $('#hedrZ').attr('z_id');
                             if ($.isNumeric(R_id)) {
@@ -896,12 +898,9 @@ $(document).ready(function () {
                     $("#AddedTable").hide();
                     $("#fileH_btn").show();
                     $("#HImg").show();
-                    // $("#PrServiceH").find('th:eq(2)').hide();
-                    //  $("#calen1").attr('disabled', 'disabled')
-                    //   $("#tm").attr('disabled', 'disabled')
-                    //     $("#IspolList").attr('disabled', 'disabled').css('background-color', 'rgb(235,235,228)');
+                   
                     $("#Room_Type").attr('disabled', 'disabled').css('background-color', 'rgb(235,235,228)');
-                    $("#SendComent").show();
+                    $("#dvSendUppl").show();
                     $("#RText").attr('disabled', 'disabled');
                     // $("#files").attr('disabled', 'disabled');
                     $("#files").hide();
@@ -1041,7 +1040,7 @@ $(document).ready(function () {
                         if (successOtmen == true) {
                             $('#myModal5').show();
                             $('#reasonlbl').remove();
-                            $('#myModal5').children('.modal-content2').children('.modal-header2').append('<label id="reasonlbl" style="font-size: 20px;color: rgb(0,147,233);">Укажите причину отмены заявки</label>').css('color', 'black')
+                            $('#myModal5').children('.modal-content2').children('.modal-header2').prepend('<label  id="reasonlbl" class="textBlack font24b w-90 mb-0" >Укажите причину отмены заявки</label>').css('color', 'black')
                             $('#cmntsts2').text('');
                             $('#f_iles2').attr('onchange', 'FileForOtmen(this)')
                             $()
@@ -1099,7 +1098,7 @@ $(document).ready(function () {
                 }
 
                 $(document).on('click', '#SendComent', function () {
-                    var imgD_url = $("#himgs > img").length;
+                    var imgD_url = $("#zImg > img").length;
                     if ($("#RComment").val().length != 0 || imgD_url != 0) {
                         sensComment(R_id, $("#RComment").val(), imgD_url, $('#fiodsp').text())
                         // alert("Ok")
@@ -1159,6 +1158,7 @@ $(document).ready(function () {
                     $("#RText").attr('disabled', 'disabled');
                     // $("#files").attr('disabled', 'disabled');
                     $("#files").hide();
+                    $('#dvSendUppl').show();
                     $("#RComment,#SendComent,#hstComh,#hstCom,#hComennt").attr('disabled', 'disabled').show();;
                     $("#SaveDD").hide();
                     $("#objctZ").attr('disabled', 'disabled').css('background-color', 'rgb(235,235,228)')
@@ -1203,7 +1203,7 @@ $(document).ready(function () {
                     if (!$.isNumeric(R_id)) {
                         $("#lstcmnt").hide();
                     }
-                    $("#SendComent").show();
+                    $("#dvSendUppl").show();
                     $('#hstComh,#hstCom').show();
 
                     $(document).on('click', '#vrntVrabot', function () {
@@ -1275,7 +1275,7 @@ $(document).ready(function () {
                             $('#myModal5').show();
                             $('#f_iles2').attr('onchange', 'fileForZakrit(this)');
                             $('#lblreason').remove();
-                            $('#myModal5').children('.modal-content2').children('.modal-header2').append('<label id="lblreason" style="font-size: 20px;color: rgb(0,147,233);">Укажите причину закрытия заявки</label>').css('color', 'black')
+                            $('#myModal5').children('.modal-content2').children('.modal-header2').prepend('<label id="lblreason" class="textBlack font24b w-90 mb-0" >Укажите причину закрытия заявки</label>').css('color', 'black')
                             $('#cmntsts2').text('');
                             $('#OkVipol').click(function () {
                                 var imgs = []
@@ -1435,7 +1435,8 @@ $(document).ready(function () {
     }
 })
 function GetSelectedServices() {
-    var P_Services = []
+    var P_Services = [];
+    successRequest=true
     var ismc=""
     $('#PrServiceH tbody tr').each(function () {
 
@@ -1472,8 +1473,9 @@ function GetSelectedServices() {
         if (SERVICE_COST == undefined || SERVICE_COST == 'Договорная') {
             successRequest = false
             $('#costErr').remove()
+            var Td_position = $(this).children('td:eq(' + eq + ')').offset().top
             $(this).children('td:eq(' + eq + ')').children('a').after('<label id="costErr" style="color:red">Необходимо указать сумму</label>')
-            $("html, body").animate({ scrollTop: 500 }, "slow");
+            $("html, body").animate({ scrollTop: (Td_position -100)}, "slow");
             window.setTimeout(function () { $('#costErr').remove(); }, 5000);
         }
         // SERVICE_COST = (SERVICE_COST == undefined || SERVICE_COST == 'Договорная') ? '0.00' : SERVICE_COST
@@ -1492,7 +1494,7 @@ function GetSelectedServices() {
             "SERVICE_CUSTOM": ""
         })
     })
-    return { 'P_Services': P_Services, 'ismc': ismc, 'suppServices': suppServices}
+    return { 'P_Services': P_Services, 'ismc': ismc, 'suppServices': suppServices, 'successRequest': successRequest}
 }
 
 function ErrorForControls(e, text) {
@@ -1521,7 +1523,7 @@ function ErrorForControls(e, text) {
         $(e).attr('style', 'border-color:#f06d06;')
     }
     var position = $(e).offset().top//getOffset(e).top//e.position();
-    $("html, body").animate({ scrollTop: position }, "slow");
+    $("html, body").animate({ scrollTop: (position-100) }, "slow");
     
     window.setTimeout(function () { $(e).removeAttr('style'); $('#servicelbl').remove()}, 5000);
    
@@ -1572,6 +1574,7 @@ function checkControls(e) {
             ErrorForControls($('#SerchService'));
         }
         else {
+            isSuccess = GetSelectedServices().successRequest
             P_Services = GetSelectedServices().P_Services
         }
     }
@@ -2113,37 +2116,38 @@ function RabotVipolSuper(R_id) {
 function UpdateRequest(e) {
     var successRequest = checkControls().isSuccess;
 
-    var obj = {
-        'slcObj': checkControls().obj.slcObj,
-        'IndId_': checkControls().obj.IndId_,
-        'Lg': checkControls().obj.Lg,
-        'em': checkControls().obj.em,
-        'Pdate': checkControls().obj.Pdate,
-        'Ptime': checkControls().obj.Ptime,
-        'spId': checkControls().obj.spId,
-        'Rt': checkControls().obj.Rt,
-
-        'Rc': checkControls().obj.Rc,
-
-        'RoomT': checkControls().obj.RoomT,
-        'NUMBER': checkControls().obj.NUMBER,
-        'opl': checkControls().obj.opl,
-        'phn': checkControls().obj.phn,
-        'HReq': checkControls().obj.HReq,
-        'indName': checkControls().obj.indName,
-        'TOTAL_COST': checkControls().obj.TOTAL_COST,
-        'RESPONSIBLE_ID': checkControls().obj.RESPONSIBLE_ID,
-        'RESPONSIBLE_EMAIL': checkControls().obj.RESPONSIBLE_EMAIL,
-        'AUTHOR_COMMENT': checkControls().obj.AUTHOR_COMMENT,
-        'PERFORMER_EMAIL': checkControls().obj.PERFORMER_EMAIL,
-        'STATUS_ID': e,
-        'request_type': checkControls().obj.request_type,
-        'RequestKind': checkControls().obj.RequestKind,
-        'path': window.location.pathname
-
-    }
+  
 
     if (successRequest == true) {
+        var obj = {
+            'slcObj': checkControls().obj.slcObj,
+            'IndId_': checkControls().obj.IndId_,
+            'Lg': checkControls().obj.Lg,
+            'em': checkControls().obj.em,
+            'Pdate': checkControls().obj.Pdate,
+            'Ptime': checkControls().obj.Ptime,
+            'spId': checkControls().obj.spId,
+            'Rt': checkControls().obj.Rt,
+
+            'Rc': checkControls().obj.Rc,
+
+            'RoomT': checkControls().obj.RoomT,
+            'NUMBER': checkControls().obj.NUMBER,
+            'opl': checkControls().obj.opl,
+            'phn': checkControls().obj.phn,
+            'HReq': checkControls().obj.HReq,
+            'indName': checkControls().obj.indName,
+            'TOTAL_COST': checkControls().obj.TOTAL_COST,
+            'RESPONSIBLE_ID': checkControls().obj.RESPONSIBLE_ID,
+            'RESPONSIBLE_EMAIL': checkControls().obj.RESPONSIBLE_EMAIL,
+            'AUTHOR_COMMENT': checkControls().obj.AUTHOR_COMMENT,
+            'PERFORMER_EMAIL': checkControls().obj.PERFORMER_EMAIL,
+            'STATUS_ID': e,
+            'request_type': checkControls().obj.request_type,
+            'RequestKind': checkControls().obj.RequestKind,
+            'path': window.location.pathname
+
+        }
         //  alert(ok)
         //  //console.log(obj)
         $('.ui-loader-background,#loader').show()
@@ -2378,7 +2382,7 @@ function SelectFinded_K(e, SERVICE_GUID) {
     var serviceguid = $(e).attr('service-guid')
     var service_cost = (edizm.length == 0) ? '<a onclick="Open_Pop(this)">Договорная</a><div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div>' : '<a>' + $(e).attr('service-cost') + '</a>'
 
-    var kolvo = (edizm.length == 0) ? "-" : '<input type="text" onkeyup=multiPlaying(this,\"' + $(e).attr('service-cost') + '\") onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value="1">';
+    var kolvo = (edizm.length == 0) ? "-" : '<input type="text" class="quantity" onkeyup=multiPlaying(this,\"' + $(e).attr('service-cost') + '\") onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value="1">';
     edizm = (edizm.length == 0) ? "-" : "";
     var SuppName = $(e).attr('supp-name')
 
@@ -2878,7 +2882,7 @@ function selectGrupOnly_K(e, otv) {
                 }
             }
         }
-
+        getResponsibels_ForCheckGroup(grupGuid)
         $('#PrServiceH tbody tr').each(function () {
             var ismc_ = $(this).attr('ismc');
 
@@ -3240,7 +3244,7 @@ function getServices_K(e, SERVICE_GUID, selected, otv) {
 
 
 
-                                $('#PrServiceH tbody').prepend('<tr service-name=\"' + selected[i].SERVICE_NAME + '\" service-guid=' + selected[i].SERVICE_GUID + ' ismc=\"' + selected[i].IS_MC + '\" supp-name=\"' + selected[i].SERVICE_SUPPLIER + '\" supp-guid=' + selected[i].SUPPLIER_GUID + ' grup-name=\"' + selected[i].SERVICE_GROUP + '\" grup-guid=' + selected[i].PARENT_GUID + ' title=\"' + selected[i].SERVICE_SUPPLIER + ' -> ' + selected[i].SERVICE_GROUP + ' -> ' + selected[i].SERVICE_NAME + '\" ><td>' + selected[i].SERVICE_SUPPLIER + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + selected[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + selected[i].SERVICE_NAME + '</td><td><input type="text" ' + disabled + ' onkeyup=multiPlaying(this,\"' + cost_forOne.trim() + '\") onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value=\"' + selected[i].QUANTITY + '\"></td><td style="text-align:center">' + edizm + '</td><td class="CostTd">' + costTd + '<div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a guid=' + selected[i].SERVICE_GUID + ' ' + checkboxDissable + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+                                $('#PrServiceH tbody').prepend('<tr service-name=\"' + selected[i].SERVICE_NAME + '\" service-guid=' + selected[i].SERVICE_GUID + ' ismc=\"' + selected[i].IS_MC + '\" supp-name=\"' + selected[i].SERVICE_SUPPLIER + '\" supp-guid=' + selected[i].SUPPLIER_GUID + ' grup-name=\"' + selected[i].SERVICE_GROUP + '\" grup-guid=' + selected[i].PARENT_GUID + ' title=\"' + selected[i].SERVICE_SUPPLIER + ' -> ' + selected[i].SERVICE_GROUP + ' -> ' + selected[i].SERVICE_NAME + '\" ><td>' + selected[i].SERVICE_SUPPLIER + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + selected[i].SERVICE_GROUP + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + selected[i].SERVICE_NAME + '</td><td><input type="text" ' + disabled + ' onkeyup=multiPlaying(this,\"' + cost_forOne.trim() + '\") class="quantity" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value=\"' + selected[i].QUANTITY + '\"></td><td style="text-align:center">' + edizm + '</td><td class="CostTd">' + costTd + '<div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a guid=' + selected[i].SERVICE_GUID + ' ' + checkboxDissable + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
                             }
                         }
                         $('#PrServiceH').show();
@@ -3310,7 +3314,7 @@ function SelectService_K(e, SERVICE_GUID, otv) {
         //  $('#subMenu,#grups').find('input[type="checkbox"]').prop('checked', false).not($(e))
         //  $('#PrServiceH tbody').empty();
         //' + SuppName + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>
-        $('#PrServiceH tbody').prepend('<tr title="' + title + '" service-name="' + ServiceName + '" supp-name=\"' + SuppName + '\" grup-guid=\"' + grupGuid + '\" ismc=\"' + ismc + '\" supp-guid=' + suppGuid + ' grup-name=\"' + grupName + '\" service-guid=' + SERVICE_GUID + ' title=\"' + SuppName + ' -> ' + grupName + ' -> ' + ServiceName + '\" ><td>' + grupName + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + ServiceName + '</td><td><input type="text" onkeyup=multiPlaying(this,\"' + multiPlayVal + '\") onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value="1"></td><td style="text-align:center">' + edizm + '</td><td class="CostTd">' + service_cost + '<div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a guid=' + SERVICE_GUID + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
+        $('#PrServiceH tbody').prepend('<tr title="' + title + '" service-name="' + ServiceName + '" supp-name=\"' + SuppName + '\" grup-guid=\"' + grupGuid + '\" ismc=\"' + ismc + '\" supp-guid=' + suppGuid + ' grup-name=\"' + grupName + '\" service-guid=' + SERVICE_GUID + ' title=\"' + SuppName + ' -> ' + grupName + ' -> ' + ServiceName + '\" ><td>' + grupName + '<i class="glyphicon glyphicon-arrow-right SuppGrupRelations"></i>' + ServiceName + '</td><td><input type="text" class="quantity" onkeyup=multiPlaying(this,\"' + multiPlayVal + '\") onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value="1"></td><td style="text-align:center">' + edizm + '</td><td class="CostTd">' + service_cost + '<div id="changeCost" class="changeCost"><input type="number" id="dqCost" style="margin-top: 4px;"><input type="button" onclick="CloseDiv(this)" value="Отмена" class="h48 btn btn1 flexCenter doqClose"><input type="button" onclick="MakeCost(this)" value="OK" class="h48 btn btn1 flexCenter doqOk"></div></td><td><a guid=' + SERVICE_GUID + ' onclick="RemoveDirectRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>Удалить</a></td></tr>')
 
         //var grup_guid = $('#subMenu').attr('data-d')//$(e).parent().parent('#subMenu').attr('data-d')
         //checking suppguid, is different or not
@@ -3444,6 +3448,25 @@ function SelectService_K(e, SERVICE_GUID, otv) {
     CalculatTotaleCost()
     // getSpesicalisetsBySupplierGuid(suppGuid)
 
+}
+function getResponsibels_ForCheckGroup(gg) {
+    var Obj = { "gg": gg }
+    $.ajax({
+        type: "POST",
+        url: "../Super_Disp/CreateDispRequest.aspx/getResponsibels_ForCheckGroup",
+        data: JSON.stringify(Obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            $('#Otven').select2('destroy')
+            var j = JSON.parse(data.d);
+            $('#Otven').empty();
+            for (var i = 0; i < j.length; i++) {
+                $('#Otven').append('<option email=\"' + j[i].E_MAIL + '\" value=' + j[i].LOG_IN_ID + '>' + j[i].ACCOUNT_NAME + '</option>');
+            }
+            $('#Otven').select2()
+        }
+    })
 }
 function getSpesicalisetsBySupplierGuid(sup) {
     if (sup != undefined) {
@@ -3853,6 +3876,7 @@ function GetRSComment(rid) {
                     }
 
                 }
+                
             }
         })
     }
@@ -4041,7 +4065,7 @@ function readU_RLVipol(input, imgName) {
 function MakeOtmenSupp(R_id, imgs, text) {
     var opl = $('#opl').prop('checked');
     opl = "" + opl + ""
-    var objOt = { "R_id": R_id, "imgs": imgs, "text": text, "opl": opl, "login_id": sessionStorage.getItem("Log"), '_path': window.location.pathname }
+    var objOt = { "R_id": R_id, "imgs": imgs, "text": text, "opl": opl, "login_id": sessionStorage.getItem("Log"), '_path': window.location.pathname, "SpId": $('#IspolList').val() }
     $.ajax({
         type: "POST",
         url: "../Super_Disp/CreateDispRequest.aspx/MakeOtmenSupp",
@@ -4341,11 +4365,16 @@ function readU_RLOtmenSuper(input, imgName) {
 }
 function H_fileSave(rid, imgC, AUTHOR) {//ImgAdres
     var img_s = [];
-    imgC = $("#himgs > img:last").attr("itemid");
-    for (var i = 1; i <= imgC; i++) {
-        var imgAdres = ($(".HistImg[itemid='" + i + "']").attr("data-url") != undefined) ? $(".HistImg[itemid='" + i + "']").attr("data-url") : "";
+ //   imgC = $('.foto-disp:first').attr('itemid')//$("#himgs > img:last").attr("itemid");
+    //for (var i = 1; i <= imgC; i++) {
+    //    //   var imgAdres = ($(".HistImg[itemid='" + i + "']").attr("data-url") != undefined) ? $(".HistImg[itemid='" + i + "']").attr("data-url") : "";
+    //    var imgAdres = $('#fotoDisp' + i + '').attr('data-url')
+    //    img_s.push({ "ImgAdres": imgAdres })
+    //}
+    $('.foto-disp').each(function () {
+        var imgAdres = $(this).attr('data-url')
         img_s.push({ "ImgAdres": imgAdres })
-    }
+    })
     var obj = { "R": rid, "imgs": JSON.stringify(img_s), 'AUTHOR': AUTHOR, 'status': 5 }
     $.ajax({
         type: "POST",
@@ -4428,7 +4457,8 @@ function sensComment(rid, rc, dturl, AUTHOR) {
 
     if (dturl != 0) {
         H_fileSave(rid, dturl, AUTHOR)
-        $("#HImg").attr("src", window.location.protocol + '//' + window.location.host + "/Files/upl.png").attr("data-url", "0")
+        //      $("#HImg").attr("src", window.location.protocol + '//' + window.location.host + "/Files/upl.png").attr("data-url", "0")
+        $('#zImg').remove()
 
     }
     $('#fileH_btn').show();
@@ -4597,9 +4627,7 @@ function GetRequesByR(R) {
                     var json_Project_guid_andId = JSON.parse(jsondata_[i].PROJECT_ID)
                     GetProjects(Slog, json_Project_guid_andId[0].PROJECT_ID, jsondata_[i].RESPONSIBLE_ID);
                     getObjectByProjectId(jsondata_[i].ADRESS, json_Project_guid_andId[0].PROJECT_ID)
-                    if (st != 4 && st != 5 && st != 3) {
-                        GetAllServicesOfProject(json_Project_guid_andId[0].GUID)
-                    }
+                   
                     //GetDispsByObjectid(jsondata_[i].DISP_ID, jsondata_[i].ADRESS)
 
                     // ////console.log(jsondata_[i].ACCOUNT_NAME)
@@ -4620,6 +4648,9 @@ function GetRequesByR(R) {
                     jsondata_[i].REQUEST_TYPE = reqType_WorkKind[0]
                     reqType_WorkKind = reqType_WorkKind[1]
                     GetKindOfRequest(reqType_WorkKind)
+                    if (st != 4 && st != 5 && st != 3) {
+                        GetAllServicesOfProject(json_Project_guid_andId[0].GUID, reqType_WorkKind)
+                    }
                     $('#reqType').val(jsondata_[i].REQUEST_TYPE)
                     //  console.log("jsonServices")
                     // console.log(jsonServices)
@@ -5064,12 +5095,14 @@ function getCommentFiles(r) {
             dataType: "json",
             success: function (data) {
                 var jsondata_ = JSON.parse(data.d);
+                if (jsondata_.length!=0) {
                 if (jsondata_[0].COMMENT_FILE.indexOf('prev') != -1) {
 
-                    var filesProff = ParseForProff(jsondata_[0].COMMENT_FILE)
-                    jsondata_ = []
-                    for (var k = 0; k < filesProff.length; k++) {
-                        jsondata_.push({ "COMMENT_FILE": filesProff[k] })
+                        var filesProff = ParseForProff(jsondata_[0].COMMENT_FILE)
+                        jsondata_ = []
+                        for (var k = 0; k < filesProff.length; k++) {
+                            jsondata_.push({ "COMMENT_FILE": filesProff[k] })
+                        }
                     }
                 }
                 for (var i = 0; i < jsondata_.length; i++) {
@@ -5480,12 +5513,13 @@ function GetPerFormers(selected, obj) {
         success: function (result) {
 
             // ////console.log(result)
+            $("#IspolList,#ispol2").select2('destroy')
             $("#IspolList").empty();
             var jsondata_ = JSON.parse(result.d)
 
             //  ////console.log(jsondata_)
             var SLogId = sessionStorage.getItem("Log")
-
+            
             // var eml = urlParam('eml')
             $("#IspolList").append('<option  selected="true" value="0"> </option>')
             $("#ispol2").append('<option  value="0"></option>')
@@ -5531,7 +5565,7 @@ function GetPerFormers(selected, obj) {
                     $('#SaveDD').hide();
                 }
             }
-
+            $("#IspolList,#ispol2").select2()
         }
     })
 }
@@ -5848,7 +5882,7 @@ function MakeCheckCheckBox(e, d) {
             //$('#listServiceH').show()
             if (dtUrl == 1) {
                 //onkeyup="multiPlaying(this,500)" <td><input type="text" onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57" value="1"></td>
-                $("#PrServiceH tbody").append('<tr data-d=' + d + '><td itemid="' + itemId + '"> ' + dataName + '</td><td><input type="text" ' + kolDis + '  onkeyup=multiPlaying(this,"' + cost + '")  onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" value="1"></td><td>' + edizm + '</td><td  class="CostTd">' + doqi + '</td><td><a itemid="' + itemId + '" data="' + dataName + '" onclick="RemoveRow(this)" data-url="' + dtUrl + '" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Удалить</a></td></tr>')
+                $("#PrServiceH tbody").append('<tr data-d=' + d + '><td itemid="' + itemId + '"> ' + dataName + '</td><td><input type="text" ' + kolDis + '  onkeyup=multiPlaying(this,"' + cost + '")  onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57 || event.charCode == 44" class="quantity" value="1"></td><td>' + edizm + '</td><td  class="CostTd">' + doqi + '</td><td><a itemid="' + itemId + '" data="' + dataName + '" onclick="RemoveRow(this)" data-url="' + dtUrl + '" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Удалить</a></td></tr>')
             }
             if (dtUrl == 0) {
                 /*<tr><td style="width: 500px;" itemid="11">Доступ - Одноразовый пропуск</td><td><input disabled="disabled" type="text" value=""></td><td><button onclick="RemoveRow(this)" class="btn delBtn"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Удалить</button></td></tr>*/

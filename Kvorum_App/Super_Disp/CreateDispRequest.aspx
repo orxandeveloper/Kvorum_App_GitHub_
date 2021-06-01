@@ -21,8 +21,7 @@
 
             .modal-content2 {
                 width: 50% !important;
-                position: fixed;
-                margin-top: 160em;
+                margin: 16em auto;
             }
 
             .modal2 {
@@ -77,6 +76,7 @@
 
             .selectdrc {
                 border: 5px solid #b02014;
+                text-align:center
             }
 
             .totalh7 {
@@ -128,15 +128,25 @@
             <div class="bgWhite rounded16 mt-4 ml-3 p-4 shadow">
 
                 <h3 class="font24 font-weight-bold pb-3 pt-3 w-100 flexHoriz " id="hedrZ">Создание заявки
-				<div id="divlst" class="ml-auto">
+				 
 
                     <!--<img id="lstcmnt" src="../../img/unlem.png" style="width:10%; display:block" /> -->
-                    <i id="lstcmnt" class="fa fa-exclamation-circle" style="font-size: 300%; color: green; display: none"></i>
 
-                </div>
+
+
                 </h3>
-
+                <i id="lstcmnt" class="fa fa-exclamation-circle" style="display: none"></i>
                 <style>
+                    .quantity {
+                        width: 20%;
+                        text-align: center;
+                    }
+
+                    #lstcmnt {
+                        font-size: 300%;
+                        color: green;
+                    }
+
                     .errorMark {
                         font-size: 75%;
                         padding: 3.5rem 1rem 0 1rem;
@@ -368,9 +378,9 @@
                     </div>
                     <textarea id="RComment" class="opisanie w-100 rounded8 " style="height: 60px"></textarea>
 
-                    <div class="flexHoriz w-100 mt-3" style="display: none !important">
+                    <div class="flexHoriz w-100 mt-3" id="dvSendUppl" style="display: none !important">
                         <input type="button" name="name" id="file_btn" value="" class="transp border-0 w32"
-                            style="background: url('../img/attach.svg') no-repeat center center;" />
+                            style="background: url('../img/attach.svg') no-repeat center center !important;" />
                         <!-- ../Files/upl.png -->
 
                         <button id="SendComent" class="ml-auto btn btn1 w-auto flexCenter" type="button">Отправить</button>
@@ -476,20 +486,48 @@
 
             </div>
             <!-- main block -->
-            <div id="myModal5" style="display: none" class="modal2">
+            <div id="myModal5" style="height: 1176.67px; display: none" class="modal2">
 
                 <!-- Modal content -->
-                <div class="modal-content2  dialog w-400 pt-2">
-                    <div class="modal-header2 bgWhite">
-                        <span class="close2 font24" style="color: black" id="close_5">&times;</span>
+                <div class="modal-content2 bgWhite rounded16 p-4 shadow">
+                    <div class="modal-header2 bgWhite flexHoriz">
+                        <span class="close2 ml-auto mr-3" style="color: black" id="close_5">
+                            <img src="../img/close.svg" alt="Закрыть" class="w24">
+                        </span>
                         <h2 id="mh3"></h2>
                     </div>
-                    <div class="modal-body2">
+                    <div class="modal-body2  mt-4">
                         <textarea class="w-100 h-100 m-0 border-grey p-2" id="cmntsts2">Все работы по данной заявке выполнены</textarea>
 
                     </div>
                     <hr />
                     <div class="modal-footer2 flexHoriz w-100 m-0 p-0" style="">
+
+                        <input class="knop" id="f_iles2" style="width: 100%" type="file">
+
+
+                        <input type="button" id="OkVipol" name="name" value="ОК" class="ml-auto w-15 btn btn1 flexCenter" />
+                        <input type="button" id="Close_Ot" name="name" value="Отмена" class="ml-3 w-15 btn btn1 outline shadow-none flexCenter mr-0" />
+
+                    </div>
+                </div>
+
+            </div>
+            <div id="myModal4" style="height: 1176.67px; display: none" class="modal2">
+
+                <!-- Modal content -->
+                <div class="modal-content2 bgWhite rounded16 p-4 shadow">
+                    <div class="modal-header2 bgWhite flexHoriz">
+                        <span class="close2 ml-auto mr-3" style="color: black" id="close_4">
+                            <img src="../img/close.svg" alt="Закрыть" class="w24">
+                        </span>
+                        <h2 id="mh3"></h2>
+                    </div>
+                    <div class="modal-body2  mt-4">
+                        <%--  <textarea class="w-100 h-100 m-0 border-grey p-2" id="cmntsts2">Все работы по данной заявке выполнены</textarea>--%>
+                    </div>
+                    <hr />
+                    <div id="modal-footer4" class="modal-footer2 flexHoriz w-100 m-0 p-0" style="">
 
                         <input class="knop" id="f_iles2" style="width: 100%" type="file">
 

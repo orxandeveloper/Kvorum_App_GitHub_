@@ -1522,8 +1522,14 @@ box-shadow: 3px 4px 10px 3px rgba(0,0,0,0.3);
 .window2 {width: 62%; min-height: 400px; height: 50%;}
 .window2 h3 {margin: 0.75em 0;}
 .scroll {overflow-y: auto; padding-right: 0.5em;}
-.close {position: absolute; right: 0em; z-index: 1000;}
-.close2 {position: absolute; right: 0em; z-index: 1000;}
+.close {
+    position: absolute; right: 0em; z-index: 1000;
+
+}
+.close2 {
+    /*position: absolute; right: 0em; z-index: 1000;*/
+
+}
 .back {position: absolute; left: 0.5em; margin: 0;}
 .forgotPassword {font-size: 75%; text-align: right; display: block; width: 100%;}
 
@@ -1720,8 +1726,19 @@ color: white; min-width: 120px; text-align: center; font-size: 12px;}
 .circ {display: flex; width: 10px; height: 10px; border-radius: 5px; margin-right: 0.5rem; padding:0;}
 .circ.green {background-color:#6FCF97;}
 .circ.yellow {background-color:#FECA5A;}
+.circ.orange {
+    background-color: #fd7500;
+}
+    .circ.blue {
+        background-color: #24aeff;
+    }
+    .circ.black_ {
+        background-color: #000;
+    }
 
-.mngTable a:hover img {filter: invert(27%) sepia(36%) saturate(1431%) hue-rotate(145deg) brightness(91%) contrast(93%);}
+    .mngTable a:hover img {
+        filter: invert(27%) sepia(36%) saturate(1431%) hue-rotate(145deg) brightness(91%) contrast(93%);
+    }
 .mngTable a:hover span {text-decoration: underline;}
 
 
@@ -1799,7 +1816,14 @@ color: white; min-width: 120px; text-align: center; font-size: 12px;}
     align-items: inherit;
 }
 .align-items-unset {align-items: unset;}
-
+.dataTable td a {
+    max-width: 10rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 .dataTables_length {min-width: 15rem;
     margin-left: 1.75rem;}
 .dataTables_filter {min-width: 20rem;

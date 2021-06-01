@@ -683,7 +683,7 @@ function GetSuppRequests(lg, rl, all)
                         //#fb1700
                         var color = (oData.STATUS_ID == "4") ? 'black_' : (oData.STATUS_ID == "3") ? "orange" : (oData.STATUS_ID == "2") ? "yellow" : (oData.STATUS_ID == "1") ? "blue" : "green";
                         var circul = '<span class="circ ' + color + '"></span>'
-                        $(nTd).html('<a href="#"' + emergency + ' title =\"' + oData.STATUS + '\" onclick=SendId(\"' + oData.REQUEST_ID + '\",' + oData.STATUS_ID + ')>' + circul + '' + oData.STATUS + '</a>');
+                        $(nTd).html('<a  class="flexHoriz" href="#"' + emergency + ' title =\"' + oData.STATUS + '\" onclick=SendId(\"' + oData.REQUEST_ID + '\",' + oData.STATUS_ID + ')>' + circul + '' + oData.STATUS + '</a>');
                     }
                 },
                
@@ -868,7 +868,7 @@ function GetDispsRequests(lg,rl,all) {
                             //#fb1700
                             var color = (oData.STATUS_ID == "4") ? 'black_' : (oData.STATUS_ID == "3") ? "orange" : (oData.STATUS_ID == "2") ? "yellow" : (oData.STATUS_ID == "1") ?"blue":"green";
                             var circul = '<span class="circ '+color+'"></span>'
-                            $(nTd).html('<a href="#"' + emergency + ' title =\"' + oData.STATUS + '\" onclick=SendId(\"' + oData.REQUEST_ID + '\",' + oData.STATUS_ID + ')>'+circul+'' + oData.STATUS + '</a>');
+                            $(nTd).html('<a class="flexHoriz" href="#"' + emergency + ' title =\"' + oData.STATUS + '\" onclick=SendId(\"' + oData.REQUEST_ID + '\",' + oData.STATUS_ID + ')>'+circul+'' + oData.STATUS + '</a>');
                         }
                     },
                     {

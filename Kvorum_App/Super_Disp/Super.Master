@@ -236,7 +236,7 @@
                 <ol class="navbar-nav mt-3 show-desktop">
 
 
-                    <li class="nav-link active"><a href="#" class="flexHoriz">
+                    <li class="nav-link active"><a href="DispRequests.aspx" class="flexHoriz">
                         <img src="../img/tasks-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font-weight-bold mb-0">Заявки</p>
                     </a></li>
