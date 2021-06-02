@@ -20,8 +20,8 @@
             }
 
             .modal-content2 {
-                width: 50% !important;
-                margin: 16em auto;
+                 width: 50% !important;
+                 margin: 16em auto;
             }
 
             .modal2 {
@@ -121,8 +121,8 @@
         </div>
 
         <div class="p-4 ">
-
-
+    <div class="row ">
+ <div class="col-lg-6 col-sm-12">
 
 
             <div class="bgWhite rounded16 mt-4 ml-3 p-4 shadow">
@@ -131,22 +131,19 @@
 				 
 
                     <!--<img id="lstcmnt" src="../../img/unlem.png" style="width:10%; display:block" /> -->
+                  
 
-
-
+                
                 </h3>
-                <i id="lstcmnt" class="fa fa-exclamation-circle" style="display: none"></i>
+                  <i id="lstcmnt" class="fa fa-exclamation-circle" style=" display: none"></i>
                 <style>
-                    .quantity {
+                     .quantity {
                         width: 20%;
                         text-align: center;
                     }
-
-                    #lstcmnt {
-                        font-size: 300%;
-                        color: green;
+                    #lstcmnt{
+                        font-size: 300%; color: green;
                     }
-
                     .errorMark {
                         font-size: 75%;
                         padding: 3.5rem 1rem 0 1rem;
@@ -481,12 +478,12 @@
                 </script>
 
 
-
+</div></div>
 
 
             </div>
             <!-- main block -->
-            <div id="myModal5" style="height: 1176.67px; display: none" class="modal2">
+            <div id="myModal5" style="height: 1176.67px;display: none" class="modal2">
 
                 <!-- Modal content -->
                 <div class="modal-content2 bgWhite rounded16 p-4 shadow">
@@ -513,7 +510,7 @@
                 </div>
 
             </div>
-            <div id="myModal4" style="height: 1176.67px; display: none" class="modal2">
+         <div id="myModal4" style="height: 1176.67px;display: none" class="modal2">
 
                 <!-- Modal content -->
                 <div class="modal-content2 bgWhite rounded16 p-4 shadow">
@@ -524,10 +521,11 @@
                         <h2 id="mh3"></h2>
                     </div>
                     <div class="modal-body2  mt-4">
-                        <%--  <textarea class="w-100 h-100 m-0 border-grey p-2" id="cmntsts2">Все работы по данной заявке выполнены</textarea>--%>
+                      <%--  <textarea class="w-100 h-100 m-0 border-grey p-2" id="cmntsts2">Все работы по данной заявке выполнены</textarea>--%>
+
                     </div>
                     <hr />
-                    <div id="modal-footer4" class="modal-footer2 flexHoriz w-100 m-0 p-0" style="">
+                    <div  id="modal-footer4" class="modal-footer2 flexHoriz w-100 m-0 p-0" style="">
 
                         <input class="knop" id="f_iles2" style="width: 100%" type="file">
 
@@ -543,5 +541,6 @@
         <!-- row -->
         <link href="../Super_Disp/Utilities/select2.css" rel="stylesheet" />
         <script src="../Super_Disp/Utilities/select2.full.js"></script>
+
     </div>
 </asp:Content>
