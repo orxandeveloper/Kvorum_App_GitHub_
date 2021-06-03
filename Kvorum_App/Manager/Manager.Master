@@ -14,11 +14,10 @@
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-
+    <link rel="shortcut icon" href="../img/favicon.png">
     <!-- Favicons 
     <link rel="shortcut icon" href="../img/favicon.ico"> 
 	-->
-      <link rel="shortcut icon" href="../img/favicon.png"> 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link href="../css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../css/swiper.min.css">
@@ -30,9 +29,10 @@
     <script src="../js/design.js"></script>
     <style>
         .select2-container--default .select2-results__option--highlighted[aria-selected] {
-     background-color: #F0F1F2;
-     color: #393A3B; 
-}
+            background-color: #F0F1F2;
+            color: #393A3B;
+        }
+
         .h2New {
             color: #095C68 !important;
             margin-top: 25px;
@@ -57,23 +57,6 @@
             padding: 0px 0;
         }
 
-        #loader {
-          
-               position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 20000;
-    width: 150px;
-    height: 150px;
-    margin: -75px 0 0 -75px;
-    border: 16px solid white;
-    border-radius: 50%;
-    border-top: 16px solid #D11B25;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
-        }
 
         .modal2 {
             display: none; /* Hidden by default */
@@ -85,8 +68,7 @@
             width: 100%; /* Full width */
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
-             
-            background-color:rgba(0, 0, 0, 0.3); /* Black w/ opacity */
+            background-color: rgba(0, 0, 0, 0.3); /* Black w/ opacity */
         }
 
         /* Modal Content */
@@ -362,7 +344,7 @@
         }
     </style>
     <style>
-        .ui-loader-background {
+          .ui-loader-background {
             width: 100%;
             height: 100%;
             top: 0;
@@ -370,7 +352,7 @@
             background: rgba(0, 0, 0, 0.3);
             display: none;
             position: fixed;
-            z-index: 10000;
+            z-index: 10001;
         }
 
         .modalkvart {
@@ -477,18 +459,20 @@
         <div class="headerWrapper">
             <ul class="nav h-100 ml-3 w-100">
                 <li class="nav-item">
-            <!--        <a class="collapsed" data-toggle="collapse" href="#collapse0">
+                    <!--        <a class="collapsed" data-toggle="collapse" href="#collapse0">
                         <span class="if-collapsed">
                             <img src="../img/menu.svg" class=" w16 mt-1 mr-2" alt="" /></span>
                         <span class="if-not-collapsed">
                             <img src="../img/menu-close.svg" class="w16 mt-1 mr-2" alt="" /></span>
                     </a>-->
-			
-					<a class="collapsed flexCenter pt-1" data-toggle="collapse" href="#collapse0">
-						<span class="if-collapsed"><img src="../img/menu2.svg" class="mr-2" alt=""/></span>
-						<span class="if-not-collapsed"><img src="../img/close.svg" class="mr-2" alt=""/></span>
-					</a>
-				
+
+                    <a class="collapsed flexCenter pt-1" data-toggle="collapse" href="#collapse0">
+                        <span class="if-collapsed">
+                            <img src="../img/menu2.svg" class="mr-2" alt="" /></span>
+                        <span class="if-not-collapsed">
+                            <img src="../img/close.svg" class="mr-2" alt="" /></span>
+                    </a>
+
                 </li>
                 <li class="nav-item logo col-lg-2half">
                     <a class="" href="/">
@@ -499,23 +483,23 @@
                         <li class="list-inline-item"><a href="/" class="font-weight-bold font18 green-text">Профиль управляющего</a> </li>
                         <li class="list-inline-item reddish font-weight-bold font18 ">
                             <img src="../img/ellipse.svg" class="greenerSvg mr-2" alt="">
-							<span id="project" class="font-weight-bold">Выберите объект</span></li>
-							
-													<script>
-						$( document ).ready(function() {
-							$('#objsM').change(function() {
-								var txt = $('#objsM option:selected').text();
-								$("#project").html(txt);
-							});
-						});
-	
-						</script>
+                            <span id="project" class="font-weight-bold">Выберите объект</span></li>
+
+                        <script>
+                            $(document).ready(function () {
+                                $('#objsM').change(function () {
+                                    var txt = $('#objsM option:selected').text();
+                                    $("#project").html(txt);
+                                });
+                            });
+
+                        </script>
                     </ul>
                 </li>
                 <li class="nav-item ml-auto mr-4">
                     <ul class="nav w-100">
                         <li class="nav-item"></li>
-                       <%-- <li class="nav-item p-0 w300 mr-2">
+                        <%-- <li class="nav-item p-0 w300 mr-2">
                             <form class="shadow-in mt-2 mb-2 text-left w-100 te-posrel rounded-lg bgLightGrey3">
                                 <button class="ml-2 pl-1 transp border-0" type="submit">
                                     <img src="../img/search-ic.svg" class="w16" alt="" /></button>
@@ -526,12 +510,12 @@
 					<a class="nav-link phone transp" href="tel:+79646274444">
 						<i class="fa fa-phone" aria-hidden="true"></i> +7 964 627-44-44</a>
 				</li> -->
-                      <%--  <li class="nav-item p-0">
+                        <%--  <li class="nav-item p-0">
                             <a class="nav-link transp">
                                 <img src="../img/mail.svg" class="reddishSvg w24" alt="" /></a>
                         </li>--%>
                         <li class="divider40"></li>
-                    <%--    <li class="nav-item p-0">
+                        <%--    <li class="nav-item p-0">
                             <a class="nav-link position-relative transp" href="#">
                                 <img src="../img/comments.svg" class="reddishSvg w24" alt="" />
                                 <span class="flexCenter position-absolute ml-n3">
@@ -549,7 +533,7 @@
                                     <img src="../img/user.svg" class="w42 mt-n2" alt="" />
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                  <%--  <a class="dropdown-item" href="#">
+                                    <%--  <a class="dropdown-item" href="#">
                                         <img src="../img/profile.svg" class="w16 mr-3" alt="" />Мой профиль</a>
                                     <a class="dropdown-item" href="#">
                                         <img src="../img/settings.svg" class="w16 mr-3" alt="" />Настройки</a>--%>
@@ -588,7 +572,7 @@
                     <img src="../img/key-ic-bl.svg" class="w24 mr-3" alt="" />
                     <p class="font14b mb-0">Помещения и&nbsp;лицевые счета</p>
                 </a></li>
-              <%--  <li class="nav-link"><a href="#" class="flexHoriz">
+                <%--  <li class="nav-link"><a href="#" class="flexHoriz">
                     <img src="../img/user-ic-bl.svg" class="w24 mr-3" alt="" />
                     <p class="font14b mb-0">Собственники и&nbsp;пользователи</p>
                 </a></li>--%>
@@ -626,12 +610,13 @@
 
     <main class="te p-0">
         <div class="ui-loader-background"></div>
-        <div id="loader" style="position: fixed;display: none;"></div>
+        <div id="loader" style="display: none;"></div>
         <div class="row m-0 h-100">
             <div class="col-lg-2half col-sm-12 p-0 bgWhite shadow-line">
                 <span class="h90"></span>
 
-                <ol class="block navbar-nav pt-3 w-100 shadow-menu "> <!-- block added -->
+                <ol class="block navbar-nav pt-3 w-100 shadow-menu ">
+                    <!-- block added -->
                     <li class="nav-link flexHoriz ml-2">
 
                         <span class="d-block w48 h48 rounded8 flex-shrink-0 mr-3" style="background: #eaeaea url('../img/han.png') center center; background-size: cover;">&nbsp;</span>
@@ -639,12 +624,12 @@
                         <div class="">
                             <strong id="fiodsp" class="font15 darkGreen"></strong>
                             <p class="font14 m-0" id="idk"></p>
-                           
+
                         </div>
-                    <!--    <button class="ml-auto mr-2 transp border-0 flexCenter">
+                        <!--    <button class="ml-auto mr-2 transp border-0 flexCenter">
                             <img src="../img/chevron-up.svg" class="w16 mt-n1" alt="" />
                         </button> -->
-					<%--	<a class="ml-auto flex-1" data-toggle="collapse" href="#collapseP1" aria-expanded="true">
+                        <%--	<a class="ml-auto flex-1" data-toggle="collapse" href="#collapseP1" aria-expanded="true">
 							<span class=" if-collapsed">
 								<img src="../img/chev-down.svg" class="w16" alt="">
 							</span>
@@ -654,16 +639,17 @@
 						</a> --%>
                     </li>
                     <li class="dividerH ml-4 mr-4"></li>
-                    <li class="nav-link ml-2"> <!-- flexHoriz -->
-                       
+                    <li class="nav-link ml-2">
+                        <!-- flexHoriz -->
+
                         <div class="font14 w-100">
                             <select id="objsM" style="padding: 0; width: 100%">
                                 <option value="0">Выберите объект</option>
                             </select>
                         </div>
-						<div class="collapse " id="collapseP1">
+                        <div class="collapse " id="collapseP1">
 
-				<!--		<a class="flexHoriz mt-2 mb-2">
+                            <!--		<a class="flexHoriz mt-2 mb-2">
 							<span class="flexCenter flex-shrink-0 mr-3 position-relative">
 								<span class="bgLightGrey w24 rounded-pill">&nbsp;</span>
 								<img src="../img/plus-ic-bl.svg" class="w12 reddishSvg position-absolute" alt=""/>
@@ -673,7 +659,7 @@
 								Добавить управляющую компанию
 							</div>
 						</a> -->
-					</div>
+                        </div>
                     </li>
                 </ol>
 
@@ -688,7 +674,7 @@
                         <img src="../img/news-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font14b mb-0">Новости</p>
                     </a></li>
-                   <%-- <li id="polls" class="nav-link"><a href="CreatePoll.aspx" class="flexHoriz">
+                    <%-- <li id="polls" class="nav-link"><a href="CreatePoll.aspx" class="flexHoriz">
                         <img src="../img/tasks-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font14b mb-0">Опросы</p>
                     </a></li>--%>
@@ -696,22 +682,23 @@
                         <img src="../img/meter-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font14b mb-0">Счетчики</p>
                     </a></li>
-                   
-                 <%--   <li class="nav-link"><a href="#" class="flexHoriz">
+
+                    <%--   <li class="nav-link"><a href="#" class="flexHoriz">
                         <img src="../img/user-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font14b mb-0">Пользователи</p>
                     </a></li> --%>
-
                 </ol>
                 <hr />
 
             </div>
-			
-			<div class="col-lg-9half col-sm-12 p-0 min-vh-100 bgWhite  ">	<!-- bgLightGrey3 -->
-		<span class="h90"></span>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
-        </div></div>
+
+            <div class="col-lg-9half col-sm-12 p-0 min-vh-100 bgWhite  ">
+                <!-- bgLightGrey3 -->
+                <span class="h90"></span>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
     </main>
 
     <div id="myModal2" class="modal2" style="">
@@ -719,9 +706,9 @@
         <!-- Modal content -->
         <div class="modal-content2" style="">
             <div class="modal-header2" style="background-color: white">
-                
+
                 <h2 id="mh2" style="text-align: left; color: black">Ошибка</h2>
-				<span class="close2 ml-auto" id="close_">&times;</span>
+                <span class="close2 ml-auto" id="close_">&times;</span>
             </div>
             <div class="modal-body2" style="height: 100px; height: 100px; padding: 15px; /* min-width: 100px; */display: inline-block;">
                 <p id="txt2" style="font-size: 23px;">Some text in the Modal Body</p>
@@ -735,17 +722,18 @@
         </div>
 
     </div>
-    <div id="myModal4" class="modal2" >
+    <div id="myModal4" class="modal2">
 
         <!-- Modal content -->
-        <div class="modal-content2 bgWhite rounded16 p-4 shadow w-50" > <!-- style="width: 17%;" -->
+        <div class="modal-content2 bgWhite rounded16 p-4 shadow w-50">
+            <!-- style="width: 17%;" -->
             <div class="modal-header2 bgWhite flexHoriz">
                 <label class="textBlack font24b w-90 mb-0">
                     Сгенерированный пароль
                 </label>
-				<span class="close2 ml-auto mr-3" id="close_4">
-					<img src="../img/close.svg" alt="Закрыть" class="w24"/>
-				</span>
+                <span class="close2 ml-auto mr-3" id="close_4">
+                    <img src="../img/close.svg" alt="Закрыть" class="w24" />
+                </span>
             </div>
             <div class="modal-body2 mt-4" id="genpassParentDiv" style="width: 100%; height: 400px; overflow: hidden; overflow-y: scroll; padding: 15px; display: inline-block;">
                 <input type="text" id="genPass"><%--<input type="number" min="0" value="7" id="psExp" style="width: 28%; float: right; text-align: center;">--%>
@@ -764,24 +752,26 @@
                 <br>
                 <button onclick="GetValuesG(this)" id="GENER" class="btn btn1 right w-15">ОК</button>
                 <p class="font12 left w-75">
-                    <i class="fa fa-info-circle" aria-hidden="true" style="color: grey; font-size: 16px; margin-right: 11px;"></i>Выбранная рассылка будет произведена после нажатия на кнопку "Сохранить" на карточке помещения.</p>
+                    <i class="fa fa-info-circle" aria-hidden="true" style="color: grey; font-size: 16px; margin-right: 11px;"></i>Выбранная рассылка будет произведена после нажатия на кнопку "Сохранить" на карточке помещения.
+                </p>
             </div>
         </div>
 
     </div>
-    <div id="GenPass" class="modal2" >
+    <div id="GenPass" class="modal2">
 
         <!-- Modal content -->
         <div class="modal-content2 bgWhite rounded16 shadow p-4" style="width: fit-content;">
             <div class="modal-header2 flexHoriz" style="background-color: white">
                 <h2 id="mh3" class="font18b textBlack mr-3">ГЕНЕРИРОВАНИЕ ПАРОЛЕЙ "Москва,Краснопахорское,Варварино,Нагорная ул , Д. 43, К. 76"</h2>
-				<span class="close2 ml-auto mr-3" style="color: black" id="closeGEN"><img src="../img/close.svg" class="w24" alt=""></span>
+                <span class="close2 ml-auto mr-3" style="color: black" id="closeGEN">
+                    <img src="../img/close.svg" class="w24" alt=""></span>
             </div>
             <div class="modal-body2" style="">
                 <div id="loadLC">
 
                     <div style="padding-left: 20px;">
-						
+
                         <select id="ObjAdr">
                         </select>
 
@@ -790,12 +780,12 @@
                         <div>
                             <br>
                             <input type="checkbox" id="sms2" data-ras="no" class="checkbox-item"><label for="sms2">Сделать смс-рассылку</label>
-                        <br>
+                            <br>
                             <input type="checkbox" id="em2" data-ras="no" class="checkbox-item"><label for="em2">Сделать рассылку на электронную почту</label>
-                
-                        <br>
+
+                            <br>
                         </div>
-             
+
                         <label>Лицевые счета для которых необходимо сформировать пароли : </label>
                         <br>
 
@@ -807,8 +797,8 @@
                         <thead>
                             <tr>
                                 <th>
-                                   <input type="checkbox" id="=SAll" onclick="selectAll(this)" name="name" value="" class="checkbox-item"/>
-                                   <label for="SAll" class="font14 mb-0">Выбрать все</label></th>
+                                    <input type="checkbox" id="SAll" onclick="selectAll(this)" name="name" value="" class="checkbox-item" />
+                                    <label for="SAll" class="font14 mb-0 text-nowrap">Выбрать все</label></th>
                                 <th>ЛС</th>
                                 <th>Назначение помещения</th>
                                 <th>Тип помещения</th>
@@ -819,11 +809,11 @@
                         <tbody id="roomsPass">
                         </tbody>
                     </table>
-              
+
                 </div>
 
             </div>
-            <div class="modal-footer2 w-100 flexCenter" style=" background-color: white">
+            <div class="modal-footer2 w-100 flexCenter" style="background-color: white">
 
                 <input type="button" id="GenPassMass" class="btn btn1 flexCenter" name="name" value="СГЕНЕРИРОВАТЬ">
             </div>
@@ -836,25 +826,25 @@
         <div class="modal-contentBnp bgWhite rounded16 shadow p-4">
             <div class="modal-headerBnp flexHoriz">
                 <h2 class="font24b textBlack">Загрузка начислений и платежей</h2>
-				<span class="closebnp ml-auto" id="closebnp">
-					<img src="../img/close.svg" class="w24" alt="Закрыть"/>
-				</span>
+                <span class="closebnp ml-auto" id="closebnp">
+                    <img src="../img/close.svg" class="w24" alt="Закрыть" />
+                </span>
             </div>
             <div class="modal-bodybnp">
                 <div id="loadBnP" class="w-100">
                     <div id="sled">
-                        
+
                         <p>Поля, выделенные красным цветом на скачиваемой форме загрузки начислений и платежей, обязательны для заполнения. </p>
                         <p>Тип начисления/платежа «ЖКУ» означает жилищно-коммунальные услуги, «КР» - капитальный ремонт. </p>
                         <p>При заполнении полей «Остаток на начало периода» и «Остаток на конец периода» значения со знаком «+» означают переплату жителя; значения со знаком «-» означают долг жителя.</p>
                         <p>Для услуг «Итого» все поля обязательны для заполнения.</p>
 
                         <p><strong>Обратите внимание, если в систему ранее уже была загружена информация по начислениям и платежам по данному л/с за данный период по данной услуге, при повторной загрузке (если все данные заполнены корректно) данные обновляются.</strong></p>
-                      
+
                         <p><a href="../img/Форма загрузки начислений и платежей.xlsx">Форма для загрузки начислений и платежей</a></p>
-						<input type="file" onchange="BNPFileChange(this)" style="margin-top: 22px;" id="fileBnP">
+                        <input type="file" onchange="BNPFileChange(this)" style="margin-top: 22px;" id="fileBnP">
                     </div>
-                  
+
                     <div class="row mt-3">
                         <div class="col-md-6" id="SuccessText">
                             <label id="Successlbl"></label>
@@ -951,9 +941,9 @@
         </div>
 
     </div>
-   
+
     <script src="../js/jquery.min.js"></script>
- 
+
     <script src="../Supplier_Admin/Utilities/jquery.mask.min.js"></script>
 
     <script src="../Supplier_Office/js/jquery.inputmask.bundle.js"></script>

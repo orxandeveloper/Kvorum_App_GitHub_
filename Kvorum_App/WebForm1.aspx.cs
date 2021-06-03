@@ -5,6 +5,7 @@ using HttpUtils;
 using Kvorum_App.Client_Admin.Utilities;
 using Kvorum_App.Manager;
 using Kvorum_App.Manager.Helpers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -28,6 +29,17 @@ namespace Kvorum_App
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            #region For Test
+            //string values_T = "{T1: \"1\",T2:\"2\", T3:\"3\"}";
+            //  string values_T = "{T1: \"1\",T2:\"2\"}";
+            //string values_T = "{T1: \"1\"}";
+            //dynamic T_Values = JsonConvert.DeserializeObject(values_T);
+            //string ValueT1 = T_Values.T1;
+            //string ValueT2 = T_Values.T2;
+            //string ValueT3 = T_Values.T3;
+            //string a = ""; 
+            #endregion
+
             #region SendSms
             //string URL = "https://my5.t-sms.ru/sendsms.php?user=matorin&pwd=MAT0R1N&sadr=79852029070&dadr=79999988754&text=HelloWorld";
             //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
@@ -44,7 +56,7 @@ namespace Kvorum_App
             //SendLoginMailFor34();
             // SendSms("79154916045", "Test221900", "Test_221900");Phone_number Anton
             //SendSmSForNewLS();
-           // sendEmailForNewLs();
+            // sendEmailForNewLs();
 
         }
 
