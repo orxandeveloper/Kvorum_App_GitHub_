@@ -45,7 +45,7 @@ namespace Kvorum_App
             var oidcOptions = new OpenIdConnectAuthenticationOptions
             {
                 ClientId = "aspx",
-                Authority = "https://upravbot.ru/IDS4/",
+                Authority = "https://upravbot.ru/IDS4/", //"https://localhost:5002/",
                 RedirectUri = url,//"http://localhost:5002/ClientLogin.aspx", 
                 Scope = "apiCore profile openid offline_access api1",
                 ResponseType = "code",
@@ -94,14 +94,14 @@ namespace Kvorum_App
                             // System.Web.HttpContext.Current.Session["tt"] = tt;
                             var userInfoClient = await client.GetUserInfoAsync(new UserInfoRequest
                             {
-                                Address = "https://upravbot.ru/IDS4/connect/userinfo",
+                                Address = "https://upravbot.ru/IDS4/connect/userinfo",//"https://localhost:5002/connect/userinfo",
                                 Token = n.ProtocolMessage.AccessToken
                                 
                            });
 
 
 
-                            //var userInfoClient = new IdentityModel.Client.UserInfoClient(new Uri("https://localhost:5001/connect/userinfo"), n.ProtocolMessage.AccessToken);
+                            //var userInfoClient = new IdentityModel.Client.UserInfoClient(new Uri("https://localhost:5002/connect/userinfo"), n.ProtocolMessage.AccessToken);
                             var userInfoResponse = userInfoClient;
                             string Login_Data = userInfoResponse.Raw;
                             System.Web.HttpContext.Current.Session["Login_Data"] = Login_Data;
