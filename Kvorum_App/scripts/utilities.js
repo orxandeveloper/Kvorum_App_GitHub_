@@ -1378,7 +1378,7 @@ function IdendityLogin() {
     var cookie = document.cookie;
 
     console.log(cookie)
-    cookie = cookie.substring(cookie.indexOf('{'))
+    cookie = cookie.substring(cookie.indexOf('=') + 1)//cookie.substring(cookie.indexOf('{'))
     cookie = JSON.parse(cookie);
    // var LoginId = cookie.preferred_username.substring(cookie.preferred_username.indexOf('_') + 1, cookie.preferred_username.length)
     console.log(cookie);

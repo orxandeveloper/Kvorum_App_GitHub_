@@ -15,16 +15,18 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
+using System.Runtime.Remoting.Contexts;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Script.Serialization;
 
 namespace Kvorum_App
 {
-    public static  class Mydb  
+    public static class Mydb
     {
-        public static string LoadPageToAnotherPage(string adressUrl,string Node)
+        public static string LoadPageToAnotherPage(string adressUrl, string Node)
         {
             WebResponse objResponse;
             WebRequest objRequest = HttpWebRequest.Create(adressUrl);
@@ -43,7 +45,7 @@ namespace Kvorum_App
         /// <param name="FizikselAdres"></param>
         /// <param name="Genislik"></param>
         /// <param name="Yukseklik"></param>
-        
+
         /// <summary>
         /// Mail iceriyi:"HelloWorld";MailAdress:Kimlere MailGidecekce; from:"irfanuzun@Sigorta.com.tr";CredentialMail:"irfanuzun@Sigorta.com.tr";CredentialPassword: "SifreOlucak";Subject: "Konu"; _HostName: "mail.Sigorta.com.tr"
         /// </summary>
@@ -54,7 +56,7 @@ namespace Kvorum_App
         /// <param name="CredentialPassword"></param>
         /// <param name="Subject"></param>
         /// <param name="_HostName"></param>
-      static  public void MailGonder(string MailIceriyi, MailAddress[] Mailler, string from, string credentialMail, string CredentialPassword, string Subject, string _HostName)
+        static public void MailGonder(string MailIceriyi, MailAddress[] Mailler, string from, string credentialMail, string CredentialPassword, string Subject, string _HostName)
         {
             MailMessage Eposta = new MailMessage();
             Eposta.From = new MailAddress(from);
@@ -74,29 +76,150 @@ namespace Kvorum_App
         }
         static SqlConnection getConnection()
         {
-
-
-
-
-
-
-
-            //var result=
-            //CheckSession();
-            var ch = Chek_UserInfo();
-            if (ch.Error== "Unauthorized")
-            {
-                HttpContext.Current.ApplicationInstance.CompleteRequest;
-                HttpContext.Current.Response.Redirect("https://upravbot.ru/IDS4/Account/Login");
-            }
+            Chek_UserInfo();
+            //if (ch.Error== "Unauthorized")
+            //{
+            //   // HttpContext.Current.ApplicationInstance.CompleteRequest;
+            //    HttpContext.Current.Response.Redirect("https://upravbot.ru/IDS4/Account/Login");
+            //}
             string conn = System.Configuration.ConfigurationManager.AppSettings["MyConnection"];
             SqlConnection MyConn = new SqlConnection(conn);
             return MyConn;
         }
+        public static void CheckSession()
+        {
+            //  static async Task<UserInfoResponse>
+            string Token = System.Web.HttpContext.Current.Session["Token"].ToString();
+            //var owinConntext = HttpContext.Current.GetOwinContext();
+            //HttpContext.Current.GetOwinContext().Authentication.Challenge(
+            //         new AuthenticationProperties
+            //         {
+            //             RedirectUri = "/ClientLogin.aspx",
+
+
+            //         },
+            //         OpenIdConnectAuthenticationDefaults.AuthenticationType
+            //         );
+            // var client = new HttpClient();
+            //client.SetBearerToken("Bearer " + Token + "");
+
+            //var userInfoClient = await client.GetUserInfoAsync(new UserInfoRequest
+            //{
+            //    Address = "https://localhost:5001/connect/userinfo",//"https://upravbot.ru/IDS4/connect/userinfo",
+            //    Token = Token//n.ProtocolMessage.AccessToken
+
+            //});
+
+            //string a = "";
+
+            //return userInfoClient;
+
+            //
+            // HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/connect/userinfo?access_token=" + Token + "");
+            // request.Proxy = HttpWebRequest.DefaultWebProxy;
+            //  request.Proxy.Credentials = CredentialCache.DefaultNetworkCredentials;
+            // request.PreAuthenticate = true;
+            //  request.ContentType = "application/json";
+            //HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            //if (response.StatusCode == HttpStatusCode.Unauthorized)
+            //{
+            //  System.Web.HttpContext.Current.Session["Login_Data"] = "https://upravbot.ru/IDS4/";
+            //  HttpContext.Current.Response.Redirect("https://upravbot.ru/IDS4/");
+
+            //}
+            // WebResponse webResponse = request.GetResponse();
+
+            //Stream webStream = webResponse.GetResponseStream();
+            //StreamReader responseReader = new StreamReader(webStream);
+            //string rspns = responseReader.ReadToEnd();
+
+
+
+        }
+        public static UserInfoResponse Chek_UserInfo()
+        {
+            string accessToken = System.Web.HttpContext.Current.Session["Token"].ToString();
+            var client = new HttpClient();
+
+
+            UserInfoResponse response = null;
+            CancellationTokenSource source = new CancellationTokenSource();
+            source.CancelAfter(TimeSpan.FromSeconds(1));
+            Task.Run(async () =>
+            {
+                response = await client.GetUserInfoAsync(new UserInfoRequest
+                {
+                    Address = "https://upravbot.ru/IDS4/connect/userinfo",//"https://localhost:5002/connect/userinfo",
+                    Token = accessToken,
+                    
+                    
+
+                }).ConfigureAwait(false);
+                
+            }).GetAwaiter().GetResult();
+            if (response.Error == "Unauthorized")
+            {
+                HttpContext.Current.Response.Cookies.Remove("mycookie");
+                HttpContext.Current.Response.Cookies["mycookie"].Expires = DateTime.Now.AddDays(-1);
+                HttpCookie mycookie = new HttpCookie("mycookie");
+                mycookie.Value = response.Error;
+                HttpContext.Current.Response.Cookies.Add(mycookie);
+                EndSession();
+            }
+          
+            return response;
+        }
+        public static string EndSession()
+        {
+
+            string accessToken = System.Web.HttpContext.Current.Session["Token"].ToString();
+
+            //var ru = new RequestUrl("https://upravbot.ru/IDS4/endsession");
+            ////("https://upravbot.ru/IDS4/signout-callback-oidc");//("http://localhost:5002/signout-callback-oidc");//
+
+            //try
+            //{
+
+            //    ru.CreateEndSessionUrl(accessToken, "/ClientLogin.aspx");
+            //}
+            //catch (Exception ex)
+            //{
+            //    string a = ex.Message;
+            //    /*
+            //     1. Could not load file or assembly 'System.Text.Encodings.Web, Version=5.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51' or one of its dependencies. The system cannot find the file specified.
+            //     2. The type initializer for 'System.Text.Encodings.Web.DefaultUrlEncoder' threw an exception.
+            //     3. Could not load file or assembly 'System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51' or one of its dependencies. The system cannot find the file specified.
+            //     */
+            //}
+            //string  sessionResponseAsync = null;
+            //var ru = new RequestUrl("https://upravbot.ru/IDS4/endsession");
+            //Task.Run(async () => {
+            //    sessionResponseAsync = ru.CreateEndSessionUrl(accessToken, "/ClientLogin.aspx");
+            //});
+            //var client = new HttpClient();
+            //UserInfoResponse SessionResponse = null;
+            //CancellationTokenSource source = new CancellationTokenSource();
+            //source.CancelAfter(TimeSpan.FromSeconds(1));
+            //Task.Run(async () =>
+            //{
+            //    SessionResponse = await client.GetUserInfoAsync(new UserInfoRequest
+            //    {
+            //        Address = "https://upravbot.ru/IDS4/signout-callback-oidc",//"http://localhost:5002/signout-callback-oidc", 
+            //        Token = accessToken
+
+
+
+            //    }).ConfigureAwait(false);
+
+            //}).GetAwaiter().GetResult();
+
+            return sessionResponseAsync;// SessionResponse;//ru;
+        }
+
         public static void ExecuteReader(string cmdString, SqlParameter[] sqlParameters, CommandType cmdType, Action<SqlDataReader> function = null)
         {
 
-            using (var connection=getConnection())
+            using (var connection = getConnection())
             {
                 connection.Open();
                 SqlCommand _Command = new SqlCommand(cmdString, connection);
@@ -105,11 +228,11 @@ namespace Kvorum_App
                 {
                     _Command.Parameters.Add(item);
                 }
-                using (SqlDataReader _reader =_Command.ExecuteReader())
+                using (SqlDataReader _reader = _Command.ExecuteReader())
                 {
                     try
                     {
-                        if (function!=null)
+                        if (function != null)
                         {
                             function.Invoke(_reader);
                         }
@@ -125,8 +248,8 @@ namespace Kvorum_App
         }
         public static DataTable ExecuteReadertoDataTable(string cmdString, SqlParameter[] sqlParameters, CommandType cmdType)
         {
-          
-            using (var connection=getConnection())
+
+            using (var connection = getConnection())
             {
                 connection.Open();
                 SqlCommand _command = new SqlCommand(cmdString, connection);
@@ -144,7 +267,7 @@ namespace Kvorum_App
         }
         public static string ExecuteReadertoDataTableAsJson(string cmdString, SqlParameter[] sqlParameters, CommandType cmdType)
         {
-           
+
             using (var connection = getConnection())
             {
                 connection.Open();
@@ -176,7 +299,7 @@ namespace Kvorum_App
         }
         public static string ExecuteAsJson(string cmdString, SqlParameter[] sqlParameters, CommandType cmdType)
         {
-           
+
             using (var connection = getConnection())
             {
                 connection.Open();
@@ -208,7 +331,7 @@ namespace Kvorum_App
         }
         public static object ExecuteScalar(string cmdString, SqlParameter[] sqlParamaters, CommandType cmdType)
         {
-            using (var connection=getConnection())
+            using (var connection = getConnection())
             {
                 connection.Open();
                 SqlCommand _Command = new SqlCommand(cmdString, connection);
@@ -222,7 +345,7 @@ namespace Kvorum_App
         }
         public static int ExecuteNoNQuery(string cmtString, SqlParameter[] sqlParameters, CommandType _cmdType)
         {
-            using (var connection=getConnection())
+            using (var connection = getConnection())
             {
                 connection.Open();
                 SqlCommand _Command = new SqlCommand(cmtString, connection);
@@ -267,13 +390,13 @@ namespace Kvorum_App
                     new SqlParameter("@REQUEST_ID",REQUEST_ID),
                     new SqlParameter("@JSON_DATAS",Request_as_JSON)
                 }, CommandType.StoredProcedure);
-                    if (Request_as_JSON!="4" && Request_as_JSON != "5")
+                    if (Request_as_JSON != "4" && Request_as_JSON != "5")
                     {
                         Mydb.ExecuteNoNQuery("LoginForRequest", new SqlParameter[] { new SqlParameter("@action", "NewUkR"), new SqlParameter("@rId", REQUEST_ID), new SqlParameter("@lg", lg) }, CommandType.StoredProcedure);
 
                         Mydb.ExecuteNoNQuery("LoginForRequest", new SqlParameter[] { new SqlParameter("@action", "NewResp"), new SqlParameter("@rId", REQUEST_ID), new SqlParameter("@lg", lg) }, CommandType.StoredProcedure);
 
-                        Mydb.ExecuteNoNQuery("LoginForRequest", new SqlParameter[] { new SqlParameter("@action", "NewIspol"), new SqlParameter("@rId", REQUEST_ID), new SqlParameter("@lg", lg) }, CommandType.StoredProcedure); 
+                        Mydb.ExecuteNoNQuery("LoginForRequest", new SqlParameter[] { new SqlParameter("@action", "NewIspol"), new SqlParameter("@rId", REQUEST_ID), new SqlParameter("@lg", lg) }, CommandType.StoredProcedure);
                     }
                 }
                 else
@@ -334,7 +457,7 @@ namespace Kvorum_App
                 }
                 else
                 {
-                    if (PLAN_END_DATE.Length==0)
+                    if (PLAN_END_DATE.Length == 0)
                     {
                         TextForPlanDate = ": Выбран планируемая дата на «" + Pdate + "»";
                         ExecuteNoNQuery("[insert_HISTORY_LOG]", new SqlParameter[] {
@@ -344,7 +467,7 @@ namespace Kvorum_App
                          new SqlParameter("@EVENT_TYPE",EVENT_TYPE),
                          new SqlParameter("@LOG_TYPE",1),
                          new SqlParameter("@PLAN_DATE_TEXT",TextForPlanDate)
-                    }, CommandType.StoredProcedure); 
+                    }, CommandType.StoredProcedure);
                     }
                 }
                 string Ptime = newRequest[0].Ptime;
@@ -366,7 +489,7 @@ namespace Kvorum_App
                 }
                 else
                 {
-                    if (PLAN_END_TIME.Length==0)
+                    if (PLAN_END_TIME.Length == 0)
                     {
                         TextForPlanTime = ": Выбран планируемое время  на «" + Ptime + "»";
 
@@ -377,7 +500,7 @@ namespace Kvorum_App
                          new SqlParameter("@EVENT_TYPE",EVENT_TYPE),
                          new SqlParameter("@LOG_TYPE",1),
                          new SqlParameter("@PLAN_DATE_TEXT",TextForPlanTime)
-                    }, CommandType.StoredProcedure); 
+                    }, CommandType.StoredProcedure);
                     }
                 }
 
@@ -513,7 +636,7 @@ namespace Kvorum_App
                         {
                             // если старый Группа услуг изменено на новый
                             string Old_Service_Guid = Mydb.ExecuteScalar("GetGrupOf_service_ofRequest", new SqlParameter[] { new SqlParameter("@rid", REQUEST_ID) }, CommandType.StoredProcedure).ToString();
-                            if (Old_Service_Guid!=New_Service_Guid)
+                            if (Old_Service_Guid != New_Service_Guid)
                             {
                                 ExecuteNoNQuery("[insert_HISTORY_LOG]", new SqlParameter[] {
                                              new SqlParameter("@REQUEST_ID",REQUEST_ID),
@@ -523,7 +646,7 @@ namespace Kvorum_App
                                              new SqlParameter("@LOG_TYPE",7),
                                              new SqlParameter("@Old_Service_guid",Old_Service_Guid),
                                              new SqlParameter("@New_Service_guid",New_Service_Guid)
-                                        }, CommandType.StoredProcedure); 
+                                        }, CommandType.StoredProcedure);
                             }
                         }
                     }
@@ -595,81 +718,12 @@ namespace Kvorum_App
 
         }
 
-     
+
         internal static int ExecuteScalar(string v, SqlParameter[] sqlParameter, object commadType)
         {
             throw new NotImplementedException();
         }
 
-      public  static void CheckSession()
-        {
-          //  static async Task<UserInfoResponse>
-            string Token = System.Web.HttpContext.Current.Session["Token"].ToString();
-            //var owinConntext = HttpContext.Current.GetOwinContext();
-            //HttpContext.Current.GetOwinContext().Authentication.Challenge(
-            //         new AuthenticationProperties
-            //         {
-            //             RedirectUri = "/ClientLogin.aspx",
 
-
-            //         },
-            //         OpenIdConnectAuthenticationDefaults.AuthenticationType
-            //         );
-            // var client = new HttpClient();
-            //client.SetBearerToken("Bearer " + Token + "");
-
-            //var userInfoClient = await client.GetUserInfoAsync(new UserInfoRequest
-            //{
-            //    Address = "https://localhost:5001/connect/userinfo",//"https://upravbot.ru/IDS4/connect/userinfo",
-            //    Token = Token//n.ProtocolMessage.AccessToken
-
-            //});
-
-            //string a = "";
-
-            //return userInfoClient;
-
-            //
-           // HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/connect/userinfo?access_token=" + Token + "");
-            // request.Proxy = HttpWebRequest.DefaultWebProxy;
-            //  request.Proxy.Credentials = CredentialCache.DefaultNetworkCredentials;
-            // request.PreAuthenticate = true;
-          //  request.ContentType = "application/json";
-            //HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            //if (response.StatusCode == HttpStatusCode.Unauthorized)
-            //{
-                //  System.Web.HttpContext.Current.Session["Login_Data"] = "https://upravbot.ru/IDS4/";
-              //  HttpContext.Current.Response.Redirect("https://upravbot.ru/IDS4/");
-
-            //}
-           // WebResponse webResponse = request.GetResponse();
-
-            //Stream webStream = webResponse.GetResponseStream();
-            //StreamReader responseReader = new StreamReader(webStream);
-            //string rspns = responseReader.ReadToEnd();
-
-
-
-        }
-        public static UserInfoResponse Chek_UserInfo()
-        {
-            string accessToken = System.Web.HttpContext.Current.Session["Token"].ToString();
-            var client = new HttpClient();
-
-
-            UserInfoResponse response = null;
-
-            Task.Run(async () => {
-                response = await client.GetUserInfoAsync(new UserInfoRequest
-                {
-                    Address = "https://upravbot.ru/IDS4/connect/userinfo",//"https://localhost:5002/connect/userinfo",
-                    Token = accessToken
-
-                }).ConfigureAwait(false);
-            }).GetAwaiter().GetResult();
-
-
-            return response;
-        }
     }
 }

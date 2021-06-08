@@ -50,7 +50,7 @@ namespace Kvorum_App
                 Scope = "apiCore profile openid offline_access api1",
                 ResponseType = "code",
                 SignInAsAuthenticationType = "cookie",
-
+                
                 RequireHttpsMetadata = false,
                 UseTokenLifetime = true,
 
