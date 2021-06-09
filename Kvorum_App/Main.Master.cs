@@ -29,6 +29,7 @@ namespace Kvorum_App
                          RedirectUri = "/ClientLogin.aspx",
                          
                          
+                         
                      }, 
                      OpenIdConnectAuthenticationDefaults.AuthenticationType
                      );

@@ -164,23 +164,37 @@ namespace Kvorum_App
                 HttpCookie mycookie = new HttpCookie("mycookie");
                 mycookie.Value = response.Error;
                 HttpContext.Current.Response.Cookies.Add(mycookie);
-                EndSession();
+               
             }
-          
+            EndSession();
+
             return response;
         }
         public static string EndSession()
         {
 
             string accessToken = System.Web.HttpContext.Current.Session["Token"].ToString();
+            // HttpContext.Current.GetOwinContext().Authentication.SignOut();
+            //  HttpContext.Current.Response.Cookies.Remove()
+            HttpContext.Current.GetOwinContext().Response.Cookies.Delete("ASP.NET_SessionId");
+         
+           var A_t = HttpContext.Current.GetOwinContext();//.Authentication.User.Identity.AuthenticationType;
+               HttpContext.Current.GetOwinContext().Authentication.SignOut("ApplicationCookie");
 
-            //var ru = new RequestUrl("https://upravbot.ru/IDS4/endsession");
-            ////("https://upravbot.ru/IDS4/signout-callback-oidc");//("http://localhost:5002/signout-callback-oidc");//
 
+
+            var ru = new RequestUrl("https://upravbot.ru/IDS4/connect/endsession");
+            //////("https://upravbot.ru/IDS4/signout-callback-oidc");//("http://localhost:5002/signout-callback-oidc");//
+            ////http://localhost:5002/connect/endsession?id_token_hint=1C56BDD4F94136364F7241401EAF65CDAAA325B776191E08121D7B2F2583EA34
             //try
             //{
 
-            //    ru.CreateEndSessionUrl(accessToken, "/ClientLogin.aspx");
+            var url = ru.CreateEndSessionUrl(accessToken, "http://localhost:5002/signout-callback-oidc");
+            //    //"/ClientLogin.aspx"
+            //    //"https://upravbot.ru/IDS4/Account/Logout?logoutId=CfDJ8EVLSZPw73pItoDDTP2K3SyH4xkzYVG3fj-VlsRq8gsTDhbfzFiaX4T38ZPJ28XPl_PpZ1tTbwdHWyS9pS9c710zEqN-pWC0bppWkhH5BZCzJbWOl2o32icXtA3huoA9h2qlJT3iqT9jPm-d7GotvOV9t8z8qavEtkXmxzT8MIsyc3pNj8VLKJwEI8MX6KiN3PSJawzRpOs1ipJ6-gWOs-W_uW-_WGNV5p73XIQjR7xwU7m9yvEWukoLd5hNop9bBuZNwzb1Qk05KFVuWzh21gm1sXooNXHsmYs-gXC2u_mUOxDkQKR10dhcfiUY38PlCLySyOvSHukkZhGVuCIlXDU";
+            //    ////CreateEndSessionUrl(accessToken, "/ClientLogin.aspx");
+
+            HttpContext.Current.Response.Redirect(url, false);
             //}
             //catch (Exception ex)
             //{
@@ -191,6 +205,7 @@ namespace Kvorum_App
             //     3. Could not load file or assembly 'System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51' or one of its dependencies. The system cannot find the file specified.
             //     */
             //}
+            //string b = "";
             //string  sessionResponseAsync = null;
             //var ru = new RequestUrl("https://upravbot.ru/IDS4/endsession");
             //Task.Run(async () => {
@@ -213,7 +228,7 @@ namespace Kvorum_App
 
             //}).GetAwaiter().GetResult();
 
-            return sessionResponseAsync;// SessionResponse;//ru;
+            return "";//sessionResponseAsync;// SessionResponse;//ru;
         }
 
         public static void ExecuteReader(string cmdString, SqlParameter[] sqlParameters, CommandType cmdType, Action<SqlDataReader> function = null)

@@ -50,7 +50,7 @@ namespace Kvorum_App
                 Scope = "apiCore profile openid offline_access api1",
                 ResponseType = "code",
                 SignInAsAuthenticationType = "cookie",
-                
+                PostLogoutRedirectUri= "http://localhost:5002/signout-callback-oidc",
                 RequireHttpsMetadata = false,
                 UseTokenLifetime = true,
 
