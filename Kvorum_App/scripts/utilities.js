@@ -1244,7 +1244,7 @@ function PopupSelect(Header_, link_) {
     var parsedLink = JSON.parse(link_)
     //console.log(parsedLink)href="' + parsedLink[i].Link_ + '"
     for (var i = 0; i < parsedLink.length; i++) {
-        $(".modal-body2").append('<h3><a link="' + parsedLink[i].Link_ + '" role="' + parsedLink[i].role + '" onclick="SendToPage(this)" style="cursor:pointer">' + parsedLink[i].LinkText_ + '</a></h1><hr/>')
+        $(".modal-body2").append('<h3><a class="PageText" link="' + parsedLink[i].Link_ + '" role="' + parsedLink[i].role + '" onclick="SendToPage(this)" style="cursor:pointer">' + parsedLink[i].LinkText_ + '</a></h1><hr class="color-white"/>')
     }
     parsedLink = [];
     // console.log(parsedLink)
@@ -1252,21 +1252,21 @@ function PopupSelect(Header_, link_) {
     var span = document.getElementsByClassName("close_")[0];
     modal.style.display = "block";
     $("#close_,#cls").click(function () {
-        modal.style.display = "none";
-        //link_.splice(0, link_.length)
-        // link_ = [];
-        // link_.pop();
-        $(".modal-body2").empty();
-
+        //modal.style.display = "none";
+        ////link_.splice(0, link_.length)
+        //// link_ = [];
+        //// link_.pop();
+        //$(".modal-body2").empty();
+        window.location.href = 'https://upravbot.ru/IDS4/connect/endsession'
     })
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-            // link_.splice(0, link_.length)
-            // link_ = [];
-            $(".modal-body2").empty();
-        }
-    }
+    //window.onclick = function (event) {
+    //    if (event.target == modal) {
+    //        modal.style.display = "none";
+    //        // link_.splice(0, link_.length)
+    //        // link_ = [];
+    //        $(".modal-body2").empty();
+    //    }
+    //}
 }
 function LoginProcedure(data)
 {
@@ -1378,10 +1378,9 @@ function IdendityLogin() {
     var cookie = document.cookie;
 
     console.log(cookie)
-    cookie = cookie.substring(cookie.indexOf('=') + 1)//cookie.substring(cookie.indexOf('{'))
+    cookie = cookie.substring(cookie.indexOf('mycookie='))//cookie.substring(cookie.indexOf('=') + 1)//cookie.substring(cookie.indexOf('{'))
+    cookie = cookie.substring(cookie.indexOf('{'))
     cookie = JSON.parse(cookie);
-   // var LoginId = cookie.preferred_username.substring(cookie.preferred_username.indexOf('_') + 1, cookie.preferred_username.length)
-    console.log(cookie);
     //console.log(LoginId)
     //console.log();
 

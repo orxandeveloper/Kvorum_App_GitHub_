@@ -76,7 +76,7 @@ namespace Kvorum_App
         }
         static SqlConnection getConnection()
         {
-            Chek_UserInfo();
+           // Chek_UserInfo();
             //if (ch.Error== "Unauthorized")
             //{
             //   // HttpContext.Current.ApplicationInstance.CompleteRequest;
@@ -86,56 +86,7 @@ namespace Kvorum_App
             SqlConnection MyConn = new SqlConnection(conn);
             return MyConn;
         }
-        public static void CheckSession()
-        {
-            //  static async Task<UserInfoResponse>
-            string Token = System.Web.HttpContext.Current.Session["Token"].ToString();
-            //var owinConntext = HttpContext.Current.GetOwinContext();
-            //HttpContext.Current.GetOwinContext().Authentication.Challenge(
-            //         new AuthenticationProperties
-            //         {
-            //             RedirectUri = "/ClientLogin.aspx",
-
-
-            //         },
-            //         OpenIdConnectAuthenticationDefaults.AuthenticationType
-            //         );
-            // var client = new HttpClient();
-            //client.SetBearerToken("Bearer " + Token + "");
-
-            //var userInfoClient = await client.GetUserInfoAsync(new UserInfoRequest
-            //{
-            //    Address = "https://localhost:5001/connect/userinfo",//"https://upravbot.ru/IDS4/connect/userinfo",
-            //    Token = Token//n.ProtocolMessage.AccessToken
-
-            //});
-
-            //string a = "";
-
-            //return userInfoClient;
-
-            //
-            // HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/connect/userinfo?access_token=" + Token + "");
-            // request.Proxy = HttpWebRequest.DefaultWebProxy;
-            //  request.Proxy.Credentials = CredentialCache.DefaultNetworkCredentials;
-            // request.PreAuthenticate = true;
-            //  request.ContentType = "application/json";
-            //HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            //if (response.StatusCode == HttpStatusCode.Unauthorized)
-            //{
-            //  System.Web.HttpContext.Current.Session["Login_Data"] = "https://upravbot.ru/IDS4/";
-            //  HttpContext.Current.Response.Redirect("https://upravbot.ru/IDS4/");
-
-            //}
-            // WebResponse webResponse = request.GetResponse();
-
-            //Stream webStream = webResponse.GetResponseStream();
-            //StreamReader responseReader = new StreamReader(webStream);
-            //string rspns = responseReader.ReadToEnd();
-
-
-
-        }
+       
         public static UserInfoResponse Chek_UserInfo()
         {
             string accessToken = System.Web.HttpContext.Current.Session["Token"].ToString();
@@ -166,20 +117,20 @@ namespace Kvorum_App
                 HttpContext.Current.Response.Cookies.Add(mycookie);
                
             }
-            EndSession();
+          //  EndSession();
 
             return response;
         }
         public static string EndSession()
         {
 
-            string accessToken = System.Web.HttpContext.Current.Session["Token"].ToString();
+            string IdTokenHint = System.Web.HttpContext.Current.Session["IdTokenHint"].ToString();
             // HttpContext.Current.GetOwinContext().Authentication.SignOut();
             //  HttpContext.Current.Response.Cookies.Remove()
-            HttpContext.Current.GetOwinContext().Response.Cookies.Delete("ASP.NET_SessionId");
+          //  HttpContext.Current.GetOwinContext().Response.Cookies.Delete("ASP.NET_SessionId");
          
-           var A_t = HttpContext.Current.GetOwinContext();//.Authentication.User.Identity.AuthenticationType;
-               HttpContext.Current.GetOwinContext().Authentication.SignOut("ApplicationCookie");
+       //    var A_t = HttpContext.Current.GetOwinContext();//.Authentication.User.Identity.AuthenticationType;
+              
 
 
 
@@ -189,12 +140,13 @@ namespace Kvorum_App
             //try
             //{
 
-            var url = ru.CreateEndSessionUrl(accessToken, "http://localhost:5002/signout-callback-oidc");
-            //    //"/ClientLogin.aspx"
-            //    //"https://upravbot.ru/IDS4/Account/Logout?logoutId=CfDJ8EVLSZPw73pItoDDTP2K3SyH4xkzYVG3fj-VlsRq8gsTDhbfzFiaX4T38ZPJ28XPl_PpZ1tTbwdHWyS9pS9c710zEqN-pWC0bppWkhH5BZCzJbWOl2o32icXtA3huoA9h2qlJT3iqT9jPm-d7GotvOV9t8z8qavEtkXmxzT8MIsyc3pNj8VLKJwEI8MX6KiN3PSJawzRpOs1ipJ6-gWOs-W_uW-_WGNV5p73XIQjR7xwU7m9yvEWukoLd5hNop9bBuZNwzb1Qk05KFVuWzh21gm1sXooNXHsmYs-gXC2u_mUOxDkQKR10dhcfiUY38PlCLySyOvSHukkZhGVuCIlXDU";
-            //    ////CreateEndSessionUrl(accessToken, "/ClientLogin.aspx");
+            var url = ru.CreateEndSessionUrl(IdTokenHint, "http://localhost:5002/signout-callback-oidc");
 
-            HttpContext.Current.Response.Redirect(url, false);
+
+            var url_2 = "https://upravbot.ru/IDS4/Account/Logout?logoutId=" + IdTokenHint + "";
+            HttpContext.Current.Response.Redirect(url_2, false);
+            // HttpContext.Current.Response.Redirect(url, false);
+            HttpContext.Current.GetOwinContext().Authentication.SignOut("ApplicationCookie");
             //}
             //catch (Exception ex)
             //{

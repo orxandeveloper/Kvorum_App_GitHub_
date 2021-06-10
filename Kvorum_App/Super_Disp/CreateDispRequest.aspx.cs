@@ -1,4 +1,6 @@
 ﻿using Kvorum_App.Super_Disp.Helpers;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OpenIdConnect;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,7 +21,16 @@ namespace Kvorum_App.Super_Disp
         {
 
         }
-       
+        [WebMethod]
+        public static string SignOutIdendity()
+        {
+            var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
+            authenticationManager.SignOut(CookieAuthenticationDefaults.AuthenticationType,
+             OpenIdConnectAuthenticationDefaults.AuthenticationType);
+            return "";
+        }
+
+
         [WebMethod]
         public static string getSpesicalisetsBySupplierGuid(string supGuid)
         {

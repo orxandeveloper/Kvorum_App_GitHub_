@@ -2,9 +2,9 @@
 
 $(function () {
 
-    $('#OutD').click(function () {
-        window.location.href = '../HomePage.aspx';
-    })
+    //$('#OutD').click(function () {
+    //    window.location.href = '../HomePage.aspx';
+    //})
     $(".logoMain2,.logoImgSmall").click(function () {
         sessionStorage.clear();
         //  document.referrer = "HomePage.aspx"

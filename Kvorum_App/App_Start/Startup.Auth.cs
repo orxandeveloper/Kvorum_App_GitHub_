@@ -36,24 +36,24 @@ namespace Kvorum_App
                 SlidingExpiration = true
 
             });
-            string url = "http://localhost:5002/ClientLogin.aspx";
+            string url = "http://localhost:5002/ClientLogin.aspx"; //"https://test.upravbot.ru/ClientLogin.aspx";// ;// "http://172.20.20.115/ClientLogin.aspx"; //
 
-                //"http://localhost:5002/ClientLogin.aspx"; 
-                //
-                //"http://172.20.20.115/ClientLogin.aspx"
-                //HttpContext.Current.Request.Url.Host + "/ClientLogin.aspx";
+            //"http://localhost:5002/ClientLogin.aspx"; 
+            //
+            //"http://172.20.20.115/ClientLogin.aspx"
+            //HttpContext.Current.Request.Url.Host + "/ClientLogin.aspx";
             var oidcOptions = new OpenIdConnectAuthenticationOptions
             {
                 ClientId = "aspx",
                 Authority = "https://upravbot.ru/IDS4/", //"https://localhost:5002/",
-                RedirectUri = url,//"http://localhost:5002/ClientLogin.aspx", 
+                RedirectUri = url ,
                 Scope = "apiCore profile openid offline_access api1",
                 ResponseType = "code",
                 SignInAsAuthenticationType = "cookie",
-                PostLogoutRedirectUri= "http://localhost:5002/signout-callback-oidc",
+                PostLogoutRedirectUri= "https://upravbot.ru/IDS4/Account/Login",// "https://upravbot.ru/IDS4/signout-callback-oidc",// "http://localhost:5002/signout-callback-oidc",
                 RequireHttpsMetadata = false,
                 UseTokenLifetime = true,
-
+                
                 RedeemCode = true,
                 SaveTokens = true,
                 ClientSecret = "secret",
@@ -66,12 +66,14 @@ namespace Kvorum_App
                     RequireNonce = false,
                     RequireState = false,
                     RequireStateValidation = false,
+
                     RequireTimeStampInNonce = false
 
                 },
 
                 Notifications = new OpenIdConnectAuthenticationNotifications
-                {
+                { 
+
                     SecurityTokenValidated = async n =>
                     {
                         var claims_to_exclude = new[]
@@ -83,7 +85,7 @@ namespace Kvorum_App
                             n.AuthenticationTicket.Identity.Claims
                             .Where(x => false == claims_to_exclude.Contains(x.Type)).ToList();
                         claims_to_keep.Add(new Claim("id_token", n.ProtocolMessage.IdToken));
-
+                      
                         if (n.ProtocolMessage.AccessToken != null)
                         {
                             claims_to_keep.Add(new Claim("access_token", n.ProtocolMessage.AccessToken));
@@ -91,9 +93,11 @@ namespace Kvorum_App
 
                             var client = new HttpClient();
                             System.Web.HttpContext.Current.Session["Token"] = n.ProtocolMessage.AccessToken;
+                            System.Web.HttpContext.Current.Session["IdTokenHint"] = n.ProtocolMessage.IdToken;//n.ProtocolMessage.IdTokenHint;
                             // System.Web.HttpContext.Current.Session["tt"] = tt;
                             var userInfoClient = await client.GetUserInfoAsync(new UserInfoRequest
                             {
+
                                 Address = "https://upravbot.ru/IDS4/connect/userinfo",//"https://localhost:5002/connect/userinfo",
                                 Token = n.ProtocolMessage.AccessToken
                                 
@@ -102,6 +106,7 @@ namespace Kvorum_App
 
 
                             //var userInfoClient = new IdentityModel.Client.UserInfoClient(new Uri("https://localhost:5002/connect/userinfo"), n.ProtocolMessage.AccessToken);
+
                             var userInfoResponse = userInfoClient;
                             string Login_Data = userInfoResponse.Raw;
                             System.Web.HttpContext.Current.Session["Login_Data"] = Login_Data;
@@ -124,8 +129,11 @@ namespace Kvorum_App
                     {
                         if (n.ProtocolMessage.RequestType == OpenIdConnectRequestType.Logout)
                         {
+                            
                             var id_token = n.OwinContext.Authentication.User.FindFirst("id_token")?.Value;
+                           
                             n.ProtocolMessage.IdTokenHint = id_token;
+                        
                         }
 
                         return Task.FromResult(0);

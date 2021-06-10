@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
- 
+
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
@@ -12,12 +12,14 @@ using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.OpenIdConnect;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Services;
- 
+
 
 namespace Kvorum_App
 {
@@ -26,25 +28,56 @@ namespace Kvorum_App
         protected global::System.Web.UI.WebControls.DataList dlClaims;
         protected void Page_Load(object sender, EventArgs e)
         {
-            string LoginNew= System.Configuration.ConfigurationManager.AppSettings["Idendity"];
-            if (LoginNew=="true")
+            var keyExistsToken = check_for_session_key("Token");
+            if (!check_for_session_key("Token"))
             {
-                HttpContext.Current.Response.Cookies.Remove("mycookie");
-                HttpContext.Current.Response.Cookies["mycookie"].Expires = DateTime.Now.AddDays(-1);
-                HttpCookie mycookie = new HttpCookie("mycookie");
-                mycookie.Value = System.Web.HttpContext.Current.Session["Login_Data"].ToString();
-                HttpContext.Current.Response.Cookies.Add(mycookie); 
+                HttpContext.Current.GetOwinContext().Authentication.Challenge(
+                            new AuthenticationProperties
+                            {
+                                RedirectUri = "/ClientLogin.aspx",
+
+
+
+                            },
+                            OpenIdConnectAuthenticationDefaults.AuthenticationType
+                            ); 
+            }
+            string LoginNew = System.Configuration.ConfigurationManager.AppSettings["Idendity"];
+            if (LoginNew == "true")
+            {
+                var keyExists = check_for_session_key("Login_Data");
+
+                if (keyExists==true)
+                {
+                    HttpContext.Current.Response.Cookies.Remove("mycookie");
+                    HttpContext.Current.Response.Cookies["mycookie"].Expires = DateTime.Now.AddDays(-1);
+                    HttpCookie mycookie = new HttpCookie("mycookie");
+                    mycookie.Value = System.Web.HttpContext.Current.Session["Login_Data"].ToString();
+                    HttpContext.Current.Response.Cookies.Add(mycookie);
+                }
+                //(string.IsNullOrEmpty(System.Web.HttpContext.Current.Session["Login_Data"].ToString())) ? "" : System.Web.HttpContext.Current.Session["Login_Data"].ToString();
+
             }
 
             // Response.Redirect("https://upravbot.ru/IDS4/");
         }
 
+        static bool check_for_session_key(string SessionKey)
+        {
+            foreach (var key in HttpContext.Current.Session.Keys)
+            {
+                if (key.ToString() == SessionKey) return true;
+            }
+            return false;
+        }
+
         [WebMethod]
-        public static string LoginIdentity(string Id_,string isTenant)
-        {   string returnvalue = null;
+        public static string LoginIdentity(string Id_, string isTenant)
+        {
+            string returnvalue = null;
             try
             {
-               
+
                 int Id = 0;
                 if (Id_.Contains('@'))
                 {
@@ -142,7 +175,7 @@ namespace Kvorum_App
             //HttpContext.Current.GetOwinContext().Authentication.SignOut("oidc");
             //HttpContext.Current.GetOwinContext().Authentication.SignOut();
             //  HttpContext.Current.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
-           // examplefunction();
+            // examplefunction();
             return returnvalue;
         }
 
@@ -160,7 +193,7 @@ namespace Kvorum_App
             StreamReader responseReader = new StreamReader(webStream);
             string result = responseReader.ReadToEnd();
             result = result.Replace("\n", "");
-           // result = result.Replace('\', "");
+            // result = result.Replace('\', "");
             HttpContext.Current.Response.Write(responseReader.ReadToEnd());
 
             /*
@@ -265,7 +298,7 @@ namespace Kvorum_App
             //}
             #endregion
 
-            string returnvalue=null;
+            string returnvalue = null;
             string SUPPLIER_EMAIL = email_;
             if (!email_.Contains("Login_"))
             {
@@ -351,7 +384,7 @@ namespace Kvorum_App
             else
             {
                 int IdCount = (int)Mydb.ExecuteScalar("select Count(*) from ACCOUNT where [LOGIN]=@login", new SqlParameter[] { new SqlParameter("@login", email_) }, CommandType.Text);//Convert.ToInt32(email_);
-                if (IdCount!=0)
+                if (IdCount != 0)
                 {
                     // email_ = email_.Substring(email_.LastIndexOf('_') + 1);
                     int Id = (int)Mydb.ExecuteScalar("select LOG_IN_ID from ACCOUNT where [LOGIN]=@login", new SqlParameter[] { new SqlParameter("@login", email_) }, CommandType.Text);//Convert.ToInt32(email_);//5
@@ -473,7 +506,7 @@ namespace Kvorum_App
                     else
                     {
                         returnvalue = "{\"result\" : \"2\"}";
-                    } 
+                    }
                 }
                 else
                 {
@@ -490,7 +523,7 @@ namespace Kvorum_App
             string returnvalue = null;
             try
             {
-                Mydb.ExecuteNoNQuery("sp_Send_Mail_Upravbot", new SqlParameter[] { new SqlParameter("@mailto",mailto),new SqlParameter("@theme",subject),new SqlParameter("@body",body) }, CommandType.StoredProcedure);
+                Mydb.ExecuteNoNQuery("sp_Send_Mail_Upravbot", new SqlParameter[] { new SqlParameter("@mailto", mailto), new SqlParameter("@theme", subject), new SqlParameter("@body", body) }, CommandType.StoredProcedure);
                 returnvalue = "";
             }
             catch (Exception)

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OpenIdConnect;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,12 @@ namespace Kvorum_App.Super_Disp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
+            authenticationManager.SignOut(CookieAuthenticationDefaults.AuthenticationType,
+             OpenIdConnectAuthenticationDefaults.AuthenticationType);
 
         }
+
+        
     }
 }

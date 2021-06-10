@@ -31,7 +31,8 @@ $(document).ready(function () {
 
 
     $('#OutD').click(function () {
-        window.location.href = 'https://upravbot.ru/IDS4/connect/endsession'//'../HomePage.aspx';
+     //   window.location.href = 'https://upravbot.ru/IDS4/connect/endsession'//'../HomePage.aspx';
+        SignOutIdendity();
     })
     $(".logoMain2,.logoImgSmall").click(function () {
         sessionStorage.clear();
@@ -6813,6 +6814,21 @@ function GetProjects(lg, selected, resp) {
             if (lg == resp) {
                 $('#prjcts option:not(:first):not(:selected)').remove();
             }
+        }
+    })
+
+}
+function SignOutIdendity()
+{
+    var obj2 = { "lg": ""}
+    $.ajax({
+        type: "POST",
+        url: "../Super_Disp/CreateDispRequest.aspx/SignOutIdendity",
+      //  data: JSON.stringify(obj2),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+
         }
     })
 

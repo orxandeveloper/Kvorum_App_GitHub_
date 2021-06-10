@@ -17,22 +17,23 @@ namespace Kvorum_App
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            var cookie = HttpContext.Current.Response.Cookies;
-            string szCookieHeader = Request.Headers["Cookie"];
+         //   var cookie = HttpContext.Current.Response.Cookies;
+           // string szCookieHeader = Request.Headers["Cookie"];
         }
         protected void login_Click(object sender, EventArgs e)
         {
-          
-            HttpContext.Current.GetOwinContext().Authentication.Challenge(
-                     new AuthenticationProperties
-                     {
-                         RedirectUri = "/ClientLogin.aspx",
-                         
-                         
-                         
-                     }, 
-                     OpenIdConnectAuthenticationDefaults.AuthenticationType
-                     );
+
+            //HttpContext.Current.GetOwinContext().Authentication.Challenge(
+            //         new AuthenticationProperties
+            //         {
+            //             RedirectUri = "/ClientLogin.aspx",
+
+
+
+            //         }, 
+            //         OpenIdConnectAuthenticationDefaults.AuthenticationType
+            //         );
+            Response.Redirect("/ClientLogin.aspx");
             
         }
     }

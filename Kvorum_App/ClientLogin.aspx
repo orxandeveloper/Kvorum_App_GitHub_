@@ -174,8 +174,8 @@
             width: 100%; /* Full width */
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(6,59,117,0.4); /* Black w/ opacity rgb(6,59,117) */
+            
+            background-color:rgb(255 228 228); /* Black w/ opacity rgb(6,59,117) */
         }
 
         /* Modal Content */
@@ -220,12 +220,17 @@
 
         /* The Close Button */
         .close2 {
-            color: white;
+            color: white !important;
             float: right;
             font-size: 28px;
             font-weight: bold;
         }
-
+        .PageText{
+                color: #750000;
+        }
+        .color-white{
+            color:white !important
+        }
             .close2:hover,
             .close2:focus {
                 color: #000;
@@ -235,7 +240,7 @@
 
         .modal-header2 {
             padding: 2px 16px;
-            background-color: rgb(6,59,117);
+            background-color:#bf1b25; /*rgb(6,59,117);*/
             color: white;
         }
 
@@ -245,7 +250,7 @@
 
         .modal-footer2 {
             padding: 2px 16px;
-            background-color: rgb(6,59,117);
+            background-color: #bf1b25;/*rgb(6,59,117)*/;
             color: white;
             height: 45px;
         }
