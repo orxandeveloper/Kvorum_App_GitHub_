@@ -26,6 +26,31 @@ namespace Kvorum_App
 {
     public static class Mydb
     {
+        public static void SigOutFromIdendity() {
+            try
+            {
+                var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
+                authenticationManager.SignOut(CookieAuthenticationDefaults.AuthenticationType,
+                 OpenIdConnectAuthenticationDefaults.AuthenticationType);
+
+
+                System.Web.HttpContext.Current.Session.Abandon();
+                System.Web.HttpContext.Current.Session.Clear();
+                HttpCookie currentUserCookie = HttpContext.Current.Request.Cookies["mycookie"];
+                HttpContext.Current.Response.Cookies.Remove("mycookie");
+                currentUserCookie.Expires = DateTime.Now.AddDays(-10);
+                currentUserCookie.Value = null;
+                HttpContext.Current.Response.SetCookie(currentUserCookie);
+
+
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+
+        }
         public static string LoadPageToAnotherPage(string adressUrl, string Node)
         {
             WebResponse objResponse;

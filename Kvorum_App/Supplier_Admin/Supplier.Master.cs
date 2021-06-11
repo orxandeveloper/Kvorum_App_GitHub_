@@ -13,5 +13,10 @@ namespace Kvorum_App.Supplier_Admin
         {
 
         }
+
+        protected void LinkButton1_Click(object sender, EventArgs e)
+        {
+            Mydb.SigOutFromIdendity();
+        }
     }
 }

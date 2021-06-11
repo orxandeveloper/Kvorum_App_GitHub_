@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Owin.Security.Cookies;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,11 @@ namespace Kvorum_App.Disp_Admin
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected void LinkButton1_Click(object sender, EventArgs e)
+        {
+            Mydb.SigOutFromIdendity();
         }
     }
 }

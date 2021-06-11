@@ -70,93 +70,107 @@ namespace Kvorum_App
             }
             return false;
         }
+        [WebMethod]
+        public static string ConnectLs(string sc_C, string pwd_C,string device_id)
+        {
+            string r= Mydb.ExecuteAsJson("TestDB.dbo.sp_QUICK_API_auth", new SqlParameter[] { new SqlParameter("@log", sc_C), new SqlParameter("@pwd", pwd_C),new SqlParameter("@DEVICE_ID", device_id) }, CommandType.StoredProcedure).ToString();
+            return r;
+        }
 
         [WebMethod]
-        public static string LoginIdentity(string Id_, string isTenant)
+        public static string LoginIdentity(string Id_, bool isTenant)
         {
             string returnvalue = null;
             try
             {
 
-                int Id = 0;
-                if (Id_.Contains('@'))
+                if (isTenant==false)
                 {
-                    Id = Convert.ToInt32(Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "5"), new SqlParameter("@mail", Id_) }, CommandType.StoredProcedure));
-                }
-                else
-                {
-                    Id_ = Id_.Substring(Id_.IndexOf('_') + 1);
-                    Id = Convert.ToInt32(Id_);
-                }
-                string Client_Id = Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@lg", Id), new SqlParameter("@procType", "1") }, CommandType.StoredProcedure).ToString();//1
+                    int Id = 0;
+                    if (Id_.Contains('@'))
+                    {
+                        Id = Convert.ToInt32(Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "5"), new SqlParameter("@mail", Id_) }, CommandType.StoredProcedure));
+                    }
+                    else
+                    {
+                        Id_ = Id_.Substring(Id_.IndexOf('_') + 1);
+                        Id = Convert.ToInt32(Id_);
+                    }
+                    string Client_Id = Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@lg", Id), new SqlParameter("@procType", "1") }, CommandType.StoredProcedure).ToString();//1
 
 
-                int count = (int)Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "2"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure);//2
-                if (count == 1)
-                {
-                    string role = Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "3"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure).ToString();//3
-                    string RolName = "Нечего";
-                    string ModulName = "Нечего";
-                    if (role == "4")
+                    int count = (int)Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "2"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure);//2
+                    if (count == 1)
                     {
-                        ModulName = "Клиентское администрирование";
-                        RolName = "Администратор";
-                    }
-                    if (role == "3")
-                    {
-                        ModulName = "Диспетчерская";
-                        RolName = "Диспетчер";
-                    }
-                    if (role == "1")
-                    {
-                        ModulName = "Личный кабинет";
-                        RolName = "Управляющий";
-                    }
-                    if (role == "15")
-                    {
-                        ModulName = "Диспетчерская";
-                        RolName = "Диспетчер поставщика";
-                    }
-                    if (role == "17")
-                    {
-                        ModulName = "Диспетчерская";
-                        RolName = "Супер Диспетчер";
-                    }
+                        string role = Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "3"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure).ToString();//3
+                        string RolName = "Нечего";
+                        string ModulName = "Нечего";
+                        if (role == "4")
+                        {
+                            ModulName = "Клиентское администрирование";
+                            RolName = "Администратор";
+                        }
+                        if (role == "3")
+                        {
+                            ModulName = "Диспетчерская";
+                            RolName = "Диспетчер";
+                        }
+                        if (role == "1")
+                        {
+                            ModulName = "Личный кабинет";
+                            RolName = "Управляющий";
+                        }
+                        if (role == "15")
+                        {
+                            ModulName = "Диспетчерская";
+                            RolName = "Диспетчер поставщика";
+                        }
+                        if (role == "17")
+                        {
+                            ModulName = "Диспетчерская";
+                            RolName = "Супер Диспетчер";
+                        }
 
-                    if (role == "16")
-                    {
-                        ModulName = "Профиль Управляющего";
-                        RolName = "Ответственный";
-                    }
-                    Mydb.ExecuteNoNQuery("usp_ConstructorAPI_INSERT_LOG", new SqlParameter[] {
+                        if (role == "16")
+                        {
+                            ModulName = "Профиль Управляющего";
+                            RolName = "Ответственный";
+                        }
+                        Mydb.ExecuteNoNQuery("usp_ConstructorAPI_INSERT_LOG", new SqlParameter[] {
                                     new SqlParameter("@EVENT_TYPE","Вход"),
                                     new SqlParameter("@EVENT_STATUS","Систем"),
                                     new SqlParameter("@EVENT_ROLE",RolName),
                                     new SqlParameter("@EVENT_MODULE",ModulName),
                                     new SqlParameter("@EVENT_MESSAGE","Пользователь вошел в систему"),
                                     new SqlParameter("@EVENT_MAKER",Id)}, CommandType.StoredProcedure);
-                    returnvalue = "{\"result\" : \"1\",\"Id\" :\"" + Client_Id + "\",\"LogId\" :\"" + Id + "\",\"RoleId\":\"" + role + "\"}";
-                }
-                if (count > 1)
-                {
-                    DataTable dt = Mydb.ExecuteReadertoDataTable("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "3"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure);//3
-                    List<LoginDatas> lds = new List<LoginDatas>();
-                    foreach (DataRow item in dt.Rows)
+                        returnvalue = "{\"result\" : \"1\",\"Id\" :\"" + Client_Id + "\",\"LogId\" :\"" + Id + "\",\"RoleId\":\"" + role + "\"}";
+                    }
+                    if (count > 1)
                     {
-                        LoginDatas ld = new LoginDatas();
-                        ld.ROLE_ID = item["ROLE_ID"].ToString();
-                        ld.Id = Client_Id;
-                        ld.LogId = Id.ToString();
-                        ld.result = "5";
-                        lds.Add(ld);
+                        DataTable dt = Mydb.ExecuteReadertoDataTable("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "3"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure);//3
+                        List<LoginDatas> lds = new List<LoginDatas>();
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            LoginDatas ld = new LoginDatas();
+                            ld.ROLE_ID = item["ROLE_ID"].ToString();
+                            ld.Id = Client_Id;
+                            ld.LogId = Id.ToString();
+                            ld.result = "5";
+                            lds.Add(ld);
+
+                        }
+                        JavaScriptSerializer js = new JavaScriptSerializer();
+
+                        returnvalue = js.Serialize(lds);
 
                     }
-                    JavaScriptSerializer js = new JavaScriptSerializer();
-
-                    returnvalue = js.Serialize(lds);
 
                 }
-
+                else
+                {
+                    //Mydb.ExecuteAsJson("LoginSecond", new SqlParameter[] { new SqlParameter("@sc", Id_), new SqlParameter("@pass", pass) }, CommandType.StoredProcedure)
+                    returnvalue= Mydb.ExecuteAsJson("TestDB.dbo.sp_QUICK_API_get_accounts_by_device1", new SqlParameter[] { new SqlParameter("@device_id",Id_) }, CommandType.StoredProcedure);
+                }
             }
             catch (Exception ex)
             {

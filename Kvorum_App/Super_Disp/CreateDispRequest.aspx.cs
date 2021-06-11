@@ -21,14 +21,7 @@ namespace Kvorum_App.Super_Disp
         {
 
         }
-        [WebMethod]
-        public static string SignOutIdendity()
-        {
-            var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
-            authenticationManager.SignOut(CookieAuthenticationDefaults.AuthenticationType,
-             OpenIdConnectAuthenticationDefaults.AuthenticationType);
-            return "";
-        }
+      
 
 
         [WebMethod]
@@ -48,8 +41,8 @@ namespace Kvorum_App.Super_Disp
         {
             if (lg == 0)
             {
-                   string AllServices= Mydb.ExecuteAsJson("TestDB.dbo.usp_QUICK_API_get_mp_services_search", new SqlParameter[] { new SqlParameter("@PROJECT_GUID", PROJECT_GUID),new SqlParameter("@baseDirectionId",baseDirectionId) }, CommandType.StoredProcedure);
-                string ServicesResponsibles = Mydb.ExecuteAsJson("GET_RESPONSIBLES_BY_GROUP", new SqlParameter[] {new SqlParameter("@PROJECT_GUID", PROJECT_GUID) }, CommandType.StoredProcedure);
+                string AllServices = Mydb.ExecuteAsJson("TestDB.dbo.usp_QUICK_API_get_mp_services_search", new SqlParameter[] { new SqlParameter("@PROJECT_GUID", PROJECT_GUID), new SqlParameter("@baseDirectionId", baseDirectionId) }, CommandType.StoredProcedure);
+                string ServicesResponsibles = Mydb.ExecuteAsJson("GET_RESPONSIBLES_BY_GROUP", new SqlParameter[] { new SqlParameter("@PROJECT_GUID", PROJECT_GUID) }, CommandType.StoredProcedure);
 
                 string js = new JavaScriptSerializer().Serialize(new
                 {
@@ -84,30 +77,32 @@ namespace Kvorum_App.Super_Disp
                     FILES = item["FILES"].ToString()
                 });*/
             string s_GROUPS = Mydb.ExecuteAsJson("TestDB.dbo.sp_QUICK_API_get_ub_services", new SqlParameter[] { new SqlParameter("@PROJECT_GUID", PROJECT_GUID), new SqlParameter("@DIRECTION_GUID", DIRECTION_GUID), new SqlParameter("@SERVICE_GUID", servc) }, CommandType.StoredProcedure);
-        
-            string R_GROUPS = Mydb.ExecuteAsJson("GET_RESPONSIBLES_BY_GROUP",new SqlParameter[] { new SqlParameter("@SERVICE_GUID", servc) },CommandType.StoredProcedure);
-           string  js=new JavaScriptSerializer().Serialize(new {
-                SERVICE_GROUPS= s_GROUPS,
-                RESPONSIBLE_GROUPS= R_GROUPS
 
-           });
+            string R_GROUPS = Mydb.ExecuteAsJson("GET_RESPONSIBLES_BY_GROUP", new SqlParameter[] { new SqlParameter("@SERVICE_GUID", servc) }, CommandType.StoredProcedure);
+            string js = new JavaScriptSerializer().Serialize(new
+            {
+                SERVICE_GROUPS = s_GROUPS,
+                RESPONSIBLE_GROUPS = R_GROUPS
+
+            });
             return js;//Mydb.ExecuteAsJson("TestDB.dbo.sp_QUICK_API_get_ub_services", new SqlParameter[] { new SqlParameter("@PROJECT_GUID", PROJECT_GUID), new SqlParameter("@DIRECTION_GUID", DIRECTION_GUID), new SqlParameter("@SERVICE_GUID", servc) }, CommandType.StoredProcedure);
         }
 
         [WebMethod]
-        public static string getResponsibels_ForCheckGroup(string gg) {
+        public static string getResponsibels_ForCheckGroup(string gg)
+        {
             return Mydb.ExecuteAsJson("GET_RESPONSIBLES_BY_GROUP", new SqlParameter[] { new SqlParameter("@SERVICE_GUID", gg) }, CommandType.StoredProcedure);
         }
         [WebMethod]
-        public static string get_ub_directions(string PROJECT_GUID, int respid,object Supp_Guid,int RequestKind)
+        public static string get_ub_directions(string PROJECT_GUID, int respid, object Supp_Guid, int RequestKind)
         {
 
-            return Mydb.ExecuteAsJson("TestDB.dbo.[sp_QUICK_API_get_ub_directions]", new SqlParameter[] { new SqlParameter("@PROJECT_GUID", PROJECT_GUID), new SqlParameter("@respid", respid),new SqlParameter("@Supp_Guid",(Supp_Guid==null)?DBNull.Value:Supp_Guid),new SqlParameter("@baseDirectionId", RequestKind) }, CommandType.StoredProcedure)
+            return Mydb.ExecuteAsJson("TestDB.dbo.[sp_QUICK_API_get_ub_directions]", new SqlParameter[] { new SqlParameter("@PROJECT_GUID", PROJECT_GUID), new SqlParameter("@respid", respid), new SqlParameter("@Supp_Guid", (Supp_Guid == null) ? DBNull.Value : Supp_Guid), new SqlParameter("@baseDirectionId", RequestKind) }, CommandType.StoredProcedure)
 ;
         }
 
         [WebMethod]
-        public static string otpravToVrabotSupp(string Rid, List<ProductService_> prs, string opl, string login_id, string em, string Pdate, string Ptime, object SpId, object RESPONSIBLE_ID, string TOTAL_COST, string RESPONSIBLE_EMAIL, string PERFORMER_EMAIL, string AUTHOR, int StatusId, string path,string request_type, string RequestKind, string SPECIATISTS_ = null)
+        public static string otpravToVrabotSupp(string Rid, List<ProductService_> prs, string opl, string login_id, string em, string Pdate, string Ptime, object SpId, object RESPONSIBLE_ID, string TOTAL_COST, string RESPONSIBLE_EMAIL, string PERFORMER_EMAIL, string AUTHOR, int StatusId, string path, string request_type, string RequestKind, string SPECIATISTS_ = null)
         {
             string result = "";
             string REQGUID = Rid;
@@ -120,10 +115,10 @@ namespace Kvorum_App.Super_Disp
             DateTime endTime = DateTime.Parse(Ptime);
             endTime = endTime.AddHours(2);
             //  string textForPlanDate = AUTHOR + " : " + "Планируемая дата ( " + pdate + "), Планируемое время (" + Ptime + ")";
-            Mydb.ExecuteNoNQuery("LoginForRequest", new SqlParameter[] { new SqlParameter("@action", "NewStatus"), new SqlParameter("@rGuid", REQGUID), new SqlParameter("@NewStatusId", 1),new SqlParameter("@lg", login_id) }, CommandType.StoredProcedure);
+            Mydb.ExecuteNoNQuery("LoginForRequest", new SqlParameter[] { new SqlParameter("@action", "NewStatus"), new SqlParameter("@rGuid", REQGUID), new SqlParameter("@NewStatusId", 1), new SqlParameter("@lg", login_id) }, CommandType.StoredProcedure);
 
 
-   
+
             Mydb.ExecuteNoNQuery("Update_MP_Requests", new SqlParameter[] {
                 new SqlParameter("@REQGUID",REQGUID),
                 new SqlParameter("@SERVICE_COUNT",SERVICE_COUNT),
@@ -142,7 +137,7 @@ namespace Kvorum_App.Super_Disp
 
             }, CommandType.StoredProcedure);
 
-           
+
             string MOBILE_NUMBER = Mydb.ExecuteScalar("GetSupReqIdByGuid", new SqlParameter[] { new SqlParameter("@rq", REQGUID) }, CommandType.StoredProcedure).ToString();
             int Rid_ = Convert.ToInt32(MOBILE_NUMBER);
             var ServicesOfRequest = "";
@@ -174,17 +169,17 @@ namespace Kvorum_App.Super_Disp
 
             string Email = Mydb.ExecuteScalar("[GET_ID_EMAIL_FROM_REQUEST]", new SqlParameter[] { new SqlParameter("@type", 10), new SqlParameter("@rid", SERVICE_GUID) }, CommandType.StoredProcedure).ToString();
 
-            SendEmailForRequest(TextEmail, Email, -1,1, Convert.ToInt32(login_id), "Диспетчер поставщика", REQGUID);
-            
+            SendEmailForRequest(TextEmail, Email, -1, 1, Convert.ToInt32(login_id), "Диспетчер поставщика", REQGUID);
+
             string Text = "В заявке № " + MOBILE_NUMBER + ",по которой Вы являетесь ответственным, изменила статус на «В работе».";
 
 
 
-            
+
 
             Text = "В заявке № " + MOBILE_NUMBER + ",по которой Вы являетесь исполнителем, изменила статус на «В работе».";
             //Заявка №[Номер заявки] возвращена в работу
-            string textForPush = (em == "vernut") ? "Заявка №  П-" + MOBILE_NUMBER + " возвращена в работу": "Заявка № П-" + MOBILE_NUMBER + " принята в работу";
+            string textForPush = (em == "vernut") ? "Заявка №  П-" + MOBILE_NUMBER + " возвращена в работу" : "Заявка № П-" + MOBILE_NUMBER + " принята в работу";
 
             InsertFcmTenant(path, "~", Convert.ToInt32(MOBILE_NUMBER), textForPush, textForPush);
             int ExSpecialistId = (int)Mydb.ExecuteScalar("[GetSpsByRId]", new SqlParameter[] { new SqlParameter("@reqGuid", REQGUID) }, CommandType.StoredProcedure);
@@ -206,7 +201,7 @@ namespace Kvorum_App.Super_Disp
                         SendEmailForRequest(Text, PERFORMER_EMAIL, Rid_, 1, Convert.ToInt32(SpId), "Диспетчер");
 
                     }
-                   
+
                 }
             }
             return result;
@@ -215,7 +210,7 @@ namespace Kvorum_App.Super_Disp
         [WebMethod]
         public static string otpravToVrabot(int Rid, List<ProductService_> prs, string opl, string login_id, string em, string Pdate, string Ptime, object SpId, object RESPONSIBLE_ID, string TOTAL_COST, string RESPONSIBLE_EMAIL, string PERFORMER_EMAIL, string AUTHOR, int StatusId, string path, string request_type, string RequestKind, string SPECIATISTS_ = null)
         {
-         
+
 
 
             var Request_As_json = new[] {
@@ -313,12 +308,12 @@ namespace Kvorum_App.Super_Disp
                         SendEmailForRequest(Text, PERFORMER_EMAIL, Rid, 1, Convert.ToInt32(SpId), "Диспетчер");
                     }
                     //SERVICES_SPECIALISTS_CRUD("", Rid, "", "Delete");
-                   
+
                 }
             }
             else
             {
-               // SERVICES_SPECIALISTS_CRUD(SPECIATISTS, Rid, Text, "Update");
+                // SERVICES_SPECIALISTS_CRUD(SPECIATISTS, Rid, Text, "Update");
             }
 
             if (Convert.ToInt32(MOBILE_NUMBER) != 0)
@@ -365,12 +360,12 @@ namespace Kvorum_App.Super_Disp
         private static string SpliteReverseJoinDate(string pdate)
         {
             string[] arrDate = pdate.Split('-');
-            string  WORKDATE = arrDate[2] + "." + arrDate[1] + "." + arrDate[0];
+            string WORKDATE = arrDate[2] + "." + arrDate[1] + "." + arrDate[0];
             return WORKDATE;
         }
 
         [WebMethod]
-        public static string MakeZakritSupp(string R_id, string imgs, string text,string opl,int login_id,string path)
+        public static string MakeZakritSupp(string R_id, string imgs, string text, string opl, int login_id, string path)
         {
             string result = "";
 
@@ -425,7 +420,7 @@ namespace Kvorum_App.Super_Disp
                 {
                     SendEmailForRequest(Text, SPECIALIST_EMAIL.ToString(), Rid_, 4, Convert.ToInt32(SPECIALIST_ID), "Диспетчер");
                 }
-                 
+
                 //Mydb.ExecuteNoNQuery("INSERT_FCM_LOG", new SqlParameter[] {
                 //        new SqlParameter("@SECTION","Заявка"),
                 //   new SqlParameter("@EVENT","Заявка № П-" + MOBILE_NUMBER + " закрыта"),
@@ -463,9 +458,9 @@ namespace Kvorum_App.Super_Disp
 
             int MOBILE_NUMBER = Convert.ToInt32(Mydb.ExecuteScalar("Get_MOBILE_NUMBER_BY_R_ID", new SqlParameter[] { new SqlParameter("@Rid", Rid) }, CommandType.StoredProcedure));
 
-          //  Mydb.COMPARE_REQUESTS(false, "", Rid, Convert.ToInt32(login_id), "Работа по заявке < " + MOBILE_NUMBER + " > Закрыта", path, "");
+            //  Mydb.COMPARE_REQUESTS(false, "", Rid, Convert.ToInt32(login_id), "Работа по заявке < " + MOBILE_NUMBER + " > Закрыта", path, "");
 
-           
+
 
             string Text = "В заявке № " + MOBILE_NUMBER + ",по которой Вы являетесь ответственным, изменила статус на «Закрыта».";
 
@@ -489,7 +484,7 @@ namespace Kvorum_App.Super_Disp
                 {
                     SendEmailForRequest(Text, SPECIALIST_EMAIL.ToString(), Rid, 5, Convert.ToInt32(SPECIALIST_ID), "Диспетчер");
                 }
-                
+
             }
             if (MOBILE_NUMBER != 0)
             {
@@ -561,7 +556,7 @@ namespace Kvorum_App.Super_Disp
                 InsertFcmProff(Convert.ToInt32(Ispol), path, Rid, "Вы назначены исполнителем по заявке № " + MOBILE_NUMBER, "Вы назначены исполнителем по заявке " + MOBILE_NUMBER);
             }
             //  string path = HttpContext.Current.Request.Url.AbsolutePath;
-            Mydb.ExecuteNoNQuery("LoginForRequest", new SqlParameter[] { new SqlParameter("@action", "NewStatus"), new SqlParameter("@rId", Rid), new SqlParameter("@NewStatusId", 1),new SqlParameter("@lg",Convert.ToInt32(login_id)) }, CommandType.StoredProcedure);
+            Mydb.ExecuteNoNQuery("LoginForRequest", new SqlParameter[] { new SqlParameter("@action", "NewStatus"), new SqlParameter("@rId", Rid), new SqlParameter("@NewStatusId", 1), new SqlParameter("@lg", Convert.ToInt32(login_id)) }, CommandType.StoredProcedure);
 
             Mydb.ExecuteNoNQuery("LoginForRequest", new SqlParameter[] { new SqlParameter("@action", "IspolChange"), new SqlParameter("@rId", Rid), new SqlParameter("@IspolId", Convert.ToInt32(Ispol)), new SqlParameter("@lg", Convert.ToInt32(login_id)) }, CommandType.StoredProcedure);
 
@@ -588,9 +583,9 @@ namespace Kvorum_App.Super_Disp
 
 
             //int MOBILE_NUMBER = Convert.ToInt32(Mydb.ExecuteScalar("Get_MOBILE_NUMBER_BY_R_ID", new SqlParameter[] { new SqlParameter("@Rid", Rid) }, CommandType.StoredProcedure));
-          
 
-          //  Mydb.COMPARE_REQUESTS(false, "", Rid, Convert.ToInt32(login_id), "Работа по заявке < " + MOBILE_NUMBER + " > В работе", path, "");
+
+            //  Mydb.COMPARE_REQUESTS(false, "", Rid, Convert.ToInt32(login_id), "Работа по заявке < " + MOBILE_NUMBER + " > В работе", path, "");
             string Text = "В заявке № " + MOBILE_NUMBER + ",по которой Вы являетесь ответственным, изменила статус на «В работе».";
 
             var RESPONSIBLE_EMAIL = Mydb.ExecuteScalar("GET_ID_EMAIL_FROM_REQUEST", new SqlParameter[] { new SqlParameter("@rid_", Rid), new SqlParameter("@type", 4) }, CommandType.StoredProcedure);
@@ -612,7 +607,7 @@ namespace Kvorum_App.Super_Disp
                 {
                     SendEmailForRequest(Text, ispolEmail, Rid, 1, Convert.ToInt32(Ispol), "Диспетчер");
                 }
-              
+
             }
 
 
@@ -741,7 +736,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                     {
 
                         Mydb.ExecuteNoNQuery("SaveHFile", new SqlParameter[] { new SqlParameter("@rid", rid), new SqlParameter("@url", ImgAdres), new SqlParameter("@AUTHOR", AUTHOR) }, CommandType.StoredProcedure);
-                        if (status!=null)
+                        if (status != null)
                         {
                             Mydb.ExecuteNoNQuery("[UpdateMobileRequest]", new SqlParameter[] { new SqlParameter("@MOBILE_NUMBER", rid), new SqlParameter("@FILES", ImgAdres) }, CommandType.StoredProcedure);
                         }
@@ -879,7 +874,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                         SendEmailForRequest(Text, ispolEmail.ToString(), Rid_, 3, Convert.ToInt32(ispol), "Диспетчер");
                     }
                     //  SERVICES_SPECIALISTS_CRUD("", Rid, "", "Delete");
-                  
+
 
                 }
             }
@@ -928,7 +923,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
 
             Mydb.ExecuteNoNQuery("LoginForRequest", new SqlParameter[] { new SqlParameter("@action", "NewStatus"), new SqlParameter("@rId", Rid), new SqlParameter("@NewStatusId", 3), new SqlParameter("@lg", Convert.ToInt32(login_id)) }, CommandType.StoredProcedure);
 
-            Mydb.ExecuteNoNQuery("UPDATE_REQUEST_SUPER", new SqlParameter[] { new SqlParameter("@statusid",3),new SqlParameter("@HReq", Rid), new SqlParameter("@opl", Convert.ToBoolean(opl)), new SqlParameter("@RESPONSIBLE_ID", (RESPONSIBLE_ID == null) ? (object)DBNull.Value : Convert.ToInt32(RESPONSIBLE_ID)), new SqlParameter("@spId", (ispol == null) ? (object)DBNull.Value : Convert.ToInt32(ispol)), new SqlParameter("@TOTAL_COST", TOTAL_COST), new SqlParameter("@Pdate", Pdate), new SqlParameter("@Ptime", Ptime),new SqlParameter("@request_type", request_type),new SqlParameter("@work_kind",RequestKind) }, CommandType.StoredProcedure);
+            Mydb.ExecuteNoNQuery("UPDATE_REQUEST_SUPER", new SqlParameter[] { new SqlParameter("@statusid", 3), new SqlParameter("@HReq", Rid), new SqlParameter("@opl", Convert.ToBoolean(opl)), new SqlParameter("@RESPONSIBLE_ID", (RESPONSIBLE_ID == null) ? (object)DBNull.Value : Convert.ToInt32(RESPONSIBLE_ID)), new SqlParameter("@spId", (ispol == null) ? (object)DBNull.Value : Convert.ToInt32(ispol)), new SqlParameter("@TOTAL_COST", TOTAL_COST), new SqlParameter("@Pdate", Pdate), new SqlParameter("@Ptime", Ptime), new SqlParameter("@request_type", request_type), new SqlParameter("@work_kind", RequestKind) }, CommandType.StoredProcedure);
 
             dynamic prs = JsonConvert.DeserializeObject(prs_json);
             Mydb.ExecuteNoNQuery("Delete_Services_Super", new SqlParameter[] { new SqlParameter("@rid", Rid) }, CommandType.StoredProcedure);
@@ -968,25 +963,25 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                     {
                         SendEmailForRequest(Text, ispolEmail.ToString(), Rid, 3, Convert.ToInt32(ispol), "Диспетчер");
                     }
-                   
+
 
                 }
             }
             else
             {
-               // SERVICES_SPECIALISTS_CRUD(SPECIATISTS, Rid, Text, "Update");
+                // SERVICES_SPECIALISTS_CRUD(SPECIATISTS, Rid, Text, "Update");
             }
 
             if (Convert.ToInt32(MOBILE_NUMBER) != 0)
             {
                 DateTime endTime = DateTime.Parse(Ptime);
                 endTime = endTime.AddHours(2);
-                string RequestText_UP = "Услуга: " +(string) prs[0].SERVICE_NAME +
+                string RequestText_UP = "Услуга: " + (string)prs[0].SERVICE_NAME +
                      Environment.NewLine +
                      "Количество: " + (string)prs[0].QUANTITY +
                       Environment.NewLine +
                       "Стоимость: " + (string)prs[0].COST
-                      +Environment.NewLine+
+                      + Environment.NewLine +
                       rst;
                 Mydb.ExecuteNoNQuery("UpdateMobileRequest",
                        new SqlParameter[] {
@@ -1025,18 +1020,18 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
 
             Mydb.ExecuteNoNQuery("LoginForRequest", new SqlParameter[] { new SqlParameter("@action", "NewStatus"), new SqlParameter("@rId", Rid), new SqlParameter("@NewStatusId", 2), new SqlParameter("@lg", Convert.ToInt32(login_id)) }, CommandType.StoredProcedure);
             Mydb.ExecuteNoNQuery("insert into REQUEST_STATUS_TEXT (RS_TEXT) values (@rst)", new SqlParameter[] { new SqlParameter("@rst", rst) }, CommandType.Text);
-          
+
 
             dynamic j = JsonConvert.DeserializeObject(rsf);
-            
+
             var Request_As_json = new[] {
                 new {Pdate=Pdate,Ptime=Ptime,spId=ispol,RESPONSIBLE_ID=RESPONSIBLE_ID,STATUS_ID=2}
             };
-          
+
 
             Mydb.COMPARE_REQUESTS(true, JsonConvert.SerializeObject(Request_As_json), Rid, Convert.ToInt32(login_id), "Работа по заявке < " + MOBILE_NUMBER + " > отправлена", path, prs_json);
 
-            Mydb.ExecuteNoNQuery("Update REQUEST set STATUS_ID=2,DONE_DATE=GETDATE(),PAYMENT=@PAYMENT, RESPONSIBLE_ID=@RESPONSIBLE_ID,SPECIALIS_ID=@ispol,TOTAL_COST=@TOTAL_COST,PLAN_END_DATE=CAST(@Pdate as date),PROF_PLAN_END_DATE=CAST(@Pdate as date), PROF_PLAN_END_TIME=CAST(REPLACE(@Ptime,'-',':')as time(0) ),PLAN_END_TIME=CAST(REPLACE(@Ptime,'-',':')as time(0) ), WORK_KIND=@WORK_KIND,REQUEST_TYPE=@REQUEST_TYPE where REQUEST_ID=@rid", new SqlParameter[] { new SqlParameter("@rid", Rid), new SqlParameter("@PAYMENT", Convert.ToBoolean(opl)), new SqlParameter("@RESPONSIBLE_ID", (RESPONSIBLE_ID == null) ? (object)DBNull.Value : Convert.ToInt32(RESPONSIBLE_ID)), new SqlParameter("@ispol", (ispol == null) ? (object)DBNull.Value : Convert.ToInt32(ispol)), new SqlParameter("@TOTAL_COST", TOTAL_COST), new SqlParameter("@Pdate", Pdate), new SqlParameter("@Ptime", Ptime),new SqlParameter("@WORK_KIND",RequestKind),new SqlParameter("@REQUEST_TYPE", REQUEST_TYPE) }, CommandType.Text);
+            Mydb.ExecuteNoNQuery("Update REQUEST set STATUS_ID=2,DONE_DATE=GETDATE(),PAYMENT=@PAYMENT, RESPONSIBLE_ID=@RESPONSIBLE_ID,SPECIALIS_ID=@ispol,TOTAL_COST=@TOTAL_COST,PLAN_END_DATE=CAST(@Pdate as date),PROF_PLAN_END_DATE=CAST(@Pdate as date), PROF_PLAN_END_TIME=CAST(REPLACE(@Ptime,'-',':')as time(0) ),PLAN_END_TIME=CAST(REPLACE(@Ptime,'-',':')as time(0) ), WORK_KIND=@WORK_KIND,REQUEST_TYPE=@REQUEST_TYPE where REQUEST_ID=@rid", new SqlParameter[] { new SqlParameter("@rid", Rid), new SqlParameter("@PAYMENT", Convert.ToBoolean(opl)), new SqlParameter("@RESPONSIBLE_ID", (RESPONSIBLE_ID == null) ? (object)DBNull.Value : Convert.ToInt32(RESPONSIBLE_ID)), new SqlParameter("@ispol", (ispol == null) ? (object)DBNull.Value : Convert.ToInt32(ispol)), new SqlParameter("@TOTAL_COST", TOTAL_COST), new SqlParameter("@Pdate", Pdate), new SqlParameter("@Ptime", Ptime), new SqlParameter("@WORK_KIND", RequestKind), new SqlParameter("@REQUEST_TYPE", REQUEST_TYPE) }, CommandType.Text);
 
             dynamic prs = JsonConvert.DeserializeObject(prs_json);
             Mydb.ExecuteNoNQuery("Delete_Services_Super", new SqlParameter[] { new SqlParameter("@rid", Rid) }, CommandType.StoredProcedure);
@@ -1075,7 +1070,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                     if (IS_DISPATCHER == 1)
                     {
 
-                    SendEmailForRequest(Text, ispolEmail.ToString(), Rid, 2, Convert.ToInt32(ispol), "Диспетчер");
+                        SendEmailForRequest(Text, ispolEmail.ToString(), Rid, 2, Convert.ToInt32(ispol), "Диспетчер");
                     }
 
 
@@ -1083,7 +1078,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
             }
             else
             {
-              //  SERVICES_SPECIALISTS_CRUD(SPECIATISTS, Rid, Text, "Update");
+                //  SERVICES_SPECIALISTS_CRUD(SPECIATISTS, Rid, Text, "Update");
             }
 
             if (Convert.ToInt32(MOBILE_NUMBER) != 0)
@@ -1294,7 +1289,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                         new SqlParameter("@SERVICE_GUID",(string)prs[i].SERVICE_GUID)}, CommandType.StoredProcedure);
                     }
 
-                  //  string PlanDate_Time = "Планируемая дата (" + Pdate + ") Планируемое время (" + Ptime + ")";
+                    //  string PlanDate_Time = "Планируемая дата (" + Pdate + ") Планируемое время (" + Ptime + ")";
                     //Mydb.ExecuteNoNQuery("INSERT_COMMENT_SUPER", new SqlParameter[] {
                     //    new SqlParameter("@Rc",PlanDate_Time),
                     //    new SqlParameter("@Rid",HReq)}, CommandType.StoredProcedure);
@@ -1495,12 +1490,12 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                             new SqlParameter("@l",level)}, CommandType.Text);
                     }
 
-            //        string PlanDate_Time = "Планируемая дата (" + Pdate + ") Планируемое время (" + Ptime + ")";
-            //        Mydb.ExecuteNoNQuery("insert into REQUEST_COMMENT(REQUEST_COMMENT,REQUEST_ID) values(@RC,@Rid)", new SqlParameter[] {
-            //    new SqlParameter("@Rc",PlanDate_Time),
-            //    new SqlParameter("@Rid",HReq)
-            //    //,new SqlParameter("@Cf",Cf)
-            //}, CommandType.Text);
+                    //        string PlanDate_Time = "Планируемая дата (" + Pdate + ") Планируемое время (" + Ptime + ")";
+                    //        Mydb.ExecuteNoNQuery("insert into REQUEST_COMMENT(REQUEST_COMMENT,REQUEST_ID) values(@RC,@Rid)", new SqlParameter[] {
+                    //    new SqlParameter("@Rc",PlanDate_Time),
+                    //    new SqlParameter("@Rid",HReq)
+                    //    //,new SqlParameter("@Cf",Cf)
+                    //}, CommandType.Text);
                     CrRequest = HReq;
                 }
 
@@ -1676,7 +1671,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
             return Mydb.ExecuteReadertoDataTableAsJson("GetObjcurrentdsp", new SqlParameter[] { new SqlParameter("@lg", lg) }, CommandType.StoredProcedure);
         }
 
-        private static void SendEmailForRequest(string text, string EMAIL_ADRESS, int inserted_Requestid, int REQUEST_STATUS, int lgId,string Role, string ReqGuid = null)
+        private static void SendEmailForRequest(string text, string EMAIL_ADRESS, int inserted_Requestid, int REQUEST_STATUS, int lgId, string Role, string ReqGuid = null)
         {
 
             string EMAIL_GUID = Guid.NewGuid().ToString();
@@ -1718,7 +1713,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
 
         //}
         [WebMethod]
-        public static string MakeOtmenSupp(string R_id, string imgs, string text,string opl,int login_id,string _path,int SpId)
+        public static string MakeOtmenSupp(string R_id, string imgs, string text, string opl, int login_id, string _path, int SpId)
         {
             string result = "";
             dynamic j = JsonConvert.DeserializeObject(imgs);
@@ -1749,7 +1744,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
             //    new SqlParameter("@AUTHOR",AUTHOR_COMMENT)
             //        }, CommandType.StoredProcedure); 
             //}
-           
+
             Mydb.ExecuteNoNQuery("[Update_MP_Requests]", new SqlParameter[] {
                 new SqlParameter("@REQGUID",R_id),
                 new SqlParameter("@STATUS","4"),
@@ -1762,23 +1757,23 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
 
 
             InsertFcmTenant(_path, "~", Convert.ToInt32(MOBILE_NUMBER), "Заявка № П-" + MOBILE_NUMBER + " отменена", "Заявка № П-" + MOBILE_NUMBER + " отменена");
-        //    Mydb.ExecuteNoNQuery("INSERT_FCM_LOG", new SqlParameter[] {
+            //    Mydb.ExecuteNoNQuery("INSERT_FCM_LOG", new SqlParameter[] {
 
-        //        new SqlParameter("@SECTION","Заявка"),
-        //   new SqlParameter("@EVENT","Заявка № П-" + MOBILE_NUMBER + " отменена"),
-        //   new SqlParameter("@TEXT","Заявка № П-" + MOBILE_NUMBER + " отменена" ),
-        ////   new SqlParameter("@PROJECT_ID",PROJECT_ID),
-        //   new SqlParameter("@SCORE_ID",""),
-        //  new SqlParameter("@tokenId",SpId),
-        //  new SqlParameter("@LOG_IN_ID",Convert.ToInt32(login_id)),
-        //   new SqlParameter("@PAGE",""),
-        //   new SqlParameter("@ID",MOBILE_NUMBER),
+            //        new SqlParameter("@SECTION","Заявка"),
+            //   new SqlParameter("@EVENT","Заявка № П-" + MOBILE_NUMBER + " отменена"),
+            //   new SqlParameter("@TEXT","Заявка № П-" + MOBILE_NUMBER + " отменена" ),
+            ////   new SqlParameter("@PROJECT_ID",PROJECT_ID),
+            //   new SqlParameter("@SCORE_ID",""),
+            //  new SqlParameter("@tokenId",SpId),
+            //  new SqlParameter("@LOG_IN_ID",Convert.ToInt32(login_id)),
+            //   new SqlParameter("@PAGE",""),
+            //   new SqlParameter("@ID",MOBILE_NUMBER),
 
-        //    }, CommandType.StoredProcedure);
+            //    }, CommandType.StoredProcedure);
 
             int Rid_ = Convert.ToInt32(MOBILE_NUMBER);
 
-            SendEmailToSupplier(Rid_,R_id, login_id, "Отменена");
+            SendEmailToSupplier(Rid_, R_id, login_id, "Отменена");
             string Text = "В заявке № " + MOBILE_NUMBER + ",по которой Вы являетесь ответственным, изменила статус на «В работе».";
             var RESPONSIBLE_EMAIL = Mydb.ExecuteScalar("GET_ID_EMAIL_FROM_REQUEST", new SqlParameter[] { new SqlParameter("@rid", R_id), new SqlParameter("@type", 6) }, CommandType.StoredProcedure);
 
@@ -1802,21 +1797,21 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                     SendEmailForRequest(Text, SPECIALIST_EMAIL.ToString(), Rid_, 4, Convert.ToInt32(SPECIALIST_ID), "Диспетчер");
                 }
 
-               
+
 
             }
 
             return result;
         }
 
-        private static void SendEmailToSupplier(int Rid_,string REQGUID, int login_id,string Status)
+        private static void SendEmailToSupplier(int Rid_, string REQGUID, int login_id, string Status)
         {
 
-            DataTable  prs = Mydb.ExecuteReadertoDataTable("GetSelected_Services", new SqlParameter[] { new SqlParameter("@rid", Rid_), new SqlParameter("@sup", 1) }, CommandType.StoredProcedure);
+            DataTable prs = Mydb.ExecuteReadertoDataTable("GetSelected_Services", new SqlParameter[] { new SqlParameter("@rid", Rid_), new SqlParameter("@sup", 1) }, CommandType.StoredProcedure);
 
             var ServicesOfRequest = "";
             int i = 0;
-            foreach(DataRow item in prs.Rows)
+            foreach (DataRow item in prs.Rows)
             {
                 if (i == 0)
                 {
@@ -1827,9 +1822,9 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                     ServicesOfRequest = ServicesOfRequest + ", " + item["SERVICE_NAME"].ToString();
                 }
                 i++;
-                
+
             }
-            var TextEmailSUpp = "Заявка № П-" + Rid_ + " по услуге «" + ServicesOfRequest + "» изменила статус на «" + Status+ "».";
+            var TextEmailSUpp = "Заявка № П-" + Rid_ + " по услуге «" + ServicesOfRequest + "» изменила статус на «" + Status + "».";
 
             string Email = Mydb.ExecuteScalar("[GET_ID_EMAIL_FROM_REQUEST]", new SqlParameter[] { new SqlParameter("@type", 11), new SqlParameter("@rid", REQGUID) }, CommandType.StoredProcedure).ToString();
 
@@ -1839,14 +1834,14 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
         [WebMethod]
         public static string MakeOtmen(int Rid, string login_id, string path)
         {
-            Mydb.ExecuteNoNQuery("LoginForRequest", new SqlParameter[] { new SqlParameter("@action", "NewStatus"), new SqlParameter("@rId", Rid), new SqlParameter("@NewStatusId", 4),new SqlParameter("@lg",Convert.ToInt32(login_id)) }, CommandType.StoredProcedure);
+            Mydb.ExecuteNoNQuery("LoginForRequest", new SqlParameter[] { new SqlParameter("@action", "NewStatus"), new SqlParameter("@rId", Rid), new SqlParameter("@NewStatusId", 4), new SqlParameter("@lg", Convert.ToInt32(login_id)) }, CommandType.StoredProcedure);
             Mydb.ExecuteNoNQuery("MakeCancel", new SqlParameter[] { new SqlParameter("@rid", Rid) }, CommandType.StoredProcedure);
 
 
             int MOBILE_NUMBER = Convert.ToInt32(Mydb.ExecuteScalar("Get_MOBILE_NUMBER_BY_R_ID", new SqlParameter[] { new SqlParameter("@Rid", Rid) }, CommandType.StoredProcedure));
-          
 
-         //   Mydb.COMPARE_REQUESTS(false, "4", Rid, Convert.ToInt32(login_id), "Работа по заявке < " + MOBILE_NUMBER + " > Отменена", path, "");
+
+            //   Mydb.COMPARE_REQUESTS(false, "4", Rid, Convert.ToInt32(login_id), "Работа по заявке < " + MOBILE_NUMBER + " > Отменена", path, "");
             string Text = "В заявке № " + MOBILE_NUMBER + ",по которой Вы являетесь ответственным, изменила статус на «Отменена».";
 
             var RESPONSIBLE_EMAIL = Mydb.ExecuteScalar("GET_ID_EMAIL_FROM_REQUEST", new SqlParameter[] { new SqlParameter("@rid_", Rid), new SqlParameter("@type", 4) }, CommandType.StoredProcedure);
@@ -1870,7 +1865,7 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                 {
                     SendEmailForRequest(Text, SPECIALIST_EMAIL.ToString(), Rid, 4, Convert.ToInt32(SPECIALIST_ID), "Диспетчер");
                 }
-               
+
 
             }
 
@@ -1886,17 +1881,17 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
 
         }
         [WebMethod]
-        public static string GetRequestbyId(int Rid,string path)
+        public static string GetRequestbyId(int Rid, string path)
         {
-            int EVENT_ROLE = (path.IndexOf("Manager/") > -1) ? 1 : (path.IndexOf("Super_Disp/") > -1) ? 17 : (path.IndexOf("Responsible_Admin/") > -1) ? 16 : (path.IndexOf("Disp_Admin/") > -1) ? 3:15;
-            DataTable dt = Mydb.ExecuteReadertoDataTable("getRequestbyId", new SqlParameter[] { new SqlParameter("@R", Rid),new SqlParameter("@EVENT_ROLE",EVENT_ROLE) }, CommandType.StoredProcedure);
+            int EVENT_ROLE = (path.IndexOf("Manager/") > -1) ? 1 : (path.IndexOf("Super_Disp/") > -1) ? 17 : (path.IndexOf("Responsible_Admin/") > -1) ? 16 : (path.IndexOf("Disp_Admin/") > -1) ? 3 : 15;
+            DataTable dt = Mydb.ExecuteReadertoDataTable("getRequestbyId", new SqlParameter[] { new SqlParameter("@R", Rid), new SqlParameter("@EVENT_ROLE", EVENT_ROLE) }, CommandType.StoredProcedure);
             List<Request> rs = new List<Request>();
             if (dt.Rows.Count != 0)
             {
                 foreach (DataRow item in dt.Rows)
                 {
                     Request r = new Request();//EMERGENCY_TREATMENT,PAYMENT,PLAN_END_DATE,PLAN_END_TIME
-                    r.EMERGENCY_TREATMENT = Convert.ToBoolean(item["EMERGENCY_TREATMENT"]==DBNull.Value?false: item["EMERGENCY_TREATMENT"]);//
+                    r.EMERGENCY_TREATMENT = Convert.ToBoolean(item["EMERGENCY_TREATMENT"] == DBNull.Value ? false : item["EMERGENCY_TREATMENT"]);//
                     r.PAYMENT = item["PAYMENT"].ToString();                                                                       //  r.ADRESS = item["ADRESS"].ToString();
                                                                                                                                   //  r.i_IND_PHONE_NUMBER = item["IND_PHONE_NUMBER"].ToString();
                                                                                                                                   //   r.im_FIRST_NAME = item["FIRST_NAME"].ToString();
@@ -1988,10 +1983,10 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
 
         }
         [WebMethod]
-        public static string usp_QUICK_API_GET_REQUEST(string GUID,string path)
+        public static string usp_QUICK_API_GET_REQUEST(string GUID, string path)
         {
             int EVENT_ROLE = (path.IndexOf("Manager/") > -1) ? 1 : (path.IndexOf("Super_Disp/") > -1) ? 17 : (path.IndexOf("Responsible_Admin/") > -1) ? 16 : (path.IndexOf("Disp_Admin/") > -1) ? 3 : 15;
-            DataTable dt = Mydb.ExecuteReadertoDataTable("TestDB.dbo.usp_QUICK_API_GET_REQUEST", new SqlParameter[] { new SqlParameter("@REQGUID", GUID),new SqlParameter("@EVENT_ROLE", EVENT_ROLE) }, CommandType.StoredProcedure);
+            DataTable dt = Mydb.ExecuteReadertoDataTable("TestDB.dbo.usp_QUICK_API_GET_REQUEST", new SqlParameter[] { new SqlParameter("@REQGUID", GUID), new SqlParameter("@EVENT_ROLE", EVENT_ROLE) }, CommandType.StoredProcedure);
             List<Request> rs = new List<Request>();
             foreach (DataRow item in dt.Rows)
             {
@@ -2018,8 +2013,8 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                 //r.ENTRANCE = item["ENTRANCE"].ToString();
                 //r.FLOOR = item["FLOOR"].ToString();
                 //
-                                                            // r.REQUEST_COMMENT = item["REQUEST_COMMENT"].ToString();//
-                                                            // r.COMMENT_FILE = item["COMMENT_FILE"].ToString();//
+                // r.REQUEST_COMMENT = item["REQUEST_COMMENT"].ToString();//
+                // r.COMMENT_FILE = item["COMMENT_FILE"].ToString();//
                 r.LOG_IN_ID = 0;//(item["LOG_IN_ID"] != DBNull.Value) ? Convert.ToInt32(item["LOG_IN_ID"]) : 0;//
                 r.ACCOUNT_NAME = "";//item["ACCOUNT_NAME"].ToString();//
                 r.STATUS = item["STATUS"].ToString();//
@@ -2050,13 +2045,13 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
                 r.RESPONSIBLE_ID = Mydb.ExecuteScalar("GetRoomTypeForMp", new SqlParameter[] { new SqlParameter("@sup", "3"), new SqlParameter("@SERVICE_GUID", item["SERVICE_GUID"].ToString()), new SqlParameter("@REQ_GUID", GUID) }, CommandType.StoredProcedure).ToString();//item["RESPONSIBLE_ID"].ToStrin();
 
                 r.PROJECT_ID = Mydb.ExecuteAsJson("GetProjectByObjId_for_SelecetdServices", new SqlParameter[] { new SqlParameter("@obj", Convert.ToInt32(r.ADRESS)) }, CommandType.StoredProcedure).ToString();
-               
+
                 r.DISP_ID = "0"; //(item["LOG_IN_ID"].ToString().Length == 0) ? "0" : item["LOG_IN_ID"].ToString();
                                  // r.ROOM_NUMBER = Mydb.ExecuteScalar("gethasInd", new SqlParameter[] {new SqlParameter("@indId",r.INDIVIDUAL_ID),new SqlParameter("@rid",) }, CommandType.StoredProcedure).ToString();// for Room Number
 
                 r.REQUEST_TYPE = item["REQUEST_TYPE"] == DBNull.Value ? "True" : item["REQUEST_TYPE"].ToString();
                 r.REQUEST_TYPE = (r.REQUEST_TYPE == "True") ? "1" : "0";
-                r.Entrance_Tex= item["Entrance_Tex"].ToString();
+                r.Entrance_Tex = item["Entrance_Tex"].ToString();
                 r.Floor_Tex = item["Floor_Tex"].ToString();
                 rs.Add(r);
             }

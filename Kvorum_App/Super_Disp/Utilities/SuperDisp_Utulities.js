@@ -6818,21 +6818,7 @@ function GetProjects(lg, selected, resp) {
     })
 
 }
-function SignOutIdendity()
-{
-    var obj2 = { "lg": ""}
-    $.ajax({
-        type: "POST",
-        url: "../Super_Disp/CreateDispRequest.aspx/SignOutIdendity",
-      //  data: JSON.stringify(obj2),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-
-        }
-    })
-
-}
+ 
 function selectAcc(e) {
     $("#AcnumList label").css("background-color", "").css("color", "black");
     $(e).css("background-color", "#23527c").css("color", "white");

@@ -537,8 +537,15 @@
                                         <img src="../img/profile.svg" class="w16 mr-3" alt="" />Мой профиль</a>
                                     <a class="dropdown-item" href="#">
                                         <img src="../img/settings.svg" class="w16 mr-3" alt="" />Настройки</a>--%>
-                                    <a class="dropdown-item" href="#" id="OutD">
-                                        <img src="../img/logout.svg" class="w16 mr-3" alt="" />Выход</a>
+                                                          <form    runat="server">
+                                       <%-- <asp:button text="выход" class="dropdown-item" id="vixod2"  onclick="vixod2_Click" runat="server" />--%>
+                                        <asp:LinkButton ID="LinkButton1" class="dropdown-item" OnClick="LinkButton1_Click" runat="server"> 
+                                            <img src="../img/logout.svg" class="w16 mr-3" alt="" />Выход 
+
+                                        </asp:LinkButton>  
+                                    </form>
+                                   <%-- <a class="dropdown-item" href="#" id="OutD">
+                                        <img src="../img/logout.svg" class="w16 mr-3" alt="" />Выход</a>--%>
                                 </div>
                             </div>
                         </li>

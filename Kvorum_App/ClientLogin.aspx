@@ -226,10 +226,10 @@
             font-weight: bold;
         }
         .PageText{
-                color: #750000;
+                color: #750000 !important;
         }
         .color-white{
-            color:white !important
+               border-top: 1px solid transparent;
         }
             .close2:hover,
             .close2:focus {
@@ -237,7 +237,9 @@
                 text-decoration: none;
                 cursor: pointer;
             }
-
+            .pwd{
+                margin-left:60px
+            }
         .modal-header2 {
             padding: 2px 16px;
             background-color:#bf1b25; /*rgb(6,59,117);*/

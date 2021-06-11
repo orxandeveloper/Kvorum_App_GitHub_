@@ -18,5 +18,10 @@ namespace Kvorum_App.Manager
             //ContentPlaceHolder1.AppRelativeTemplateSourceDirectory
             //  bd.InnerHtml = "<script src=\"../ Super_Disp / Utilities / UnitedSuper_Utilities.js\"></script>";
         }
+
+        protected void LinkButton1_Click(object sender, EventArgs e)
+        {
+            Mydb.SigOutFromIdendity();
+        }
     }
 }
