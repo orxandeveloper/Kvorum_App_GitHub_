@@ -662,6 +662,7 @@
     <Content Include="img\welldone.svg" />
     <Content Include="img\wifi.svg" />
     <Content Include="img\zipper.svg" />
+    <Content Include="js\aes.js" />
     <Content Include="js\autoresize.jquery.js" />
     <Content Include="js\bootstrap-select.js" />
     <Content Include="js\bootstrap-select.min.js" />

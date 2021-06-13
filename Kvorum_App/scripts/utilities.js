@@ -1228,7 +1228,7 @@ function PopupSelect(Header_, link_, isTenant = false) {
         //  var parsedLink = JSON.parse(link_)
         if (link_.length > 0) {
             for (var i = 0; i < link_.length; i++) {
-                $(".modal-body2").append('<h3><a class="PageText" onclick="GoToLk(\"' + link_[i].LOGIN + '\")" style="cursor:pointer"> Личный кабинет по лицевому счету "' + link_[i].LOGIN + '"</a></h1><hr class="color-white"/>')
+                $(".modal-body2").append('<h3><a class="PageText" onclick="GoToLk(\'' + link_[i].LOGIN + '\')" style="cursor:pointer"> Личный кабинет по лицевому счету "' + link_[i].LOGIN + '"</a></h1><hr class="color-white"/>')
             }
         }
         else {
@@ -1360,7 +1360,12 @@ function LoginProcedure(data, isTenant) {
     }
 
 }
-
+function GoToLk(ls) {
+   
+    var encrypted = CryptoJS.AES.encrypt(ls, "Secret Passphrase");
+    console.log(encrypted.toString());
+    var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
+}
 function ConnectSc(isTenant) {
 
     var sc_C = $('#sc_C').val().trim()
