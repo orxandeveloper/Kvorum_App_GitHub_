@@ -551,5 +551,10 @@ namespace Kvorum_App
         {
             return string.Join("", MD5.Create().ComputeHash(Encoding.ASCII.GetBytes(yourString)).Select(s => s.ToString("x2")));
         }
+
+        protected void close__Click(object sender, EventArgs e)
+        {
+            Mydb.SigOutFromIdendity();
+        }
     }
 }

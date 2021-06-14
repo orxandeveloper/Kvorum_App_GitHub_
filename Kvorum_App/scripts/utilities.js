@@ -1363,8 +1363,11 @@ function LoginProcedure(data, isTenant) {
 function GoToLk(ls) {
    
     var encrypted = CryptoJS.AES.encrypt(ls, "Secret Passphrase");
-    console.log(encrypted.toString());
-    var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
+    console.log("encrypted: "+encrypted.toString());
+ 
+    window.location.href = "http://localhost:54622/PersonalOffice/MainPage.aspx?id=" + encrypted
+    //window.location.protocol + '//' + window.location.host + "/personaloffice/MainPage.aspx?id=" + encrypted
+   // var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
 }
 function ConnectSc(isTenant) {
 
@@ -1380,9 +1383,11 @@ function ConnectSc(isTenant) {
             dataType: "json",
             success: function (data) {
                 var jdata = JSON.parse(data.d);
-                if (jdata[0].errNo != 0) {
+                if (jdata[0].errNo== 0 && jdata[0].result== 'Success') {
                     $('#errNo').remove()
-                    $('.modal-body2').after('<label id="errNo">' + jdata[0].errMsg+'</label>')
+                    var sc_C = $('#sc_C').val()
+                    GoToLk(sc_C)
+                   // $('.modal-body2').after('<label id="errNo">' + jdata[0].errMsg+'</label>')
                 }
             }
         })
@@ -1398,10 +1403,11 @@ function IdendityLogin() {
 
     console.log(cookie)
     cookie = cookie.substring(cookie.indexOf('mycookie='))//cookie.substring(cookie.indexOf('=') + 1)//cookie.substring(cookie.indexOf('{'))
-    cookie = '{ "sub": "2a13b585-80d6-4d5c-a459-ead705f8df32", "family_name": "\u041A\u043E\u0437\u043B\u043E\u0432", "website": "http://lk.upravbot.ru:55555/CoreApi/api/v2/", "name": "\u041A\u043E\u043D\u0441\u0442\u0430\u043D\u0442\u0438\u043D", "given_name": "\u0412\u043B\u0430\u0434\u0438\u043C\u0438\u0440\u043E\u0432\u0438\u0447", "preferred_username": "kozlov@l_ive.ru", "email": "kozlov@l_ive.ru", "email_verified": true, "phone_number": "\u002B79169002210", "phone_number_verified": true }'//cookie.substring(cookie.indexOf('{'))
+    cookie = cookie.substring(cookie.indexOf('{'))
     cookie = JSON.parse(cookie);
     //console.log(LoginId)
     //console.log();
+
     console.log(cookie)
     var isTenant = 'rol' in cookie ? false : true
     // console.log('isTenant: '+ isTenant)

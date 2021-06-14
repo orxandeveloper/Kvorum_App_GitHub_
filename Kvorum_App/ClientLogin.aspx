@@ -437,7 +437,12 @@
   <!-- Modal content -->
   <div class="modal-content2" style="">
     <div class="modal-header2">
-      <span class="close2" id="close_">&times;</span>
+    <%--  <span class="close2" id="close_">&times;</span>--%>
+        <form  runat="server">
+            <%-- <asp:Label Text="" class="close2" id="close_"  runat="server" />--%>
+            <asp:LinkButton   runat="server" class="close2" OnClick="close__Click" id="close_" >&times;</asp:LinkButton>
+        </form>
+       
       <h2 id="mh2" style="text-align: left;color:white">Modal Header</h2>
     </div>
     <div class="modal-body2" style="height: 100px;height: 100px;padding: 15px;/* min-width:100px; */display: inline-block;">
