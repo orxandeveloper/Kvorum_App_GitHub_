@@ -79,7 +79,7 @@
                 </li>
                 <li class="nav-item col-lg-2half">
                     <a class="" href="RegisterRequest.aspx">
-                        <img src="../img/app-logo.png" class="d-block mt-n1 w100 h48" alt="УправБот">
+                        <img src="../img/logo-new.svg" class="d-block mt-n1 w100 h48" alt="УправБот">
                     </a></li>
                 <li class="nav-item">
                     <ul class=" list-unstyled list-inline pl-2 mt-2 crumbs">

@@ -1362,12 +1362,12 @@ function LoginProcedure(data, isTenant) {
 }
 function GoToLk(ls) {
    
-    var encrypted = CryptoJS.AES.encrypt(ls, "Secret Passphrase");
+    var encrypted = CryptoJS.AES.encrypt(ls, "UprovLk");
     console.log("encrypted: "+encrypted.toString());
  
-    window.location.href = "http://localhost:54622/PersonalOffice/MainPage.aspx?id=" + encrypted
-    //window.location.protocol + '//' + window.location.host + "/personaloffice/MainPage.aspx?id=" + encrypted
-   // var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
+    window.location.href = window.location.protocol + '//' + window.location.host + "/personaloffice/MainPage.aspx?id=" + encrypted;
+    ////"http://localhost:54622/PersonalOffice/MainPage.aspx?id=" + encrypted
+   
 }
 function ConnectSc(isTenant) {
 

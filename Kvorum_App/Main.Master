@@ -70,7 +70,7 @@
                     <a href="HomePage.aspx" class="logoMain" id="lg2"  >
                         <img src="/img/logofont.png" class="logoFont" alt=""/></a>
                 </div>
-                <div class="col-xs-7 buttonsMain">
+                <div class="col-xs-7 buttonsMain" style="margin-top:-7% !important;">
                     <button id="kl_1" class="btn clientBtn" runat="server"   onclick="goToLogin()" type="button">Вход</button>
                   <%--  <form action="/" method="post" runat="server">
                         <asp:Button Text="Вход"  class="btn clientBtn" OnClick="login_Click" runat="server" />

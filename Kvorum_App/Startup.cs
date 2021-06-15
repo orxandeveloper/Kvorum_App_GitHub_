@@ -1,6 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
-[assembly:OwinStartup(typeof(Kvorum_App.Startup))]
+[assembly:OwinStartup("kvorum",typeof(Kvorum_App.Startup))]
 namespace Kvorum_App
 {
     public partial class Startup
