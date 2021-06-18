@@ -507,7 +507,7 @@ $(function () {
                         success: function (data) {
 
                             // loading.show()
-                            LoginProcedure(data, false)
+                            LoginProcedure(data, "false")
 
 
                         },
@@ -1206,7 +1206,7 @@ function PopupSelect(Header_, link_, isTenant = false) {
         var parsedLink = JSON.parse(link_)
         //console.log(parsedLink)href="' + parsedLink[i].Link_ + '"
         for (var i = 0; i < parsedLink.length; i++) {
-            $(".modal-body2").append('<h3><a class="PageText" link="' + parsedLink[i].Link_ + '" role="' + parsedLink[i].role + '" onclick="SendToPage(this)" style="cursor:pointer">' + parsedLink[i].LinkText_ + '</a></h1><hr class="color-white"/>')
+            $(".modal-body2").append('<h3><a class="PageText btn btn2 w-100 flexCenter" link="' + parsedLink[i].Link_ + '" role="' + parsedLink[i].role + '" onclick="SendToPage(this)" style="cursor:pointer">' + parsedLink[i].LinkText_ + '</a></h3><hr class="color-white m-2"/>')
         }
         parsedLink = [];
         // console.log(parsedLink)
@@ -1223,17 +1223,19 @@ function PopupSelect(Header_, link_, isTenant = false) {
         })
     }
     else {
-        Header_ = 'Привязывать лицевой счет к емейлу "' + isTenant + '"'
+     
         $("#mh2").text(Header_);
         //  var parsedLink = JSON.parse(link_)
         if (link_.length > 0) {
             for (var i = 0; i < link_.length; i++) {
-                $(".modal-body2").append('<h3><a class="PageText" onclick="GoToLk(\'' + link_[i].LOGIN + '\')" style="cursor:pointer"> Личный кабинет по лицевому счету "' + link_[i].LOGIN + '"</a></h1><hr class="color-white"/>')
+            
+                $(".modal-body2").append('<h3><a class="PageText btn btn2 w-100 flexCenter" onclick="GoToLk(\'' + link_[i].LOGIN + '\')" style="cursor:pointer"> Личный кабинет по лицевому счету "' + link_[i].LOGIN + '"</a></h3><hr class="color-white m-2"/>')
             }
         }
         else {
-            $(".modal-body2").append('<h5><a class="PageText"> Лицевой Счет</a> <input type="text" id="sc_C"></h5><h5><a class="PageText">Пароль</a> <input type="text" class="pwd" id="pwd_C"></h5>')
-            $('.modal-footer2').append('<button class="btn3 btn1 h48 outline shadow-none" onclick="ConnectSc(\'' + isTenant+'\')" type="button" id="Ot"><span>Привязывать к емейлу</span></button>')
+            Header_ = 'Привязывать лицевой счет к емейлу "' + isTenant + '"'
+            $(".modal-body2").append('<div class="posRel"><input type="text" id="sc_C"><label for="sc_C">Лицевой Счет</label></div><div class="posRel"><input type="text" class="pwd" id="pwd_C"><label for="pwd_C">Пароль</label></div>')
+            $('.modal-footer2').append('<button class="btn1 btn2 h48 outline shadow-none" onclick="ConnectSc(\'' + isTenant + '\')" type="button" id="Ot"><span>Добавить</span></button>')
         }
         parsedLink = [];
         // console.log(parsedLink)
@@ -1254,7 +1256,7 @@ function PopupSelect(Header_, link_, isTenant = false) {
 function LoginProcedure(data, isTenant) {
     console.log(data.d)
 
-    if (isTenant == false) {
+    if (isTenant == "false") {
         var jsondata = $.parseJSON(data.d);
         // console.log(jsondata[0].ROLE_ID)
         if (jsondata.result == 'ErrorIdendity') {
@@ -1356,7 +1358,7 @@ function LoginProcedure(data, isTenant) {
     }
     else {
      
-        PopupSelect("По какому лицевому счету?", JSON.parse(data.d), isTenant)
+        PopupSelect("Добавить лицевой счёт", JSON.parse(data.d), isTenant)
     }
 
 }
@@ -1403,13 +1405,21 @@ function IdendityLogin() {
 
     console.log(cookie)
     cookie = cookie.substring(cookie.indexOf('mycookie='))//cookie.substring(cookie.indexOf('=') + 1)//cookie.substring(cookie.indexOf('{'))
-    cookie = cookie.substring(cookie.indexOf('{'))
+    cookie = '{"sub":"a7a39430-f883-40a2-b72e-34a5c8304350","name":"Abdu","given_name":"TTT","family_name":"Orxan","website":"http://lk.upravbot.ru/CoreApi/api/v2/","role":"\u0423\u041A","preferred_username":"orxandeveloper@gmail.com","email":"orxandeveloper@gmail.com","email_verified":false,"phone_number":"\u002B79999988754","phone_number_verified":true}'// cookie.substring(cookie.indexOf('{'))
+
     cookie = JSON.parse(cookie);
     //console.log(LoginId)
     //console.log();
 
     console.log(cookie)
-    var isTenant = 'rol' in cookie ? false : true
+    var isTenant = ('rol' in cookie) ? "false" : ('role' in cookie) ? "ClientRegistration":"true"
+
+    /*
+      Registration CLient
+
+'{"sub":"a7a39430-f883-40a2-b72e-34a5c8304350","name":"Abdu","given_name":"TTT","family_name":"Orxan","website":"http://lk.upravbot.ru/CoreApi/api/v2/","role":"\u0423\u041A","preferred_username":"orxandeveloper@gmail.com","email":"orxandeveloper@gmail.com","email_verified":false,"phone_number":"\u002B79999988754","phone_number_verified":true}'
+     */
+
     // console.log('isTenant: '+ isTenant)
     /*
      tenantJson
@@ -1428,7 +1438,7 @@ function IdendityLogin() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            isTenant = (isTenant == true) ? cookie.preferred_username : isTenant
+            isTenant = (isTenant == "true") ? cookie.preferred_username : (isTenant == "ClientRegistration") ? "false" : isTenant
             LoginProcedure(data, isTenant)
         },
         error: function (r) {

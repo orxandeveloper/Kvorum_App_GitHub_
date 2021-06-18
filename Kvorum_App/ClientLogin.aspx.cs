@@ -78,13 +78,13 @@ namespace Kvorum_App
         }
 
         [WebMethod]
-        public static string LoginIdentity(string Id_, bool isTenant)
+        public static string LoginIdentity(string Id_, string isTenant)
         {
             string returnvalue = null;
             try
             {
-
-                if (isTenant==false)
+                Login:
+                if (isTenant== "false")
                 {
                     int Id = 0;
                     if (Id_.Contains('@'))
@@ -166,10 +166,16 @@ namespace Kvorum_App
                     }
 
                 }
-                else
+                else if(isTenant=="true")
                 {
                     //Mydb.ExecuteAsJson("LoginSecond", new SqlParameter[] { new SqlParameter("@sc", Id_), new SqlParameter("@pass", pass) }, CommandType.StoredProcedure)
                     returnvalue= Mydb.ExecuteAsJson("TestDB.dbo.sp_QUICK_API_get_accounts_by_device1", new SqlParameter[] { new SqlParameter("@device_id",Id_) }, CommandType.StoredProcedure);
+                }
+                else if(isTenant=="ClientRegistration")
+                {
+                    Mydb.ExecuteNoNQuery("InsertNewClient", new SqlParameter[] { new SqlParameter("@mail", Id_) }, CommandType.StoredProcedure);
+                    isTenant = "false";
+                    goto Login;
                 }
             }
             catch (Exception ex)

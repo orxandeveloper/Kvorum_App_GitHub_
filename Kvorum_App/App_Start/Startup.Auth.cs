@@ -36,7 +36,7 @@ namespace Kvorum_App
                 SlidingExpiration = true
 
             });
-            string url ="https://test.upravbot.ru/ClientLogin.aspx" ;// "http://172.20.20.115/ClientLogin.aspx"; //"http://localhost:5002/ClientLogin.aspx"
+            string url = "http://localhost:5002/ClientLogin.aspx";// "https://test.upravbot.ru/ClientLogin.aspx" ; 
 
             //"http://localhost:5002/ClientLogin.aspx"; 
             //
@@ -72,8 +72,16 @@ namespace Kvorum_App
                 },
 
                 Notifications = new OpenIdConnectAuthenticationNotifications
-                { 
+                {
+                    AuthenticationFailed = async n =>
+                    {
+                        if (string.Equals(n.ProtocolMessage.Error, "access_denied", StringComparison.Ordinal))
+                        {
+                            n.HandleResponse();
 
+                            n.Response.Redirect("/");
+                        }
+                    },
                     SecurityTokenValidated = async n =>
                     {
                         var claims_to_exclude = new[]
