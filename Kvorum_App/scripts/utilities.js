@@ -1405,17 +1405,22 @@ function IdendityLogin() {
 
     console.log(cookie)
     cookie = cookie.substring(cookie.indexOf('mycookie='))//cookie.substring(cookie.indexOf('=') + 1)//cookie.substring(cookie.indexOf('{'))
-    cookie = '{"sub":"a7a39430-f883-40a2-b72e-34a5c8304350","name":"Abdu","given_name":"TTT","family_name":"Orxan","website":"http://lk.upravbot.ru/CoreApi/api/v2/","role":"\u0423\u041A","preferred_username":"orxandeveloper@gmail.com","email":"orxandeveloper@gmail.com","email_verified":false,"phone_number":"\u002B79999988754","phone_number_verified":true}'// cookie.substring(cookie.indexOf('{'))
+    cookie= cookie.substring(cookie.indexOf('{'))
 
     cookie = JSON.parse(cookie);
-    //console.log(LoginId)
-    //console.log();
+ 
 
     console.log(cookie)
-    var isTenant = ('rol' in cookie) ? "false" : ('role' in cookie) ? "ClientRegistration":"true"
+    var isTenant = (cookie.role == "Житель") ? "true" :"false" //('rol' in cookie) ? "false" : ('role' in cookie) ? "ClientRegistration":"true"
 
     /*
       Registration CLient
+
+'{"sub":"b90e02d7-a4fd-45b1-9e7b-319c9cd197b5","name":"\u0410\u043D\u0442\u043E\u043D","given_name":"\u0412\u043B\u0430\u0434\u043C\u0438\u0440\u043E\u0432\u0438\u0447","family_name":"\u0412\u0430\u0441\u0438\u043B\u044C\u0435\u0432","website":"http://lk.upravbot.ru/CoreApi/api/v2/","role":"\u0423\u041A","preferred_username":"vasilev_nton@mail.ru","email":"vasilev_nton@mail.ru","email_verified":true,"phone_number":"\u002B79154916045","phone_number_verified":true}'
+
+old
+'{"sub":"a7a39430-f883-40a2-b72e-34a5c8304350","name":"Abdu","given_name":"TTT","family_name":"Orxan","website":"http://lk.upravbot.ru/CoreApi/api/v2/","role":"\u0423\u041A","preferred_username":"orxandeveloper@gmail.com","email":"orxandeveloper@gmail.com","email_verified":false,"phone_number":"\u002B79999988754","phone_number_verified":true}'
+
 
 '{"sub":"a7a39430-f883-40a2-b72e-34a5c8304350","name":"Abdu","given_name":"TTT","family_name":"Orxan","website":"http://lk.upravbot.ru/CoreApi/api/v2/","role":"\u0423\u041A","preferred_username":"orxandeveloper@gmail.com","email":"orxandeveloper@gmail.com","email_verified":false,"phone_number":"\u002B79999988754","phone_number_verified":true}'
      */
@@ -1424,11 +1429,11 @@ function IdendityLogin() {
     /*
      tenantJson
 
-'{ "sub": "2a13b585-80d6-4d5c-a459-ead705f8df32", "family_name": "\u041A\u043E\u0437\u043B\u043E\u0432", "website": "http://lk.upravbot.ru:55555/CoreApi/api/v2/", "name": "\u041A\u043E\u043D\u0441\u0442\u0430\u043D\u0442\u0438\u043D", "given_name": "\u0412\u043B\u0430\u0434\u0438\u043C\u0438\u0440\u043E\u0432\u0438\u0447", "preferred_username": "kozlov@live.ru", "email": "kozlov@live.ru", "email_verified": true, "phone_number": "\u002B79169002210", "phone_number_verified": true }'
+'{"sub":"2a13b585-80d6-4d5c-a459-ead705f8df32","family_name":"\u041A\u043E\u0437\u043B\u043E\u0432","website":"http://lk.upravbot.ru:55555/CoreApi/api/v2/","role":"Житель","name":"\u041A\u043E\u043D\u0441\u0442\u0430\u043D\u0442\u0438\u043D","given_name":"\u0412\u043B\u0430\u0434\u0438\u043C\u0438\u0440\u043E\u0432\u0438\u0447","preferred_username":"kozlov@live.ru","email":"kozlov@live.ru","email_verified":true,"phone_number":"\u002B79169002210","phone_number_verified":true}'
       */
     /*
      LoginJson
-     '{"sub":"66878f52-5a05-40ad-9bb6-3c4a4a78651b","website":"http://lk.upravbot.ru:55555/CoreApi/api/v2/","email_verified":["true",true],"email":"amirov@matorin-un.ru","name":"Login_856","rol":"Internal","preferred_username":"Login_856"}'
+     '{"sub":"66878f52-5a05-40ad-9bb6-3c4a4a78651b","website":"http://lk.upravbot.ru:55555/CoreApi/api/v2/","email_verified":["true",true],"email":"amirov@matorin-un.ru","name":"Login_856","role":"УК","preferred_username":"Login_856","phone_number":"78888888888","phone_number_verified":true}'
       */
     var obj = { "Id_": cookie.preferred_username, "isTenant": isTenant }//"Login_726"
     $.ajax({
@@ -1442,7 +1447,7 @@ function IdendityLogin() {
             LoginProcedure(data, isTenant)
         },
         error: function (r) {
-            window.location.href = 'https://upravbot.ru/IDS4/connect/endsession'
+           // window.location.href = 'https://upravbot.ru/IDS4/connect/endsession'
 
         }
     })

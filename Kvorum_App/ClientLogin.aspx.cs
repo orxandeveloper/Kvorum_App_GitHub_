@@ -86,84 +86,10 @@ namespace Kvorum_App
                 Login:
                 if (isTenant== "false")
                 {
-                    int Id = 0;
-                    if (Id_.Contains('@'))
-                    {
-                        Id = Convert.ToInt32(Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "5"), new SqlParameter("@mail", Id_) }, CommandType.StoredProcedure));
-                    }
-                    else
-                    {
-                        Id_ = Id_.Substring(Id_.IndexOf('_') + 1);
-                        Id = Convert.ToInt32(Id_);
-                    }
-                    string Client_Id = Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@lg", Id), new SqlParameter("@procType", "1") }, CommandType.StoredProcedure).ToString();//1
+                    /*
+                     Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "2"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure);*/
 
-
-                    int count = (int)Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "2"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure);//2
-                    if (count == 1)
-                    {
-                        string role = Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "3"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure).ToString();//3
-                        string RolName = "Нечего";
-                        string ModulName = "Нечего";
-                        if (role == "4")
-                        {
-                            ModulName = "Клиентское администрирование";
-                            RolName = "Администратор";
-                        }
-                        if (role == "3")
-                        {
-                            ModulName = "Диспетчерская";
-                            RolName = "Диспетчер";
-                        }
-                        if (role == "1")
-                        {
-                            ModulName = "Личный кабинет";
-                            RolName = "Управляющий";
-                        }
-                        if (role == "15")
-                        {
-                            ModulName = "Диспетчерская";
-                            RolName = "Диспетчер поставщика";
-                        }
-                        if (role == "17")
-                        {
-                            ModulName = "Диспетчерская";
-                            RolName = "Супер Диспетчер";
-                        }
-
-                        if (role == "16")
-                        {
-                            ModulName = "Профиль Управляющего";
-                            RolName = "Ответственный";
-                        }
-                        Mydb.ExecuteNoNQuery("usp_ConstructorAPI_INSERT_LOG", new SqlParameter[] {
-                                    new SqlParameter("@EVENT_TYPE","Вход"),
-                                    new SqlParameter("@EVENT_STATUS","Систем"),
-                                    new SqlParameter("@EVENT_ROLE",RolName),
-                                    new SqlParameter("@EVENT_MODULE",ModulName),
-                                    new SqlParameter("@EVENT_MESSAGE","Пользователь вошел в систему"),
-                                    new SqlParameter("@EVENT_MAKER",Id)}, CommandType.StoredProcedure);
-                        returnvalue = "{\"result\" : \"1\",\"Id\" :\"" + Client_Id + "\",\"LogId\" :\"" + Id + "\",\"RoleId\":\"" + role + "\"}";
-                    }
-                    if (count > 1)
-                    {
-                        DataTable dt = Mydb.ExecuteReadertoDataTable("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "3"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure);//3
-                        List<LoginDatas> lds = new List<LoginDatas>();
-                        foreach (DataRow item in dt.Rows)
-                        {
-                            LoginDatas ld = new LoginDatas();
-                            ld.ROLE_ID = item["ROLE_ID"].ToString();
-                            ld.Id = Client_Id;
-                            ld.LogId = Id.ToString();
-                            ld.result = "5";
-                            lds.Add(ld);
-
-                        }
-                        JavaScriptSerializer js = new JavaScriptSerializer();
-
-                        returnvalue = js.Serialize(lds);
-
-                    }
+                    returnvalue = UK_Login(Id_);
 
                 }
                 else if(isTenant=="true")
@@ -196,6 +122,90 @@ namespace Kvorum_App
             //HttpContext.Current.GetOwinContext().Authentication.SignOut();
             //  HttpContext.Current.GetOwinContext().Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             // examplefunction();
+            return returnvalue;
+        }
+
+        private static string UK_Login(string Id_)
+        {
+            int Id = 0;
+            string returnvalue = "";
+            if (Id_.Contains('@'))
+            {
+                Id = Convert.ToInt32(Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "5"), new SqlParameter("@mail", Id_) }, CommandType.StoredProcedure));
+            }
+            else
+            {
+                Id_ = Id_.Substring(Id_.IndexOf('_') + 1);
+                Id = Convert.ToInt32(Id_);
+            }
+            string Client_Id = Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@lg", Id), new SqlParameter("@procType", "1") }, CommandType.StoredProcedure).ToString();//1
+
+
+            int count = (int)Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "2"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure);//2
+            if (count == 1)
+            {
+                string role = Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "3"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure).ToString();//3
+                string RolName = "Нечего";
+                string ModulName = "Нечего";
+                if (role == "4")
+                {
+                    ModulName = "Клиентское администрирование";
+                    RolName = "Администратор";
+                }
+                if (role == "3")
+                {
+                    ModulName = "Диспетчерская";
+                    RolName = "Диспетчер";
+                }
+                if (role == "1")
+                {
+                    ModulName = "Личный кабинет";
+                    RolName = "Управляющий";
+                }
+                if (role == "15")
+                {
+                    ModulName = "Диспетчерская";
+                    RolName = "Диспетчер поставщика";
+                }
+                if (role == "17")
+                {
+                    ModulName = "Диспетчерская";
+                    RolName = "Супер Диспетчер";
+                }
+
+                if (role == "16")
+                {
+                    ModulName = "Профиль Управляющего";
+                    RolName = "Ответственный";
+                }
+                Mydb.ExecuteNoNQuery("usp_ConstructorAPI_INSERT_LOG", new SqlParameter[] {
+                                    new SqlParameter("@EVENT_TYPE","Вход"),
+                                    new SqlParameter("@EVENT_STATUS","Систем"),
+                                    new SqlParameter("@EVENT_ROLE",RolName),
+                                    new SqlParameter("@EVENT_MODULE",ModulName),
+                                    new SqlParameter("@EVENT_MESSAGE","Пользователь вошел в систему"),
+                                    new SqlParameter("@EVENT_MAKER",Id)}, CommandType.StoredProcedure);
+                returnvalue = "{\"result\" : \"1\",\"Id\" :\"" + Client_Id + "\",\"LogId\" :\"" + Id + "\",\"RoleId\":\"" + role + "\"}";
+            }
+            if (count > 1)
+            {
+                DataTable dt = Mydb.ExecuteReadertoDataTable("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "3"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure);//3
+                List<LoginDatas> lds = new List<LoginDatas>();
+                foreach (DataRow item in dt.Rows)
+                {
+                    LoginDatas ld = new LoginDatas();
+                    ld.ROLE_ID = item["ROLE_ID"].ToString();
+                    ld.Id = Client_Id;
+                    ld.LogId = Id.ToString();
+                    ld.result = "5";
+                    lds.Add(ld);
+
+                }
+                JavaScriptSerializer js = new JavaScriptSerializer();
+
+                returnvalue = js.Serialize(lds);
+
+            }
             return returnvalue;
         }
 
