@@ -1414,6 +1414,11 @@ function IdendityLogin() {
     var isTenant = (cookie.role == "Житель") ? "true" :"false" //('rol' in cookie) ? "false" : ('role' in cookie) ? "ClientRegistration":"true"
 
     /*
+     Tenant Registration
+     '{"sub":"b10d64ae-f101-44e3-852a-0bed7868992c","name":"\u0410\u043D\u0442\u043E\u043D","given_name":"\u0412\u043B\u0430\u0434\u0438\u043C\u0438\u0440\u043E\u0432\u0438\u0447","family_name":"\u0412\u0430\u0441\u0438\u043B\u044C\u0435\u0432","website":"http://lk.upravbot.ru/CoreApi/api/v2/","role":"\u0416\u0438\u0442\u0435\u043B\u044C","preferred_username":"vasilev_nton@mail.ru","email":"vasilev_nton@mail.ru","email_verified":true,"phone_number":"\u002B79154916045","phone_number_verified":true}'
+
+     */
+    /*
       Registration CLient
 
 '{"sub":"b90e02d7-a4fd-45b1-9e7b-319c9cd197b5","name":"\u0410\u043D\u0442\u043E\u043D","given_name":"\u0412\u043B\u0430\u0434\u043C\u0438\u0440\u043E\u0432\u0438\u0447","family_name":"\u0412\u0430\u0441\u0438\u043B\u044C\u0435\u0432","website":"http://lk.upravbot.ru/CoreApi/api/v2/","role":"\u0423\u041A","preferred_username":"vasilev_nton@mail.ru","email":"vasilev_nton@mail.ru","email_verified":true,"phone_number":"\u002B79154916045","phone_number_verified":true}'
@@ -1435,7 +1440,7 @@ old
      LoginJson
      '{"sub":"66878f52-5a05-40ad-9bb6-3c4a4a78651b","website":"http://lk.upravbot.ru:55555/CoreApi/api/v2/","email_verified":["true",true],"email":"amirov@matorin-un.ru","name":"Login_856","role":"УК","preferred_username":"Login_856","phone_number":"78888888888","phone_number_verified":true}'
       */
-    var obj = { "Id_": cookie.preferred_username, "isTenant": isTenant }//"Login_726"
+    var obj = { "Id_": cookie.preferred_username, "isTenant": isTenant, "role": cookie.role }//"Login_726"
     $.ajax({
         type: "POST",
         url: "ClientLogin.aspx/LoginIdentity",

@@ -95,7 +95,7 @@
     if (Id == null) {
        
        // console.log("Ok")
-        Id = sessionStorage.getItem("Clien_ID"); //Orxcan
+        Id = 346;// sessionStorage.getItem("Clien_ID"); //Orxcan
         // alert(Id)
         //Id=197
         if (Id == null) {
@@ -127,9 +127,6 @@
     var oobj3 = {
         clId: Id
     };
-
-    //getLeftMenuRole
-    getlog2(Id, 'Admin')
     $.ajax({
         type: "POST",
         url: "CreateOpject.aspx/GetRolesLeftmenu",
@@ -137,20 +134,12 @@
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (result) {
-            //  console.log(result)
-
-            //var jsondata_1 = JSON.stringify(result.d)
-            var jsondata_2 = JSON.parse(result.d)
-            // console.log()
-            //lftRol
-            for (var i = 0; i < jsondata_2.length; i++) {
-                $("#lftRol").append(" " + jsondata_2[i].ROLE_NAME + " ")
-                $("#lgId_").text("Логин: Login_" + jsondata_2[i].ACCOUNT_QUANTITY)
-                sessionStorage.setItem("Log", jsondata_2[i].ACCOUNT_QUANTITY)
-               // sessionStorage.setItem("Log", jsondata_2[i].ACCOUNT_QUANTITY)
-            }
-
-
+            var j = JSON.parse(result.d)
+            $('#cmpName').text('Компания: ' + j[0].COMPANY_NAME + '')
+            $('#lgId').text('ID Учетной записи: ' + L_ogin_id + '')
+            $('#role').text('Роль: ' + j[0].ROLE_ + '')
+            $('#C_id').text('Идентификатор клиента : ' + Id+'')
+            console.log("result:" + j)
         },
 
         error: function (r) {
@@ -164,212 +153,12 @@
     //GetLeftMenuLogin_Id
     // $("#lgId_").text("Login_" + LLoggId)
 
+     //getLeftMenuRole
+ //   getlog2(Id, 'Admin')
     //GetLogs
-    var L_ogin_id = sessionStorage.getItem("Log")
-    function getlog2(lg,em)
-    {
-        var obj_lg = {
-            lg_: lg,
-            EventModul: em,
-           
-    };
-        $.ajax({
-            type: "POST",
-            url: "CreateOpject.aspx/GetLogs",
-            data: JSON.stringify(obj_lg),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-                //  console.log(result)
-                $("#lgs_").empty();
-                //var jsondata_1 = JSON.stringify(result.d)
-                var jsondata_2 = JSON.parse(result.d)
-               // console.log(jsondata_2)
-                //lftRol
-                for (var i = 0; i < jsondata_2.length; i++) {
-                    var accNa_me;
-                    if (jsondata_2[i].ACCOUNT_NAME == "") {
-                        accNa_me = jsondata_2[i].E_MAIL
-                    }
-                    else {
-                        accNa_me = jsondata_2[i].ACCOUNT_NAME;
-                    }
-                    if (jsondata_2[i].EVENT_STATUS != "") {
-                    $("#lgs_").append("<li>" + jsondata_2[i].DATESTAMP + ": " + jsondata_2[i].EVENT_MESSAGE + ": " + accNa_me + "</li> ")
-                    }
-                    else {
-                        $("#lgs_").append("<li>" + jsondata_2[i].EVENT_MESSAGE + "</li> ")
-                    }
-                    //  $("#lgId_").text("Login_" + jsondata_2[i].ACCOUNT_QUANTITY)
-                }
+    var L_ogin_id = 708//sessionStorage.getItem("Log")
+   
 
-
-            },
-
-            error: function (r) {
-                // //alert("Error");
-                console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-            },
-            failure: function (r) {
-                alert("FAIL");
-            }
-        });
-    }
-  
-
-    //getVersion
-    ////window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/GetVersion",
-
-    $.ajax({
-        type: "POST",
-        url: window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/GetVersion",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            //res = result;
-            //console.log("vers" + JSON.stringify(result));
-            var jsondata = JSON.stringify(result.ResultData)
-            var jsondata_ = JSON.parse(jsondata)
-           // console.log()
-            $("#vers").text("Версия: " + jsondata_.VERSION);
-        },
-        error: function (r) {
-            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-        },
-        failure: function (r) {
-            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-        }
-    }); 
-
-    $("#searchLog").keyup(function () {
-        var srhvLog = $(this).val();
-        srhvLog = (srhvLog.indexOf(":") > -1) ? srhvLog.replace(":", "|") : srhvLog;
-        if (srhvLog.length != 0) {
-
-            $("#lgs_").empty();
-            var obj_lg2 = {
-                l_g: L_ogin_id, Stext: $(this).val(), Cl: Id
-            };
-            $.ajax({
-                type: "POST",
-                url: "CreateOpject.aspx/SearchLog2",
-                data: JSON.stringify(obj_lg2),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (result) {
-                    //  console.log(result)
-
-                    //var jsondata_1 = JSON.stringify(result.d)
-                    var jsondata_2 = JSON.parse(result.d)
-                    // console.log()
-                    //lftRol
-                    for (var i = 0; i < jsondata_2.length; i++) {
-                        var accNa_me;
-                        if (jsondata_2[i].ACCOUNT_NAME == "") {
-                            accNa_me = jsondata_2[i].E_MAIL
-                        }
-                        else {
-                            accNa_me = jsondata_2[i].ACCOUNT_NAME;
-                        }
-                        $("#lgs_").append("<li>" + jsondata_2[i].DATESTAMP + ": " + jsondata_2[i].EVENT_MESSAGE + ": " + accNa_me + "</li> ")
-                        //  $("#lgId_").text("Login_" + jsondata_2[i].ACCOUNT_QUANTITY)
-                    }
-
-
-                },
-
-                error: function (r) {
-                    // //alert("Error");
-                    console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-                },
-                failure: function (r) {
-                    alert("FAIL");
-                }
-            });
-        }
-        else {
-            getlog2(Id, "Admin");
-            //$("#lgs_").empty();
-            //var obj_lg = {
-            //    Clid: L_ogin_id
-            //};
-            //$.ajax({
-            //    type: "POST",
-            //    url: "CreateOpject.aspx/GetLogs",
-            //    data: JSON.stringify(obj_lg),
-            //    contentType: "application/json; charset=utf-8",
-            //    dataType: "json",
-            //    success: function (result) {
-            //        //  console.log(result)
-
-            //        //var jsondata_1 = JSON.stringify(result.d)
-            //        var jsondata_2 = JSON.parse(result.d)
-            //        // console.log()
-            //        //lftRol
-            //        for (var i = 0; i < jsondata_2.length; i++) {
-            //            var accNa_me;
-            //            if (jsondata_2[i].ACCOUNT_NAME == "") {
-            //                accNa_me = jsondata_2[i].E_MAIL
-            //            }
-            //            else {
-            //                accNa_me = jsondata_2[i].ACCOUNT_NAME;
-            //            }
-            //            $("#lgs_").append("<li>" + jsondata_2[i].DATESTAMP + ": " + jsondata_2[i].EVENT_MESSAGE + ": " + accNa_me + "</li> ")
-            //            //  $("#lgId_").text("Login_" + jsondata_2[i].ACCOUNT_QUANTITY)
-            //        }
-
-
-            //    },
-
-            //    error: function (r) {
-            //        // //alert("Error");
-            //        console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-            //    },
-            //    failure: function (r) {
-            //        alert("FAIL");
-            //    }
-            //});
-        }
-        
-
-    })
-
-    //GetCompanyNameAndIdForLeft
-    var oobj2 = {
-
-        C_Id: Id
-    };
-    $.ajax({
-        type: "POST",
-        url: "CreateOpject.aspx/GetCompanyNameAndIdForLeft",
-        data: JSON.stringify(oobj2),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-           // console.log(result)
-
-            //var jsondata_1 = JSON.stringify(result.d)
-            var jsondata_2 = JSON.parse(result.d)
-            //// console.log(jsondata_2.Compname)
-            $("#cmpName").text(jsondata_2.NAME)
-            $("#IdCmp").text(": " + Id)
-            $("#hdrAcc").text("Учетные записи клиента ")
-            //lftRol
-            //for (var i = 0; i < jsondata_2.length; i++) {
-            //    $("#lftRol").append(" " + jsondata_2[i].ROLE_NAME + ", ")
-            //}
-
-
-        },
-
-        error: function (r) {
-            //  //alert("Error");
-            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-        },
-        failure: function (r) {
-            //  alert("FAIL");
-        }
-    });
 
     $("#Out_").click(function () {
         sessionStorage.clear();

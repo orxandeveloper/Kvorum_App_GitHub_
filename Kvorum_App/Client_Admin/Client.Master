@@ -5,467 +5,261 @@
 <html>
 <head runat="server">
     
-    <title>UPRAVBOT
-    </title>
-       <link href="../css/bootstrap.min.css" rel="stylesheet">
- <%--   <link rel="stylesheet" href="css/StyleSheet.css">
-    <link rel="stylesheet" href="css/ObjectCard.css">--%>
-    <script src="js/bootbox.min.js"></script>
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../css/styles.css" rel="stylesheet">
-      <link rel="shortcut icon" href="../img/favicon.png"> 
-    <%--<script src="../scripts/logger.js"></script>--%>
+   <meta charset="utf-8">
+    <meta name="keywords" content="Управбот: Жителям: Главная">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="format-detection" content="telephone=no">
+    <title>UPRAVBOT</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-    <style>
-        .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    width: 25%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s
-}
-
-/* Add Animation */
-@-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
-    to {top:0; opacity:1}
-}
-
-@keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
-}
-
-/* The Close Button */
-.close {
-    color: white;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-header {
-    padding: 2px 16px;
-    background-color: rgb(6,59,117);
-    color: white;
-}
-
-.modal-body {padding: 2px 16px;}
-
-.modal-footer {
-    padding: 2px 16px;
-    background-color: rgb(6,59,117);
-    color: white;
-}
-</style>
-     <style>
-     #loader {
-    display: none;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 20000;
-    width: 150px;
-    height: 150px;
-    margin: -75px 0 0 -75px;
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
-}
-        @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-    </style>
-      <style>
-        .modal2 {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(255,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content2 {
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    width: 25%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s
-}
-
-/* Add Animation */
-@-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
-    to {top:0; opacity:1}
-}
-
-@keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
-}
-
-/* The Close Button */
-.close2 {
-    color: white;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close2:hover,
-.close2:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-header2 {
-    padding: 2px 16px;
-    background-color: red;
-    color: white;
-}
-
-.modal-body2 {padding: 2px 16px;}
-
-.modal-footer2 {
-    padding: 2px 16px;
-    background-color: red;
-    color: white;
-    height: 45px;
-}
-</style>
-      <style>
-        .modal3 {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,147,233,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content3 {
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    width: 25%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s
-}
-
-/* Add Animation */
-@-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
-    to {top:0; opacity:1}
-}
-
-@keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
-}
-
-/* The Close Button */
-.close3 {
-    color: white;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close3:hover,
-.close3:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-header3 {
-    padding: 2px 16px;
-    background-color: rgb(0,147,233);
-    color: white;
-}
-
-.modal-body3 {padding: 2px 16px;}
-
-.modal-footer3 {
-    padding: 2px 16px;
-    background-color: rgb(0,147,233);
-    color: white;
-    height: 45px;
-}
-.ui-loader-background {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    padding: 0;
-    margin: 0;
-    background: rgba(0, 0, 0, 0.3);
-    display: none;
-    position: fixed;
-    z-index: 10000;
-}
-</style>
+         <link rel="shortcut icon" href="../img/favicon.png">
+    <!-- Favicons 
+    <link rel="shortcut icon" href="../img/favicon.ico"> 
+	-->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../css/swiper.min.css">
+    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="../js/swiper.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/design.js"></script>
+   
 
 </head>
 <body>
-    <div class="ui-loader-background" style="display: none;"></div>
-    <div id="loader" style="position:fixed"></div>
-  
-<%--    <div class="row fonDark">
-        <div class="container fonDark" style="text-align:right;">
-            <div class="col-xs-12">
-            <a href="#" class="topMenu"><i class="fa fa-phone" aria-hidden="true"></i>+7(495) 452-44-44</a>
-            <a href="#" class="topMenu"><i class="fa fa-envelope-o" aria-hidden="true"></i>help-desk@upravbot.ru</a>
-        </div></div>
+    
 
-    </div>--%>
-    <div class="row fonDark">
-        <div class="container fonDark" style="text-align:right;">
-            <div class="col-xs-12">
-            <a href="#" class="topMenu"><i class="fa fa-phone" aria-hidden="true"></i>+7 (495) 199-3854 </a>
-            <a href="mailto:help-desk@upravbot.ru" class="topMenu"><i class="fa fa-envelope-o" aria-hidden="true"></i>help-desk@upravbot.ru</a>
-        </div></div>
+    <header class="internal1 h90">
+        <div class="headerWrapper">
+            <ul class="nav h-100 ml-3 w-100">
+                <li class="nav-item">
+                    <!--        <a class="collapsed" data-toggle="collapse" href="#collapse0">
+                        <span class="if-collapsed">
+                            <img src="../img/menu.svg" class=" w16 mt-1 mr-2" alt="" /></span>
+                        <span class="if-not-collapsed">
+                            <img src="../img/menu-close.svg" class="w16 mt-1 mr-2" alt="" /></span>
+                    </a>-->
 
-    </div>
+                    <a class="collapsed flexCenter pt-1" data-toggle="collapse" href="#collapse0">
+                        <span class="if-collapsed">
+                            <img src="../img/menu2.svg" class="mr-2" alt="" /></span>
+                        <span class="if-not-collapsed">
+                            <img src="../img/close.svg" class="mr-2" alt="" /></span>
+                    </a>
 
-    <%--<div class="row" style="height:50px;">
-        <div class="container">
-            <div class="col-xs-5 col-sm-3">
-                <a href="#"><img src="../img/logo.png" class="logoImgSmall"></a>
-                <a class="logoMain2" href="#">
-               <span class="logoColor1">УПРАВ</span><span class="logoColor2">БОТ</span></a>
-            </div>
-            <div class="col-xs-5 col-sm-7 header"><h1>Клиент Администрирование</h1></div>
-            <div class="col-xs-2">
-               <button class="btn log_out" type="button"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Выход</button>
-            </div>
-        </div>
-    </div>--%>
+                </li>
+                <li class="nav-item logo col-lg-2half">
+                    <a class="" href="/">
+                        <img src="../img/logo-new.svg" class="" alt="УправБот">
+                    </a></li>
+                <li class="nav-item">
+                    <ul class=" list-unstyled list-inline ml-2 crumbs">
+                        <li class="list-inline-item"><a href="/" class="font-weight-bold font18 green-text">Клиентская</a> </li>
+                        <li class="list-inline-item reddish font-weight-bold font18 ">
+                        <%--    <img src="../img/ellipse.svg" class="greenerSvg mr-2" alt="">--%>
+                            <span id="project" class="font-weight-bold">Администрирование</span></li>
 
-    <div class="row" style="height:50px;">
-        <div class="container">
-            <div class="col-xs-5 col-sm-3">
-                <a href="#"><img src="../img/logo.png" class="logoImgSmall"></a>
-                <a class="logoMain2" href="#">
-               </small><span class="logoColor1">УПРАВ</span><span class="logoColor2">БОТ</span></a>
-            </div>
-            <div class="col-xs-5 col-sm-7 header"><h1>Администрирование</h1></div>
-            <div class="col-xs-2">
-               <button class="btn log_out" id="Out_" type="button"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Выход</button>
-            </div>
-        </div>
-    </div>
-
-    <%--<div class="row" style="background-color:#434242;height:7px;">
-     
-    </div>--%>
-     <div class="row" style="background-color:#434242;height:7px;">
-     
-    </div>
-    <%--<div class="row">
-        <div class="main-panel"><div class="container"><div class="col-sm-3 hidden-xs">&nbsp;</div>
-            <ul class="col-sm-9 col-xs-12 main-menu">
-                <li><a href="MyResources.aspx">Мои ресурсы</a></li>
-                <li><a href="ProfileSettings.aspx">Настройки профиля</a></li>
-                <li>
-                    <a>Справочники</a>
-                    <ul class="sub-menu">
-                      <li><a href="RegisterUO.aspx">Управляющие организации</a></li>
-                      <li><a href="RegisterObject.aspx">Объекты</a></li>
-                      <li><a href="Accounts.aspx">Учетные записи</a></li>
+                      
                     </ul>
                 </li>
-            </ul></div>
-        </div> 
-    </div>--%>
-    <div class="row">
-        <div class="main-panel"><div class="container"><div class="col-sm-3 hidden-xs">&nbsp;</div>
-            <ul class="col-sm-9 col-xs-12 main-menu">
-                <%--<li><a href="MyResources.aspx">Мои ресурсы</a></li>--%>
-                <li><a href="ProfileSettings.aspx">Настройки профиля</a></li>
-                <li>
-                    <a>Справочники</a>
-                    <ul class="sub-menu">
-                      <li><a href="RegisterUO.aspx">Управляющие организации</a></li>
-                      <li><a id="gotoObj" href="RegisterObject.aspx">Объекты</a></li>
-                      <li><a href="Accounts.aspx">Учетные записи</a></li>
-                          <li><a href="Disp.aspx">Диспетчерские</a></li>
-                         <li><a href="SuppliersRegister.aspx">Поставщики</a></li>
+                <li class="nav-item ml-auto mr-4">
+                    <ul class="nav w-100">
+                        <li class="nav-item"></li>
+                    
+                        <li class="divider40"></li>
+        
+
+                        <li class="nav-item login">
+
+                            <div class="dropdown mt-2">
+                                <button class="nav-link transp border-0" onfocus="this.blur();" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                
+                                    <img src="../img/user.svg" class="w42 mt-n2" alt="" />
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                 
+                                                          <form    runat="server">
+                                       <%-- <asp:button text="выход" class="dropdown-item" id="vixod2"  onclick="vixod2_Click" runat="server" />--%>
+                                        <asp:LinkButton ID="LinkButton2" class="dropdown-item" OnClick="LinkButton2_Click" runat="server"> 
+                                            <img src="../img/logout.svg" class="w16 mr-3" alt="" />Выход 
+
+                                        </asp:LinkButton>  
+                                    </form>
+                                   <%-- <a class="dropdown-item" href="#" id="OutD">
+                                        <img src="../img/logout.svg" class="w16 mr-3" alt="" />Выход</a>--%>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </li>
-            </ul></div>
-        </div> 
-    </div>
-    <%--<div class="row">
-        <div class="container">
+            </ul>
+        </div>
 
-      <div class="aside col-xs-12 col-sm-3">
-                <span>Роль: Администратор</span><br>
-                <span class="idAdm">ID Учетной записи</span><br>
-                <br>
-                <span>Компания: ООО Фирма1</span><br>
-                <span class="idComp">ID Компании</span><br>
-                <br>
-                <a href="1">Сообщения <span class="circQty">10</span></a><br>
-                <br>
-                <a href="1">Заявки <span class="circQty">15</span></a><br>
-                <br>
-                <a href="1">Лицевые счета <span class="circQty">20</span></a><br>
-                <br>
-                <a href="1">Написать в тех. поддержку</a>
-                <br><br>
-                
+
+        <div class="collapse show-mobile" id="collapse0">
+            <ul class="mobileMenu mm-top">
+                <li class="nav-item mt-5 mr-5 mb-0">
+                    <form class="text-left w-100 posRel border-0 rounded-lg">
+                        <input class="border-0 p-3 rounded-lg w-95" type="search" placeholder="Поиск" aria-label="Search">
+                        <button class="searchIcon transp border-0 mt-3" type="submit">
+                            <i class="fa white fa-search" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                    <hr class="h-0 w-100" />
+                </li>
+
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/home-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font14b mb-0">Главная</p>
+                </a></li>
+                <li><a href="NewsRegister.aspx" class="flexHoriz">
+                    <img src="../img/news-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font14b mb-0">Новости</p>
+                </a></li>
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/key-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font14b mb-0">Помещения и&nbsp;лицевые счета</p>
+                </a></li>
+                <%--  <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/user-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font14b mb-0">Собственники и&nbsp;пользователи</p>
+                </a></li>--%>
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/meter-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font14b mb-0">Приборы учета</p>
+                </a>
+                </li>
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/stores-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font14b mb-0">Услуги</p>
+                </a></li>
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/tasks-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font14b mb-0">Заявки</p>
+                </a></li>
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/permit-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font14b mb-0">Пропуск</p>
+                </a></li>
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/polls-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font14b mb-0">Опросы и голосования</p>
+                </a></li>
+                <li class="nav-link"><a href="#" class="flexHoriz">
+                    <img src="../img/star-ic-bl.svg" class="w24 mr-3" alt="" />
+                    <p class="font14b mb-0">Отзывы жителей</p>
+                </a></li>
+
+
+            </ul>
+        </div>
+
+    </header>
+
+    <main class="te p-0">
+        <div class="ui-loader-background"></div>
+        <div id="loader" style="display: none;"></div>
+        <div class="row m-0 h-100">
+            <div class="col-lg-2half col-sm-12 p-0 bgWhite shadow-line">
+                <span class="h90"></span>
+
+                <ol class="block navbar-nav pt-3 w-100 shadow-menu ">
+                    <!-- block added -->
+                    <li class="nav-link flexHoriz ml-2">
+
+                        <span class="d-block w48 h48 rounded8 flex-shrink-0 mr-3" style="background: #eaeaea url('../img/ub.png') center center; background-size: cover;">&nbsp;</span>
+
+                        <div class="">
+                            <strong id="cmpName" class="font15 darkGreen"></strong>
+                            <p class="font14 m-0" id="lgId"></p>
+                             <p class="font14 m-0" id="role"></p>
+                             <p class="font14 m-0" id="C_id"></p>
+
+                        </div>
+                        <!--    <button class="ml-auto mr-2 transp border-0 flexCenter">
+                            <img src="../img/chevron-up.svg" class="w16 mt-n1" alt="" />
+                        </button> -->
+                        <%--	<a class="ml-auto flex-1" data-toggle="collapse" href="#collapseP1" aria-expanded="true">
+							<span class=" if-collapsed">
+								<img src="../img/chev-down.svg" class="w16" alt="">
+							</span>
+							<span class=" reddish if-not-collapsed">
+								<img src="../img/chev-up.svg" class=" w16" alt="">
+							</span>
+						</a> --%>
+                    </li>
+                    <li class="dividerH ml-4 mr-4"></li>
+                    <li class="nav-link ml-2">
+                        <!-- flexHoriz -->
+
+                    
+                        <div class="collapse " id="collapseP1">
+
+                            <!--		<a class="flexHoriz mt-2 mb-2">
+							<span class="flexCenter flex-shrink-0 mr-3 position-relative">
+								<span class="bgLightGrey w24 rounded-pill">&nbsp;</span>
+								<img src="../img/plus-ic-bl.svg" class="w12 reddishSvg position-absolute" alt=""/>
+								
+							</span>
+							<div class="font12 textBlack">
+								Добавить управляющую компанию
+							</div>
+						</a> -->
+                        </div>
+                    </li>
+                </ol>
+
+
+                <ol id="ol_li" class="navbar-nav mt-3 show-desktop">
+
+                       <li class="nav-link"><a href="ProfileSettings.aspx" class="flexHoriz">
+                        <img src="../img/news-ic-bl.svg" class="w24 mr-3" alt="" />
+                        <p class="font14b mb-0">Настройки профиля</p>
+                    </a></li>
+                       <li class="nav-link"><a href="RegisterUO.aspx" class="flexHoriz">
+                        <img src="../img/news-ic-bl.svg" class="w24 mr-3" alt="" />
+                        <p class="font14b mb-0">Управляющие организации</p>
+                    </a></li>
+                    <li class="nav-link active"><a href="RegisterObject.aspx" class="flexHoriz">
+                        <img src="../img/home-ic-bl.svg" class="w24 mr-3" alt="" />
+                        <p class="font14b mb-0">Объекты</p>
+                    </a></li>
+                     <li id="counters" class="nav-link"><a href="Accounts.aspx" class="flexHoriz">
+                        <img src="../img/meter-ic-bl.svg" class="w24 mr-3" alt="" />
+                        <p class="font14b mb-0">Учетные записи</p>
+                    </a></li>
+                     <li id="polls" class="nav-link"><a href="Disp.aspx" class="flexHoriz">
+                        <img src="../img/tasks-ic-bl.svg" class="w24 mr-3" alt="" />
+                        <p class="font14b mb-0">Диспетчерские</p>
+                    </a></li>
+                    
+
+                    <%--   <li class="nav-link"><a href="#" class="flexHoriz">
+                        <img src="../img/user-ic-bl.svg" class="w24 mr-3" alt="" />
+                        <p class="font14b mb-0">Пользователи</p>
+                    </a></li> --%>
+                </ol>
+                <hr />
+
             </div>
-            <div class="col-xs-12 col-sm-9">--%>
-    <div class="row">
-         <div class="container">
-            <div class="aside col-xs-12 col-sm-2">
-                Роль: <span id="lftRol"></span><br>
-                <span class="idAdm" id="lgId_">ID Учетной записи</span><br>
-                <br>
-               Компания: <span id="cmpName"> </span><br>
-              Идентификатор  клиента <span class="idComp" id="IdCmp"></span><br>
-                <br>
-                <a href="1" style="display:none">Сообщения <span class="circQty">10</span></a><br>
-                <br>
-                <a href="1" style="display:none">Заявки <span class="circQty">15</span></a><br>
-                <br>
-                <a href="1" style="display:none">Лицевые счета <span class="circQty">20</span></a><br>
-                <br>
-                <a href="1" style="display:none">Написать в тех. поддержку</a>
-                <br><br />
-                <%--<a href="../Business_Admin/CreateOrg.aspx">вводить информацию Управляющая организация </a>--%>
-            </div>
-       
-            <div class="col-xs-12 col-sm-10"><!-- main -->
+
+            <div class="col-lg-9half col-sm-12 p-0 min-vh-100 bgWhite  ">
+                <!-- bgLightGrey3 -->
+                <span class="h90"></span>
             
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         </asp:ContentPlaceHolder>
-       <%--         <div class="footer">
-                    <div class="layout">
-                        <div class="tabs-layout">
-                            <ul>
-                                <li><a href="1">Все</a></li>
-                                <li><a href="1">Администрирование</a></li>
-                            </ul>
-                        </div>
-                        <div class="search-layout">
-                            <input class="lenta-search" type="search" value="Введите данные для поиска...">
-                        </div>
-                        <br>
-                        <div class="lenta" readonly="">
-                            <ul>
-                                <li class="attention">Важное сообщение из ленты</li>
-                                <li>Простое сообщение 1</li>
-                                <li>Простое сообщение 2</li>
-                            </ul>
-                        </div>
-                    </div>
-               </div>
-                </div>
-              </div>
-    </div>--%>
-      
-
-
-                  
-            </div><!-- main -->
-
-        </div><!-- container -->
-     </div><!-- row -->
- <div class="row" style="">
-     <div class="container">
-                 <div style="display:block;width:50%; height:150px;">&nbsp;</div>
-                     <div class="layout">
-                        <div class="tabs-layout">
-                            <ul>
-                                <li id="vse1" ><a href="#">Все</a></li>
-                                <li id= "ad1"class="current"><a href="#">Администрирование</a></li>
-                            </ul>
-                        </div>
-                        <div  class="search-layout">
-                           <input class="lenta-search" id="searchLog" type="search" placeholder="Введите данные для поиска…"/>
-                        </div>
-                        <br>
-                        <div style="max-height:120px; overflow:auto" class="lenta" readonly="">
-                            <ul id="lgs_">
-                                <li  class="attention">Важное сообщение из ленты</li>
-                               <%-- <li>Простое сообщение 1</li>
-                                <li>Простое сообщение 2</li--%>
-                            </ul>
-                      </div>
-                  </div>
-      </div>
- </div>
-
-    <div id="vers" class="version" > </div>
+         </div>
+        </div>
+    </main>
 
 
 
-    <div id="myModal" class="modal" style="z-index: 1000;">
+
+    <div id="myModal" class="modal" style="z-index: 1000; display:none !important">
 
   <!-- Modal content -->
   <div class="modal-content" style="">
@@ -483,7 +277,7 @@
   </div>
 
 </div>
-        <div id="myModal2" class="modal2" style="z-index: 1000;background-color:rgba(9, 118, 255,0.4)">
+        <div id="myModal2" class="modal2" style="z-index: 1000;background-color:rgba(9, 118, 255,0.4);display:none !important">
 
   <!-- Modal content -->
   <div class="modal-content2" style="">
@@ -497,13 +291,13 @@
     </div>
     <div class="modal-footer2" style="text-align: left;background-color:white">
       <%--<h3 id="mf2">Modal Footer</h3>--%>
-        <input type="button" id="cls" name="name" value="Отмена" style="width: 25%; float:right; height: 78%;background-color: white;color: black;font-weight: 700;"/>
+        <input type="button" id="cls" name="name" value="Отмена" style="width: 25%; float:right; height:78%;background-color: white;color: black;font-weight: 700;"/>
         <input type="button" id="deleteO" name="name" value="Удалить" style="float: left;width: 25%;height: 78%;background-color: white;color: black;font-weight: 700;" />
     </div>
   </div>
 
 </div>
-    <div id="myModal3" class="modal3" style="z-index: 1000;">
+    <div id="myModal3" class="modal3" style="display:none !important">
 
   <!-- Modal content -->
   <div class="modal-content3" style="">
@@ -522,7 +316,7 @@
     </div>
   </div>
 </div>
-     <div id="myModal4" class="modal3" style="z-index: 1000;">
+     <div id="myModal4" class="modal3" style="display:none !important">
 
   <!-- Modal content -->
   <div class="modal-content3" style="">
@@ -542,20 +336,17 @@
   </div>
 </div>
     
-    <script type="text/javascript" src="../scripts/logger.js"></script>
-     <%--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>--%>
-    <%--<script src="code.jquery.com/ui/1.12.0/jquery-ui.js"></script>--%>
-  
+ 
     <script src="js/jquery-1.9.1.js"></script>
       <script src="js/jquery-ui.js"></script>
     
     <link href="../css/jquery.dataTables.css" rel="stylesheet" />
     <script src="../Manager/js/jquery.dataTables.js"></script>
-    <%--<script type="text/javascript"  src="js/Client_Utilities.js"></script>--%>
+  
    <script src="../Disp_Admin/Script/jquery.inputmask.bundle.js"></script>
      
      <script type='text/javascript'>
-         document.write('<' + 'script type="text/javascript" src="js/Client_Utilities.js?' + Math.random() + '"></' + 'script>')//
+         document.write('<' + 'script type="text/javascript" src="js/Client_Utilities.js"></' + 'script>')//?' + Math.random() + '
       
       
 </script>

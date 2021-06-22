@@ -78,18 +78,37 @@ namespace Kvorum_App
         }
 
         [WebMethod]
-        public static string LoginIdentity(string Id_, string isTenant)
+        public static string LoginIdentity(string Id_, string isTenant,string role)
         {
             string returnvalue = null;
             try
             {
-                Login:
+                
                 if (isTenant== "false")
                 {
                     /*
                      Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "2"), new SqlParameter("@lg", Id) }, CommandType.StoredProcedure);*/
+                    if (role!= "УК")
+                    {
+                        returnvalue = UK_Login(Id_);
+                    }
+                    else
+                    {
+                        int CountOfMailAsClient = Convert.ToInt32(Mydb.ExecuteScalar("LoginIdendity", new SqlParameter[] { new SqlParameter("@procType", "6"), new SqlParameter("@mail", Id_) }, CommandType.StoredProcedure));
 
-                    returnvalue = UK_Login(Id_);
+                        if (CountOfMailAsClient==0)
+                        {
+                            Mydb.ExecuteNoNQuery("InsertNewClient", new SqlParameter[] { new SqlParameter("@mail", Id_) }, CommandType.StoredProcedure);
+
+                            returnvalue = UK_Login(Id_);
+                        }
+                        else
+                        {
+                            returnvalue = UK_Login(Id_);
+                        }
+                        
+                    }
+                   
 
                 }
                 else if(isTenant=="true")
@@ -97,12 +116,7 @@ namespace Kvorum_App
                     //Mydb.ExecuteAsJson("LoginSecond", new SqlParameter[] { new SqlParameter("@sc", Id_), new SqlParameter("@pass", pass) }, CommandType.StoredProcedure)
                     returnvalue= Mydb.ExecuteAsJson("TestDB.dbo.sp_QUICK_API_get_accounts_by_device1", new SqlParameter[] { new SqlParameter("@device_id",Id_) }, CommandType.StoredProcedure);
                 }
-                else if(isTenant=="ClientRegistration")
-                {
-                    Mydb.ExecuteNoNQuery("InsertNewClient", new SqlParameter[] { new SqlParameter("@mail", Id_) }, CommandType.StoredProcedure);
-                    isTenant = "false";
-                    goto Login;
-                }
+                 
             }
             catch (Exception ex)
             {

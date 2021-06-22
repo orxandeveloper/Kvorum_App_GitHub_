@@ -43,6 +43,13 @@ namespace Kvorum_App.Client_Admin
                 }
             }
         }
+
+        
+
+        protected void LinkButton2_Click(object sender, EventArgs e)
+        {
+            Mydb.SigOutFromIdendity();
+        }
         //void CheckGuid()
         //{
         //    int Id = Convert.ToInt32(Request.QueryString["Id"]);

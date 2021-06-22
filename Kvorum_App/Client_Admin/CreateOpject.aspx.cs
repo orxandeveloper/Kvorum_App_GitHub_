@@ -446,20 +446,21 @@ namespace Kvorum_App.Client_Admin
         [WebMethod]
         public static string GetRolesLeftmenu(int clId)
         {
-            int log =(int) Mydb.ExecuteScalar("select LOG_IN_ID from ACCOUNT where CLIENT_ID=@C and LOGIN is null", new SqlParameter[] { new SqlParameter("@C", clId) }, CommandType.Text);
-            DataTable dt = Mydb.ExecuteReadertoDataTable("GetRoles_", new SqlParameter[] { new SqlParameter("@L", log) }, CommandType.StoredProcedure);
+            //int log =(int) Mydb.ExecuteScalar("select LOG_IN_ID from ACCOUNT where CLIENT_ID=@C and LOGIN is null", new SqlParameter[] { new SqlParameter("@C", clId) }, CommandType.Text);
+            //DataTable dt = Mydb.ExecuteReadertoDataTable("GetRoles_", new SqlParameter[] { new SqlParameter("@L", log) }, CommandType.StoredProcedure);
 
-            List<Roles> rs = new List<Roles>();
-            foreach (DataRow item in dt.Rows)
-            {
-                Roles r = new Roles();
-                r.ROLE_NAME = item["ROLE_NAME"].ToString();
-                r.ACCOUNT_QUANTITY = log.ToString();
-                rs.Add(r);
-            }
-            JavaScriptSerializer js = new JavaScriptSerializer();
+            //List<Roles> rs = new List<Roles>();
+            //foreach (DataRow item in dt.Rows)
+            //{
+            //    Roles r = new Roles();
+            //    r.ROLE_NAME = item["ROLE_NAME"].ToString();
+            //    r.ACCOUNT_QUANTITY = log.ToString();
+            //    rs.Add(r);
+            //}
+            //JavaScriptSerializer js = new JavaScriptSerializer();
 
-            return js.Serialize(rs);
+            //return js.Serialize(rs);
+            return Mydb.ExecuteAsJson("AdminGetRolesLeftmenu", new SqlParameter[] { new SqlParameter("@C", clId) }, CommandType.StoredProcedure);
         }
 
         [WebMethod]
