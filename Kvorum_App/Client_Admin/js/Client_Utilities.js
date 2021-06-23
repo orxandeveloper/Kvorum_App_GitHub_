@@ -295,59 +295,11 @@
             sessionStorage.setItem("ComesTo", "")
             if (sessionStorage.getItem("ObjId") == "" || sessionStorage.getItem("ObjId") == undefined || sessionStorage.getItem("ObjId") == null) {
                 // var id = localStorage.getItem("Clien_ID");
-                var adr = $("#adr").val();
-                var adrCode = $("#adrList option[value='" + $('#adr').val() + "']").attr('itemid')
-                var opt = $("#uo option:selected").attr('value')
-                var project = $('#Projects').val();
-                var dom = $('#dom').val();
-                var korp = $('#korp').val();
-                var image1 = $(".foto").attr('src');
-                var _logId = $("#uob").val();
-                if (opt != 0) {
-                    if (project!=0) {
-                         if (adr.length != 0) {
-                            if (dom.length != 0) {
-                                if (_logId != 0) {
-                                    korp = (korp.length != 0) ? ", К. " + korp : "";
-                                    var adrtext_ = adr + ", Д. " + dom + "" + korp;
-                                    if ($("#flS").css('display') == 'none') {
-                                         if ($("#manu").is(":checked")) {
-                                            saveObject(Id, adrtext_, "", opt, image1, _logId, project);
-                                        }
-                                        else {
-                                            if (adrCode == undefined) {
-                                                adrCode = "";
-                                            }
-                                            saveObject(Id, adrtext_, adrCode, opt, image1, _logId, project);
-                                        }
-                                    }
-                                }
-                                else {
-                                    $("#uobS").text("Выберите управляющего объекта ").show();
-                                }
-                            }
-                            else {
-                                $("#domS").text("Введите номер дома").show();
-                            }
-                        }
-                        else {
-                            $("#adrS").text("Введите область, город, район, улицу").show();
-                        }
-                    }
-                    else {
-                        $('#errorProject').remove()
-                        $('#DobProject').after('<label id="errorProject" style="color:red">Выберите Проект</label>')
-                        window.setTimeout(function () {
-                            // $('#cntrs tr:eq(' + i - 1 + ')').removeAttr('style')
-                            $('#errorProject').hide(1000);
-                            $('#errorProject').remove();
-                        }, 2000);
-                    }
+
+                if (checkControls_Oject().Issuccess == true) {
+                    saveObject(Id, checkControls_Oject().adrtext_, checkControls_Oject().adrCode, checkControls_Oject().opt, checkControls_Oject().image1, checkControls_Oject()._logId, checkControls_Oject().project);
                 }
-                else {
-                    $("#uoS").text("Выберите Управляющую организацию").show();
-                }
-              
+               
 
             }
             else {
@@ -530,38 +482,7 @@
         }
      
        
-        function saveObject(Id, ObjectDatas, CODE_, uoId_, img, lg,prjct) {
-            //uoId_ = (uoId_ == undefined || uoId_ == "" || uoId_ == null) ? 0 : uoId_
-            // lg = (lg == undefined || lg == "" || lg == null) ? 0 : lg
-            $("#loader,.ui-loader-background").show();
-
-            var obj = { "Client_Id": Id, "Objectadr": ObjectDatas, "CODE": CODE_, "uoId": uoId_, "img_": img, "LogId": lg, "project_id": prjct };
-            $.ajax({
-                type: "POST",
-                url: "CreateOpject.aspx/SaveClienObject",
-                data: JSON.stringify(obj),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    var jsondata_ = JSON.parse(data.d)
-                    if (jsondata_.result == 1) {
-                        //alert(jsondata_.idObject+" success")
-                        var log_Id = sessionStorage.getItem("Log")
-                        SaveLog("Сохранить", "Простое", "Администратор", "Клиентское администрирование", "В системе создан объект   " + ObjectDatas + "", log_Id);
-                        var idObject_ = jsondata_.idObject
-                        sessionStorage.setItem("UoId", "");
-                      //  location.href = "RegisterObject.aspx";
-                        //addDomain(idObject_)
-                        var cmsf_O = sessionStorage.getItem("cmsf_O");
-                        window.location.href = (cmsf_O.length != 0) ? cmsf_O : "RegisterObject.aspx"
-                        // alert("success")
-
-                    }
-
-                }
-
-            })
-        }
+        
         function gotoRegist()
         {
             //sessionStorage.setItem("UoId","");
@@ -6681,6 +6602,128 @@
     }
    
 });
+function saveObject(Id, ObjectDatas, CODE_, uoId_, img, lg, prjct) {
+    //uoId_ = (uoId_ == undefined || uoId_ == "" || uoId_ == null) ? 0 : uoId_
+    // lg = (lg == undefined || lg == "" || lg == null) ? 0 : lg
+    $("#loader,.ui-loader-background").show();
+
+    var obj = { "Client_Id": Id, "Objectadr": ObjectDatas, "CODE": CODE_, "uoId": uoId_, "img_": img, "LogId": lg, "project_id": prjct };
+    $.ajax({
+        type: "POST",
+        url: "CreateOpject.aspx/SaveClienObject",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            var jsondata_ = JSON.parse(data.d)
+            if (jsondata_.result == 1) {
+                //alert(jsondata_.idObject+" success")
+                var log_Id = sessionStorage.getItem("Log")
+                SaveLog("Сохранить", "Простое", "Администратор", "Клиентское администрирование", "В системе создан объект   " + ObjectDatas + "", log_Id);
+                var idObject_ = jsondata_.idObject
+                sessionStorage.setItem("UoId", "");
+                //  location.href = "RegisterObject.aspx";
+                //addDomain(idObject_)
+                var cmsf_O = sessionStorage.getItem("cmsf_O");
+                window.location.href = (cmsf_O.length != 0) ? cmsf_O : "RegisterObject.aspx"
+                // alert("success")
+
+            }
+
+        }
+
+    })
+}
+function checkControls_Oject() {
+    var adr = $("#adr").val();
+    var adrCode = $("#adrList option[value='" + $('#adr').val() + "']").attr('itemid')
+    adrCode = ($("#manu").is(":checked") ) ? "" : adrCode
+    adrCode = (adrCode == undefined) ? "" : adrCode
+    var opt = $("#uo option:selected").attr('value')
+    var project = $('#Projects').val();
+    var dom = $('#dom').val();
+    var korp = $('#korp').val();
+    var image1 = $("#imgObj").attr('src');
+    var _logId = $("#uob").val();
+    var success=true
+    if (opt == 0) {
+        success = false
+        ErrorForControls($("#uo"),"Выберите Управляющую организацию")
+    }
+    if (success == true && project == 0) {
+        success = false
+        ErrorForControls($('#Projects'),'Выберите Проект')
+    }
+    if (success == true && adr.length == 0) {
+        success = false
+        ErrorForControls($("#adr"),"Введите область, город, район, улицу")
+    }
+    if (success == true && dom.length == 0) {
+        success=false
+        ErrorForControls($('#dom'), "Введите номер дома")
+    }
+    if (success == true && _logId == 0) {
+        success=false
+        ErrorForControls($('#uob'),"Выберите Управляющего объекта")
+    }
+    korp = (korp.length != 0) ? ", К. " + korp : "";
+    var adrtext_ = adr + ", Д. " + dom + "" + korp;
+
+    return { Issuccess: success, adrtext_: adrtext_, adrCode: adrCode, opt: opt, project: project, dom: dom, korp: korp, image1: image1, _logId: _logId}
+}
+function ErrorForControls(e, text) {
+    var e_class = $(e).attr('class')
+    if (e_class.indexOf('select2-hidden-accessible') != -1) {
+        $(e).parent().find('.select2-selection').attr('style', 'border-color:#f06d06 !important')
+        if (text != undefined) {
+            //var originalText = $(e).next().next('label').text()
+            $(e).next().next('label').hide()
+            // $(e).closest('#ErrorLabel_').remove()
+            //   var ErrorLabel_ = $(e).parent().children('#ErrorLabel_').length
+            if ($(e).parent().children('#ErrorLabel_').length == 0) {
+                $(e).next().next('label').after('<label id="ErrorLabel_" title="' + text + '" class="w-95 transp backLab" style="color:red">' + text + '</label>')//.attr('style', 'color: red').text(text)
+            }
+            var select2Id = $(e).attr('id');
+            var spanId = '#select2-' + select2Id + '-container'
+            // var original_title = $(spanId).attr('title')
+            $(spanId).attr('title', text)
+            window.setTimeout(function () {
+                //  $(e).removeAttr('title'),
+                $('#ErrorLabel_').remove()
+                $(e).next().next('label').show()
+                //$(spanId).attr('title', original_title)
+                //  $(e).next().next('label').removeAttr('style').text(originalText)
+
+            }, 5000);
+        }
+        window.setTimeout(function () {
+            $(e).parent().find('.select2-selection').removeAttr('style')
+        }, 5000);
+    }
+    else {
+        $(e).attr('style', 'border-color:#f06d06;')
+    }
+    var position = $(e).offset().top//getOffset(e).top//e.position();
+    $("html, body").animate({ scrollTop: position }, "slow");
+
+    window.setTimeout(function () { $(e).removeAttr('style'); $('#servicelbl').remove() }, 5000);
+
+    if (text != undefined && e_class != 'select2-hidden-accessible') {
+        //  var originalText = $(e).next('label').text()
+        $(e).next('label').hide()
+        if ($(e).parent().children('#ErrorLabel_txt').length == 0) {
+            $(e).next('label').after('<label id="ErrorLabel_txt" title="' + text + '" class="w-95 transp backLab" style="color:red">' + text + '</label>')//.attr('style', 'color: red').text(text)
+        }
+        //   $(e).next('label').attr('style', 'color: red').text(text)
+        //  $(e).attr('title', text)
+        window.setTimeout(function () {
+            //  $(e).next('label').removeAttr('style').text(originalText)
+            $(e).next('label').show()
+            //   $(e).attr('title', '')
+            $('#ErrorLabel_txt').remove();
+        }, 5000);
+    }
+}
 function GetUprRoles(CL_Id, sId) {
     var obj = { "ClId": CL_Id }
     $.ajax({
@@ -6708,23 +6751,23 @@ function GetUprRoles(CL_Id, sId) {
 function searchAdress(adres) {
     var obj = { txt: adres }
 
-    $.ajax({
-        url: "/Client_Admin/CreateOpject.aspx/GetStreetsBytext",
-        data: JSON.stringify(obj),
-        dataType: "json",
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            // console.log(data);
-            var jsondata = JSON.parse(data.d);
-            //console.log(jsondata.d[0].CODE);
-            // console.log(data.d.CODE)
-            $.each(jsondata, function (key, value) {
-                $("#adrList").append('<option value="' + value.Name + ' " itemid=' + value.CODE + '></option>')
-                // console.log(value.Name)
-            })
-        }
-    })
+    //$.ajax({
+    //    url: "/Client_Admin/CreateOpject.aspx/GetStreetsBytext",
+    //    data: JSON.stringify(obj),
+    //    dataType: "json",
+    //    type: "POST",
+    //    contentType: "application/json; charset=utf-8",
+    //    success: function (data) {
+    //        // console.log(data);
+    //        var jsondata = JSON.parse(data.d);
+    //        //console.log(jsondata.d[0].CODE);
+    //        // console.log(data.d.CODE)
+    //        $.each(jsondata, function (key, value) {
+    //            $("#adrList").append('<option value="' + value.Name + ' " itemid=' + value.CODE + '></option>')
+    //            // console.log(value.Name)
+    //        })
+    //    }
+    //})
 }
 function GerUoList(CL_Id, Suo) {
     var obj = {
@@ -6840,7 +6883,7 @@ function GetObject_adress(Id) {
                     {
                         'data': 'OBJECT_IMG',
                         fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                            $(nTd).html('<a href="#"  onclick="DetailObj(' + oData.OBJECT_ID + ')"> <img class="foto-obekt" src="' + oData.OBJECT_IMG + '"></a>');
+                            $(nTd).html('<a href="#"  onclick="DetailObj(' + oData.OBJECT_ID + ')"> <img class="foto-obekt w100" src="' + oData.OBJECT_IMG + '"></a>');
                         }
                     },
 

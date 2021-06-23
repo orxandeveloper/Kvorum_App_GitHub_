@@ -287,7 +287,7 @@ namespace Kvorum_App.Client_Admin
             //}
             #endregion
            // CODE = (CODE == "") ? null : CODE;
-            Mydb.ExecuteNoNQuery("insert into OBJECT (OBJECT_ADRESS,OBJECT_NAME,CLIENT_ID,MAN_COMP_ID,OBJECT_PHOTO,KLADR_OBJECT_ID,LOG_IN_ID,PROJECT_ID) values(@adres,@name,@id,@uoId,@img,@CODE,@log,@PROJECT_ID)", new SqlParameter[] {
+            Mydb.ExecuteNoNQuery("SaveClienObject", new SqlParameter[] {
                     new SqlParameter("@adres", Objectadr),
                     new SqlParameter("@name", Objectadr),
                     new SqlParameter("@id", Client_Id),
@@ -295,10 +295,10 @@ namespace Kvorum_App.Client_Admin
                 new SqlParameter("@img",img_),
             new SqlParameter("@CODE",CODE),
             new SqlParameter("@log",LogId),
-            new SqlParameter("@PROJECT_ID",project_id)}, CommandType.Text);
-            string IdObject = Mydb.ExecuteScalar("select OBJECT_ID from OBJECT where OBJECT_ADRESS=@adr", new SqlParameter[] { new SqlParameter("@adr", Objectadr) }, CommandType.Text).ToString();
+            new SqlParameter("@PROJECT_ID",project_id)}, CommandType.StoredProcedure);
+           
 
-            return "{\"result\" : \"1\",\"idObject\" : \"" + IdObject + "\"}";
+            return "{\"result\" : \"1\"}";
 
         }
 

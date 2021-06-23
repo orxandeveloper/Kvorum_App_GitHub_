@@ -201,7 +201,7 @@
 
                         <div class="w-100 flexHoriz flex-wrap justify-content-between">
                             <div class="posRel w-100 mb-3">
-                                <input type="text" id="adr" list="adrList">
+                                <input type="text" id="adr" class="adr" list="adrList">
                                 <label for="adr" class="transp backLab">Область, город, район, улица</label>
                             </div>
                             <div class="w-100 mb-3">
@@ -210,18 +210,21 @@
                             </div>
                             <div class="posRel w-48">
 
-                                <label for="dom">Дом</label>
-                                <input type="text" class="transp backLab" id="dom">
+                              
+                                <input type="text" class="dom" id="dom">
+                                  <label for="dom"  class="transp backLab">Дом</label>
                             </div>
                             <div class="posRel w-48">
-                                <label for="KORP">Строение/корпус</label>
-                                <input type="text" class="transp backLab" id="KORP">
+                               
+                                <input type="text" class="korp" id="korp">
+                                 <label for="korp" class="transp backLab">Строение/корпус</label>
                             </div>
 
                         </div>
                         <div class="flexHoriz justify-content-between mt-3">
                             <div class="posRel w-100 mb-3">
                                 <select id="uob">
+                                    <option value="0">Выберите Управляющего объекта </option>
                                 </select>
                                 <label class="transp backLab" for="uob">Управляющий объекта</label>
                             </div>
@@ -236,7 +239,7 @@
                             <label>Изображение объекта</label>
                             <input type="file" id="files">
                             <div class="flexHoriz w-100">
-                                <img id="imgNews" src="img/brickdom.png" class="w100">
+                                <img id="imgObj" src="img/brickdom.png" class="w100">
                             </div>
                         </div>
 
