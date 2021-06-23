@@ -111,18 +111,9 @@ namespace Kvorum_App.Client_Admin
         [WebMethod]
         public static string GetProjectForMan(int UoId)
         {
-            DataTable dt = Mydb.ExecuteReadertoDataTable("select * from PROJECTS where MC_ID=@MC_ID", new SqlParameter[] {new SqlParameter("@MC_ID",UoId) }, CommandType.Text);
-            List<Account_> pjs = new List<Account_>();
-            foreach (DataRow item in dt.Rows)
-            {
-                Account_ pj = new Account_();
-                pj.ACCOUNT_NAME = item["PROJECT_NAME"].ToString();
-                pj.ADRESS_ID = item["PROJECT_ID"].ToString();
-                pjs.Add(pj);
-            }
-            JavaScriptSerializer js = new JavaScriptSerializer();
+            
+            return Mydb.ExecuteAsJson("GetProjectForMan", new SqlParameter[] { new SqlParameter("@MC_ID", UoId) }, CommandType.StoredProcedure);
 
-            return js.Serialize(pjs);
         }
 
         [WebMethod]
@@ -206,18 +197,8 @@ namespace Kvorum_App.Client_Admin
         [WebMethod]
         public static string GetUPRRoles(int ClId)
         {
-            List<Account_> accrs = new List<Account_>();
-            DataTable dt = Mydb.ExecuteReadertoDataTable("select a.ACCOUNT_NAME,a.LOG_IN_ID  from  MODUL_ROLE mr,ACCOUNT a ,ACCOUNT_ROLE ar where a.LOG_IN_ID=ar.LOG_IN_ID and ar.MR_ID=mr.MR_ID and a.CLIENT_ID=@c and mr.ROLE_ID=1 ", new SqlParameter[] { new SqlParameter("@c", ClId) }, CommandType.Text);
-
-            foreach (DataRow item in dt.Rows)
-            {
-                Account_ accr = new Account_();
-                accr.ACCOUNT_NAME = item["ACCOUNT_NAME"].ToString();
-                accr.LOG_IN_ID = Convert.ToInt32(item["LOG_IN_ID"]);
-                accrs.Add(accr);
-            }
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            return js.Serialize(accrs);
+          
+            return Mydb.ExecuteAsJson("GetUPRRoles", new SqlParameter[] { new SqlParameter("@c", ClId) }, CommandType.StoredProcedure);
         }
 
         [WebMethod]
@@ -235,48 +216,12 @@ namespace Kvorum_App.Client_Admin
 
             return "{\"result\" : \"1\"}";
         }
-        //[WebMethod]
-        //public static string UpdateObject(int objId_, string objAdress_, string objname_, int manCompId_, string photo_)
-        //{
-        //    Mydb.ExecuteNoNQuery("Update_Object", new SqlParameter[] {
-        //    new SqlParameter("@objId",objId_),
-        //    new SqlParameter("@objAdres",objAdress_),
-        //    new SqlParameter("@ObjectName",objname_),
-        //    new SqlParameter("@ManCompId",manCompId_),
-        //    new SqlParameter("@photo",photo_)}, CommandType.StoredProcedure);
-        //    return "{\"result\" : \"1\"}";
-        //}
-        //[WebMethod]
-        //public static string GetTownByCode(string CODE_)
-        //{
-        //    List<Locations> raions = new List<Locations>();
-        //    DataTable dt = Mydb.ExecuteReadertoDataTable("sp_KLADR_GET_TOWN", new SqlParameter[] { new SqlParameter("@code", CODE_) }, CommandType.StoredProcedure);
-
-
-        //    foreach (DataRow item in dt.Rows)
-        //    {
-        //        Locations loc = new Locations();
-        //        loc.CODE = item["CODE"].ToString();
-        //        loc.Name = item["Name"].ToString();
-        //        raions.Add(loc);
-        //    }
-        //    JavaScriptSerializer js = new JavaScriptSerializer();
-        //    return js.Serialize(raions);
-        //}
+        
         [WebMethod]
         public static string GetStreetsBytext (string txt)
         {
-            List<Locations> streets = new List<Locations>();
-            DataTable dt = Mydb.ExecuteReadertoDataTable("sp_KLADR_SEARCH_STREET", new SqlParameter[] { new SqlParameter("@SearchText", txt) }, CommandType.StoredProcedure);
-            foreach (DataRow item in dt.Rows)
-            {
-                Locations loc = new Locations();
-                loc.CODE = item["CODE"].ToString();
-                loc.Name = item["NAME"].ToString();
-                streets.Add(loc);
-            }
-            JavaScriptSerializer js_ = new JavaScriptSerializer();
-            return js_.Serialize(streets);
+             
+            return Mydb.ExecuteAsJson("sp_KLADR_SEARCH_STREET", new SqlParameter[] { new SqlParameter("@SearchText", txt) }, CommandType.StoredProcedure);
 
         }
 

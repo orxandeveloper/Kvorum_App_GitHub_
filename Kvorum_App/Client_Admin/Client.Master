@@ -339,12 +339,11 @@
  
     <script src="js/jquery-1.9.1.js"></script>
       <script src="js/jquery-ui.js"></script>
-    
+    <script src="../Super_Disp/Utilities/select2.full.js"></script>
+    <link href="../Super_Disp/Utilities/select2.css" rel="stylesheet">
     <link href="../css/jquery.dataTables.css" rel="stylesheet" />
-    <script src="../Manager/js/jquery.dataTables.js"></script>
-  
+     <script src="../Disp_Admin/Script/jquery.dataTables.js"></script>
    <script src="../Disp_Admin/Script/jquery.inputmask.bundle.js"></script>
-     
      <script type='text/javascript'>
          document.write('<' + 'script type="text/javascript" src="js/Client_Utilities.js"></' + 'script>')//?' + Math.random() + '
       

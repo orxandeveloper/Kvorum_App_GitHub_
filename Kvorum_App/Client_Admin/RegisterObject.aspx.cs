@@ -39,20 +39,21 @@ namespace Kvorum_App.Client_Admin
         [WebMethod]
         public static string OBJ_List(int client_id)
         {
-            DataTable dt = Mydb.ExecuteReadertoDataTable("sp_CounstructorAPI_GET_OBJ_by_CLIENT_ID", new SqlParameter[] { new SqlParameter("@CLIENT_ID", client_id) }, CommandType.StoredProcedure);
-            List<ObjectS> objs = new List<ObjectS>();
-            foreach (DataRow item in dt.Rows)
-            {
-                ObjectS obj = new ObjectS();
-                obj.Object_Id = Convert.ToInt32(item["OBJECT_ID"]);
-                obj.ObjectAdress = item["OBJECT_ADRESS"].ToString();
-                obj.ObjectPhoto = item["OBJECT_IMG"].ToString();
-                obj.MAN_COMP_NAME = item["MAN_COMP_NAME"].ToString();
-                objs.Add(obj);
+            //DataTable dt = Mydb.ExecuteReadertoDataTable("sp_CounstructorAPI_GET_OBJ_by_CLIENT_ID", new SqlParameter[] { new SqlParameter("@CLIENT_ID", client_id) }, CommandType.StoredProcedure);
+            //List<ObjectS> objs = new List<ObjectS>();
+            //foreach (DataRow item in dt.Rows)
+            //{
+            //    ObjectS obj = new ObjectS();
+            //    obj.Object_Id = Convert.ToInt32(item["OBJECT_ID"]);
+            //    obj.ObjectAdress = item["OBJECT_ADRESS"].ToString();
+            //    obj.ObjectPhoto = item["OBJECT_IMG"].ToString();
+            //    obj.MAN_COMP_NAME = item["MAN_COMP_NAME"].ToString();
+            //    objs.Add(obj);
 
-            }
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            return js.Serialize(objs);
+            //}
+            //JavaScriptSerializer js = new JavaScriptSerializer();
+            //return js.Serialize(objs);
+            return Mydb.ExecuteAsJson("sp_CounstructorAPI_GET_OBJ_by_CLIENT_ID", new SqlParameter[] { new SqlParameter("@CLIENT_ID", client_id) }, CommandType.StoredProcedure);
         }
     }
 }

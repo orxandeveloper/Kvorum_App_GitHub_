@@ -229,58 +229,11 @@
         }
 
         $("#DobUo").click(function () {
-            sessionStorage.setItem("ComesTo", "")
-            var adr = $("#adr").val();
-            var adrCode = $("#adrList option[value='" + $('#adr').val() + "']").attr('itemid')
-            var opt = $("#uo").val();
-            var dom = $('#dom').val();
-            var korp = $('#korp').val();
-            var image1 = $(".foto").attr('src');
-            var _logId = $("#uob").val();
-            var prj = $('#Projects').val()
-            var objectDetail = [];
-            objectDetail.push({
-                "adr": adr,
-                "adrCode": adrCode,
-                "opt": opt,
-                "dom": dom,
-                "korp": korp,
-                "image1": image1,
-                "logId": _logId,
-                'prj':prj
-            })
-            sessionStorage.setItem("UOID", "");
-            sessionStorage.setItem("cmsf_uo", "CreateOpject.aspx")
-            sessionStorage.setItem("currentDatas", JSON.stringify(objectDetail))
-            window.location.href = 'CreateOrg.aspx'
+            SaveDataAndGoTo('CreateOrg.aspx')
+
         })
         $("#DobUob").click(function () {
-            sessionStorage.setItem("LogId","")
-            sessionStorage.setItem("ComesTo", "")
-            var adr = $("#adr").val();
-            var adrCode = $("#adrList option[value='" + $('#adr').val() + "']").attr('itemid')
-            var opt = $("#uo").val();
-            var dom = $('#dom').val();
-            var korp = $('#korp').val();
-            var image1 = $(".foto").attr('src');
-            var _logId = $("#uob").val();
-            var prj = $('#Projects').val()
-            var objectDetail = [];
-            objectDetail.push({
-                "adr": adr,
-                "adrCode": adrCode,
-                "opt": opt,
-                "dom": dom,
-                "korp": korp,
-                "image1": image1,
-                "logId": _logId,
-                'prj':prj
-            })
-            sessionStorage.setItem("currentDatas", JSON.stringify(objectDetail))
-            sessionStorage.setItem("cmsf_a", "CreateOpject.aspx")
-            sessionStorage.setItem("LogId", "")
-            window.location.href = "/Client_Admin/CreateAccount.aspx";
-
+            SaveDataAndGoTo("CreateAccount.aspx")
         })
         
         var currentDatas = sessionStorage.getItem("currentDatas")
@@ -314,28 +267,7 @@
             }
             $("#uoS").hide()
         })//
-        function GetProjectForManComp(uo,s)
-        {
-            var Obj = { "UoId": uo, }
-            $.ajax({
-                type: "POST",
-                url: "CreateOpject.aspx/GetProjectForMan",
-                data: JSON.stringify(Obj),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-
-                success: function (data) {
-                   // $("#Projects").find("option:not(:first)").remove();
-                    var jsonData = JSON.parse(data.d)
-                    for (var i = 0; i < jsonData.length; i++) {
-                        $("#Projects").append('<option value=' + jsonData[i].ADRESS_ID + '>' + jsonData[i].ACCOUNT_NAME + '</option>')
-                    }
-                    if (s.length != 0) {
-                        $("#Projects").val(s)
-                    }
-                }
-            })
-        }
+    
         $(document).on('change', '#uob', function () { $("#uobS").hide() })
         $('#DobProject').click(function ()
         {
@@ -596,62 +528,8 @@
                 }
             }
         }
-        function GerUoList(CL_Id, Suo)
-        {
-            var obj = {
-                client_id: CL_Id
-            };
-            $.ajax({
-                type: "POST",
-                url: "RegisterUO.aspx/GetUOList",
-                data: JSON.stringify(obj),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (result) {
-                    //console.log(result)
-                    var jsondata_1 = JSON.parse(result.d)
-                    for (var i = 0; i < jsondata_1.length; i++) {
-                        $("#uo").append('<option value="' + jsondata_1[i].MAN_COMPANY_ID + '">' + jsondata_1[i].NAME + '</option>')
-                    }
-                    if (Suo != "")
-                    {
-                        $("#uo").val(Suo)
-                    }
-                },
-
-                error: function (r) {
-                   // //alert("Error");
-                    console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-                },
-                failure: function (r) {
-                    alert("FAIL");
-                }
-            });
-        }
-        function GetUprRoles(CL_Id,sId) {
-            var obj = { "ClId": CL_Id }
-            $.ajax({
-                type: "POST",
-                url: "CreateOpject.aspx/GetUPRRoles",
-                data: JSON.stringify(obj),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    var jsondata_ = JSON.parse(data.d)
-
-                    for (var i = 0; i < jsondata_.length; i++) {
-                       // console.log(jsondata_[i].ACCOUNT_NAME)
-                        $("#uob").append('<option value="' + jsondata_[i].LOG_IN_ID + '">' + jsondata_[i].ACCOUNT_NAME + '</option></select>')
-                    }
-                    if (sId != "") {
-                        $("#uob").val(sId);
-                    }
-
-                    
-                }
-
-            })
-        }
+     
+       
         function saveObject(Id, ObjectDatas, CODE_, uoId_, img, lg,prjct) {
             //uoId_ = (uoId_ == undefined || uoId_ == "" || uoId_ == null) ? 0 : uoId_
             // lg = (lg == undefined || lg == "" || lg == null) ? 0 : lg
@@ -1019,62 +897,13 @@
             if (adres.length >= 4) {
                 var manual = $("#manu").prop('checked');
                 if (manual == false) {
-                    var obj = { txt: adres }
-
-                    $.ajax({
-                        url: "/Client_Admin/CreateOpject.aspx/GetStreetsBytext",
-                        data: JSON.stringify(obj),
-                        dataType: "json",
-                        type: "POST",
-                        contentType: "application/json; charset=utf-8",
-                        success: function (data) {
-                            // console.log(data);
-                            var jsondata = JSON.parse(data.d);
-                            //console.log(jsondata.d[0].CODE);
-                            // console.log(data.d.CODE)
-                            $.each(jsondata, function (key, value) {
-                                $("#adrList").append('<option value="' + value.Name + ' " itemid=' + value.CODE + '></option>')
-                                // console.log(value.Name)
-                            })
-                        }
-                    })
+                    searchAdress(adres)
+                 
                 }
             }
-            //$("#adrList").empty();
-            //var adres = $("#adr").val();
-            //if ($("#manu").is(":checked")) {
+       
 
-            //}
-            //else {
-            //    if (adres.length >= 4) {
-            //        //console.log("""")
-            //        var obj = { txt: adres }
-
-            //        $.ajax({
-            //            url: "/Client_Admin/CreateOpject.aspx/GetStreetsBytext",
-            //            data: JSON.stringify(obj),
-            //            dataType: "json",
-            //            type: "POST",
-            //            contentType: "application/json; charset=utf-8",
-            //            success: function (data) {
-            //                // console.log(data);
-            //                var jsondata = JSON.parse(data.d);
-            //                //console.log(jsondata.d[0].CODE);
-            //                // console.log(data.d.CODE)
-            //                $.each(jsondata, function (key, value) {
-            //                    $("#adrList").append('<option value="' + value.Name + ' " itemid=' + value.CODE + '></option>')
-            //                    // console.log(value.Name)
-            //                })
-            //            }
-            //        })
-
-            //    }
-            //    else {
-            //        $("#adrList").empty();
-            //    }
-            //}
-
-        })//adr_adr
+        })
 
     }
 
@@ -1087,51 +916,18 @@
         $("#loader,.ui-loader-background").hide();
         /// sessionStorage.setItem("UoId", uoI_d)
         var u_o_Id = sessionStorage.getItem("UoId")
-        if (u_o_Id=="") {
-            var obj = {
-                client_id: Id
-            };
-
-
-            $.ajax({
-                type: "POST",
-                url: "RegisterObject.aspx/OBJ_List",
-                data: JSON.stringify(obj),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (result) {
-
-                    console.log(result)
-                    var jsondata_1 = JSON.parse(result.d)
-                    //var jsondata_2 = JSON.parse(jsondata_1)
-
-                    //for (var i = 0; i < jsondata_2.OBJECTS.length; i++) {
-
-                    //    //itemid
-                    //    $("#objs").append('<tr><td class="left"> <a  href="CreateOpject.aspx"  onclick="DetailObj(' + jsondata_2.OBJECTS[i].OBJECT_ID + ')">' + jsondata_2.OBJECTS[i].OBJECT_ADRESS + '<a/></td><td><img class="foto-obekt" src="' + jsondata_2.OBJECTS[i].OBJECT_IMG + '"></td> <td><a onclick="DetailObj(' + jsondata_2.OBJECTS[i].OBJECT_ID + ')"href="CreateOpject.aspx">' + jsondata_2.OBJECTS[i].MAN_COMP_NAME + '<a/></td></tr>')
-
-                    //}
-                    for (var i = 0; i < jsondata_1.length; i++) {
-                        $("#objs").append('<tr><td class="left"> <a  href="CreateOpject.aspx"  onclick="DetailObj(' + jsondata_1[i].Object_Id + ')">' + jsondata_1[i].ObjectAdress + '<a/></td><td><img class="foto-obekt" src="' + jsondata_1[i].ObjectPhoto + '"></td> <td> ' + jsondata_1[i].MAN_COMP_NAME + '</td></tr>')
-                    }
-                },
-
-                error: function (r) {
-                   // //alert("Error");
-                    console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-                },
-                failure: function (r) {
-                    alert("FAIL");
-                }
-            });
+        if (u_o_Id == "" || u_o_Id == null) {
+            GetObject_adress(Id)
+           
         }
-        if (u_o_Id!="") {
+        else{
             getObjMan(Id, u_o_Id)
         }
       
 
         //  $('#objs').find('tr').find('td').find('a').click(function () { alert($(this).attr('itemid')) })
     }
+
     function getObjMan(clId, u_o)
     {
         var o_b_j = {
@@ -1165,6 +961,7 @@
             }
         });
     }
+  
     if (loc == "/Client_Admin/RegisterUO.aspx") {
         $("#loader,.ui-loader-background").hide();
         sessionStorage.setItem("cmsf_uo", "");
@@ -6884,7 +6681,238 @@
     }
    
 });
+function GetUprRoles(CL_Id, sId) {
+    var obj = { "ClId": CL_Id }
+    $.ajax({
+        type: "POST",
+        url: "CreateOpject.aspx/GetUPRRoles",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            var jsondata_ = JSON.parse(data.d)
 
+            for (var i = 0; i < jsondata_.length; i++) {
+                // console.log(jsondata_[i].ACCOUNT_NAME)
+                $("#uob").append('<option value="' + jsondata_[i].LOG_IN_ID + '">' + jsondata_[i].ACCOUNT_NAME + '</option></select>')
+            }
+            if (sId != "") {
+                $("#uob").val(sId);
+            }
+
+            $('#uob').select2()
+        }
+
+    })
+}
+function searchAdress(adres) {
+    var obj = { txt: adres }
+
+    $.ajax({
+        url: "/Client_Admin/CreateOpject.aspx/GetStreetsBytext",
+        data: JSON.stringify(obj),
+        dataType: "json",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            // console.log(data);
+            var jsondata = JSON.parse(data.d);
+            //console.log(jsondata.d[0].CODE);
+            // console.log(data.d.CODE)
+            $.each(jsondata, function (key, value) {
+                $("#adrList").append('<option value="' + value.Name + ' " itemid=' + value.CODE + '></option>')
+                // console.log(value.Name)
+            })
+        }
+    })
+}
+function GerUoList(CL_Id, Suo) {
+    var obj = {
+        client_id: CL_Id
+    };
+    $.ajax({
+        type: "POST",
+        url: "RegisterUO.aspx/GetUOList",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            //console.log(result)
+            var jsondata_1 = JSON.parse(result.d)
+            for (var i = 0; i < jsondata_1.length; i++) {
+                $("#uo").append('<option value="' + jsondata_1[i].MAN_COMPANY_ID + '">' + jsondata_1[i].NAME + '</option>')
+            }
+          
+            if (Suo != "") {
+                $("#uo").val(Suo)
+            }
+            $('#uo').select2()
+        },
+
+        error: function (r) {
+            // //alert("Error");
+            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function (r) {
+            alert("FAIL");
+        }
+    });
+}
+function GetProjectForManComp(uo, s) {
+    var Obj = { "UoId": uo, }
+    $.ajax({
+        type: "POST",
+        url: "CreateOpject.aspx/GetProjectForMan",
+        data: JSON.stringify(Obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+
+        success: function (data) {
+            // $("#Projects").find("option:not(:first)").remove();
+            var jsonData = JSON.parse(data.d)
+            for (var i = 0; i < jsonData.length; i++) {
+                $("#Projects").append('<option value=' + jsonData[i].PROJECT_ID + '>' + jsonData[i].PROJECT_NAME+ '</option>')
+            }
+            if (s.length != 0) {
+                $("#Projects").val(s)
+            }
+            $('#Projects').select2()
+        }
+    })
+}
+function SaveDataAndGoTo(page)
+{
+    sessionStorage.setItem("ComesTo", "")
+    var adr = $("#adr").val();
+    var adrCode = $("#adrList option[value='" + $('#adr').val() + "']").attr('itemid')
+    var opt = $("#uo").val();
+    var dom = $('#dom').val();
+    var korp = $('#korp').val();
+    var image1 = $(".foto").attr('src');
+    var _logId = $("#uob").val();
+    var prj = $('#Projects').val()
+    var objectDetail = [];
+    objectDetail.push({
+        "adr": adr,
+        "adrCode": adrCode,
+        "opt": opt,
+        "dom": dom,
+        "korp": korp,
+        "image1": image1,
+        "logId": _logId,
+        'prj': prj
+    })
+    if (page == 'CreateOrg.aspx') {
+       sessionStorage.setItem("UOID", "");
+        sessionStorage.setItem("cmsf_uo", "CreateOpject.aspx")
+        sessionStorage.setItem("ComesTo", "Ob")
+    }
+    else if (page == 'CreateAccount.aspx') {
+        sessionStorage.setItem("LogId", "")
+        sessionStorage.setItem("ComesTo", "OB")
+    }
+ 
+    sessionStorage.setItem("currentDatas", JSON.stringify(objectDetail))
+    window.location.href = page
+}
+function GetObject_adress(Id) {
+    var obj = { client_id: Id };
+    $.ajax({
+        type: "POST",
+        url: "RegisterObject.aspx/OBJ_List",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+
+            console.log(result)
+            var jsondata_1 = JSON.parse(result.d)
+            $('#object_adress').dataTable({
+                "destroy": true,
+                data: jsondata_1,
+                columns: [
+                    {
+                        'data': 'OBJECT_ADRESS',
+                        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                            $(nTd).html('<a href="#"  onclick="DetailObj(' + oData.OBJECT_ID + ')">' + oData.OBJECT_ADRESS + '</a>');
+                        }
+                    },
+                    {
+                        'data': 'OBJECT_IMG',
+                        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                            $(nTd).html('<a href="#"  onclick="DetailObj(' + oData.OBJECT_ID + ')"> <img class="foto-obekt" src="' + oData.OBJECT_IMG + '"></a>');
+                        }
+                    },
+
+                    {
+                        'data': 'MAN_COMP_NAME',
+                        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                            $(nTd).html('<a href="#"  onclick="DetailObj(' + oData.OBJECT_ID + ')"> ' + oData.MAN_COMP_NAME + '</a>');
+                        }
+                    }
+                ]
+                ,
+                "initComplete": function (settings, json) {
+                    changeDatatableElementStructures($('#object_adress'))
+
+
+                    // console.log ('bitti2')
+                },
+                
+                "language": {
+                    // "url":"//cdn.datatables.net/plug-ins/1.10.19/i18n/Russian.json"
+                    "processing": "Подождите...",
+                    "search": "Поиск",
+                    "lengthMenu": "Показать _MENU_ записей",
+                    "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+                    "infoEmpty": "Записи с 0 до 0 из 0 записей",
+                    "infoFiltered": "(отфильтровано из _MAX_ записей)",
+                    "infoPostFix": "",
+                    "loadingRecords": "Загрузка записей...",
+                    "zeroRecords": "Записи отсутствуют.",
+                    "emptyTable": "В таблице отсутствуют данные",
+                    "paginate": {
+                        "first": "Первая",
+                        "previous": "Предыдущая",
+                        "next": "Следующая",
+                        "last": "Последняя"
+                    }
+                }
+
+                
+            })
+        },
+
+        error: function (r) {
+            // //alert("Error");
+            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function (r) {
+            alert("FAIL");
+        }
+    });
+}
+function changeDatatableElementStructures(e) {
+    var E_id = $(e).attr('id')
+    var Tablewrapper = '#' + E_id + '_wrapper'
+    var TableLength = E_id + '_length'
+    var TableFilter = '#' + E_id + '_filter'
+    // $(Tablewrapper).prepend($('#TableTools'))
+    $('#ListLength').append($('select[name="' + TableLength + '"]:eq(0)'))
+    $('select[name="' + TableLength + '"]').children('option').each(function () {
+        // .text('Показывать ' + $(this).val() + ' записей')
+        $(this).text('Показывать ' + $(this).val() + ' записей')
+    })
+    $('#' + TableLength).remove();
+    // $(TableFilter).children('label').children('input[type="search"]').remove()
+    $('#SearchForTable').append($(TableFilter).children('label').children('input[type="search"]').attr('class', 'w-100 transp border-0 ml-2 pr-2 pt-1'))
+
+    $(TableFilter).remove();
+
+}
+function GotoCreateFunction_C() {
+    window.location.href = "CreateOpject.aspx";
+}
 function MaskPhone(e) {
     $(e).inputmask("+7(999) 999-99-99");
 }

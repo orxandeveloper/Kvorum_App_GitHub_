@@ -5,7 +5,7 @@
         .modalProject {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
-             /* Sit on top z-index: 1;*/
+            /* Sit on top z-index: 1;*/
             padding-top: 100px; /* Location of the box */
             left: 0;
             top: 0;
@@ -13,11 +13,13 @@
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
             background-color: rgb(0,0,0); /* Fallback color */
-                                     /* Black w/ opacity */
-            z-index: 2000; 
-            background-color: rgba(9, 118, 255, 0.4);
+            /* Black w/ opacity */
+            z-index: 10000 !important;
+            background-color:rgba(0, 0, 0, 0.3);
         }
-
+        .CancelProject{
+            float:right !important
+        }
         /* Modal Content */
         .modal-contentProject {
             position: relative;
@@ -32,6 +34,7 @@
             animation-name: animatetop;
             animation-duration: 0.4s
         }
+
         .mhProject {
             text-align: left;
             color: black
@@ -67,7 +70,7 @@
             float: right;
             font-size: 28px;
             font-weight: bold;
-            display:none
+            display: none
         }
 
             .closeProject:hover,
@@ -90,24 +93,24 @@
             padding: 15px;
             width: auto;
         }
+
         .uoProject {
-             
         }
+
         .pName {
-        
         }
+
         .AddProject {
-        float: left; 
-        width: 25%; 
-        height: 78%; 
-        background-color: white; 
-        color: black; 
-        font-weight: 700;
-        
+            float: left;
+            width: 25%;
+            height: 78%;
+            background-color: white;
+            color: black;
+            font-weight: 700;
         }
+
         .modal-footerProject {
             padding: 2px 16px;
-            
             color: white;
             height: 45px;
             text-align: left;
@@ -115,123 +118,164 @@
             margin-top: 44px;
             width: 100%;
         }
+
         .CancelProject {
-            width: 25%; 
-            float: right; 
-            height: 78%; 
+            width: 25%;
+            float: right;
+            height: 78%;
             background-color: white;
-            color: black; 
+            color: black;
             font-weight: 700;
         }
-        .rmFOr{
 
-        border: 1px solid #000;
-    box-shadow: 3px 4px 5px rgba(0,0,0,0.3);
-    height: 65px;
-    overflow: auto;
-    width: 67.5%;
-}
+        .rmFOr {
+            border: 1px solid #000;
+            box-shadow: 3px 4px 5px rgba(0,0,0,0.3);
+            height: 65px;
+            overflow: auto;
+            width: 67.5%;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="row w-100 m-0 min-vh-100">
+        <div class="col-sm-12 p-0">
 
-    <h2 id="h_2">Создание объекта</h2>
+            <div class="row p-4 m-0">
+                <div class="col-lg-6 col-sm-12">
 
-    <div class="button">
-        <a id="myBtn" href="#modal" role="button" class="create"><i class="fa fa-times-circle" aria-hidden="true"></i>&nbsp;Удалить</a>
-    </div>
-    <div style="clear: both;"></div>
+                    <div class="bgWhite rounded16 shadow w-100 p-4">
 
-    <form runat="server">
-        <label class="managerBox" id="sslkText" style="display: none">Страница дома</label>
-        <%-- <span id="uobS" style=" font-weight:bold;color:red;display:none">""</span>--%>
-        <a id="slk" target="_blank" href="#" style="display: none"></a>
-        <span id="uoS" style="float: right; font-weight: bold; color: red; display: none">""</span>
-        <label for="uo">Управляющая организация</label>
+                        <div class="flexHoriz w-100" id="infoCount">
+                            <h2 id="meterNum" class="font24b textBlack">Создание объекта</h2>
+                            <button id="delC" style="display: none" class="transp border-0 ml-auto">
+                                <img src="../img/ic-bin.svg" class="mr-3 position-absolute d-flex ml-n4 " alt="" />
+                                <span id="delspan" class="font16b reddish">Удалить объект</span>
+                            </button>
+                        </div>
 
-        <select id="uo" style="width: 48%">
-            <option value="0">Выберите Управляющую организацию</option>
-        </select>
-        
-        <input type="button" name="name" class="btn btn-default genBtn" style="float: inherit; width: auto;" id="DobUo" value="Добавить" />
-         <label for="uo2">Проект</label>
+                        <div class="row mt-3 mb-3" id="btns">
+                            <div class="col-sm-12 ">
 
-        <select data-b="0" id="Projects" style="width: 48%">
-            <option value="0">Выберите Проект</option>
-        </select>
-         <input type="button" name="name" class="btn btn-default genBtn" style="float: inherit; width: auto;" id="DobProject" value="Добавить" />
-        <h4>Адрес объекта</h4>
-        <div style="/* border: groove */padding: 5px 8px; border: 1px solid #ddd; background-color: #F4F4F8;">
-            <label for="adr">Область, город, район, улица</label>
-            <span id="adrS" style="float: right; font-weight: bold; color: red; display: none">""</span>
-            <input type="text" id="adr" list="adrList">
-            <datalist id="adrList">
-            </datalist>
 
-            <input id="manu" style="margin-left: inherit;" type="checkbox">
-            <label for="manu" class="checkBx">Ввести вручную</label>
-            <div class="row" style="margin-right: -15px;">
-                <div class="col-xs-6">
-                    <label for="DOM">Дом</label>
-                    <span id="domS" style="float: right; display: none; font-weight: bold; color: red;">""</span>
-                    <input type="text" id="dom">
-                </div>
-                <div class="col-xs-6">
-                    <label for="KORP">Строение/корпус</label>
-                    <input type="text" id="korp">
+
+
+
+
+                                <button class="btn btn1 h56 mr-2" id="savO"><strong>Сохранить</strong></button>
+
+                                <button class="btn btn1 h56 outline shadow-none flexCenter" id="back_O">Назад</button>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <select id="uo">
+                                    <option value="0">Выберите Управляющую организацию</option>
+                                </select>
+                                <label for="uo" class="transp backLab">Управляющая организация</label>
+                            </div>
+                            <div class="posRel w-80 mb-3">
+                                <input type="button" name="name" class="btn btn1 h56 outline shadow-none flexCenter" id="DobUo" value="Добавить">
+                            </div>
+                        </div>
+
+
+                        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <select data-b="0" id="Projects">
+                                    <option value="0">Выберите Проект</option>
+                                </select>
+                                <label for="Projects" class="transp backLab">Проект</label>
+                            </div>
+                            <div class="posRel w-80 mb-3">
+                                <input type="button" name="name" class="btn btn1 h56 outline shadow-none flexCenter" style="float: inherit; width: auto;" id="DobProject" value="Добавить">
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="w-100 flexHoriz flex-wrap justify-content-between">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" id="adr" list="adrList">
+                                <label for="adr" class="transp backLab">Область, город, район, улица</label>
+                            </div>
+                            <div class="w-100 mb-3">
+                                <input id="manu" class="checkbox-item" type="checkbox">
+                                <label for="manu">Ввести вручную</label>
+                            </div>
+                            <div class="posRel w-48">
+
+                                <label for="dom">Дом</label>
+                                <input type="text" class="transp backLab" id="dom">
+                            </div>
+                            <div class="posRel w-48">
+                                <label for="KORP">Строение/корпус</label>
+                                <input type="text" class="transp backLab" id="KORP">
+                            </div>
+
+                        </div>
+                        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <select id="uob">
+                                </select>
+                                <label class="transp backLab" for="uob">Управляющий объекта</label>
+                            </div>
+                            <div class="posRel w-80 mb-3">
+                                 <input type="button" name="name" class="btn btn1 h56 outline shadow-none flexCenter" id="DobUob" value="Добавить">
+                            </div>
+                           
+                        </div>
+
+
+                        <div>
+                            <label>Изображение объекта</label>
+                            <input type="file" id="files">
+                            <div class="flexHoriz w-100">
+                                <img id="imgNews" src="img/brickdom.png" class="w100">
+                            </div>
+                        </div>
+
+
+
+
+                        <!-- row -->
+                    </div>
+                    <!-- wrapper -->
                 </div>
             </div>
+            <!-- row -->
         </div>
+    </div>
 
-
-
-        <span id="uobS" style="font-weight: bold; color: red; display: none; float: right;">""</span>
-        <label class="managerBox">Управляющий объекта</label>
-
-
-        <select id="uob" style="width: 48%">
-            <option value="0">Выберите Управляющего объекта </option>
-        </select>
-        <input type="button" name="name" class="btn btn-default genBtn" style="float: inherit; width: auto;" id="DobUob" value="Добавить" />
-        <label for="files">Изображение объекта</label>
-        <span id="flS" style="float: right; font-weight: bold; color: red; display: none">""</span>
-        <div class="foto-obekt">
-            <img class="foto" src="/img/brickdom.png">
-            <br style="clear: both;">
-            <input type="file" id="files">
-            <div id="output" style="/*display: none*/"></div>
-        </div>
-        <br />
-        <br />
-
-
-        <div style="clear: both;"></div>
-        <div class="buttons1">
-            <button id="savO" class="btn btn-default logBtn" type="button" style="background-color: rgb(0,147,233);">Сохранить</button>
-            <button id="back_O" class="btn btn-default logBtn" type="button" style="background-color: rgb(149,153,156); margin-left: 5%;">Назад</button>
-            <%--<input type="button" name="name" id="tst" value="test" />--%>
-        </div>
-    </form>
-    <div id="AddProjectModal" class="modalProject" style=" display: none;">
+    <div id="AddProjectModal" class="modalProject" style="display: none;">
 
         <!-- Modal content -->
-        <div class="modal-contentProject" >
-            <div class="modal-headerProject">
-                <span class="closeProject"  id="closeUplC">×</span>
-                <h2 id="mhProject" class="mhProject" >Создать Проект</h2>
+        <div class="modal-contentProject  bgWhite rounded16 p-4 shadow">
+            <div class="modal-headerProject  bgWhite flexHoriz">
+              <%--  <span class="closeProject" id="closeUplC">×</span>--%>
+             <label id="mhProject" class="textBlack font24b w-90 mb-0">Создать Проект</label>
+                <span class="close2 ml-auto mr-3" id="closeUplC">
+                    <img src="../img/close.svg" alt="Закрыть" class="w24">
+                </span>
             </div>
-            <div class="modal-bodyProject" >
+            <div class="modal-bodyProject  mt-4">
                 <label>Выберите Управляющую организацию</label>
-                <select id="uoProject" class="uoProject" >
-           
+                <select id="uoProject" class="uoProject">
                 </select>
                 <br>
-                <label> Проект</label>
-                <input type="text" id="pName" class="pName" >
+                <label>Проект</label>
+                <input type="text" id="pName" class="pName">
             </div>
-            <div class="modal-footerProject" >
-                <input type="button" id="CancelProject" class="CancelProject" name="name" value="Отмена" >
-                <input type="button" id="AddProject" class="AddProject" name="name" value="Добавить" >
+            <div class="modal-footerProject">
+               
+               
+                <button class="btn btn1 h56 mr-2"  id="AddProject"><strong>Добавить</strong></button>
+                <button class="btn btn1 h56 outline shadow-none flexCenter CancelProject"id="CancelProject" >Назад</button>
             </div>
         </div>
 
