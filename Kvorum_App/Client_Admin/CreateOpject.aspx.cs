@@ -105,7 +105,8 @@ namespace Kvorum_App.Client_Admin
         [WebMethod]
         public static string AddProject(int UoId, string ProjectName)
         {
-            Mydb.ExecuteNoNQuery("insert into PROJECTS (PROJECT_NAME,MC_ID) values(@PROJECT_NAME,@MC_ID)", new SqlParameter[] {new SqlParameter("@PROJECT_NAME",ProjectName),new SqlParameter("@MC_ID",UoId) }, CommandType.Text);
+            //Mydb.ExecuteNoNQuery("insert into PROJECTS (PROJECT_NAME,MC_ID) values(@PROJECT_NAME,@MC_ID)", new SqlParameter[] {new SqlParameter("@PROJECT_NAME",ProjectName),new SqlParameter("@MC_ID",UoId) }, CommandType.Text);
+            Mydb.ExecuteNoNQuery("AddProject", new SqlParameter[] { new SqlParameter("@PROJECT_NAME", ProjectName), new SqlParameter("@MC_ID", UoId) }, CommandType.StoredProcedure);
             return "";
         }
         [WebMethod]
@@ -175,24 +176,8 @@ namespace Kvorum_App.Client_Admin
         [WebMethod]
         public static string getObject(int CLId_,int ObjId_ )
         {
-            ObjectS obj = new ObjectS();
-            DataTable dt = Mydb.ExecuteReadertoDataTable("getObjectById", new SqlParameter[] { new SqlParameter("@objId", ObjId_), new SqlParameter("@CL_Id", CLId_) }, CommandType.StoredProcedure);
-            //DataRow dr = dt.Rows[0];
-            foreach (DataRow dr in dt.Rows)
-            {
-                obj.ClientId = Convert.ToInt32(dr["CLIENT_ID"]);
-                obj.ManCompId = Convert.ToInt32(dr["MAN_COMP_ID"]);
-                obj.ObjectAdress = dr["OBJECT_ADRESS"].ToString();
-                obj.ObjectPhoto = dr["OBJECT_PHOTO"].ToString();
-                obj.Object_Id = Convert.ToInt32(dr["OBJECT_ID"]);
-                obj.KladrObjectId = dr["KLADR_OBJECT_ID"].ToString();
-                obj.LOG_IN_ID = Convert.ToInt32(dr["LOG_IN_ID"]);
-                obj.DOMAIN_NAME = dr["PROJECT_ID"].ToString();
-            }
-           
-            JavaScriptSerializer js = new JavaScriptSerializer();
             
-            return js.Serialize(obj);
+            return Mydb.ExecuteAsJson("getObjectById", new SqlParameter[] { new SqlParameter("@objId", ObjId_), new SqlParameter("@CL_Id", CLId_) }, CommandType.StoredProcedure);
         }
         [WebMethod]
         public static string GetUPRRoles(int ClId)

@@ -252,13 +252,7 @@
             
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         </asp:ContentPlaceHolder>
-         </div>
-        </div>
-    </main>
-
-
-
-
+        
     <div id="myModal" class="modal" style="z-index: 1000; display:none !important">
 
   <!-- Modal content -->
@@ -277,13 +271,16 @@
   </div>
 
 </div>
-        <div id="myModal2" class="modal2" style="z-index: 1000;background-color:rgba(9, 118, 255,0.4);display:none !important">
+        <div id="myModal2" class="modalProject" style="display:none">
 
   <!-- Modal content -->
-  <div class="modal-content2" style="">
-    <div class="modal-header2" style="background-color:white">
-      <span class="close2" id="close_">&times;</span>
-      <h2 id="mh2" style="text-align: left;color:black">Modal Header</h2>
+  <div class="modal-contentProject  bgWhite rounded16 p-4 shadow">
+    <div class="modal-headerProject  bgWhite flexHoriz">
+ <label id="mh2" class="textBlack font24b w-90 mb-0">Создать Проект</label>
+        <span class="close2 ml-auto mr-3" id="close_">
+                    <img src="../img/close.svg" alt="Закрыть" class="w24">
+                </span>
+    
     </div>
     <div class="modal-body2" style="height: 100px;height: 100px;padding: 15px;/* min-width:100px; */display: inline-block;">
       <p id="txt2" style="font-size: 23px;">Some text in the Modal Body</p>
@@ -291,10 +288,12 @@
     </div>
     <div class="modal-footer2" style="text-align: left;background-color:white">
       <%--<h3 id="mf2">Modal Footer</h3>--%>
-        <input type="button" id="cls" name="name" value="Отмена" style="width: 25%; float:right; height:78%;background-color: white;color: black;font-weight: 700;"/>
-        <input type="button" id="deleteO" name="name" value="Удалить" style="float: left;width: 25%;height: 78%;background-color: white;color: black;font-weight: 700;" />
+     <%--   <input type="button" id="cls" name="name" value="Отмена" style="width: 25%; float:right; height:78%;background-color: white;color: black;font-weight: 700;"/>--%>
+        <button class="btn btn1 h56 mr-2" id="deleteO"><strong>Удалить</strong></button>
+        <button class="btn btn1 h56 outline shadow-none flexCenter CancelProject" id="cls">Отмена</button>
+     <%--   <input type="button" id="deleteO" name="name" value="Удалить" style="float: left;width: 25%;height: 78%;background-color: white;color: black;font-weight: 700;" />--%>
     </div>
-  </div>
+ </div>
 
 </div>
     <div id="myModal3" class="modal3" style="display:none !important">
@@ -336,6 +335,13 @@
   </div>
 </div>
     
+                </div>
+        </div>
+    </main>
+
+
+
+
  
     <script src="js/jquery-1.9.1.js"></script>
       <script src="js/jquery-ui.js"></script>

@@ -1443,7 +1443,7 @@ old
     var obj = { "Id_": cookie.preferred_username, "isTenant": isTenant, "role": cookie.role }//"Login_726"
     $.ajax({
         type: "POST",
-        url: "ClientLogin.aspx/LoginIdentity",
+        url: "ClientLogin.aspx/LoginIdentity_",
         data: JSON.stringify(obj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

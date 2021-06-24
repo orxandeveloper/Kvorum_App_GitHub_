@@ -2,6 +2,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
+        .delObj{
+                float: right;
+    color: #D11B25;
+        }
         .modalProject {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
@@ -166,7 +170,11 @@
 
                                 <button class="btn btn1 h56 outline shadow-none flexCenter" id="back_O">Назад</button>
 
-
+                                <a id="myBtn" href="#" role="button" style="display:none" class="create font18b position-relative delObj">
+                        <img src="../img/ic-bin.svg" class="mr-3 position-absolute d-flex ml-n4" alt="">
+                        <!--<i class="fa fa-times-circle" aria-hidden="true"></i>&nbsp;-->
+                        Удалить
+                    </a>
                             </div>
 
                         </div>
@@ -267,12 +275,16 @@
                 </span>
             </div>
             <div class="modal-bodyProject  mt-4">
-                <label>Выберите Управляющую организацию</label>
+              <%--  <label>Выберите Управляющую организацию</label>--%>
                 <select id="uoProject" class="uoProject">
                 </select>
                 <br>
-                <label>Проект</label>
-                <input type="text" id="pName" class="pName">
+                <div class="posRel w-48">
+                     <input type="text" id="pName" class="pName">
+                      <label for="pName" class="transp backLab">Проект</label>
+                </div>
+              
+               
             </div>
             <div class="modal-footerProject">
                

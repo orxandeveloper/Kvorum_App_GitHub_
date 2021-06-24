@@ -98,7 +98,7 @@ namespace Kvorum_App
 
                         if (CountOfMailAsClient==0)
                         {
-                            Mydb.ExecuteNoNQuery("InsertNewClient", new SqlParameter[] { new SqlParameter("@mail", Id_) }, CommandType.StoredProcedure);
+                            Mydb.ExecuteNoNQuery("InsertNewClient_T", new SqlParameter[] { new SqlParameter("@mail", Id_) }, CommandType.StoredProcedure);
 
                             returnvalue = UK_Login(Id_);
                         }
