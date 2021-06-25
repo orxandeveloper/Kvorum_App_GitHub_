@@ -1935,387 +1935,23 @@
             $("#DeleteUO").hide();
             $("#INfoU").hide();
             $("#SaveMO").click(function () {
-                checkControls_ManagerComp()
+                if (checkControls_ManagerComp().isSuccess == true) {
+                    createNew_ManagerCompany(Id, checkControls_ManagerComp(),null);
+                }
+               
             })
-            $("#SaveMO_").click(function () {
-                // alertMessage("""","""","""")
-                var Inn_ = ($("#INN").val() != null) ? $("#INN").val() : "";
-                var OGRN_ = $("#OGRN").val();
-                var Name_ = $("#NAME").val();
-                var KPP_ = $("#KPP").val();
-                var OKPO_ = $("#OKPO").val();
-                var adr_ = ($("#adr").val() != null) ? $("#adr").val() : null;
-
-                var adrCode_;
-                var adrtext_;
-                var DOM_ = $("#DOM").val();
-                var KORP_ = ($("#KORP").val().length != 0) ? "K. " + $("#KORP").val() : "";
-                if (adr_ != "") {
-                    if ($("#manu").is(":checked")) {
-                        adrtext_ = adr_ + ", Д. " + DOM_ + ", " + KORP_;
-                        adrCode_ = "";
-                        //alert(adrtext_);
-
-                    }
-                    else {
-                        adrtext_ = adr_ + ", Д. " + DOM_ + ", " + KORP_;
-                        adrCode_ = $("#adrList option[value='" + $('#adr').val() + "']").attr('itemid')
-                        if (adrCode_ == undefined) {
-                            adrCode_ = ""
-                        }
-                        // alert(adrtext_ + "  CODE : " + adrCode_)
-                    }
-                }
-
-
-                var BIK_ = ($("#bik").val() != null) ? $("#bik").val() : "";
-                var BNAME_ = ($("#BNAME").val() != null) ? $("#BNAME").val() : "";
-                var BKRS_ = ($("#BKRS").val() != null) ? $("#BKRS").val() : "";
-                var RS_ = ($("#RS").val() != null) ? $("#RS").val() : "";
-                var tlf_ = ($("#tlf").val() != null) ? $("#tlf").val() : "";
-                var mail_ = ($("#mail").val() != null) ? $("#mail").val() : "";
-                var vk_ = ($("#vk").val() != null) ? $("#vk").val() : "";
-                var ok_ = ($("#ok").val() != null) ? $("#ok").val() : "";
-                var fb_ = ($("#fb").val() != null) ? $("#fb").val() : "";
-                var tw_ = ($("#tw").val() != null) ? $("#tw").val() : "";
-                // var adrkod_j;
-                var innMax = $("#INN").attr("maxlength")
-                if (Inn_.length == innMax) {
-                    var OGRN_Max = $("#OGRN").attr("maxlength")
-                    if (OGRN_.length == OGRN_Max) {
-                        if (Name_.length != 0) {
-                            var KPP_max = $("#KPP").attr("maxlength")
-                            if (KPP_.length == KPP_max) {
-                                var OKPO_max = $("#OKPO").attr("maxlength")
-                                if (OKPO_.length == OKPO_max) {
-                                    if (adr_.length != 0) {
-                                        if (DOM_.length != 0) {
-                                            var BIK_max = $("#bik").attr("maxlength")
-                                            if (BIK_.length == BIK_max) {
-                                                if (BNAME_.length != 0) {
-                                                    var BKRS_max = $("#BKRS").attr("maxlength");
-                                                    if (BKRS_.length == BKRS_max) {
-                                                        var RS_max = $("#RS").attr("maxlength");
-                                                        if (RS_.length == RS_max) {
-                                                            var RssVis = $("#RSS").css("display");
-                                                            if (RssVis != "block") {
-                                                                if ($('#emailError').length == 0) {
-
-                                                                    var obj = {
-                                                                        MAN_COMPANY_ID: null,
-                                                                        INN: Inn_,
-                                                                        KPP: KPP_,
-                                                                        OKPO: OKPO_,
-                                                                        OGRN_OGRNIP: OGRN_,
-                                                                        NAME: Name_,
-                                                                        LICENCE: "No Lic",
-                                                                        ADRESS_ID: adrCode_, //CODE from autocomplete
-                                                                        ADRESS: adrtext_,
-                                                                        PHONE: tlf_,
-                                                                        EMAIL: mail_,
-                                                                        VK: vk_,
-                                                                        OK: ok_,
-                                                                        FB: fb_,
-                                                                        TW: tw_,
-                                                                        CLIENT_ID: ClId,
-                                                                        BIK: BIK_,
-                                                                        BNAME: BNAME_,
-                                                                        BKRS: BKRS_,
-                                                                        RS: RS_,
-                                                                        action: "0",
-                                                                        shopid: $('#Shopid').val()// 0-insert, 1-update, 2-delete
-                                                                    }
-                                                                    $.ajax({
-                                                                        type: "POST",
-                                                                        url: "CreateOrg.aspx/CRUD_UO",//"../WCFServices/Constructor_API.svc/AddEditDelUO",
-                                                                        data: JSON.stringify(obj),
-                                                                        contentType: "application/json; charset=utf-8",
-                                                                        dataType: "json",
-                                                                        //async: false,
-                                                                        success: function (result) {
-
-                                                                            // alert("OK. See Console -  press F12");
-                                                                            //alertMessage("Операция прошла успешно", "Управляющая организация успешно добавлена", ":)")
-                                                                            var cmsf_uo = sessionStorage.getItem("cmsf_uo");
-                                                                            var log_Id = sessionStorage.getItem("Log");
-                                                                            SaveLog("Создан", "Простое", "Администратор", "Клиентское администрирование", "В системе создана управляющая организация  (" + Name_ + ")", log_Id);
-                                                                            window.location.href = (cmsf_uo.length != 0) ? cmsf_uo : 'RegisterUO.aspx'
-                                                                            //if (comesTo != null || comesTo != "" || comesTo != undefined) {
-
-                                                                            //    window.location.href = "/Client_Admin/CreateOpject.aspx"
-                                                                            //    // sessionStorage.removeItem("ComesTo")
-                                                                            //    // sessionStorage.setItem("ComesTo", null)
-                                                                            //}
-                                                                            //if (comesTo == null || comesTo == "" || comesTo == undefined) {
-                                                                            //    var log_Id = sessionStorage.getItem("Log");
-                                                                            //    SaveLog("Создан", "Простое", "Администратор", "Клиентское администрирование", "В системе создана управляющая организация  (" + Name_ + ")", log_Id);
-                                                                            //    window.location.href = "RegisterUO.aspx";
-                                                                            //}
-
-                                                                            // console.log(JSON.stringify(result)); $("#resulter").text(JSON.stringify(result));
-
-                                                                        },
-
-                                                                        error: function (r) {
-                                                                            ////alert("Error");
-                                                                            // alertMessage("Oшибка", "Не удалось выполнить операцию", ":(")
-                                                                            // console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-                                                                            $("#loader,.ui-loader-background").hide();
-                                                                        },
-                                                                        failure: function (r) {
-                                                                            // alert("FAIL");
-                                                                            alertMessage("Oшибка", "Не удалось выполнить операцию", "Fail")
-                                                                            $("#loader,.ui-loader-background").hide();
-                                                                        }
-                                                                    })
-                                                                }
-                                                            }
-
-                                                        }
-                                                        else {
-                                                            $("#RSS").text("Осталось " + (RS_max - RS_.length) + " символов ").show();
-                                                            // $("html, body").animate({ scrollTop: 500 }, "slow");
-                                                        }
-                                                    }
-                                                    else {
-                                                        $("#BKRSS").text("Необходимо заполнить поле корреспондентский счет ").show();
-                                                    }
-                                                }
-                                                else {
-                                                    $("#BNAMES").text("Необходимо заполнить поле наименование банка ").show();
-                                                }
-                                            }
-                                            else {
-                                                $("#bikS").text("Осталось" + (BIK_max - BIK_.length) + " символов  ").show();
-                                                $("html, body").animate({ scrollTop: 500 }, "slow");
-                                            }
-                                        }
-                                        else {
-                                            $("#domS").text("Введите номер дома ").show();
-                                            $("html, body").animate({ scrollTop: 200 }, "slow");
-                                        }
-                                    }
-                                    else {
-                                        $("#adrS").text("Введите область, город, район, улицу ").show();
-                                        $("html, body").animate({ scrollTop: 200 }, "slow");
-                                    }
-                                }
-                                else {
-                                    $("#OKPOS").text("Осталось " + (OKPO_max - OKPO_.length) + " символов  ").show();
-                                    $("html, body").animate({ scrollTop: 200 }, "slow");
-                                }
-
-                            }
-                            else {
-                                $("#KPPS").text("Осталось " + (KPP_max - KPP_.length) + " символов ").show();
-                                $("html, body").animate({ scrollTop: 200 }, "slow");
-                            }
-                        }
-                        else {
-                            $("#Name_S").text("Необходимо заполнить поле наименование организации").show();
-                            $("html, body").animate({ scrollTop: 200 }, "slow");
-                        }
-                    }
-                    else {
-                        $("#OGRNS").text("Осталось " + (OGRN_Max - OGRN_.length) + " символов").show();
-                        $("html, body").animate({ scrollTop: 200 }, "slow");
-                    }
-                }
-                else {
-                    //  alert("stop")
-                    $("#INNS").text("Осталось " + (innMax - Inn_.length) + " символов").show();
-                    $("html, body").animate({ scrollTop: 200 }, "slow");
-                }
-
-            })
+       
         }
         else {
             //  $("#SaveMO").text("Обновить");
             showbtnObjkt(UoId);
-            getDetailUO()
+            getDetailUO(UoId)
             //$("#SozUp").text(" ")
             $("#SaveMO").click(function () {
-                // alertMessage("""","""","""")
-                var Inn_ = ($("#INN").val() != null) ? $("#INN").val() : "";
-                var OGRN_ = $("#OGRN").val();
-                var Name_ = $("#NAME").val();
-                var KPP_ = $("#KPP").val();
-                var OKPO_ = $("#OKPO").val();
-                var adr_ = ($("#adr").val() != null) ? $("#adr").val() : null;
-
-                var adrCode_;
-                var adrtext_;
-                var DOM_ = $("#DOM").val();
-                var KORP_ = ($("#KORP").val().length != 0) ? "K. " + $("#KORP").val() : "";
-                if (adr_ != "") {
-                    if ($("#manu").is(":checked")) {
-                        adrtext_ = adr_ + ", Д. " + DOM_ + ", " + KORP_;
-                        adrCode_ = "";
-                        //alert(adrtext_);
-
-                    }
-                    else {
-                        adrtext_ = adr_ + ", Д. " + DOM_ + ", " + KORP_;
-                        adrCode_ = $("#adrList option[value='" + $('#adr').val() + "']").attr('itemid')
-                        if (adrCode_ == undefined) {
-                            adrCode_ = ""
-                        }
-                        // alert(adrtext_ + "  CODE : " + adrCode_)
-                    }
+               
+                if (checkControls_ManagerComp().isSuccess == true) {
+                    createNew_ManagerCompany(Id, checkControls_ManagerComp(), UoId);
                 }
-
-
-                var BIK_ = ($("#bik").val() != null) ? $("#bik").val() : "";
-                var BNAME_ = ($("#BNAME").val() != null) ? $("#BNAME").val() : "";
-                var BKRS_ = ($("#BKRS").val() != null) ? $("#BKRS").val() : "";
-                var RS_ = ($("#RS").val() != null) ? $("#RS").val() : "";
-                var tlf_ = ($("#tlf").val() != null) ? $("#tlf").val() : "";
-                var mail_ = ($("#mail").val() != null) ? $("#mail").val() : "";
-                var vk_ = ($("#vk").val() != null) ? $("#vk").val() : "";
-                var ok_ = ($("#ok").val() != null) ? $("#ok").val() : "";
-                var fb_ = ($("#fb").val() != null) ? $("#fb").val() : "";
-                var tw_ = ($("#tw").val() != null) ? $("#tw").val() : "";
-                var innMax = $("#INN").attr("maxlength")
-                if (Inn_.length == innMax) {
-                    var OGRN_Max = $("#OGRN").attr("maxlength")
-                    if (OGRN_.length == OGRN_Max) {
-                        if (Name_.length != 0) {
-                            var KPP_max = $("#KPP").attr("maxlength")
-                            if (KPP_.length == KPP_max) {
-                                var OKPO_max = $("#OKPO").attr("maxlength")
-                                if (OKPO_.length == OKPO_max) {
-                                    if (adr_.length != 0) {
-                                        if (DOM_.length != 0) {
-                                            var BIK_max = $("#bik").attr("maxlength")
-                                            if (BIK_.length == BIK_max) {
-                                                if (BNAME_.length != 0) {
-                                                    var BKRS_max = $("#BKRS").attr("maxlength");
-                                                    if (BKRS_.length == BKRS_max) {
-                                                        var RS_max = $("#RS").attr("maxlength");
-                                                        if (RS_.length == RS_max) {
-                                                            var RssVis = $("#RSS").css("display");
-                                                            if (RssVis != "block") {
-                                                                if ($('#emailError').length == 0) {
-                                                                    var obj = {
-                                                                        MAN_COMPANY_ID: UoId,
-                                                                        INN: Inn_,
-                                                                        KPP: KPP_,
-                                                                        OKPO: OKPO_,
-                                                                        OGRN_OGRNIP: OGRN_,
-                                                                        NAME: Name_,
-                                                                        LICENCE: "No Lic",
-                                                                        ADRESS_ID: adrCode_, //CODE from autocomplete
-                                                                        ADRESS: adrtext_,
-                                                                        PHONE: tlf_,
-                                                                        EMAIL: mail_,
-                                                                        VK: vk_,
-                                                                        OK: ok_,
-                                                                        FB: fb_,
-                                                                        TW: tw_,
-                                                                        CLIENT_ID: ClId,
-                                                                        BIK: BIK_,
-                                                                        BNAME: BNAME_,
-                                                                        BKRS: BKRS_,
-                                                                        RS: RS_,
-                                                                        action: "1",
-                                                                        shopid: $('#Shopid').val()// 0-insert, 1-update, 2-delete
-                                                                    };
-                                                                    $.ajax({
-                                                                        type: "POST",
-                                                                        url: "CreateOrg.aspx/UpdataUo",// "../WCFServices/Constructor_API.svc/AddEditDelUO",
-                                                                        data: JSON.stringify(obj),
-                                                                        contentType: "application/json; charset=utf-8",
-                                                                        dataType: "json",
-                                                                        //async: false,
-                                                                        success: function (result) {
-
-                                                                            // alert("OK. See Console -  press F12");
-                                                                            // alertMessage("Операция прошла успешно", "Добавление Управляюшего Организаций Успешно", ":)")
-                                                                            var log_Id = sessionStorage.getItem("Log")
-                                                                            SaveLog("Сохранить изменения", "Простое", "Администратор", "Клиентское администрирование", "Сохранены изменения в карточке управляющей организации (" + Name_ + ")", log_Id);
-                                                                            window.location.href = "RegisterUO.aspx"
-                                                                            //console.log(JSON.stringify(result)); $("#resulter").text(JSON.stringify(result));
-
-                                                                        },
-
-                                                                        error: function (r) {
-                                                                            ////alert("Error");
-                                                                            // alertMessage("Oшибка", "Не удалось выполнить операцию", ":(")
-                                                                            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-                                                                            $("#loader,.ui-loader-background").hide();
-                                                                        },
-                                                                        failure: function (r) {
-                                                                            // alert("FAIL");
-                                                                            alertMessage("Oшибка", "Не удалось выполнить операцию", "Fail")
-                                                                            $("#loader,.ui-loader-background").hide();
-                                                                        }
-                                                                    })
-                                                                }
-                                                            }
-
-
-
-
-
-
-                                                        }
-                                                        else {
-                                                            $("#RSS").text("Осталось " + (RS_max - RS_.length) + " символов").show();
-                                                            // $("html, body").animate({ scrollTop: 500 }, "slow");
-                                                        }
-                                                    }
-                                                    else {
-                                                        $("#BKRSS").text("Необходимо заполнить поле корреспондентский счет ").show();
-                                                    }
-                                                }
-                                                else {
-                                                    $("#BNAMES").text("Необходимо заполнить поле наименование банка ").show();
-                                                }
-                                            }
-                                            else {
-                                                $("#bikS").text("Осталось " + (BIK_max - BIK_.length) + " символов").show();
-                                                $("html, body").animate({ scrollTop: 500 }, "slow");
-                                            }
-                                        }
-                                        else {
-                                            $("#domS").text("Введите номер дома ").show();
-                                            $("html, body").animate({ scrollTop: 200 }, "slow");
-                                        }
-                                    }
-                                    else {
-                                        $("#adrS").text("Введите область, город, район, улицу ").show();
-                                        $("html, body").animate({ scrollTop: 200 }, "slow");
-                                    }
-                                }
-                                else {
-                                    $("#OKPOS").text("Осталось " + (OKPO_max - OKPO_.length) + " символов").show();
-                                    $("html, body").animate({ scrollTop: 200 }, "slow");
-                                }
-
-                            }
-                            else {
-                                $("#KPPS").text("Осталось" + (KPP_max - KPP_.length) + " символов").show();
-                                $("html, body").animate({ scrollTop: 200 }, "slow");
-                            }
-                        }
-                        else {
-                            $("#Name_S").text("Необходимо заполнить поле наименование организации").show();
-                            $("html, body").animate({ scrollTop: 200 }, "slow");
-                        }
-                    }
-                    else {
-                        $("#OGRNS").text("Осталось " + (OGRN_Max - OGRN_.length) + " символов").show();
-                        $("html, body").animate({ scrollTop: 200 }, "slow");
-                    }
-                }
-                else {
-                    //  alert("stop")
-                    $("#INNS").text("Осталось " + (innMax - Inn_.length) + " символов ").show();
-                    $("html, body").animate({ scrollTop: 200 }, "slow");
-                }
-
-
-
             })
 
             $("#DeleteUO").click(function () {
@@ -2389,75 +2025,7 @@
             }
         }
     }
-    function getDetailUO() {
-        var obj = {
-            id: UoId
-        };
-
-        $.ajax({
-            type: "POST",
-            url: "CreateOrg.aspx/GetUoById",//"../WCFServices/Constructor_API.svc/GetUO",
-            data: JSON.stringify(obj),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            //async:false,
-            //cache: false,
-            success: function (result) {
-
-                //console.log(result)
-                // var jsondata_1 = JSON.stringify(result.ResultData)
-                var jsondata_2 = JSON.parse(result.d)
-
-                $("#ObUo").attr("itemid", UoId)
-                $("#INN").val(jsondata_2[0].INN);
-                $("#OGRN").val(jsondata_2[0].OGRN);
-                $("#NAME").val(jsondata_2[0].NAME);
-                $("#SozUp").text(jsondata_2[0].NAME)
-                $("#KPP").val(jsondata_2[0].KPP);
-                $("#OKPO").val(jsondata_2[0].OKPO);
-                $('#Shopid').val(jsondata_2[0].SHOP_ID)
-
-
-                $("#adr").val(jsondata_2[0].ADRESS);
-                var dom_ = $("#adr").val().substring($("#adr").val().lastIndexOf("Д. ") + 1, $("#adr").val().lastIndexOf(",")).replace('.', '').replace(' ', '');
-                var numbers = /[0-9]/g
-                var korp_ = (jsondata_2[0].ADRESS.lastIndexOf("K. ") > 0) ? jsondata_2[0].ADRESS.substring(jsondata_2[0].ADRESS.lastIndexOf("K. ") + 3) : ""// jsondata_2[0].ADRESS.substr(jsondata_2[0].ADRESS.length - 2)
-                if (!korp_.match(numbers)) {
-                    korp_ = "";
-                }
-                $("#DOM").val(dom_);
-                dom_ = "Д. " + dom_;
-                var adres = jsondata_2[0].ADRESS.substring(0, jsondata_2[0].ADRESS.indexOf(dom_))
-                adres = adres.substring(0, adres.lastIndexOf(","))
-                $("#adr").val(adres);
-                //var korp_ = $("#adr").val().substring($("#adr").val().lastIndexOf(".") + 1, $("#adr").val().lastIndexOf("")).replace('.', '').replace(' ', '');
-                //$("#adr").val(jsondata_2[0].ADRESS.substring(0, jsondata_2[0].ADRESS.indexOf('Д')).replace(',', ''));
-
-                $("#KORP").val(korp_);
-
-                $("#bik").val(jsondata_2[0].BANK_BIK);
-                $("#BNAME").val(jsondata_2[0].BANK_NAME);
-                $("#BKRS").val(jsondata_2[0].BANK_KRS);
-                $("#RS").val(jsondata_2[0].RS);
-                $("#tlf").val(jsondata_2[0].PHONE);
-                $("#mail").val(jsondata_2[0].EMAIL);
-                $("#vk").val(jsondata_2[0].VK);
-                $("#ok").val(jsondata_2[0].OK);
-                $("#fb").val(jsondata_2[0].FB);
-                $("#tw").val(jsondata_2[0].TW);
-
-
-            },
-            error: function (r) {
-                ////alert("Error");
-                console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-            },
-            failure: function (r) {
-                alert("FAIL");
-            }
-        });
-
-    }
+  
     if (loc == "/Client_Admin/MyResources.aspx") {
         sessionStorage.setItem("R_Id", "")
         $("#loader,.ui-loader-background").hide();
@@ -6106,6 +5674,140 @@
     }
 
 });
+function getDetailUO(UoId) {
+    var obj = {
+        id: UoId
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "CreateOrg.aspx/GetUoById",//"../WCFServices/Constructor_API.svc/GetUO",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        //async:false,
+        //cache: false,
+        success: function (result) {
+
+             
+            // var jsondata_1 = JSON.stringify(result.ResultData)
+            var jsondata_2 = JSON.parse(result.d)
+            console.log(jsondata_2)
+            $("#ObUo").attr("itemid", UoId)
+            $("#INN").val(jsondata_2[0].INN);
+            $("#OGRN").val(jsondata_2[0].OGRN);
+            $("#NAME").val(jsondata_2[0].NAME);
+            $("#SozUp").text(jsondata_2[0].NAME)
+            $("#KPP").val(jsondata_2[0].KPP);
+            $("#OKPO").val(jsondata_2[0].OKPO);
+            $('#Shopid').val(jsondata_2[0].SHOP_ID)
+
+
+            $("#adr").val(jsondata_2[0].ADRESS);
+            var dom_ = $("#adr").val().substring($("#adr").val().lastIndexOf("Д. ") + 1, $("#adr").val().lastIndexOf(",")).replace('.', '').replace(' ', '');
+            var numbers = /[0-9]/g
+            var korp_ = (jsondata_2[0].ADRESS.lastIndexOf("K. ") > 0) ? jsondata_2[0].ADRESS.substring(jsondata_2[0].ADRESS.lastIndexOf("K. ") + 3) : ""// jsondata_2[0].ADRESS.substr(jsondata_2[0].ADRESS.length - 2)
+            if (!korp_.match(numbers)) {
+                korp_ = "";
+            }
+            $("#DOM").val(dom_);
+            dom_ = "Д. " + dom_;
+            var adres = jsondata_2[0].ADRESS.substring(0, jsondata_2[0].ADRESS.indexOf(dom_))
+            adres = adres.substring(0, adres.lastIndexOf(","))
+            $("#adr").val(adres);
+            //var korp_ = $("#adr").val().substring($("#adr").val().lastIndexOf(".") + 1, $("#adr").val().lastIndexOf("")).replace('.', '').replace(' ', '');
+            //$("#adr").val(jsondata_2[0].ADRESS.substring(0, jsondata_2[0].ADRESS.indexOf('Д')).replace(',', ''));
+
+            $("#KORP").val(korp_);
+
+            $("#bik").val(jsondata_2[0].BANK_BIK);
+            $("#BNAME").val(jsondata_2[0].BANK_NAME);
+            $("#BKRS").val(jsondata_2[0].BANK_KRS);
+            $("#RS").val(jsondata_2[0].RS);
+            $("#tlf").val(jsondata_2[0].PHONE);
+            $("#mail").val(jsondata_2[0].EMAIL);
+            $("#vk").val(jsondata_2[0].VK);
+            $("#ok").val(jsondata_2[0].OK);
+            $("#fb").val(jsondata_2[0].FB);
+            $("#tw").val(jsondata_2[0].TW);
+
+
+        },
+        error: function (r) {
+            ////alert("Error");
+            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function (r) {
+            alert("FAIL");
+        }
+    });
+
+}
+function DetailUo(Uo) {
+    sessionStorage.setItem("UOID", Uo);
+    window.location.href = "CreateOrg.aspx";
+    // alert(sessionStorage.getItem("UOID"))
+}
+
+function createNew_ManagerCompany(ClId, obj_, MAN_COMPANY_ID) {
+    var obj = {
+        MAN_COMPANY_ID: MAN_COMPANY_ID,
+        INN: obj_.Inn_,
+        KPP: obj_.KPP_,
+        OKPO: obj_.OKPO_,
+        OGRN_OGRNIP: obj_.OGRN_,
+        NAME: obj_.Name_,
+        LICENCE: "No Lic",
+        ADRESS_ID: obj_.adrCode_,
+        ADRESS: obj_.adrtext_,
+        PHONE: obj_.tlf_,
+        EMAIL: obj_.mail_,
+        VK: obj_.vk_,
+        OK: obj_.ok_,
+        FB: obj_.fb_,
+        TW: obj_.tw_,
+        CLIENT_ID: ClId,
+        BIK: obj_.BIK_,
+        BNAME: obj_.BNAME_,
+        BKRS: obj_.BKRS_,
+        RS: obj_.RS_,
+        action: (MAN_COMPANY_ID==null)?"0":"1",
+        shopid: obj_.Shopid//$('#Shopid').val() // 0-insert, 1-update, 2-delete
+    };
+    var url = MAN_COMPANY_ID == null ? "CreateOrg.aspx/CRUD_UO" : "CreateOrg.aspx/UpdataUo"
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        //async: false,
+        success: function(result) {
+
+            if (MAN_COMPANY_ID==null) {
+     var cmsf_uo = sessionStorage.getItem("cmsf_uo");
+                var log_Id = sessionStorage.getItem("Log");
+                SaveLog("Создан", "Простое", "Администратор", "Клиентское администрирование", "В системе создана управляющая организация  (" + Name_ + ")", log_Id);
+                window.location.href = (cmsf_uo.length != 0) ? cmsf_uo : 'RegisterUO.aspx';
+
+            }
+            else {
+                var log_Id = sessionStorage.getItem("Log")
+                SaveLog("Сохранить изменения", "Простое", "Администратор", "Клиентское администрирование", "Сохранены изменения в карточке управляющей организации (" + Name_ + ")", log_Id);
+                window.location.href = "RegisterUO.aspx"
+            }
+        },
+        error: function(r) {
+            $("#loader,.ui-loader-background").hide();
+        },
+        failure: function(r) {
+            // alert("FAIL");
+            alertMessage("Oшибка", "Не удалось выполнить операцию", "Fail");
+            $("#loader,.ui-loader-background").hide();
+        }
+    });
+}
+
 function checkControls_ManagerComp()
 {
     var isSuccess=true
@@ -6114,14 +5816,23 @@ function checkControls_ManagerComp()
         var value = $(this).val();
         if (isSuccess == true) {
             var maxlenght = $(this).attr('maxlength')
-            if (value.length != maxlenght) {
-                var id = $(this).attr('Id')
-                var Original_text = $('label[for="' + id + '"]').text();
+            var id = $(this).attr('Id')
+            var Original_text = $('label[for="' + id + '"]').text();
+            if (value.length != maxlenght && maxlenght != undefined) {
+              
                 $('.counter').remove()
                 $('label[for="' + id + '"]').show()
                 Original_text =  Original_text + "(Осталось " + (maxlenght - $(this).val().length) + " символов)"
                 ErrorForControls($(this), Original_text)
                 isSuccess=false
+            }
+            if (maxlenght == undefined) {
+                if (value.length == 0) {
+                    $('.counter').remove()
+                    Original_text = 'Необходимо заполнить поле "' + Original_text + '"'
+                    ErrorForControls($(this), Original_text)
+                    isSuccess = false
+                }
             }
             
         }
@@ -6130,7 +5841,36 @@ function checkControls_ManagerComp()
         }
 
     })
-    var a=5
+    
+    var Inn_ = ($("#INN").val() != null) ? $("#INN").val() : "";
+    var OGRN_ = $("#OGRN").val();
+    var Name_ = $("#NAME").val();
+    var KPP_ = $("#KPP").val();
+    var OKPO_ = $("#OKPO").val();
+    var adr_ = ($("#adr").val() != null) ? $("#adr").val() : null;
+
+    var adrCode_;
+    adrCode_ = ($("#manu").is(":checked")) ? "" : adrCode_
+    adrCode_ = (adrCode_ == undefined) ? "" : adrCode_
+    var adrtext_;
+    var DOM_ = $("#DOM").val();
+    var KORP_ = ($("#KORP").val().length != 0) ? "K. " + $("#KORP").val() : "";
+    adrtext_ = adr_ + ", Д. " + DOM_ + ", " + KORP_;
+
+    var BIK_ = ($("#bik").val() != null) ? $("#bik").val() : "";
+    var BNAME_ = ($("#BNAME").val() != null) ? $("#BNAME").val() : "";
+    var BKRS_ = ($("#BKRS").val() != null) ? $("#BKRS").val() : "";
+    var Shopid = $('#Shopid').val();
+    var RS_ = ($("#RS").val() != null) ? $("#RS").val() : "";
+    var tlf_ = ($("#tlf").val() != null) ? $("#tlf").val() : "";
+    var mail_ = ($("#mail").val() != null) ? $("#mail").val() : "";
+    var vk_ = ($("#vk").val() != null) ? $("#vk").val() : "";
+    var ok_ = ($("#ok").val() != null) ? $("#ok").val() : "";
+    var fb_ = ($("#fb").val() != null) ? $("#fb").val() : "";
+    var tw_ = ($("#tw").val() != null) ? $("#tw").val() : "";
+    
+    return {
+        isSuccess: isSuccess, Inn_: Inn_, OGRN_: OGRN_, Name_: Name_, KPP_: KPP_, OKPO_: OKPO_, adr_: adr_, adrCode_: adrCode_, adrtext_: adrtext_, BIK_: BIK_, BNAME_: BNAME_, BKRS_: BKRS_, Shopid: Shopid, RS_: RS_, tlf_: tlf_, mail_: mail_, vk_: vk_, ok_: ok_, fb_: fb_, tw_: tw_}
 }
 function GetBankByBIK(bik_) {
     var obj = { BIK: bik_ };

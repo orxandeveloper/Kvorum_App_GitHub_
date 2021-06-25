@@ -95,14 +95,14 @@
                         </div>
                         <div class="flexHoriz justify-content-between mt-3">
                             <div class="posRel w-100 mb-3">
-                                <input type="text" disabled="disabled" required="required" id="BNAMES" class="BNAMES">
-                                <label for="BNAMES" class="transp backLab">Наименование банка</label>
+                                <input type="text" disabled="disabled" required="required" id="BNAME" class="BNAME">
+                                <label for="BNAME" class="transp backLab">Наименование банка</label>
                             </div>
                         </div>
                         <div class="flexHoriz justify-content-between mt-3">
                             <div class="posRel w-100 mb-3">
-                                <input type="text" disabled="disabled" required="required" id="BKRSS" maxlength="20" class="BKRSS">
-                                <label for="BKRSS" class="transp backLab">Корреспондентский счет</label>
+                                <input type="text" disabled="disabled" required="required" id="BKRS" maxlength="20" class="BKRS">
+                                <label for="BKRS" class="transp backLab">Корреспондентский счет</label>
                             </div>
                         </div>
 

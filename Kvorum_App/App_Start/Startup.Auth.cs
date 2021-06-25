@@ -36,7 +36,7 @@ namespace Kvorum_App
                 SlidingExpiration = true
 
             });
-            string url = "https://test.upravbot.ru/ClientLogin.aspx"; // "http://localhost:5002/ClientLogin.aspx";
+            string url = "https://test.upravbot.ru/ClientLogin.aspx"; //    "http://localhost:5002/ClientLogin.aspx";
 
             //"http://localhost:5002/ClientLogin.aspx"; 
             //

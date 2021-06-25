@@ -85,28 +85,49 @@ namespace Kvorum_App.Client_Admin
                 string action,
                 string shopid    )
         {
-            Mydb.ExecuteNoNQuery("UPDATE [MAN_COMPANY] SET[INN] = @INN,[KPP] = @KPP,[OKPO] = @OKPO,[OGRN_OGRNIP] = @OGRN_OGRNIP,[NAME] = @NAME,[LICENCE] = @LICENCE,[ADRESS_ID] = @ADRESS_ID,[ADRESS] = @ADRESS,[PHONE] = @PHONE,[EMAIL] = @EMAIL,[VK] = @VK,[OK] = @OK,[FB] = @FB,[TW] = @TW,[CLIENT_ID] = @CLIENT_ID,[SHOP_ID]=@SHOP_ID WHERE MAN_COMPANY_ID = @MAN_COMPANY_ID", new SqlParameter[] {
-
-            new SqlParameter("@INN", INN), 
-            new SqlParameter("@KPP", KPP), 
-            new SqlParameter("@OKPO", OKPO), 
-            new SqlParameter("@OGRN_OGRNIP", OGRN_OGRNIP), 
-            new SqlParameter("@NAME", NAME), 
-            new SqlParameter("@LICENCE", "No Lic"),
-            new SqlParameter("@ADRESS_ID", ADRESS_ID), 
-            new SqlParameter("@ADRESS", ADRESS), 
-            new SqlParameter("@PHONE", PHONE), 
-            new SqlParameter("@EMAIL", EMAIL), 
-            new SqlParameter("@VK", VK), 
-            new SqlParameter("@OK", OK), 
-            new SqlParameter("@FB", FB), 
-            new SqlParameter("@TW", TW), 
+            Mydb.ExecuteNoNQuery("sp_CounstructorAPI_ADD_EDIT_DEL_UO", new SqlParameter[] { new SqlParameter("@MAN_COMPANY_ID", MAN_COMPANY_ID),
+            new SqlParameter("@INN", INN),
+            new SqlParameter("@KPP", KPP),
+            new SqlParameter("@OKPO", OKPO),
+            new SqlParameter("@OGRN_OGRNIP", OGRN_OGRNIP),
+            new SqlParameter("@NAME", NAME),
+            new SqlParameter("@LICENCE", LICENCE),
+            new SqlParameter("@ADRESS_ID", ADRESS_ID),
+            new SqlParameter("@ADRESS", ADRESS),
+            new SqlParameter("@PHONE", PHONE),
+            new SqlParameter("@EMAIL", EMAIL),
+            new SqlParameter("@VK", VK),
+            new SqlParameter("@OK", OK),
+            new SqlParameter("@FB", FB),
+            new SqlParameter("@TW", TW),
             new SqlParameter("@CLIENT_ID", CLIENT_ID),
-            new SqlParameter("@MAN_COMPANY_ID",MAN_COMPANY_ID),
-            new SqlParameter("@SHOP_ID",shopid)
-            },CommandType.Text);
+            new SqlParameter("@BIK", BIK),
+            new SqlParameter("@BNAME", BNAME),
+            new SqlParameter("@BKRS", BKRS),
+            new SqlParameter("@RS", RS),
+            new SqlParameter("@action", action) }, CommandType.StoredProcedure);
+            //Mydb.ExecuteNoNQuery("UPDATE [MAN_COMPANY] SET[INN] = @INN,[KPP] = @KPP,[OKPO] = @OKPO,[OGRN_OGRNIP] = @OGRN_OGRNIP,[NAME] = @NAME,[LICENCE] = @LICENCE,[ADRESS_ID] = @ADRESS_ID,[ADRESS] = @ADRESS,[PHONE] = @PHONE,[EMAIL] = @EMAIL,[VK] = @VK,[OK] = @OK,[FB] = @FB,[TW] = @TW,[CLIENT_ID] = @CLIENT_ID,[SHOP_ID]=@SHOP_ID WHERE MAN_COMPANY_ID = @MAN_COMPANY_ID", new SqlParameter[] {
 
-            Mydb.ExecuteNoNQuery("UPDATE RS SET RS=@RS, BANK_BIK_ID=@BIK, KS =@BKRS WHERE MAN_COMP_ID = @new_id", new SqlParameter[] { new SqlParameter("@RS",RS),new SqlParameter("@BIK",BIK),new SqlParameter("@BKRS",BKRS),new SqlParameter("@new_id",MAN_COMPANY_ID) }, CommandType.Text);
+            //new SqlParameter("@INN", INN), 
+            //new SqlParameter("@KPP", KPP), 
+            //new SqlParameter("@OKPO", OKPO), 
+            //new SqlParameter("@OGRN_OGRNIP", OGRN_OGRNIP), 
+            //new SqlParameter("@NAME", NAME), 
+            //new SqlParameter("@LICENCE", "No Lic"),
+            //new SqlParameter("@ADRESS_ID", ADRESS_ID), 
+            //new SqlParameter("@ADRESS", ADRESS), 
+            //new SqlParameter("@PHONE", PHONE), 
+            //new SqlParameter("@EMAIL", EMAIL), 
+            //new SqlParameter("@VK", VK), 
+            //new SqlParameter("@OK", OK), 
+            //new SqlParameter("@FB", FB), 
+            //new SqlParameter("@TW", TW), 
+            //new SqlParameter("@CLIENT_ID", CLIENT_ID),
+            //new SqlParameter("@MAN_COMPANY_ID",MAN_COMPANY_ID),
+            //new SqlParameter("@SHOP_ID",shopid)
+            //},CommandType.Text);
+
+            //Mydb.ExecuteNoNQuery("UPDATE RS SET RS=@RS, BANK_BIK_ID=@BIK, KS =@BKRS WHERE MAN_COMP_ID = @new_id", new SqlParameter[] { new SqlParameter("@RS",RS),new SqlParameter("@BIK",BIK),new SqlParameter("@BKRS",BKRS),new SqlParameter("@new_id",MAN_COMPANY_ID) }, CommandType.Text);
             return "";
         }
         [WebMethod]
@@ -186,35 +207,13 @@ namespace Kvorum_App.Client_Admin
                 string action,
                 string shopid)
         {
-            //Mydb.ExecuteNoNQuery("sp_CounstructorAPI_ADD_EDIT_DEL_UO", new SqlParameter[] { new SqlParameter("@MAN_COMPANY_ID", MAN_COMPANY_ID),
-            //new SqlParameter("@INN", INN),
-            //new SqlParameter("@KPP", KPP),
-            //new SqlParameter("@OKPO", OKPO),
-            //new SqlParameter("@OGRN_OGRNIP", OGRN_OGRNIP),
-            //new SqlParameter("@NAME", NAME),
-            //new SqlParameter("@LICENCE", LICENCE),
-            //new SqlParameter("@ADRESS_ID", ADRESS_ID),
-            //new SqlParameter("@ADRESS", ADRESS),
-            //new SqlParameter("@PHONE", PHONE),
-            //new SqlParameter("@EMAIL", EMAIL),
-            //new SqlParameter("@VK", VK),
-            //new SqlParameter("@OK", OK),
-            //new SqlParameter("@FB", FB),
-            //new SqlParameter("@TW", TW),
-            //new SqlParameter("@CLIENT_ID", CLIENT_ID),
-            //new SqlParameter("@BIK", BIK),
-            //new SqlParameter("@BNAME", BNAME),
-            //new SqlParameter("@BKRS", BKRS),
-            //new SqlParameter("@RS", RS),
-            //new SqlParameter("@action", action) }, CommandType.StoredProcedure);
-
-            Mydb.ExecuteNoNQuery("INSERT INTO [MAN_COMPANY]([INN],[KPP],[OKPO],[OGRN_OGRNIP],[NAME],[LICENCE],[ADRESS_ID],[ADRESS],[PHONE],[EMAIL],[VK],[OK],[FB],[TW],[CLIENT_ID],[SHOP_ID])VALUES(@INN,@KPP,@OKPO,@OGRN_OGRNIP,@NAME,@LICENCE,@ADRESS_ID,@ADRESS,@PHONE,@EMAIL,@VK,@OK,@FB,@TW,@CLIENT_ID,@SHOP_ID) ", new SqlParameter[] {
+            Mydb.ExecuteNoNQuery("sp_CounstructorAPI_ADD_EDIT_DEL_UO", new SqlParameter[] { new SqlParameter("@MAN_COMPANY_ID", MAN_COMPANY_ID),
             new SqlParameter("@INN", INN),
             new SqlParameter("@KPP", KPP),
             new SqlParameter("@OKPO", OKPO),
             new SqlParameter("@OGRN_OGRNIP", OGRN_OGRNIP),
             new SqlParameter("@NAME", NAME),
-            new SqlParameter("@LICENCE", "No Lic"),
+            new SqlParameter("@LICENCE", LICENCE),
             new SqlParameter("@ADRESS_ID", ADRESS_ID),
             new SqlParameter("@ADRESS", ADRESS),
             new SqlParameter("@PHONE", PHONE),
@@ -224,10 +223,32 @@ namespace Kvorum_App.Client_Admin
             new SqlParameter("@FB", FB),
             new SqlParameter("@TW", TW),
             new SqlParameter("@CLIENT_ID", CLIENT_ID),
-            new SqlParameter("@SHOP_ID",shopid)}, CommandType.Text);
+            new SqlParameter("@BIK", BIK),
+            new SqlParameter("@BNAME", BNAME),
+            new SqlParameter("@BKRS", BKRS),
+            new SqlParameter("@RS", RS),
+            new SqlParameter("@action", action) }, CommandType.StoredProcedure);
 
-            int cmpId = (int)Mydb.ExecuteScalar("select top 1 MAN_COMPANY_ID from MAN_COMPANY order by MAN_COMPANY_ID desc", new SqlParameter[] { }, CommandType.Text);
-            Mydb.ExecuteNoNQuery("INSERT INTO RS (RS, KS, BANK_BIK_ID, MAN_COMP_ID)VALUES(@RS, @BKRS, @BIK, @new_id)", new SqlParameter[] { new SqlParameter("@RS",RS),new SqlParameter("@BKRS", BKRS),new SqlParameter("@BIK", BIK),new SqlParameter("@new_id",cmpId) }, CommandType.Text);
+            //Mydb.ExecuteNoNQuery("INSERT INTO [MAN_COMPANY]([INN],[KPP],[OKPO],[OGRN_OGRNIP],[NAME],[LICENCE],[ADRESS_ID],[ADRESS],[PHONE],[EMAIL],[VK],[OK],[FB],[TW],[CLIENT_ID],[SHOP_ID])VALUES(@INN,@KPP,@OKPO,@OGRN_OGRNIP,@NAME,@LICENCE,@ADRESS_ID,@ADRESS,@PHONE,@EMAIL,@VK,@OK,@FB,@TW,@CLIENT_ID,@SHOP_ID) ", new SqlParameter[] {
+            //new SqlParameter("@INN", INN),
+            //new SqlParameter("@KPP", KPP),
+            //new SqlParameter("@OKPO", OKPO),
+            //new SqlParameter("@OGRN_OGRNIP", OGRN_OGRNIP),
+            //new SqlParameter("@NAME", NAME),
+            //new SqlParameter("@LICENCE", "No Lic"),
+            //new SqlParameter("@ADRESS_ID", ADRESS_ID),
+            //new SqlParameter("@ADRESS", ADRESS),
+            //new SqlParameter("@PHONE", PHONE),
+            //new SqlParameter("@EMAIL", EMAIL),
+            //new SqlParameter("@VK", VK),
+            //new SqlParameter("@OK", OK),
+            //new SqlParameter("@FB", FB),
+            //new SqlParameter("@TW", TW),
+            //new SqlParameter("@CLIENT_ID", CLIENT_ID),
+            //new SqlParameter("@SHOP_ID",shopid)}, CommandType.Text);
+
+            //int cmpId = (int)Mydb.ExecuteScalar("select top 1 MAN_COMPANY_ID from MAN_COMPANY order by MAN_COMPANY_ID desc", new SqlParameter[] { }, CommandType.Text);
+            //Mydb.ExecuteNoNQuery("INSERT INTO RS (RS, KS, BANK_BIK_ID, MAN_COMP_ID)VALUES(@RS, @BKRS, @BIK, @new_id)", new SqlParameter[] { new SqlParameter("@RS",RS),new SqlParameter("@BKRS", BKRS),new SqlParameter("@BIK", BIK),new SqlParameter("@new_id",cmpId) }, CommandType.Text);
 
             /*"INSERT INTO RS (RS, KS, BANK_BIK_ID, MAN_COMP_ID)VALUES(@RS, ISNULL(@BKRS, (SELECT BANK_KRS FROM BIK WHERE BANK_BIK = @BIK)), @BIK, @new_id)"*/
 
