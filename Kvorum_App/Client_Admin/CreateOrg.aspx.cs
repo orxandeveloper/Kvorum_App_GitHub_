@@ -24,7 +24,7 @@ namespace Kvorum_App.Client_Admin
             DataTable dt = Mydb.ExecuteReadertoDataTable("select * from MAN_COMPANY where MAN_COMPANY_ID=@id and CLIENT_ID=@ClId", new SqlParameter[] { new SqlParameter("@id", UoId_), new SqlParameter("@ClId", CLId_) }, CommandType.Text);
             DataRow item = dt.Rows[0];
 
-          Kvorum_App.Client_Admin.Utilities.ManCompany ms = new Kvorum_App.Client_Admin.Utilities.ManCompany();
+            Kvorum_App.Client_Admin.Utilities.ManCompany ms = new Kvorum_App.Client_Admin.Utilities.ManCompany();
             ms.ADRESS = item["ADRESS"].ToString();
             ms.ADRESS_ID = item["ADRESS_ID"].ToString();
             ms.CLIENT_ID = Convert.ToInt32(item["CLIENT_ID"]);
@@ -51,16 +51,29 @@ namespace Kvorum_App.Client_Admin
         {
             string returnval = null;
             int countRelation = (int)Mydb.ExecuteScalar("select COUNT(*)  from OBJECT where MAN_COMP_ID=@uo", new SqlParameter[] { new SqlParameter("@uo", Uo_) }, CommandType.Text);
-            if (countRelation==0)
+            if (countRelation == 0)
             {
-                returnval= "{\"result\" : \"0\"}";
+                returnval = "{\"result\" : \"0\"}";
             }
-            if (countRelation>0)
+            if (countRelation > 0)
             {
-                returnval ="{\"result\" : \"1\"}";
+                returnval = "{\"result\" : \"1\"}";
             }
             return returnval;
         }
+
+        [WebMethod]
+        public static string DelUO(string MAN_COMPANY_ID)
+        {
+            Mydb.ExecuteNoNQuery("sp_CounstructorAPI_ADD_EDIT_DEL_UO", new SqlParameter[] {
+                new SqlParameter("@MAN_COMPANY_ID",MAN_COMPANY_ID),
+                new SqlParameter("@action","2")
+            }, CommandType.StoredProcedure);
+
+            return "";
+        }
+
+
         [WebMethod]
         public static string UpdataUo(string MAN_COMPANY_ID,
                 string INN,

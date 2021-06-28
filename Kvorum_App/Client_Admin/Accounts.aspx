@@ -4,63 +4,60 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h2 id="hdrAcc"><%--Учетные записи клиента (Название основной компании клиента) ID клиента--%></h2>
-    <div style="clear: both;">&nbsp;</div>
-    <div class="row">
-        <div class="col-xs-6">
-            <input type="search" id="SearchAcc" placeholder="Поиск"  style="margin-left: 20px;" />
+
+<div class="p-4">
+
+        <h2 class=" font24b textBlack ml-0 pb-4">Учетные записи клиента</h2> <!-- h2New -->
+
+     
+ </div>
+        <div class="row w-100 m-0 min-vh-100">
+            <div class="col-sm-12 p-0">
+
+                <div  id="TableTools" class="flexHoriz w-100 m-0 p-4">
+                    <div class=" w-15 mr-3">
+                        <div id="ListLength" class="posRel mb-0 mr-3">
+                   
+                        </div>
+
+                    </div>
+
+
+
+                    <form id="SearchForTable" class="shadow-in border-wh mb-0 text-left w-25 h56 te-posrel rounded-lg bgLightGrey3">
+                        <div class="ml-2 pl-2 transp border-0">
+                            <img src="../../img/search-ic.svg" class="w18" alt="">
+                        </div>
+                    </form>
+
+                    <button onclick="GotoCreateFunction_C('CreateOpject.aspx')" class="btn btn1 mb-0 outline shadow-none w56 h56 flexCenter ml-auto">
+                        <img src="../../img/ic-plus.svg" class="w16 reddishSvg" alt=""></button>
+                    <div class="ml-auto mb-0  w-15 h56">
+                  
+                    </div>
+ 
+                </div>
+                <div class="overflowX w-100">
+
+					<table class="mngTable w-100" id="Accounts">
+						<thead class="bgLightGrey">
+                            <tr>
+                                <th>Логин ID</th>
+                                <th>Наименование (ФИО)</th>
+                                <th>Наименование организации</th>
+                                <th>Телефон</th>
+                                <th>E-mail</th>
+                                <th>Модуль</th>
+                                <th>Роль</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+
+             
+            </div>
         </div>
-        <div class="col-xs-6">
-           <%-- <button id="SaveMO" class="btn btn-default genBtn" type="button" style="background-color: rgb(0,147,233); width: auto;">Создать новую учетную запись</button>--%>
-            <div class="button">
-            <a class="create" href="CreateAccount.aspx"><i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;Создать</a>
-        </div>
-
-        </div>
-    </div>
-
-
-    <table border="0" cellspacing="0" cellpadding="0">
-        <tbody id="UoBody">
-            <tr id="uz1">
-                <td>
-                    <label>Логин ID</label><input type="button" id="ld" onclick="Sortedby(this,'LDesc')" class="nsortA"></td>
-               <%-- <td>
-                    <label>Пароль</label></td>--%>
-                <td>
-                    <label>Наименование (ФИО)</label><input type="button" id="fi_o" onclick="Sortedby(this,'FIODesc')" class="nsortA"></td>
-                <td>
-                    <label>Телефон</label></td>
-                <td>
-                    <label>E-mail</label><%--<input type="button" id="em_ail"  onclick="Sortedby(this,'EmailDesc')" style="width:0.5vw;height:1.5vh;">--%></td>
-                <td>
-                    <label>Модуль</label><input type="button" id="md" class="nsortA"></td>
-                <td>
-                    <label>Роль</label><input type="button" id="rl" class="nsortA"></td>
-                
-            </tr>
-          <%--  <tr>
-                    <td><a href="CreateAccount.aspx" onclick="DetailAcc(463)">Id</a></td>
-                    <td><a href="CreateAccount.aspx" onclick="DetailAcc(463)">pass</a></td>
-                    <td><a href="CreateAccount.aspx" onclick="DetailAcc(463)">Name</a></td>
-                    <td><a href="CreateAccount.aspx" onclick="DetailAcc(463)">tel</a></td>
-                    <td><a href="CreateAccount.aspx" onclick="DetailAcc(463)">mail</a></td>
-                    <td><a href="CreateAccount.aspx" onclick="DetailAcc(463)">Modul1</a><br /><a href="CreateAccount.aspx" onclick="DetailAcc(463)">Modul2</a></td>
-                    <td><a href="CreateAccount.aspx" onclick="DetailAcc(463)">Role1</a><br /><a href="CreateAccount.aspx" onclick="DetailAcc(463)">Role2</a></td>
-                </tr>--%>
-
-        </tbody>
-
-    </table>
-
-    <div class="layoutBtns">
-        <!--    <button id="SaveMO" class="btn btn-default logBtn" type="button" style="background-color:rgb(0,147,233); width:auto;">Создать новую учетную запись</button>-->
-       <%-- <button id="backUo" class="btn btn-default logBtn" type="button" style="background-color: rgb(149,153,156); margin-left: 5%;">Назад</button>--%>
-    </div>
-    <script>
-        function DetailAcc(accLogId) {
-            sessionStorage.setItem("ComesTo", "");
-            sessionStorage.setItem("LogId", accLogId)
-        }
-    </script>
 </asp:Content>

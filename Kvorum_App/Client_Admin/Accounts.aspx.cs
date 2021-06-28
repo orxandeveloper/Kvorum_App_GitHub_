@@ -50,22 +50,23 @@ namespace Kvorum_App.Client_Admin
          [WebMethod]
         public static string GetACCList(int clId)
         {
-            DataTable dt = Mydb.ExecuteReadertoDataTable("sp_ConstructorAPI_GetAccountsList", new SqlParameter[] { new SqlParameter("@CLIENT_ID", clId) }, CommandType.StoredProcedure);
+            //DataTable dt = Mydb.ExecuteReadertoDataTable("sp_ConstructorAPI_GetAccountsList", new SqlParameter[] { new SqlParameter("@CLIENT_ID", clId) }, CommandType.StoredProcedure);
 
-            List<Account_> accs = new List<Account_>();
-            foreach (DataRow item in dt.Rows)
-            {
-                Account_ acc = new Account_();
-                acc.ACCOUNT_NAME = item["ACCOUNT_NAME"].ToString();
-                acc.E_MAIL = item["E_MAIL"].ToString();
-                acc.LOG_IN_ID = Convert.ToInt32(item["LOG_IN_ID"]);
-                acc.MODULE_ROLES = item["MODULE_ROLES"].ToString();
-                acc.PASSWORD = item["PASSWORD"].ToString();
-                acc.PHONE_NUMBER = item["PHONE_NUMBER"].ToString();
-                accs.Add(acc);
-            }
-            JavaScriptSerializer js = new JavaScriptSerializer();
-                return js.Serialize(accs);
+            //List<Account_> accs = new List<Account_>();
+            //foreach (DataRow item in dt.Rows)
+            //{
+            //    Account_ acc = new Account_();
+            //    acc.ACCOUNT_NAME = item["ACCOUNT_NAME"].ToString();
+            //    acc.E_MAIL = item["E_MAIL"].ToString();
+            //    acc.LOG_IN_ID = Convert.ToInt32(item["LOG_IN_ID"]);
+            //    acc.MODULE_ROLES = item["MODULE_ROLES"].ToString();
+            //    acc.PASSWORD = item["PASSWORD"].ToString();
+            //    acc.PHONE_NUMBER = item["PHONE_NUMBER"].ToString();
+            //    accs.Add(acc);
+            //}
+            //JavaScriptSerializer js = new JavaScriptSerializer();
+            //    return js.Serialize(accs);
+            return Mydb.ExecuteAsJson("sp_ConstructorAPI_GetAccountsList", new SqlParameter[] { new SqlParameter("@CLIENT_ID", clId) }, CommandType.StoredProcedure);
         }
         [WebMethod]
         public static string GetAccDetail(int LogId_)

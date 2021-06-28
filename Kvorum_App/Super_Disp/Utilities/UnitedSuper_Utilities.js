@@ -43,7 +43,8 @@ $(function () {
         //   
     })
 
-
+    sessionStorage.setItem("Log", 728)
+    sessionStorage.setItem("role", "3")
     var SLogId = sessionStorage.getItem("Log")
     var searchParams = new URLSearchParams(window.location.search)
     var eml = searchParams.get('eml')

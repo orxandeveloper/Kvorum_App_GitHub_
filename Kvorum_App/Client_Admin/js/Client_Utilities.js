@@ -79,6 +79,7 @@
 
         // console.log("Ok")
         Id = 346;// sessionStorage.getItem("Clien_ID"); //Orxcan
+        sessionStorage.setItem("Clien_ID",346)
         // alert(Id)
         //Id=197
         if (Id == null) {
@@ -747,7 +748,7 @@
 
                 var jsondata_ = JSON.parse(result.d)
 
-                //console.log(jsondata_)
+                console.log(jsondata_)
 
                 for (var i = 0; i < jsondata_.length; i++) {
                     //console.log(jsondata_[i].LOG_IN_ID)
@@ -1220,41 +1221,7 @@
                 $("#yesC").show();
                 $("#UoPas_").html('Данное поле должно содержать как минимум 6 символов<br/>').show();//.text("Данное поле должно содержать как минимум 6 символов").show();
             }
-            //if (pass.length > 5) {
-            //    $("#yesC").hide();
-            //    $("#UoPas_").hide();
-            //    var numbers = /[0-9]/g
-            //    if (pass.match(/[a-z]/g) || pass.match(/[A-Z]/g)) {
-            //        $("#UoPas_").hide();
-            //        $("#yesC").hide();
-            //        if (pass.match(numbers)) {
-            //            if (pass.match(/(.)\1/)) {
-            //                $("#UoPas_").text("Пароль должен быть набран в разных регистрах").show();
-            //                $("#yesC").show();
-            //            }
-            //            else {
-            //                //  $("#UoPas_").text("ok").show();
-
-
-            //                $("#UoPas_").hide();
-            //                $("#yesC").hide();
-            //            }
-            //        }
-            //        else {
-            //            $("#yesC").show();
-            //            $("#UoPas_").text("Пароль должен содержать цифры").show();
-            //        }
-
-            //    }
-            //    else {
-            //        $("#yesC").show();
-            //        $("#UoPas_").text("Пароль должен содержать латинские символы и цифры").show();
-            //    }
-            //}
-            //else {
-            //    $("#yesC").show();
-            //    $("#UoPas_").text("Данное поле должно содержать как минимум 6 символов").show();
-            //}
+  
         })
         $("#email").keyup(function () {
             var email = $(this).val();
@@ -1932,7 +1899,7 @@
 
         var UoId = sessionStorage.getItem("UOID");
         if (UoId == "" || UoId == null || UoId == undefined) {
-            $("#DeleteUO").hide();
+           
             $("#INfoU").hide();
             $("#SaveMO").click(function () {
                 if (checkControls_ManagerComp().isSuccess == true) {
@@ -1943,6 +1910,7 @@
        
         }
         else {
+            $("#DeleteUO").show();
             //  $("#SaveMO").text("Обновить");
             showbtnObjkt(UoId);
             getDetailUO(UoId)
@@ -1958,44 +1926,7 @@
                 alertWithButton("Вы действительно хотите удалить управляющую организацию?", "" + $("#NAME").val() + "", "awd")
             });
             $("#deleteO").click(function () {
-                var obj = {
-                    MAN_COMPANY_ID: UoId,
-
-                    action: "2" // 0-insert, 1-update, 2-delete
-                };
-                //alert(JSON.stringify(obj))
-
-                $("#loader,.ui-loader-background").show();
-                $.ajax({
-                    type: "POST",
-                    url: window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/AddEditDelUO",
-                    data: JSON.stringify(obj),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    //async: false,
-                    success: function (result) {
-
-                        // alert("OK. See Console -  press F12");
-                        // alertMessage("Операция прошла успешно", "Добавление Управляюшего Организаций Успешно", ":)")
-                        var log_Id = sessionStorage.getItem("Log")
-                        SaveLog("Удаление управляюшего организаций", "Простое", "Администратор", "Клиентское администрирование", "Удалена управляющая организация (" + $("#NAME").val() + ")", log_Id);
-                        window.location.href = "RegisterUO.aspx"
-                        console.log(JSON.stringify(result)); $("#resulter").text(JSON.stringify(result));
-
-                    },
-
-                    error: function (r) {
-                        ////alert("Error");
-                        alertMessage("Oшибка", "Не удалось выполнить операцию", ":(")
-                        console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-                        $("#loader,.ui-loader-background").hide();
-                    },
-                    failure: function (r) {
-                        // alert("FAIL");
-                        alertMessage("Oшибка", "Не удалось выполнить операцию", "Fail")
-                        $("#loader,.ui-loader-background").hide();
-                    }
-                })
+                DELETE_UO(UoId, SaveLog, alertMessage);
             })
         }
 
@@ -5674,6 +5605,42 @@
     }
 
 });
+function DELETE_UO(UoId, SaveLog, alertMessage) {
+    var obj = {
+        MAN_COMPANY_ID: UoId,
+    };
+    //alert(JSON.stringify(obj))
+    $("#loader,.ui-loader-background").show();
+    $.ajax({
+        type: "POST",
+        url: "CreateOrg.aspx/DelUO",//window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/AddEditDelUO",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        //async: false,
+        success: function(result) {
+            // alert("OK. See Console -  press F12");
+            // alertMessage("Операция прошла успешно", "Добавление Управляюшего Организаций Успешно", ":)")
+            var log_Id = sessionStorage.getItem("Log");
+            SaveLog("Удаление управляюшего организаций", "Простое", "Администратор", "Клиентское администрирование", "Удалена управляющая организация (" + $("#NAME").val() + ")", log_Id);
+            window.location.href = "RegisterUO.aspx";
+            console.log(JSON.stringify(result));
+            $("#resulter").text(JSON.stringify(result));
+        },
+        error: function(r) {
+            ////alert("Error");
+       //     alertMessage("Oшибка", "Не удалось выполнить операцию", ":(");
+           // console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+            $("#loader,.ui-loader-background").hide();
+        },
+        failure: function(r) {
+            // alert("FAIL");
+            alertMessage("Oшибка", "Не удалось выполнить операцию", "Fail");
+            $("#loader,.ui-loader-background").hide();
+        }
+    });
+}
+
 function getDetailUO(UoId) {
     var obj = {
         id: UoId
@@ -5697,12 +5664,13 @@ function getDetailUO(UoId) {
             $("#INN").val(jsondata_2[0].INN);
             $("#OGRN").val(jsondata_2[0].OGRN);
             $("#NAME").val(jsondata_2[0].NAME);
+            $('#orgName').text(jsondata_2[0].NAME)
             $("#SozUp").text(jsondata_2[0].NAME)
             $("#KPP").val(jsondata_2[0].KPP);
             $("#OKPO").val(jsondata_2[0].OKPO);
             $('#Shopid').val(jsondata_2[0].SHOP_ID)
 
-
+            
             $("#adr").val(jsondata_2[0].ADRESS);
             var dom_ = $("#adr").val().substring($("#adr").val().lastIndexOf("Д. ") + 1, $("#adr").val().lastIndexOf(",")).replace('.', '').replace(' ', '');
             var numbers = /[0-9]/g

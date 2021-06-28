@@ -12,15 +12,23 @@
                     <div class="bgWhite rounded16 shadow w-100 p-4">
 
                         <div class="flexHoriz w-100" id="infoCount">
-                            <h2 id="meterNum" class="font24b textBlack">Создание Управляющей организации</h2>
-                            <button id="delC" style="display: none" class="transp border-0 ml-auto">
+                            <h2 id="orgName" class="font24b textBlack">Создание Управляющей организации</h2>
+                            <button id="DeleteUO" style="display: none" class="transp border-0 ml-auto">
                                 <img src="../img/ic-bin.svg" class="mr-3 position-absolute d-flex ml-n4 " alt="" />
                                 <span id="delspan" class="font16b reddish">Удалить организацию</span>
                             </button>
                         </div>
 
 
+                        <div class="row mt-3 mb-3" id="btns" style="display:none">
+                            <div class="col-sm-12 ">
 
+                                <button class="btn btn1 h56 mr-2" id="savO"><strong>Объекты</strong></button>
+                                <button class="btn btn1 h56 outline shadow-none flexCenter" id="back_O">Раскрытие информации</button>
+                                
+                            </div>
+
+                        </div>
                         <div class="flexHoriz justify-content-between mt-3">
                             <div class="posRel w-100 mb-3">
                                 <input type="text"   required="required" class="Inn" id="INN" maxlength="10">

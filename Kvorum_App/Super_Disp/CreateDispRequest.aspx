@@ -6,6 +6,7 @@
 
     <div class="col-lg-9half col-sm-12 p-0 min-vh-100 bgLightGrey3  " id="contentRegister">
         <style>
+             
             #subMenuSearch {
                 overflow: overlay;
                 height: 300px;
@@ -23,7 +24,10 @@
                  width: 50% !important;
                  margin: 16em auto;
             }
-
+            #Services_ body tr td:nth-child(2){
+                text-align:center
+            }
+           
             .modal2 {
                 display: none;
                 position: fixed;
