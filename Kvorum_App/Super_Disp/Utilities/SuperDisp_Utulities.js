@@ -49,8 +49,8 @@ $(document).ready(function () {
     })
 
     var loc = window.location.pathname;
-    sessionStorage.setItem("Log", 728)
-    sessionStorage.setItem("role", "3")
+    sessionStorage.setItem("Log", 856)
+    sessionStorage.setItem("role", "7")
     var SLogId = sessionStorage.getItem("Log")
     //setTimeout(function () { alert("Hello"); }, 10000);
     var clientId = sessionStorage.getItem("Clien_ID")
@@ -4624,7 +4624,9 @@ function GetRequesByR(R) {
                     if (st != 4 && st != 5 && st != 3) {
                         GetAllServicesOfProject(json_Project_guid_andId[0].GUID, reqType_WorkKind)
                     }
-                    $('#reqType').val(jsondata_[i].REQUEST_TYPE)
+                   // $('#reqType').select2("destroy")
+                    $('#reqType').select2("destroy").val(jsondata_[i].REQUEST_TYPE).select2({ minimumResultsForSearch: "Infinity" })
+                 //   $('#reqType').select2({ minimumResultsForSearch: "Infinity" })
                     //  console.log("jsonServices")
                     // console.log(jsonServices)
                     var st = urlParam('st') //sessionStorage.getItem("st")
@@ -4661,25 +4663,19 @@ function GetRequesByR(R) {
                     }
 
                     date_ = year + "-" + month + "-" + day
-                    //$("#Room").val(jsondata_[i].ROOM_COUNT)
+                    
                     $("#calen1").val(date_)
                     $("#tm").val(jsondata_[i].PLAN_END_TIME)
-                    // $("#Otven").val(jsondata_[i].ACCOUNT_NAME);
+                 
                     $("#Otven").attr("itemid", jsondata_[i].LOG_IN_ID)
                     $("#RText").val(jsondata_[i].REQUEST_TEXT)
-                    // $("#RComment").val(jsondata_[i].REQUEST_COMMENT)
-                    //$("#fotoDisp").attr("src", jsondata_[i].COMMENT_FILE)
+                   
                     $("#ItCost").val(jsondata_[i].TOTAL_COST);
                     if (jsondata_[i].DELIVERY_TYPE_ID != 0) {
                         $("#dost").prop("checked", true)
                         $("#TDost").removeAttr("disabled")
-                        // getDelivery(jsondata_[i].DELIVERY_TYPE_ID)
-                        // var stdost = $("#StDost").val()
-                        // $("#ItCost").val(parseInt(jsondata_[i].TOTAL_COST) - parseInt(stdost))
+                        
                     }
-                    // $("#IspolList").append('<option value="' + jsondata_[i].SPECIALIS_ID + '">' + jsondata_[i].ATRIBUTE + ' </option>')
-                    // getListSpecialist(jsondata_[i].SPECIALIS_ID);
-                    //  GetAccFortexnik(jsondata_[i].LOG_IN_ID, jsondata_[i].SPECIALIST_ID)
                     var isResponsibleProfile = window.location.pathname
                     if (isResponsibleProfile != '/Responsible_Admin/CreateRequest.aspx') {
 
