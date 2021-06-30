@@ -749,17 +749,96 @@
                 var jsondata_ = JSON.parse(result.d)
 
                 console.log(jsondata_)
+                $('#Accounts').dataTable({
+                    "destroy": true,
+                    data: jsondata_,
+                    columns: [
+                        {
+                            'data': 'LOG_IN_ID',
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                $(nTd).html('<a href="#"  onclick="DetailAcc(' + oData.LOG_IN_ID + ')">' + oData.LOG_IN_ID + '</a>');
+                            }
+                        },
+                        {
+                            'data': 'ACCOUNT_NAME',
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                $(nTd).html('<a href="#"  onclick="DetailAcc(' + oData.LOG_IN_ID + ')">' + oData.ACCOUNT_NAME + '</a>');
+                            }
+                        },
 
-                for (var i = 0; i < jsondata_.length; i++) {
-                    //console.log(jsondata_[i].LOG_IN_ID)
-                    //<td ><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].PASSWORD + '</a></td>
-                    $("#uz1").after('<tr><td><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].LOG_IN_ID + '</a></td > <td ><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].ACCOUNT_NAME + '</a></td><td ><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].PHONE_NUMBER + '</a></td> <td><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].E_MAIL + '</a></td><td id="Mm' + jsondata_[i].LOG_IN_ID + '"></td><td id="Rr' + jsondata_[i].LOG_IN_ID + '"></td></tr >')
-                    var to_ = "#Mm" + jsondata_[i].LOG_IN_ID
-                    var To_2 = "#Rr" + jsondata_[i].LOG_IN_ID;
-                    // $("#em" + jsondata_[i].LOG_IN_ID + "").after('""')
-                    getModulesBylgId(to_, jsondata_[i].LOG_IN_ID)
-                    getRolesBylgId(To_2, jsondata_[i].LOG_IN_ID)
-                }
+                        {
+                            'data': 'PHONE_NUMBER',
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                $(nTd).html('<a href="#"  onclick="DetailAcc(' + oData.LOG_IN_ID + ')">' + oData.PHONE_NUMBER + '</a>');
+                            }
+                        },
+                        {
+                            'data': 'E_MAIL',
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                $(nTd).html('<a href="#"  onclick="DetailAcc(' + oData.LOG_IN_ID + ')">' + oData.E_MAIL + '</a>');
+                            }
+                        },
+                        {
+                            'data': 'MODULES',
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var module = oData.MODULES
+                                module = module.substring(1, module.length)
+                                $(nTd).html('<a href="#" title="' + module+'" onclick="DetailAcc(' + oData.LOG_IN_ID + ')">' + module + '</a>');
+                            }
+                        },
+                        {
+                            'data': 'ROLES',
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var role = oData.ROLES
+                                role = role.substring(1, role.length)
+                                $(nTd).html('<a href="#" title="' + role+'" onclick="DetailAcc(' + oData.LOG_IN_ID + ')">' + role + '</a>');
+                            }
+                        }
+
+
+
+                    ]
+                    ,
+                    "initComplete": function (settings, json) {
+                        changeDatatableElementStructures($('#Accounts'))
+
+
+                        // console.log ('bitti2')
+                    },
+
+                    "language": {
+                        // "url":"//cdn.datatables.net/plug-ins/1.10.19/i18n/Russian.json"
+                        "processing": "Подождите...",
+                        "search": "Поиск",
+                        "lengthMenu": "Показать _MENU_ записей",
+                        "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+                        "infoEmpty": "Записи с 0 до 0 из 0 записей",
+                        "infoFiltered": "(отфильтровано из _MAX_ записей)",
+                        "infoPostFix": "",
+                        "loadingRecords": "Загрузка записей...",
+                        "zeroRecords": "Записи отсутствуют.",
+                        "emptyTable": "В таблице отсутствуют данные",
+                        "paginate": {
+                            "first": "Первая",
+                            "previous": "Предыдущая",
+                            "next": "Следующая",
+                            "last": "Последняя"
+                        }
+                    }
+
+
+                })
+
+                //for (var i = 0; i < jsondata_.length; i++) {
+                //    //console.log(jsondata_[i].LOG_IN_ID)
+                //    //<td ><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].PASSWORD + '</a></td>
+                //    $("#uz1").after('<tr><td><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].LOG_IN_ID + '</a></td > <td ><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].ACCOUNT_NAME + '</a></td><td ><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].PHONE_NUMBER + '</a></td> <td><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].E_MAIL + '</a></td><td id="Mm' + jsondata_[i].LOG_IN_ID + '"></td><td id="Rr' + jsondata_[i].LOG_IN_ID + '"></td></tr >')
+                //    var to_ = "#Mm" + jsondata_[i].LOG_IN_ID
+                //    var To_2 = "#Rr" + jsondata_[i].LOG_IN_ID;
+                //    // $("#em" + jsondata_[i].LOG_IN_ID + "").after('""')
+                //    getModulesBylgId(to_, jsondata_[i].LOG_IN_ID)
+                //    getRolesBylgId(To_2, jsondata_[i].LOG_IN_ID)
+                //}
 
             },
 
@@ -1148,33 +1227,7 @@
         })
         $("#SaveMO").click(function () { sessionStorage.setItem("ComesTo", ""); window.location.href = "CreateAccount.aspx" })
     }
-    function CheckEmail(eml) {
-        var obj = {
-            email: eml
-        };
-        //alert(JSON.stringify(obj));
-
-        $.ajax({
-            type: "POST",
-            url: "CreateAccount.aspx/CheckMail",
-            data: JSON.stringify(obj),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {
-                var jsondata_2 = JSON.parse(data.d)
-                if (jsondata_2.result == 0) {
-                    $("#yesmail").hide();
-                    $("#Uomail").hide();
-                    $("#Uomail").html("")
-                }
-                else {
-                    $("#yesmail").show();//
-                    $("#Uomail").html('Данный e-mail уже зарегистрирован в системе<br/>').show();//.text("Данный e-mail уже зарегистрирован в системе").show();
-                }
-
-            }
-        })
-    }
+  
     if (loc == "/Client_Admin/CreateAccount.aspx") {
         $("#fio").keyup(function () { $("#Uofio,#yesfio").hide() })
         $("#phone1").keyup(function () { $("#yesPhone,#UoPhone").hide() })
@@ -1226,18 +1279,17 @@
         $("#email").keyup(function () {
             var email = $(this).val();
             if (isValidEmailAddress(email)) {
-                $("#yesmail").hide();
-                $("#Uomail").hide();
-                $("#Uomail").html('""')
+                
                 CheckEmail(email);
             }
             else {
                 $("#yesmail").show();
-                $("#Uomail").html('Введенное значение не соответствует формату электронной почты<br/>').show();
+                ErrorForControls($("#email"),'Введенное значение не соответствует формату электронной почты')
+               
             }
         })
         sessionStorage.setItem("itmId", null)
-        SMRvalues.splice(0, SMRvalues);
+       
         sessionStorage.setItem("PreviousText", "");
         //alert(loc)
         var ClId = sessionStorage.getItem("Clien_ID")//localStorage.setItem("Clien_ID", jsondata.Id)
@@ -1250,166 +1302,15 @@
             getModules2("", 0, "")
 
             $("#CreateAcc").text("Создать новую учетную запись")
-            $("#CreateAcc").click(function () {
-                //var roltext = $("#role").val();
+            $("#CreateAcc").click(function ()
+            {
+               
+                if (checkControls_Accounts().isSuccess == true) {
 
-                // alert(roltext)
-
-                var Login = $("#login").val()
-                var email = $("#email").val();
-                var pass = $("#pass").val();
-                var fio = $("#fio").val();
-                var phone = $("#phone1").val();//
-                if (pass.length != 0) {
-                    $("#yesmail").hide();
-                    // $("#Uomail").hide();
-
-                    if (fio.length != 0) {
-                        $("#UoPas_").hide();
-                        $("#yesC").hide();
-                        if (phone.length != 0) {
-                            $("#Uofio").hide();
-                            $("#yesfio").hide();
-                            if (email.length != 0) {
-
-
-                                //$("#Uomail").text("Данный e-mail уже зарегистрирован в системе").show();
-                                if (isValidEmailAddress(email) && $("#Uomail").html() != 'Введенное значение не соответствует формату электронной почты"<br/>' && $("#Uomail").css('display') == 'none') {
-
-                                    var countofItem = $('#mrss .rls').length //sessionStorage.getItem("itmId");
-                                    var Modul;
-                                    var Role;
-                                    var MR;
-                                    var sm = [];
-                                    var sr = []
-                                    var obj = [];
-                                    for (var i = 0; i < countofItem; i++) {
-                                        Modul = $(".mdls:eq(" + i + ") option:selected").val();
-                                        Role = $(".rls:eq(" + i + ") option:selected").val();
-                                        //  MR += "Smodul: " + Modul + " SRole: " + Role+"\n";
-                                        //sm.push({ 'Sm': Modul })
-                                        //sr.push({'Sr': Role})
-                                        // obj = [[Modul, Role]]
-                                        if (Modul != 0 && Role != 0) {
-
-                                            obj.push({ 'sm': Modul, 'sr': Role })
-                                        }
-                                    }
-
-                                    $("#UoPhone").hide();
-                                    $("#yesPhone").hide()
-                                    if ($("#Uomail").css('display') == 'none' && $("#Uofio").css('display') == 'none' && $("#UoPhone").css('display') == 'none') {
-
-                                        if (obj.length != 0) {
-
-
-                                            var jsonObj = { 'SMSR': obj, 'accName_': fio, 'PNumb_': phone, 'Email_': email, 'Pass_': pass, 'ClId_': ClId, 'Login_': Login }
-                                            $.ajax({
-                                                type: "POST",
-                                                url: "CreateAccount.aspx/SaveAcc",
-                                                data: JSON.stringify(jsonObj),
-                                                contentType: "application/json; charset=utf-8",
-                                                dataType: "json",
-                                                success: function (data) {
-                                                    //console.log(data.d)
-                                                    var jsondata = $.parseJSON(data.d);
-                                                    if (jsondata.result == 1) {
-                                                        var comesTo = sessionStorage.getItem("ComesTo");//vck
-                                                        // var cmsf = sessionStorage.getItem('cmsf')
-                                                        //    if (comesTo == "ED") {
-                                                        var ID = $("#login").val()
-                                                        ID = ID.substr(ID.indexOf('_') + 1)
-                                                        var f_io = $("#fio").val();
-                                                        var Modul1 = $(".mdls[itemid=0]").val();
-                                                        var Role1 = $(".rls[itemid=0]").val();
-                                                        var arrAcc = [];
-                                                        arrAcc.push({ "ID": ID, "f_io": f_io, "Modul1": Modul1, "Role1": Role1 })
-                                                        sessionStorage.setItem("ComesTo", JSON.stringify(arrAcc));
-
-
-                                                        //  }
-                                                        var log_Id = sessionStorage.getItem("Log")
-                                                        SaveLog("Создать новую учетную запись", "Простое", "Администратор", "Клиентское администрирование", "В системе создана учетная запись  (" + fio + ")", log_Id);
-                                                        var cmsf_a = sessionStorage.getItem("cmsf_a");
-                                                        window.location.href = (cmsf_a.length != 0) ? cmsf_a : "Accounts.aspx";
-                                                        // window.location.href = document.referrer;
-                                                        //  else if (comesTo=="dsp") {
-                                                        //      var log_Id = sessionStorage.getItem("Log")
-                                                        //      SaveLog("Создать новую учетную запись", "Простое", "Администратор", "Клиентское администрирование", "Создать новую учетную запись (" + fio + ")", log_Id);
-                                                        //      window.location.href = "/Client_Admin/CreateDisp.aspx";
-                                                        //  }
-
-                                                        //else  if (comesTo == "OB" ) {
-                                                        //      var log_Id = sessionStorage.getItem("Log")
-                                                        //      SaveLog("Создать новую учетную запись", "Простое", "Администратор", "Клиентское администрирование", "Создать новую учетную запись (" + fio + ")", log_Id);
-                                                        //      window.location.href = "/Client_Admin/CreateOpject.aspx";
-                                                        //      // sessionStorage.removeItem("ComesTo")
-                                                        //      // sessionStorage.setItem("ComesTo", null)
-                                                        //  }
-                                                        //  else if ( comesTo == "" ) {
-                                                        //      var log_Id = sessionStorage.getItem("Log")
-                                                        //      SaveLog("Создать новую учетную запись", "Простое", "Администратор", "Клиентское администрирование", "Создать новую учетную запись (" + fio + ")", log_Id);
-                                                        //      window.location.href = "Accounts.aspx"
-                                                        //  }
-
-
-                                                    }
-                                                    //console.log(JSON.stringify(result)); $("#resulter").text(JSON.stringify(result));
-                                                },
-
-                                                error: function (r) {
-                                                    ////alert("Error");
-                                                    console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-                                                },
-                                                failure: function (r) {
-                                                    alert("FAIL");
-                                                }
-                                            })
-                                        }
-                                        else {
-                                            //alertMessage(":(", "Выберите Модуль и Роль", ":(")
-                                            $("#mrs").show();
-                                            //$("#mrsIm").text("Выберите Модуль и Роль").show();
-                                            $("#mrsIm").html('Выберите Модуль и роль<br/>').show()
-                                        }
-
-
-                                    }
-                                }
-                                else {
-                                    $("#yesmail").show();
-                                    if ($("#Uomail").html() == 'Данный e-mail уже зарегистрирован в системе<br>') {
-                                        $("#Uomail").html('<img Данный e-mail уже зарегистрирован в системе<br>').show();//
-                                    }
-                                    else {
-                                        $("#Uomail").html('<img Введенное значение не соответствует формату электронной почты<br/>').show();//
-                                    }
-
-                                }//
-                            }
-                            else {
-                                $("#Uomail").html('Пожалуйста, заполните данное поле<br/>').show();
-                            }
-                        }
-                        else {
-                            $("#UoPhone").html('Пожалуйста, заполните данное поле<br/>').show();
-                            $("#yesPhone").show();
-                        }
-
-                    }
-                    else {
-                        $("#Uofio").html('Пожалуйста, заполните данное поле<br/>').show();
-                        $("#yesfio").show();
-                    }
+                    CreateNewAcc(ClId, checkControls_Accounts());
                 }
-                else {//id="yesC" style="float:left;""
-                    $("#UoPas_").html('Пожалуйста, заполните данное поле<br/>').show();
-                    $("#yesC").show();
-
-
-                    //  alertMessage("Неправильный формат", "Введите правильный формат электронной почты", ":(")
-                }
-            });
+            })
+           
             getLogin()
             $("#knp1").attr('disabled', 'disabled').attr("class", "knp1 deActiveAdd")//.attr("style","background-color: rgb(149,153,156);color:  white;font-family: unset;font-weight: 700;border: none;")//.css("background-color","rgb(149, 149, 149)")
 
@@ -5605,6 +5506,72 @@
     }
 
 });
+function CheckEmail(eml) {
+    var obj = {
+        email: eml
+    };
+    //alert(JSON.stringify(obj));
+
+    $.ajax({
+        type: "POST",
+        url: "CreateAccount.aspx/CheckMail",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            var jsondata_2 = JSON.parse(data.d)
+            if (jsondata_2.result == 0) {
+                $("#yesmail").hide();
+                $("#Uomail").hide();
+                $("#Uomail").html("")
+            }
+            else {
+                ErrorForControls($("#email"), 'Данный e-mail уже зарегистрирован в системе')
+              //  $("#yesmail").show();//
+              //  $("#Uomail").html('Данный e-mail уже зарегистрирован в системе<br/>').show();//.text("Данный e-mail уже зарегистрирован в системе").show();
+            }
+
+        }
+    })
+}
+function CreateNewAcc(ClId, AccData) {
+    var jsonObj = { 'SMSR': AccData.SMSR, 'accName_': AccData.fio, 'PNumb_': AccData.phone, 'Email_': AccData.email, 'Pass_': AccData.pass, 'ClId_': ClId, 'Login_': AccData.Login };
+    $.ajax({
+        type: "POST",
+        url: "CreateAccount.aspx/SaveAcc",
+        data: JSON.stringify(jsonObj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data) {
+            var jsondata = $.parseJSON(data.d);
+            if (jsondata.result == 1) {
+                var comesTo = sessionStorage.getItem("ComesTo"); //vck
+                var ID = $("#login").val();
+                ID = ID.substr(ID.indexOf('_') + 1);
+                var f_io = $("#fio").val();
+                var Modul1 = $(".mdls[itemid=0]").val();
+                var Role1 = $(".rls[itemid=0]").val();
+                var arrAcc = [];
+                arrAcc.push({ "ID": ID, "f_io": f_io, "Modul1": Modul1, "Role1": Role1 });
+                sessionStorage.setItem("ComesTo", JSON.stringify(arrAcc));
+                var log_Id = sessionStorage.getItem("Log");
+              //  SaveLog("Создать новую учетную запись", "Простое", "Администратор", "Клиентское администрирование", "В системе создана учетная запись  (" + fio + ")", log_Id);
+                var cmsf_a = sessionStorage.getItem("cmsf_a");
+                window.location.href = (cmsf_a.length != 0) ? cmsf_a : "Accounts.aspx";
+            }
+        },
+        error: function(r) {
+            // 
+           // console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function(r) {
+            alert("FAIL");
+        }
+    });
+}
+function MaskPhone(e) {
+    $(e).inputmask("+7(999) 999-99-99");
+}
 function DELETE_UO(UoId, SaveLog, alertMessage) {
     var obj = {
         MAN_COMPANY_ID: UoId,
@@ -7174,6 +7141,7 @@ function getModules2(SelectedR, itemid, selectedM) {
                 $('.mdls[itemid=' + itemid + ']').val(selectedM);
                 GetRoleByModule("", itemid, SelectedR)
             }
+            $('.mdls[itemid=' + itemid + ']').select2({ minimumResultsForSearch: "Infinity" })
         }
     })
 
@@ -7216,83 +7184,133 @@ function GetRoleByModule(lg, itemid, slctdR) {//GetRoleByModule
                 if (slctdR != "") {
                     $('.rls[itemid=' + itemid + ']').val(slctdR);
                 }
-                //for (var i = 0; i < jsondata_.length; i++) {
-                //    $('.rls[itemid=' + itemid + ']').append('<option value="' + jsondata_[i].ROLE_ID + '">' + jsondata_[i].ROLE_NAME + '</option>')
-                //}
+
+                $('.rls[itemid=' + itemid + ']').select2({ minimumResultsForSearch: "Infinity" })
 
             }
         })
     }
+}
+function checkControls_Accounts()
+{
+    var isSuccess = true
+    $('[required="required"]').each(function () {
+        var value = $(this).val();
+        if (isSuccess == true) {
+            var id = $(this).attr('Id')
+            var Original_text = $('label[for="' + id + '"]').text();
+                if (value.length == 0) {
+                    $('.counter').remove()
+                    Original_text = 'Необходимо заполнить поле "' + Original_text + '"'
+                    ErrorForControls($(this), Original_text)
+                    isSuccess = false
+                }
+            
+
+        }
+        else {
+            return false;
+        }
+
+    })
+    var countofItem = $('.mrss').length
+    var Modul;
+    var Role;
+    var Modules_Roles = [];
+    var Login = $("#login").val()
+    var email = $("#email").val();
+    var pass = $("#pass").val();
+    var fio = $("#fio").val();
+    var phone = $("#phone1").val();
+
+    for (var i = 0; i < countofItem; i++) {
+        Modul = $(".mdls:eq(" + i + ") option:selected").val();
+        Role = $(".rls:eq(" + i + ") option:selected").val();
+      
+        if (Modul != 0 && Role != 0) {
+
+            Modules_Roles.push({ 'sm': Modul, 'sr': Role })
+        }
+    }
+    if (Modules_Roles.length==0) {
+        ErrorForControls($('.mdls'), "Выберите Модуль и роль")
+        ErrorForControls($('.rls'), "Выберите Модуль и роль")
+        isSuccess = false
+    }
+
+    return { isSuccess: isSuccess, SMSR: Modules_Roles, Login: Login, email: email, pass: pass, fio: fio, phone: phone}
 }
 function ChangeRole(itemid) {
     $("#mrsIm").hide()
     var selval = $('.rls[itemid=' + itemid + ']').val();
     if (selval != 0) {
         //$('.knp[itemid=' + itemid + ']').show();
-        $('.knp1').removeAttr('disabled').attr('class', 'knp1 ActiveAdd genBtn');
+        $('.knp1').removeAttr('disabled').attr('class', 'knp1 deActiveAdd btn btn1 h56 outline shadow-none flexCenter');
     }
     else {
         // $('.knp[itemid=' + itemid + ']').hide();
-        $('.knp1').attr('class', 'knp1 deActiveAdd').attr('disabled', 'disabled');
+        $('.knp1').attr('class', 'knp1 deActiveAdd btn btn1 h56 outline shadow-none flexCenter').attr('disabled', 'disabled');
     }
 
 }
 
 function AddMRSS() {
 
-    var lastitemid = $("#mrss").find('select:last').attr('itemid');
-    $('.knp[itemid=' + lastitemid + ']').show();
+    var lastitemid = $(".mrss:last").find('select:last').attr('itemid');
+    $('.knp[itemid=' + lastitemid + ']').parent().show();
     $('.mdls[itemid=' + lastitemid + ']').attr('disabled', 'disabled')
     $('.rls[itemid=' + lastitemid + ']').attr('disabled', 'disabled')
     var nextitemid = parseInt(lastitemid) + 1;
     // lastitemid++
-    $('.row[itemid=' + lastitemid + ']').after('<div class="row" itemid=' + nextitemid + '><div class="col-xs-4" itemid=' + nextitemid + '> <select class="mdls" onchange="GetRoleByModule(0,' + nextitemid + ',0)" itemid=' + nextitemid + '><option value= "0"  id= "" > Выберите Модуль</option></select></div><div  class="col-xs-4" itemid=' + nextitemid + '><select class="rls" onchange="ChangeRole(' + nextitemid + ')" itemid=' + nextitemid + '><option value="0"   >Выберите Роль</option></select></div><div class="col-xs-4" itemid=' + nextitemid + '><input class="knp del" onclick="delElements(' + nextitemid + ')" type="button" itemid=' + nextitemid + '    value="Удалить"></div></div>')
+    //$('.row[itemid=' + lastitemid + ']').after('<div class="row" itemid=' + nextitemid + '><div class="col-xs-4" itemid=' + nextitemid + '> <select class="mdls" onchange="GetRoleByModule(0,' + nextitemid + ',0)" itemid=' + nextitemid + '><option value= "0"  id= "" > Выберите Модуль</option></select></div><div  class="col-xs-4" itemid=' + nextitemid + '><select class="rls" onchange="ChangeRole(' + nextitemid + ')" itemid=' + nextitemid + '><option value="0"   >Выберите Роль</option></select></div><div class="col-xs-4" itemid=' + nextitemid + '><input class="knp del" onclick="delElements(' + nextitemid + ')" type="button" itemid=' + nextitemid + '    value="Удалить"></div></div>')
+    $('.mrss:last').after('<div id="mrss" itemid="' + nextitemid + '" class="mrss w-100 flexHoriz flex-wrap justify-content-between"> <div class="posRel w-40" itemid="' + nextitemid + '"> <select class="mdls" onchange="GetRoleByModule(0,' + nextitemid + ',0)" id="m' + nextitemid + '" itemid="' + nextitemid + '"> <option value="0" id="">Выберите Модуль</option> </select> <label for="m' + nextitemid + '" class="transp backLab">Модуль</label> </div> <div class="posRel w-40" itemid="' + nextitemid + '"> <select class="rls" onchange="ChangeRole(' + nextitemid + ')" itemid="' + nextitemid + '"> <option value="0">Выберите Роль</option> </select> <label for="r' + nextitemid + '" class="transp backLab">Роль</label> </div> <div class="posRel w-20"  itemid="' + nextitemid + '"> <input class="knp del btn btn1 h56 outline shadow-none flexCenter" onclick="delElements(' + nextitemid + ')" type="button" itemid="' + nextitemid + '" value="Удалить"></div></div>');
+
     $('.knp1').attr('class', 'knp1 deActiveAdd').attr('disabled', 'disabled');
     getModules2("", nextitemid, "");
     $('.del').show();
 }
 function delElements(itemid) {
     if (confirm('Вы действительно хотите удалить данную роль?')) {
-        var divsrow = $('#mrss ').find('.row').length
+        var divsrow = $('.mrss').length
         var currentModelVal = $('.mdls[itemid=' + itemid + ']').val();
         var currentRoleVal = $('.rls[itemid=' + itemid + ']').val();
         var currendtRoleText = $('.rls[itemid=' + itemid + '] option:selected').text();
 
-        var lastitemid2 = $("#mrss").find('select:last').attr('itemid');
+        var lastitemid2 = $(".mrss:last").attr('itemid');
         var lastModeval = $('.mdls[itemid=' + lastitemid2 + ']').val();
         //if (currentModelVal == lastModeval)
         //{
         //    $('.rls[itemid=' + lastitemid2 + ']').append('<option value=' + currentRoleVal + '>'+currendtRoleText+'</option>');
         //}
-        $('#mrss .mdls').each(function () {
+        $('.mrss .mdls').each(function () {
             if ($(this).val() == currentModelVal) {
                 var thisitemid = $(this).attr('itemid');
                 $('.rls[itemid=' + thisitemid + ']').append('<option value=' + currentRoleVal + '>' + currendtRoleText + '</option>');
             }
         })
-        if (divsrow != 2) {
-            $('.row[itemid=' + itemid + ']').remove();
-            var lastitemid = $("#mrss").find('select:last').attr('itemid');
+        if (divsrow != 1) {
+            $('.mrss[itemid=' + itemid + ']').remove();
+            var lastitemid = $(".mrss:last").attr('itemid');
             var lastRoleItemval = $('.rls[itemid=' + lastitemid + ']').val();
             $('.rls[itemid=' + lastitemid + ']').removeAttr('disabled', 'disabled')//
             $('.mdls[itemid=' + lastitemid + ']').removeAttr('disabled', 'disabled')
             if (lastRoleItemval != 0) {
-                $('.knp1').removeAttr('disabled').attr('class', 'knp1 ActiveAdd genBtn');
+                $('.knp1').removeAttr('disabled').attr('class', 'knp1 deActiveAdd btn btn1 h56 outline shadow-none flexCenter');
             }
             else {
-                $('.knp1').attr('class', 'knp1 deActiveAdd').attr('disabled', '');
+                $('.knp1').attr('class', 'knp1 deActiveAdd btn btn1 h56 outline shadow-none flexCenter').attr('disabled', '');
             }
 
         }
-        if (divsrow == 2) {
+        if (divsrow == 1) {
             $('.knp[itemid=' + itemid + ']').hide();
-            var lastitemid = $("#mrss").find('select:last').attr('itemid');
+            var lastitemid = $(".mrss:last").attr('itemid');
             var lastRoleItemval = $('.rls[itemid=' + lastitemid + ']').val();
             if (lastRoleItemval != 0) {
-                $('.knp1').removeAttr('disabled').attr('class', 'knp1 ActiveAdd genBtn');
+                $('.knp1').removeAttr('disabled').attr('class', 'knp1 deActiveAdd btn btn1 h56 outline shadow-none flexCenter');
             }
             else {
-                $('.knp1').attr('class', 'knp1 deActiveAdd').attr('disabled', '');
+                $('.knp1').attr('class', 'knp1 deActiveAdd btn btn1 h56 outline shadow-none flexCenter').attr('disabled', '');
             }
         }
         if ($('.del').length == 1) {
@@ -7302,91 +7320,3 @@ function delElements(itemid) {
 
 }
 
-//function OncgangeFile(e)
-//{
-//    var filePath = $(e).val();
-//    var errName = "#"+$(e).attr("id") + "_T"
-//        $(errName).hide();
-//        var index = filePath.lastIndexOf("\\") + 1;
-//        var filename = filePath.substr(index);
-//        var ext = $(e).val().split('.').pop();
-//        // console.log(ext);
-//        if (ext == "doc" || ext=="docx") {
-//            $(errName).hide();
-//            // readURL(this, filename);
-//            var flnm = $(e)[0].files[0].name
-//            var fName = $(e).attr("id")
-//           readURL2(e, flnm, fName);
-
-//        }
-//        else {
-//            $(errName).text("Неверный формат документа").show();
-//        }
-//}
-
-//function readURL2(input, imgName,fnm) {
-//    if (input.files && input.files[0]) {
-//        fnm = fnm.replace("#", "");
-//        var reader = new FileReader();
-//        reader.readAsDataURL(input.files[0]);
-//        reader.onload = function (e) {
-
-//           // $('.foto-disp').attr('src', e.target.result);
-
-//            //var nameImg = imgName
-//            //var arrayBuffer = reader.result
-//            //var bytes = new Uint8Array(arrayBuffer);
-//            //var obj = { baseString: bytes, imgName: nameImg };
-//            var formData = new FormData();
-
-//            var file = document.getElementById(fnm).files[0];
-
-//            formData.append('file', file, file.name);
-//            formData.append('object_id', '1');
-//            console.log(formData);
-//            $.ajax({
-//                type: "POST",
-//                url: "../WCFServices/Constructor_API.svc/UploadFile",
-//                data: formData,
-//                //cache: false,
-//                type: 'POST',
-//                //async: false,
-//                contentType: "multipart/form-data",
-//                processData: false,
-//                success: function (result) {
-
-//                    //alert("OK. See Console -  press F12");
-//                    console.log(JSON.stringify(result)); $("#resulter").text(JSON.stringify(result));
-//                    //var jsondata_1 = jQuery.parseJSON(result)
-//                    //var jsondata_1 = JSON.stringify(result)
-//                    // var jsondata_1 = JSON.parse(result)
-//                   // $('.foto-disp').attr('src', result.URL.replace('~', '..'))
-//                    //  $("#loader,.ui-loader-background").hide();
-//                    $(input).after('<a href="' + result.URL.replace('~', '..') + '">' + imgName +'</a><a class="delete" href= "1"><i class="fa fa-times-circle" aria-hidden="true"></i></a>')
-
-//                },
-
-//                error: function (r) {
-
-//                    //  //alert("Error");
-//                    console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-//                },
-//                complete: function (r) {
-//                    //var jsonEroorData = JSON.parse(r);
-
-//                    //if (r.readyState == 4 && r.status == 200) { //do something }; 
-//                    //    $('.foto-disp').attr('src', result.URL.replace('~', '..'))
-//                    //    $("#loader,.ui-loader-background").hide();
-//                    //}
-//                },
-//                failure: function (r) {
-//                    alert("FAIL");
-//                }
-//            });
-
-
-//        }
-
-
-//    }
-//}

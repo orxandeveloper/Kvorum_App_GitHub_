@@ -30,7 +30,7 @@
                         </div>
                     </form>
 
-                    <button onclick="GotoCreateFunction_C('CreateOpject.aspx')" class="btn btn1 mb-0 outline shadow-none w56 h56 flexCenter ml-auto">
+                    <button onclick="GotoCreateFunction_C('CreateAccount.aspx')" class="btn btn1 mb-0 outline shadow-none w56 h56 flexCenter ml-auto">
                         <img src="../../img/ic-plus.svg" class="w16 reddishSvg" alt=""></button>
                     <div class="ml-auto mb-0  w-15 h56">
                   
@@ -44,7 +44,7 @@
                             <tr>
                                 <th>Логин ID</th>
                                 <th>Наименование (ФИО)</th>
-                                <th>Наименование организации</th>
+                               
                                 <th>Телефон</th>
                                 <th>E-mail</th>
                                 <th>Модуль</th>

@@ -60,9 +60,12 @@ namespace Kvorum_App
                 QRTEXT = guid,
 
             });
-            string url = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + "/WCFServices/MATORIN.QUICK_API.svc/CreateQRCode";
-            //"http://172.20.20.115/WCFServices/MATORIN.QUICK_API.svc/CreateQRCode";//
-            // 
+            string baseUrl = Path.GetDirectoryName(HttpContext.Current.Request.Url.OriginalString);
+            baseUrl = baseUrl.Replace("\\", "//");
+            string url = "https://test.upravbot.ru/WCFServices/MATORIN.QUICK_API.svc/CreateQRCode";
+            // baseUrl + "/WCFServices/MATORIN.QUICK_API.svc/CreateQRCode";
+            //HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + "/WCFServices/MATORIN.QUICK_API.svc/CreateQRCode";
+            //
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 
             request.Method = "POST";

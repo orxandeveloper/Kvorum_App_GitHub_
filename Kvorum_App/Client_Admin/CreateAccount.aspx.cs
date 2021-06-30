@@ -43,7 +43,7 @@ namespace Kvorum_App.Client_Admin
         {
             string NonEncryptedPass = Pass_;
             Pass_ = GetMd5HashData(Pass_);
-            Mydb.ExecuteNoNQuery("insert into ACCOUNT (ACCOUNT_NAME,PHONE_NUMBER,E_MAIL,PASSWORD,CLIENT_ID,LOGIN) values(@accName,@PNumb,@Email,@Pass,@ClId,@Login)", new SqlParameter[]
+            int LogId=Convert.ToInt32(Mydb.ExecuteScalar("InsertAccount", new SqlParameter[]
             {
                 new SqlParameter("@accName",accName_),
                 new SqlParameter("@PNumb",PNumb_),
@@ -51,33 +51,21 @@ namespace Kvorum_App.Client_Admin
                 new SqlParameter("@Pass",Pass_),
                 new SqlParameter("@ClId",ClId_),
                 new SqlParameter("@Login",Login_)
-            }, CommandType.Text);
-            int LogId = (int)Mydb.ExecuteScalar("select LOG_IN_ID from ACCOUNT where LOGIN=@Login", new SqlParameter[] { new SqlParameter("@Login", Login_) }, CommandType.Text);
+            }, CommandType.StoredProcedure));
+           
             foreach (MR mr in SMSR)
             {
                 int M_Id = Convert.ToInt32(mr.sm);
                 int R_Id = Convert.ToInt32(mr.sr);
-                /*INSERT INTO table_name (column1, column2, column3, ...)
-VALUES (value1, value2, value3, ...);*/
-                Mydb.ExecuteNoNQuery("insert into MODUL_ROLE (MODUL_ID,ROLE_ID) values (@Mid,@Rid)", new SqlParameter[] { new SqlParameter("@Mid", M_Id), new SqlParameter("@Rid", R_Id) }, CommandType.Text);
-                int mr_Id = (int)Mydb.ExecuteScalar("select top 1 MR_ID from MODUL_ROLE order by MR_ID desc", new SqlParameter[] { }, CommandType.Text);
-                Mydb.ExecuteNoNQuery("insert into ACCOUNT_ROLE (LOG_IN_ID,MR_ID) values(@l,@mr)", new SqlParameter[] { new SqlParameter("@l", LogId), new SqlParameter("@mr", mr_Id) }, CommandType.Text);
+              
+                Mydb.ExecuteNoNQuery("InsertModulesAndRoles", new SqlParameter[] { new SqlParameter("@Mid", M_Id), new SqlParameter("@Rid", R_Id),new SqlParameter("@l",LogId) }, CommandType.StoredProcedure);
+
+               
                 SendMail(Email_, NonEncryptedPass, Email_);
             }
 
 
-            //foreach (MR item in SMSR)
-            //{
-            //    int mr_Id = (int)Mydb.ExecuteScalar("select MR_ID from MODUL_ROLE where ROLE_ID=@r and MODUL_ID=@m", new SqlParameter[]
-            //    {
-            //        new SqlParameter("@r",Convert.ToInt32(item.sr)),
-            //        new SqlParameter("@m",Convert.ToInt32(item.sm))
-            //    }, CommandType.Text);
-
-
-            //        Mydb.ExecuteNoNQuery("insert into ACCOUNT_ROLE (LOG_IN_ID,MR_ID) values(@l,@mr)", new SqlParameter[] { new SqlParameter("@l", LogId), new SqlParameter("@mr", mr_Id )}, CommandType.Text);
-
-            //}
+             
             return "{\"result\" : \"1\"}";
         }
 
