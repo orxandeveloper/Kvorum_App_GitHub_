@@ -35,6 +35,7 @@ namespace Kvorum_App
         {
             //  DeleteAccuntIdendity();
             // CreateAccoountIdendity("orx@gmail", "123456Aa");
+            CHeckIdendityPhone();
            // UpdateAccuntIdendity();
             #region For Test
             //string values_T = "{T1: \"1\",T2:\"2\", T3:\"3\"}";
@@ -202,7 +203,20 @@ role	0
              
              */
         }
+        public static void CHeckIdendityPhone()
+        {
 
+            ApplicationDbContext dbcontext_ = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(dbcontext_);
+            var _userManager = new UserManager<ApplicationUser>(userStore);
+            bool IsPhoneAlreadyRegistered = _userManager.Users.Any(item => item.PhoneNumber == "+79999988751");
+
+            if (IsPhoneAlreadyRegistered == true)
+            {
+                string a = "Такой телефонный номер уже зарегистрирован.";
+
+            }
+        }
         private void sendEmailForNewLs()
         {
             DataTable dt = Mydb.ExecuteReadertoDataTable(@"select ss.SCORE_ID, in_.EMAIL,ps.PASS,in_.FIRST_NAME from SubbotaScores ss
