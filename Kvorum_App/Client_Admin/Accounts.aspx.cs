@@ -71,30 +71,31 @@ namespace Kvorum_App.Client_Admin
         [WebMethod]
         public static string GetAccDetail(int LogId_)
         {
-            DataTable dtAcc = Mydb.ExecuteReadertoDataTable("select * from ACCOUNT where LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@lg", LogId_) },CommandType.Text);
-            List<Account_> accs = new List<Account_>();
-            foreach (DataRow item in dtAcc.Rows)
-            {
-                Account_ acc = new Account_();
-                acc.ACCOUNT_NAME = item["ACCOUNT_NAME"].ToString();
-                acc.E_MAIL = item["E_MAIL"].ToString();
-                acc.LOG_IN_ID = Convert.ToInt32(item["LOG_IN_ID"]);
-              //  acc.MODULE_ROLES = item["MODULE_ROLES"].ToString();
-                acc.PASSWORD = item["PASSWORD"].ToString();
-                acc.PHONE_NUMBER = item["PHONE_NUMBER"].ToString();
-                acc.LOGIN = item["LOGIN"].ToString();
-                accs.Add(acc);
-            }
-          
-            JavaScriptSerializer js_accs = new JavaScriptSerializer();
-           
-           
+            //DataTable dtAcc = Mydb.ExecuteReadertoDataTable("select * from ACCOUNT where LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@lg", LogId_) },CommandType.Text);
+            //List<Account_> accs = new List<Account_>();
+            //foreach (DataRow item in dtAcc.Rows)
+            //{
+            //    Account_ acc = new Account_();
+            //    acc.ACCOUNT_NAME = item["ACCOUNT_NAME"].ToString();
+            //    acc.E_MAIL = item["E_MAIL"].ToString();
+            //    acc.LOG_IN_ID = Convert.ToInt32(item["LOG_IN_ID"]);
+            //  //  acc.MODULE_ROLES = item["MODULE_ROLES"].ToString();
+            //    acc.PASSWORD = item["PASSWORD"].ToString();
+            //    acc.PHONE_NUMBER = item["PHONE_NUMBER"].ToString();
+            //    acc.LOGIN = item["LOGIN"].ToString();
+            //    accs.Add(acc);
+            //}
 
-           
-            int COuntOf_Mr = (int)Mydb.ExecuteScalar("select COUNT(*)from ACCOUNT_ROLE where LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@lg", LogId_) }, CommandType.Text);
-           
+            //JavaScriptSerializer js_accs = new JavaScriptSerializer();
 
-            return js_accs.Serialize(accs); 
+
+
+
+            //int COuntOf_Mr = (int)Mydb.ExecuteScalar("select COUNT(*)from ACCOUNT_ROLE where LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@lg", LogId_) }, CommandType.Text);
+
+
+            //return js_accs.Serialize(accs); 
+            return Mydb.ExecuteAsJson("GetAccDetail", new SqlParameter[] { new SqlParameter("@lg", LogId_) }, CommandType.StoredProcedure);
         }
 
         [WebMethod]
@@ -160,13 +161,7 @@ namespace Kvorum_App.Client_Admin
             }
            
         }
-        [WebMethod]
-        public static string DeleteAccount(int LogId)
-        {
-            Mydb.ExecuteNoNQuery("DeleteAccount", new SqlParameter[] {new SqlParameter("@lg",LogId) }, CommandType.StoredProcedure);
-
-          return  "{\"result\" : \"1\"}";
-        }
+       
 
 
 

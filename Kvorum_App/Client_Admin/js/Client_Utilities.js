@@ -1326,7 +1326,7 @@
             GetModeRole(LogId)
             $("#DeleteAcc").click(function () {
 
-                alertWithButton("Вы действительно хотите удалить учетную запись?", " " + $("#fio").val() + " ", "")
+                alertWithButton("Вы действительно хотите удалить учетную запись?", " " + $("#FirstName").val() + " ", "")
             })
             $("#deleteO").click(function () { DeleteAccount(LogId) })
             $("#CreateAcc").text("Сохранить")
@@ -5281,7 +5281,7 @@ function DeleteAccount(lg) {
     var obj = { "LogId": lg }
     $.ajax({
         type: "POST",
-        url: "Accounts.aspx/DeleteAccount",
+        url: "CreateAccount.aspx/DeleteAccount",
         data: JSON.stringify(obj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -5343,7 +5343,10 @@ function getDetailAcc(lg) {
             $("#email").val(jsondata_[0].E_MAIL)
             $("#login").val("Login_" + jsondata_[0].LOG_IN_ID)
             $("#pass").val(jsondata_[0].PASSWORD)
-            $("#fio").val(jsondata_[0].ACCOUNT_NAME)
+          //  $("#fio").val(jsondata_[0].ACCOUNT_NAME)
+            $('#FirstName').val(jsondata_[0].FIRST_NAME)
+            $('#SecondName').val(jsondata_[0].SECOND_NAME)
+            $('#MiddleName').val(jsondata_[0].MIDDLE_NAME)
             $("#phone1").val(jsondata_[0].PHONE_NUMBER)
             if (jsondata_[0].LOGIN == "") {
                 $("#DeleteAcc").hide();
@@ -5384,8 +5387,8 @@ function CheckEmail(eml) {
 
 function UpdateAcc(ClId, LogId, AccData) {
     var p = sessionStorage.getItem("p")
-    var pas_s = (p == 1) ? $("#pass").val().trim() : "";
-    var jsonObj = { 'SMSR': AccData.SMSR, 'accName_': AccData.fio, 'PNumb_': AccData.phone, 'Email_': AccData.email, 'Pass_': pas_s, 'ClId_': ClId, 'Login_': AccData.Login, "LgId": LogId };
+    var pas_s = (p == "1") ? $("#pass").val().trim() : "";
+    var jsonObj = { 'SMSR': AccData.SMSR, 'PNumb_': AccData.phone, 'Email_': AccData.email, 'Pass_': pas_s, 'ClId_': ClId, 'Login_': AccData.Login, "LgId": LogId, 'FirstName': AccData.FirstName, 'SecondName': AccData.SecondName, 'MiddleName': AccData.MiddleName };
     console.log(jsonObj)
     $.ajax({
         type: "POST",
@@ -5398,7 +5401,7 @@ function UpdateAcc(ClId, LogId, AccData) {
             var jsondata = $.parseJSON(data.d);
             if (jsondata.result == 1) {
                 var log_Id = sessionStorage.getItem("Log");
-                SaveLog("Сохранить изменения", "Простое", "Администратор", "Клиентское администрирование", "Изменены настройки учетной записи (" + fio + ")", log_Id);
+               // SaveLog("Сохранить изменения", "Простое", "Администратор", "Клиентское администрирование", "Изменены настройки учетной записи (" + fio + ")", log_Id);
                 window.location.href = "Accounts.aspx";
             }
             //console.log(JSON.stringify(result)); $("#resulter").text(JSON.stringify(result));
@@ -5412,7 +5415,7 @@ function UpdateAcc(ClId, LogId, AccData) {
     });
 }
 function CreateNewAcc(ClId, AccData) {
-    var jsonObj = { 'SMSR': AccData.SMSR, 'accName_': AccData.fio, 'PNumb_': AccData.phone, 'Email_': AccData.email, 'Pass_': AccData.pass, 'ClId_': ClId, 'Login_': AccData.Login };
+    var jsonObj = { 'SMSR': AccData.SMSR, 'PNumb_': AccData.phone, 'Email_': AccData.email, 'Pass_': AccData.pass, 'ClId_': ClId, 'Login_': AccData.Login, 'FirstName': AccData.FirstName, 'SecondName': AccData.SecondName, 'MiddleName': AccData.MiddleName  };
     $.ajax({
         type: "POST",
         url: "CreateAccount.aspx/SaveAcc",
@@ -7104,7 +7107,9 @@ function checkControls_Accounts()
     var Login = $("#login").val()
     var email = $("#email").val();
     var pass = $("#pass").val();
-    var fio = $("#fio").val();
+    var FirstName = $("#FirstName").val();
+    var SecondName = $('#SecondName').val()
+    var MiddleName = $('#MiddleName').val()
     var phone = $("#phone1").val();
 
     for (var i = 0; i < countofItem; i++) {
@@ -7122,7 +7127,7 @@ function checkControls_Accounts()
         isSuccess = false
     }
 
-    return { isSuccess: isSuccess, SMSR: Modules_Roles, Login: Login, email: email, pass: pass, fio: fio, phone: phone}
+    return { isSuccess: isSuccess, SMSR: Modules_Roles, Login: Login, email: email, pass: pass, phone: phone, FirstName: FirstName, SecondName: SecondName, MiddleName: MiddleName}
 }
 function ChangeRole(itemid) {
     $("#mrsIm").hide()

@@ -34,11 +34,21 @@
                         </div>
                         <div class="w-100 flexHoriz flex-wrap justify-content-between">
                             <div class="posRel w-100 mb-3">
-                                <input type="text"  required="required" class="fio" id="fio">
-                                <label for="fio" class="transp backLab">Наименование (ФИО)</label>
+                                <input type="text"  required="required" class="FirstName" id="FirstName">
+                                <label for="FirstName" class="transp backLab">Имя</label>
                             </div>
-
-
+                        </div>
+                           <div class="w-100 flexHoriz flex-wrap justify-content-between">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text"  required="required" class="SecondName" id="SecondName">
+                                <label for="SecondName" class="transp backLab">Фамилия</label>
+                            </div>
+                        </div>
+                         <div class="w-100 flexHoriz flex-wrap justify-content-between">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text"  class="MiddleName" id="MiddleName">
+                                <label for="MiddleName" class="transp backLab">Отчество</label>
+                            </div>
                         </div>
                         <div class="w-100 flexHoriz flex-wrap justify-content-between">
                             <div class="posRel w-100 mb-3">

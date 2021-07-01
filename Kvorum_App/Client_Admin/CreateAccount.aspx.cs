@@ -14,6 +14,8 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
+using Kvorum_App.DB;
+using System.Security.Claims;
 
 namespace Kvorum_App.Client_Admin
 {
@@ -41,19 +43,35 @@ namespace Kvorum_App.Client_Admin
             return string.Join("", MD5.Create().ComputeHash(Encoding.ASCII.GetBytes(yourString)).Select(s => s.ToString("x2")));
         }
         [WebMethod]
-        public static string SaveAcc(List<MR>SMSR,string accName_,string PNumb_,string Email_,string Pass_,string ClId_,string Login_)
+        public static string SaveAcc(List<MR>SMSR,string PNumb_,string Email_,string Pass_,string ClId_,string Login_,string FirstName,string SecondName,string MiddleName)
         {
             string NonEncryptedPass = Pass_;
-            CreateAccoountIdendity(Email_, NonEncryptedPass);
+            string roles = "";
+            int i = 0;
+            foreach (MR mr in SMSR)
+            {
+                int M_Id = Convert.ToInt32(mr.sm);
+                int R_Id = Convert.ToInt32(mr.sr);
+               string role= GiveRole(R_Id);
+                roles = (i == 0) ? role : roles + ";" + role;
+                i++;
+            }
+            PNumb_ = PNumb_.Replace("(", "").Replace(")", "").Replace("-", "").Replace("-", "").Replace(" ", "");
+            string Id_idendity= CreateAccoountIdendity(Email_, NonEncryptedPass, PNumb_.Trim(), FirstName, SecondName, MiddleName, roles);
             Pass_ = GetMd5HashData(Pass_);
             int LogId=Convert.ToInt32(Mydb.ExecuteScalar("InsertAccount", new SqlParameter[]
             {
-                new SqlParameter("@accName",accName_),
+               // new SqlParameter("@accName",accName_),
                 new SqlParameter("@PNumb",PNumb_),
                 new SqlParameter("@Email",Email_),
                 new SqlParameter("@Pass",Pass_),
                 new SqlParameter("@ClId",ClId_),
-                new SqlParameter("@Login",Login_)
+                new SqlParameter("@Login",Login_),
+                new SqlParameter("@Id_idendity",Id_idendity),
+                new SqlParameter("@FirstName",FirstName),
+                new SqlParameter("@SecondName",SecondName),
+                new SqlParameter("@MiddleName",MiddleName)
+
             }, CommandType.StoredProcedure));
            
             foreach (MR mr in SMSR)
@@ -69,26 +87,159 @@ namespace Kvorum_App.Client_Admin
             
             return "{\"result\" : \"1\"}";
         }
-
-        private   static void CreateAccoountIdendity(string Email,string Password_)
+        private static string CreateAccoountIdendity(string Email, string Password_, string PhoneNumber, string FirstName, string SecondName, string MiddleName, string roles)
         {
-            var userStore = new UserStore<IdentityUser>();
-            //var date = DateTime.Now;
-            var manager = new UserManager<IdentityUser>(userStore);
-            var user = new IdentityUser() { UserName = Email,PhoneNumber="testPhone_orx" };
-            IdentityResult result = manager.Create(user, Password_);
+            ApplicationDbContext dbcontext_ = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(dbcontext_);
+            var manager = new UserManager<ApplicationUser>(userStore);
+            ApplicationUser user = new ApplicationUser
+            {
+                Email = Email,
+                UserName = Email,
+                NormalizedUserName = Email.ToUpper(),
+                Password_deser = Password_,
+                PhoneNumber = PhoneNumber,
+                LockoutEnabled = true,
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                TwoFactorEnabled = false,
+                FirstName = FirstName,
+                SecondName = SecondName,
+                MiddleName = MiddleName,
+                TypeOrgName = roles,
+                NormalizedEmail = Email.ToUpper(),
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            };
 
-            //ApplicationUser user = new ApplicationUser { Email = model.Email, UserName = model.Email, Password_deser = model.Password, PhoneNumber = model.Phone, FirstName = model.FirstName, SecondName = model.SecondName, MiddleName = model.MiddleName, TypeOrgName = model.Org };
-            //var result = await manager.CreateAsync(user, Password);
+            IdentityResult result = manager.Create(user, Password_);
             if (result.Succeeded)
             {
-                string a = "success";
+                var resultClaim_name = manager.AddClaimAsync(user.Id, new Claim("name", FirstName)).Result;
+                var resultClaim_email_given_name = manager.AddClaimAsync(user.Id, new Claim("given_name", SecondName)).Result;
+                var resultClaim_family_name = manager.AddClaimAsync(user.Id, new Claim("family_name", MiddleName)).Result;
+                var resultClaim_website = manager.AddClaimAsync(user.Id, new Claim("website", "http://lk.upravbot.ru:55555/CoreApi/api/v2/")).Result;
+                var resultClaim_role = manager.AddClaimAsync(user.Id, new Claim("role", roles)).Result;
             }
             else
             {
                 string b = result.Errors.FirstOrDefault();
             }
+            return user.Id;
         }
+
+        [WebMethod]
+        public static string UpdateAcc(List<MR> SMSR, string PNumb_, string Email_, string Pass_, string ClId_, string Login_, int LgId, string FirstName, string SecondName, string MiddleName)
+        {
+            string Id_idendity = Mydb.ExecuteScalar("GetId_idendity", new SqlParameter[] { new SqlParameter("@lg", LgId) }, CommandType.StoredProcedure).ToString();
+            if (Id_idendity.Length!=0)
+            {
+                string roles = "";
+                int i = 0;
+                foreach (MR mr in SMSR)
+                {
+                    int M_Id = Convert.ToInt32(mr.sm);
+                    int R_Id = Convert.ToInt32(mr.sr);
+                    string role = GiveRole(R_Id);
+                    roles = (i == 0) ? role : roles + ";" + role;
+                    i++;
+                }
+                PNumb_ = PNumb_.Replace("(", "").Replace(")", "").Replace("-", "").Replace("-", "").Replace(" ", "");
+                UpdateAccuntIdendity(Id_idendity, Email_, Pass_, PNumb_, FirstName, SecondName, MiddleName, roles);
+            }
+            Mydb.ExecuteNoNQuery("DeleteAccRoles", new SqlParameter[] { new SqlParameter("@lg", LgId) }, CommandType.StoredProcedure);
+            foreach (MR mr in SMSR)
+            {
+                int M_Id = Convert.ToInt32(mr.sm);
+                int R_Id = Convert.ToInt32(mr.sr);
+
+                Mydb.ExecuteNoNQuery("InsertModulesAndRoles", new SqlParameter[] {
+                    new SqlParameter("@Mid", M_Id),
+                new SqlParameter("@Rid",R_Id),
+                new SqlParameter("@l",LgId)}, CommandType.StoredProcedure);
+
+            }
+
+            Pass_ = GetMd5HashData(Pass_);
+            Mydb.ExecuteNoNQuery("UpdateAcc", new SqlParameter[]  {new SqlParameter("@e",Email_),
+            new SqlParameter("@p",PNumb_),
+          //  new SqlParameter("@acc",accName_),
+          new SqlParameter("@FirstName",FirstName),
+          new SqlParameter("@SecondName",SecondName),
+          new SqlParameter("@MiddleName",MiddleName),
+            new SqlParameter("@L",LgId),
+            new SqlParameter("@pas",Pass_)}, CommandType.StoredProcedure);
+            return "{\"result\" : \"1\"}";
+        }
+
+        public static void UpdateAccuntIdendity(string Id_idendity,string Email,string Password_, string PhoneNumber,string FirstName, string SecondName,string MiddleName,string roles)
+        {
+            ApplicationDbContext dbcontext_ = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(dbcontext_);
+            var manager = new UserManager<ApplicationUser>(userStore);
+           
+            ApplicationUser user = manager.FindById(Id_idendity);
+            Password_ = (Password_.Length == 0) ? user.Password_deser : Password_;
+            user.Email = Email;
+            user.UserName = Email;
+            user.NormalizedUserName = Email.ToUpper();
+            user.Password_deser = Password_;
+            user.PhoneNumber = PhoneNumber;
+            user.LockoutEnabled = true;
+            user.EmailConfirmed = true;
+            user.PhoneNumberConfirmed = true;
+            user.TwoFactorEnabled = false;
+            user.FirstName = FirstName;
+            user.SecondName = SecondName;
+            user.MiddleName = MiddleName;
+            user.TypeOrgName = roles;
+            user.NormalizedEmail = Email.ToUpper();
+
+
+
+
+
+            IdentityResult Mresult = manager.Update(user);
+            if (Mresult.Succeeded == true)
+            {
+                var userClaims = manager.GetClaims(user.Id);
+                foreach (var item in userClaims)
+                {
+                    manager.RemoveClaim(user.Id, item);
+                }
+                var resultClaim_name = manager.AddClaimAsync(user.Id, new Claim("name", FirstName)).Result;
+                var resultClaim_email_given_name = manager.AddClaimAsync(user.Id, new Claim("given_name", SecondName)).Result;
+                var resultClaim_family_name = manager.AddClaimAsync(user.Id, new Claim("family_name", MiddleName)).Result;
+                var resultClaim_website = manager.AddClaimAsync(user.Id, new Claim("website", "http://lk.upravbot.ru:55555/CoreApi/api/v2/")).Result;
+                var resultClaim_role = manager.AddClaimAsync(user.Id, new Claim("role", roles)).Result;
+            }
+             
+        }
+        [WebMethod]
+        public static string DeleteAccount(int LogId)
+        {
+            string Id_idendity = Mydb.ExecuteScalar("GetId_idendity", new SqlParameter[] {new SqlParameter("@lg",LogId) }, CommandType.StoredProcedure).ToString();
+            if (Id_idendity.Length!=0)
+            {
+                DeleteAccuntIdendity(Id_idendity);
+            }
+            Mydb.ExecuteNoNQuery("DeleteAccount", new SqlParameter[] { new SqlParameter("@lg", LogId) }, CommandType.StoredProcedure);
+
+            return "{\"result\" : \"1\"}";
+        }
+        public static void DeleteAccuntIdendity(string Id_idendity)
+        {
+            ApplicationDbContext dbcontext_ = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(dbcontext_);
+            var manager = new UserManager<ApplicationUser>(userStore);
+            ApplicationUser user = manager.FindById(Id_idendity);
+            IdentityResult result = manager.Delete(user);
+        }
+        private static string GiveRole(int R_Id)
+        {
+          return  (R_Id == 1) ? "Управляющий" : (R_Id == 2) ? "Инженер" : (R_Id == 3) ? "Диспетчер" : (R_Id == 4) ? "Администратор" : (R_Id == 5) ? "Бизнес-администратор" : (R_Id == 6) ? "Техник" : (R_Id == 7) ? "Житель" : (R_Id == 8) ? "Паспортист" : (R_Id == 9) ? "Менеджер по работе с клиентами" : (R_Id == 10) ? "Начальник расчетного отдела" : (R_Id == 11) ? "Специалист расчетного отдела" : (R_Id == 12) ? "Начальник юридического отдела" : (R_Id == 13) ? "Юрист" : (R_Id == 14) ? "Администратор управляющей организации" : (R_Id == 15) ? "Диспетчер поставщика" : (R_Id == 16) ? "Ответственный" : "Супер Диспетчер";
+        }
+
+      
 
         public static string SendMail(string Login_Mail, string pass_, string Email_)
         {
@@ -119,39 +270,8 @@ namespace Kvorum_App.Client_Admin
             }
             return succEm;
         }
-        [WebMethod]
-        public static string UpdateAcc(List<MR> SMSR, string accName_, string PNumb_, string Email_, string Pass_, string ClId_, string Login_,int LgId)
-        {
-            // DataTable dt_Acc_Role = Mydb.ExecuteReadertoDataTable("select * from ACCOUNT_ROLE where LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@lg", LgId) }, CommandType.Text);
-            //List<MR> mrs = new List<MR>();
-            // foreach (DataRow item in dt_Acc_Role.Rows)
-            // {
-            //     int Mr_Id = Convert.ToInt32(item["MR_ID"]);
-            //     Mydb.ExecuteNoNQuery("delete from MODUL_ROLE where MR_ID=@mr", new SqlParameter[] { new SqlParameter("@mr", Mr_Id) }, CommandType.Text);
-            // }
+       
 
-            // Mydb.ExecuteNoNQuery("delete from ACCOUNT_ROLE where LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@lg", LgId) }, CommandType.Text);
-            Mydb.ExecuteNoNQuery("DeleteAccRoles", new SqlParameter[] { new SqlParameter("@lg", LgId) }, CommandType.StoredProcedure);
-            foreach (MR mr in SMSR)
-            {
-                int M_Id = Convert.ToInt32(mr.sm);
-                int R_Id = Convert.ToInt32(mr.sr);
-              
-                Mydb.ExecuteNoNQuery("InsertModulesAndRoles", new SqlParameter[] {
-                    new SqlParameter("@Mid", M_Id),
-                new SqlParameter("@Rid",R_Id),
-                new SqlParameter("@l",LgId)}, CommandType.StoredProcedure);
-
-            }
-
-            Pass_ = GetMd5HashData(Pass_);
-            Mydb.ExecuteNoNQuery("UpdateAcc", new SqlParameter[]  {new SqlParameter("@e",Email_),
-            new SqlParameter("@p",PNumb_),
-            new SqlParameter("@acc",accName_),
-            new SqlParameter("@L",LgId),
-            new SqlParameter("@pas",Pass_)}, CommandType.StoredProcedure);
-            return "{\"result\" : \"1\"}";
-        }
         [WebMethod]
         public static string GetRole(int M_Id )
         {
