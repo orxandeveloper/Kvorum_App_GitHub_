@@ -163,16 +163,8 @@ namespace Kvorum_App.Client_Admin
         [WebMethod]
         public static string DeleteAccount(int LogId)
         {
-            Mydb.ExecuteNoNQuery("delete from ACCOUNT where LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@lg", LogId) }, CommandType.Text);
-            DataTable dt_Acc_Role = Mydb.ExecuteReadertoDataTable("select * from ACCOUNT_ROLE where LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@lg", LogId) }, CommandType.Text);
-            List<MR> mrs = new List<MR>();
-            foreach (DataRow item in dt_Acc_Role.Rows)
-            {
-                int Mr_Id = Convert.ToInt32(item["MR_ID"]);
-                Mydb.ExecuteNoNQuery("delete from MODUL_ROLE where MR_ID=@mr", new SqlParameter[] {new SqlParameter("@mr",Mr_Id)}, CommandType.Text);
-            }
+            Mydb.ExecuteNoNQuery("DeleteAccount", new SqlParameter[] {new SqlParameter("@lg",LogId) }, CommandType.StoredProcedure);
 
-            Mydb.ExecuteNoNQuery("delete from ACCOUNT_ROLE where LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@lg",LogId) }, CommandType.Text);
           return  "{\"result\" : \"1\"}";
         }
 

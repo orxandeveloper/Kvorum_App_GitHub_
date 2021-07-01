@@ -12,6 +12,8 @@ using System.Web.UI.WebControls;
 using Kvorum_App.Client_Admin.Utilities;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity;
 
 namespace Kvorum_App.Client_Admin
 {
@@ -42,6 +44,7 @@ namespace Kvorum_App.Client_Admin
         public static string SaveAcc(List<MR>SMSR,string accName_,string PNumb_,string Email_,string Pass_,string ClId_,string Login_)
         {
             string NonEncryptedPass = Pass_;
+            CreateAccoountIdendity(Email_, NonEncryptedPass);
             Pass_ = GetMd5HashData(Pass_);
             int LogId=Convert.ToInt32(Mydb.ExecuteScalar("InsertAccount", new SqlParameter[]
             {
@@ -63,10 +66,28 @@ namespace Kvorum_App.Client_Admin
                
                 SendMail(Email_, NonEncryptedPass, Email_);
             }
-
-
-             
+            
             return "{\"result\" : \"1\"}";
+        }
+
+        private   static void CreateAccoountIdendity(string Email,string Password_)
+        {
+            var userStore = new UserStore<IdentityUser>();
+            //var date = DateTime.Now;
+            var manager = new UserManager<IdentityUser>(userStore);
+            var user = new IdentityUser() { UserName = Email,PhoneNumber="testPhone_orx" };
+            IdentityResult result = manager.Create(user, Password_);
+
+            //ApplicationUser user = new ApplicationUser { Email = model.Email, UserName = model.Email, Password_deser = model.Password, PhoneNumber = model.Phone, FirstName = model.FirstName, SecondName = model.SecondName, MiddleName = model.MiddleName, TypeOrgName = model.Org };
+            //var result = await manager.CreateAsync(user, Password);
+            if (result.Succeeded)
+            {
+                string a = "success";
+            }
+            else
+            {
+                string b = result.Errors.FirstOrDefault();
+            }
         }
 
         public static string SendMail(string Login_Mail, string pass_, string Email_)
@@ -101,58 +122,34 @@ namespace Kvorum_App.Client_Admin
         [WebMethod]
         public static string UpdateAcc(List<MR> SMSR, string accName_, string PNumb_, string Email_, string Pass_, string ClId_, string Login_,int LgId)
         {
-            DataTable dt_Acc_Role = Mydb.ExecuteReadertoDataTable("select * from ACCOUNT_ROLE where LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@lg", LgId) }, CommandType.Text);
-           List<MR> mrs = new List<MR>();
-            foreach (DataRow item in dt_Acc_Role.Rows)
-            {
-                int Mr_Id = Convert.ToInt32(item["MR_ID"]);
-                Mydb.ExecuteNoNQuery("delete from MODUL_ROLE where MR_ID=@mr", new SqlParameter[] { new SqlParameter("@mr", Mr_Id) }, CommandType.Text);
-            }
-            Mydb.ExecuteNoNQuery("delete from ACCOUNT_ROLE where LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@lg", LgId) }, CommandType.Text);
+            // DataTable dt_Acc_Role = Mydb.ExecuteReadertoDataTable("select * from ACCOUNT_ROLE where LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@lg", LgId) }, CommandType.Text);
+            //List<MR> mrs = new List<MR>();
+            // foreach (DataRow item in dt_Acc_Role.Rows)
+            // {
+            //     int Mr_Id = Convert.ToInt32(item["MR_ID"]);
+            //     Mydb.ExecuteNoNQuery("delete from MODUL_ROLE where MR_ID=@mr", new SqlParameter[] { new SqlParameter("@mr", Mr_Id) }, CommandType.Text);
+            // }
+
+            // Mydb.ExecuteNoNQuery("delete from ACCOUNT_ROLE where LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@lg", LgId) }, CommandType.Text);
+            Mydb.ExecuteNoNQuery("DeleteAccRoles", new SqlParameter[] { new SqlParameter("@lg", LgId) }, CommandType.StoredProcedure);
             foreach (MR mr in SMSR)
             {
                 int M_Id = Convert.ToInt32(mr.sm);
                 int R_Id = Convert.ToInt32(mr.sr);
-                /*INSERT INTO table_name (column1, column2, column3, ...)
-VALUES (value1, value2, value3, ...);*/
-                Mydb.ExecuteNoNQuery("insert into MODUL_ROLE (MODUL_ID,ROLE_ID) values (@Mid,@Rid)", new SqlParameter[] { new SqlParameter("@Mid", M_Id), new SqlParameter("@Rid", R_Id) }, CommandType.Text);
-                
-                int LastMr = (int)Mydb.ExecuteScalar("select top 1 MR_ID from MODUL_ROLE order by MR_ID desc", new SqlParameter[] { }, CommandType.Text) ;
-                Mydb.ExecuteNoNQuery("insert into ACCOUNT_ROLE (LOG_IN_ID,MR_ID) values(@l,@mr)", new SqlParameter[] { new SqlParameter("@l", LgId), new SqlParameter("@mr", LastMr) }, CommandType.Text);
+              
+                Mydb.ExecuteNoNQuery("InsertModulesAndRoles", new SqlParameter[] {
+                    new SqlParameter("@Mid", M_Id),
+                new SqlParameter("@Rid",R_Id),
+                new SqlParameter("@l",LgId)}, CommandType.StoredProcedure);
+
             }
 
-
-            //foreach (MR item in SMSR)
-            //{
-            //    int mr_Id = (int)Mydb.ExecuteScalar("select MR_ID from MODUL_ROLE where ROLE_ID=@r and MODUL_ID=@m", new SqlParameter[]
-            //    {
-            //        new SqlParameter("@r",Convert.ToInt32(item.sr)),
-            //        new SqlParameter("@m",Convert.ToInt32(item.sm))
-            //    }, CommandType.Text);
-
-
-            //    Mydb.ExecuteNoNQuery("insert into ACCOUNT_ROLE (LOG_IN_ID,MR_ID) values(@l,@mr)", new SqlParameter[] { new SqlParameter("@l", LgId), new SqlParameter("@mr", mr_Id) }, CommandType.Text);
-
-            //}
-            if (Pass_.Length != 0)
-            {
-                Pass_ = GetMd5HashData(Pass_);
-                Mydb.ExecuteNoNQuery("Update ACCOUNT set E_MAIL=@e,PHONE_NUMBER=@p,PASSWORD=@pas,ACCOUNT_NAME=@acc where LOG_IN_ID=@L", new SqlParameter[]
-                {new SqlParameter("@e",Email_),
+            Pass_ = GetMd5HashData(Pass_);
+            Mydb.ExecuteNoNQuery("UpdateAcc", new SqlParameter[]  {new SqlParameter("@e",Email_),
             new SqlParameter("@p",PNumb_),
             new SqlParameter("@acc",accName_),
             new SqlParameter("@L",LgId),
-            new SqlParameter("@pas",Pass_)}, CommandType.Text);
-            }
-            else
-            {
-                Pass_ = GetMd5HashData(Pass_);
-                Mydb.ExecuteNoNQuery("Update ACCOUNT set E_MAIL=@e,PHONE_NUMBER=@p,ACCOUNT_NAME=@acc where LOG_IN_ID=@L", new SqlParameter[]
-                {new SqlParameter("@e",Email_),
-            new SqlParameter("@p",PNumb_),
-            new SqlParameter("@acc",accName_),
-            new SqlParameter("@L",LgId)}, CommandType.Text);
-            }
+            new SqlParameter("@pas",Pass_)}, CommandType.StoredProcedure);
             return "{\"result\" : \"1\"}";
         }
         [WebMethod]

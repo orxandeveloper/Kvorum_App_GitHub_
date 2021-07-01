@@ -751,6 +751,7 @@
                 console.log(jsondata_)
                 $('#Accounts').dataTable({
                     "destroy": true,
+                    "order": [[0, "desc"]],
                     data: jsondata_,
                     columns: [
                         {
@@ -1301,7 +1302,7 @@
             //getModul("#modul", 1);
             getModules2("", 0, "")
 
-            $("#CreateAcc").text("Создать новую учетную запись")
+           
             $("#CreateAcc").click(function ()
             {
                
@@ -1312,7 +1313,7 @@
             })
            
             getLogin()
-            $("#knp1").attr('disabled', 'disabled').attr("class", "knp1 deActiveAdd")//.attr("style","background-color: rgb(149,153,156);color:  white;font-family: unset;font-weight: 700;border: none;")//.css("background-color","rgb(149, 149, 149)")
+            $("#knp1").attr('disabled', 'disabled').attr("class", 'knp1 deActiveAdd btn btn1 h56 outline shadow-none flexCenter')//.attr("style","background-color: rgb(149,153,156);color:  white;font-family: unset;font-weight: 700;border: none;")//.css("background-color","rgb(149, 149, 149)")
 
         }
         else {
@@ -1328,255 +1329,23 @@
                 alertWithButton("Вы действительно хотите удалить учетную запись?", " " + $("#fio").val() + " ", "")
             })
             $("#deleteO").click(function () { DeleteAccount(LogId) })
+            $("#CreateAcc").text("Сохранить")
 
             $("#CreateAcc").click(function () {
-                //var roltext = $("#role").val();
 
-                // alert(roltext)
-
-                var Login = $("#login").val().trim();
-                var email = $("#email").val().trim();
-                var p = sessionStorage.getItem("p")
-                var pass = (p == 1) ? $("#pass").val().trim() : "";
-                var fio = $("#fio").val().trim();
-                var phone = $("#phone1").val();
-                var UoPasvsbl = $("#UoPas_").css("display");
-                if (UoPasvsbl != "block") {//isValidEmailAddress(email)
-                    //if (pass.length != 0) {
-                    //if (pass.length > 5) {
-                    var numbers_ = /[0-9]/g
-                    var upperCaseLetters = /[A-Z]/g;
-                    var lowerCaseLetters = /[a-z]/g;
-
-                    //if ((pass.match(numbers_) && pass.match(upperCaseLetters) && pass.match(lowerCaseLetters))||pass=="") {
-                    if (fio.length != 0) {
-                        if (phone.length != 0) {
-                            if (isValidEmailAddress(email) && email.length != 0 && $("#Uomail").html() != 'Введенное значение не соответствует формату электронной почты"<br/>' && $("#Uomail").css('display') == 'none') {
-                                var countofItem = $('#mrss .rls').length//sessionStorage.getItem("itmId");
-                                var Modul;
-                                var Role;
-                                var MR;
-                                var sm = [];
-                                var sr = []
-                                var obj = [];
-                                var deletebtnVsblt = $("#DeleteAcc").css("display")
-                                for (var i = 0; i < countofItem; i++) {
-                                    Modul = $(".mdls:eq(" + i + ") option:selected").val();//$("#modul" + i + " option:selected").val();
-                                    Role = $(".rls:eq(" + i + ") option:selected").val();//$("#role" + i + " option:selected").val();
-                                    //  MR += "Smodul: " + Modul + " SRole: " + Role+"\n";
-                                    //sm.push({ 'Sm': Modul })
-                                    //sr.push({'Sr': Role})
-                                    // obj = [[Modul, Role]]
-                                    if (deletebtnVsblt == "none") {
-                                        Modul = 3;
-                                        Role = 4;
-                                        obj.push({ 'sm': 3, 'sr': 4 })
-                                    }
-                                    else {
-
-                                        obj.push({ 'sm': Modul, 'sr': Role })
-                                    }
-                                }
-                                if (Modul != 0 && Role != 0) {
-                                    var jsonObj = { 'SMSR': obj, 'accName_': fio, 'PNumb_': phone, 'Email_': email, 'Pass_': pass, 'ClId_': ClId, 'Login_': Login, "LgId": LogId }
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "CreateAccount.aspx/UpdateAcc",
-                                        data: JSON.stringify(jsonObj),
-                                        contentType: "application/json; charset=utf-8",
-                                        dataType: "json",
-                                        success: function (data) {
-                                            //console.log(data.d)
-                                            var jsondata = $.parseJSON(data.d);
-                                            if (jsondata.result == 1) {
-                                                var log_Id = sessionStorage.getItem("Log");
-                                                SaveLog("Сохранить изменения", "Простое", "Администратор", "Клиентское администрирование", "Изменены настройки учетной записи (" + fio + ")", log_Id);
-                                                window.location.href = "Accounts.aspx"
-                                            }
-                                            //console.log(JSON.stringify(result)); $("#resulter").text(JSON.stringify(result));
-                                        },
-
-                                        error: function (r) {
-                                            // //alert("Error");
-                                            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-                                        },
-                                        failure: function (r) {
-                                            // alert("FAIL");
-                                        }
-                                    });
-                                }
-                                else {
-                                    $("#mrs").show();
-                                    $("#mrsIm").html('Выберите Модуль и роль<br/>').show()//.text("Выберите Модуль и роль").show();
-                                }
-                            }
-                            else {
-                                $("#yesmail").show();
-                                if ($("#Uomail").html() == 'Данный e-mail уже зарегистрирован в системе<br>') {
-                                    $("#Uomail").html('Данный e-mail уже зарегистрирован в системе<br>').show();//
-                                }
-                                else {
-                                    $("#Uomail").html('Введенное значение не соответствует формату электронной почты<br/>').show();//
-                                }
-                            }
-
-
-                        }
-                        else {
-                            // alertMessage("Пустые место осталось", "Не оставляйте поле Мобильный телефон пустым", ":(")
-                            $("#UoPhone").html('Пожалуйста, заполните данное поле<br/>').show()//.text("Пожалуйста, заполните данное поле").show();//
-                            $("#yesfio").show();//.text("Не оставляйте поле Мобильный телефон пустым").show();
-                            $("#yesPhone").show();
-                        }
-
-                    }
-                    else {
-                        //alertMessage("Пустые место осталось", "Не оставляйте поле Наименование (Ф.И.О.) пустым", ":(")
-                        $("#Uofio").html('Пожалуйста, заполните данное поле<br/>').show()//.text("Пожалуйста, заполните данное поле").show();//
-                        $("#yesfio").show();
-                    }
-                    //}
-                    //else {
-                    //    alertMessage("Неправильный формат", "Пароль должен состоять, как минимум,из 6 символов. В пороле должны присустствовать символы латинского алфавита и цифры.Пароль должен содержать хотя бы по одному символу в верхнем и нижнем регитсре", ":(")
-                    //}
-                    //}
-                    //else {
-                    //    alertMessage("Пароль слишком низкий", "Пароль должен состоять, как минимум,из 6 символов.", ":(")
-                    //}
-                    //}
-                    //else {
-                    //    alertMessage("Пустые место осталось", "Не оставляйте поле пароль пустым", ":(")
-                    //}
+                if (checkControls_Accounts().isSuccess==true) {
+                    UpdateAcc(ClId, LogId, checkControls_Accounts());
                 }
-                else {
-                    // alertMessage("Неправильный формат", "Введите правильный формат электронной почты", ":(")
-                }
-            });
-
-
-        }
-        function getDetailAcc(lg) {
-            //orx
-            // var Id_ = $("#role").val();
-            var obj = { "LogId_": lg }
-            $.ajax({
-                type: "POST",
-                url: "Accounts.aspx/GetAccDetail",
-                data: JSON.stringify(obj),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (result) {
-
-                    //console.log(result)
-
-                    var jsondata_ = JSON.parse(result.d)
-                    $("#Hacc").text(jsondata_[0].ACCOUNT_NAME)
-                    $("#email").val(jsondata_[0].E_MAIL)
-                    $("#login").val("Login_" + jsondata_[0].LOG_IN_ID)
-                    $("#pass").val(jsondata_[0].PASSWORD)
-                    $("#fio").val(jsondata_[0].ACCOUNT_NAME)
-                    $("#phone1").val(jsondata_[0].PHONE_NUMBER)
-                    if (jsondata_[0].LOGIN == "") {
-                        $("#DeleteAcc").hide();
-                        $(".col-xs-4").hide();
-                    }
-                }
-
             })
-        }
-        function GetModeRole(lg_) {
-            var obj = { "LogId": lg_ }
-            var Aj1 = $.ajax({
-                type: "POST",
-                url: "CreateAccount.aspx/GetModel_Role",
-                data: JSON.stringify(obj),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (result) {
-                    var jsondata_ = JSON.parse(result.d)
-                    //console.log(jsondata_.length);
-                    //console.log(jsondata_)
+          
 
-                    // getModul("#modul", 1, lg_, jsondata_[0].sm, jsondata_[0].sr)
-                    $('.row[itemid=0]').remove();
-                    $('.knp1').attr('class', 'knp1 ActiveAdd genBtn').removeAttr('disabled');
-                    for (var i = jsondata_.length - 1; i >= 0; i--) {
-                        var displayDelete = (jsondata_.length > 1) ? '<input class="knp del" onclick="delElements(' + i + ')" type="button" itemid=' + i + '    value="Удалить">' : '<input class="knp del" style="display:none" onclick="delElements(' + i + ')" type="button" itemid=' + i + '    value="Удалить">'
-                        $('#mrss').find('#mrsIm').after('<div class="row" itemid=' + i + '><div class="col-xs-4" itemid=' + i + '> <select class="mdls" onchange="GetRoleByModule(0,' + i + ',0)" itemid=' + i + '><option value= "0"  id= "" > Выберите Модуль</option></select></div><div  class="col-xs-4" itemid=' + i + '><select class="rls" onchange="ChangeRole(' + i + ')" itemid=' + i + '><option value="0"   >Выберите Роль</option></select></div><div class="col-xs-4" itemid=' + i + '>' + displayDelete + '</div></div>')
-                        getModules2(jsondata_[i].sr, i, jsondata_[i].sm)
-                    }
-                    //for (var i = 0; i < jsondata_.length; i++) {//yeni   .row :last
-                    //    $('#mrss').find('#mrsIm').after('<div class="row" itemid=' + i + '><div class="col-xs-4" itemid=' + i + '> <select class="mdls" onchange="GetRoleByModule(0,' + i + ',0)" itemid=' + i + '><option value= "0"  id= "" > Выберите Модуль</option></select></div><div  class="col-xs-4" itemid=' + i + '><select class="rls" onchange="ChangeRole(' + i + ')" itemid=' + i + '><option value="0"   >Выберите Роль</option></select></div><div class="col-xs-4" itemid=' + i + '><input class="knp del" onclick="delElements(' + i + ')" type="button" itemid=' + i + '    value="Удалить"></div></div>')
-                    //    getModules2(jsondata_[i].sr, i, jsondata_[i].sm)
-                    //}
-
-                    //$("#knp1").attr("class", "knp1 ActiveAdd")
-                    //for (var i = jsondata_.length; i > 1; i--) {
-
-                    //    if (jsondata_.length == 1) {
-                    //       //style="background-color:  rgb(0,147,233);color:  white;font-weight: 700;font-family: unset;border:none;"
-                    //        $("div[class='row'][itemid='1']").after('<div class="row" itemid="' + i + '"><div class="col-xs-4" itemid= "' + i + '"><select id="modul' + i + '" onchange="GetRoleById( this,' + i + ' )" itemid="' + i + '"  ><option value="0" id="Mr">Выберите Модуль</option></select></div><div class="col-xs-4" itemid="' + i + '"><select id="role' + i + '" onchange="ActiveBtn(' + i + ')"  ><option value="0" id="Vr" >Выберите Роль</option></select></div><div class="col-xs-4" itemid="' + i + '"><input class="knp' + i + ' ActiveAdd" type="button"  onclick=AddElement(' + i + ') itemid="' + i + '" id="knp' + i + '"  value="Добавить"/><input class="knp del" type="button" itemid="' + i + '" onclick=DeleteElement(' + i + ') style="border: none;background-color: red;color: white;font-family: unset;font-weight: 700;" value="Удалить"/></div></div>')//
-                    //    }
-                    //    else {
-                    //        $("#knp1").hide();
-                    //        if (i == jsondata_.length) {//style="background-color:  rgb(0,147,233);color:  white;font-weight: 700;font-family: unset;border:none;"
-                    //           // style = "border: none;background-color: red;color: white;font-family: unset;font-weight: 700;"
-                    //            $("div[class='row'][itemid='1']").after('<div class="row" itemid="' + i + '"><div class="col-xs-4" itemid= "' + i + '"><select id="modul' + i + '" onchange="GetRoleById( this,' + i + ' )" itemid="' + i + '"  ><option value="0" id="Mr">Выберите Модуль</option></select></div><div class="col-xs-4" itemid="' + i + '"><select id="role' + i + '" onchange="ActiveBtn(' + i + ')"  ><option value="0" id="Vr" >Выберите Роль</option></select></div><div class="col-xs-4" itemid="' + i + '"><input class="knp' + i + ' ActiveAdd" type="button"  onclick=AddElement(' + i + ') itemid="' + i + '" id="knp' + i + '"  value="Добавить"/><input class="knp del" type="button" itemid="' + i + '" onclick=DeleteElement(' + i + ')  value="Удалить"/></div></div>')
-                    //        }
-                    //        else {//style="display:none;"background-color:  rgb(0,147,233);color:  white;font-weight: 700;font-family: unset;border:none;"
-                    //            //style="display:none;border: none;background-color: red;color: white;font-family: unset;font-weight: 700;"
-                    //            $("div[class='row'][itemid='1']").after('<div class="row" itemid="' + i + '"><div class="col-xs-4" itemid= "' + i + '"><select id="modul' + i + '" onchange="GetRoleById( this,' + i + ' )" itemid="' + i + '"  ><option value="0" id="Mr">Выберите Модуль</option></select></div><div class="col-xs-4" itemid="' + i + '"><select id="role' + i + '" onchange="ActiveBtn(' + i + ')"  ><option value="0" id="Vr" >Выберите Роль</option></select></div><div class="col-xs-4" itemid="' + i + '"><input class="knp' + i + ' ActiveAdd" type="button"  onclick=AddElement(' + i + ') itemid="' + i + '" id="knp' + i + '" style="display:none;"  value="Добавить"/><input class="knp knp del" type="button" itemid="' + i + '" style="display:none;" onclick=DeleteElement(' + i + ')  value="Удалить"/></div></div>')
-                    //        }
-                    //    }
-
-
-
-
-
-
-                    //}
-                    //sessionStorage.setItem("Sval", jsondata_)
-
-
-                    //for (var i = 1; i < jsondata_.length; i++) {
-                    //    getModul("#modul", (i + 1), lg_, jsondata_[i].sm, jsondata_[i].sr)
-                    //}
-                    //if (jsondata_.length == 55) {
-                    //    for (var i = 1; i <= jsondata_.length; i++) {
-                    //        $("#knp" + i + "").attr('disabled', 'disabled').css("background-color", "rgb(149,149,149)")
-                    //    }
-                    //}
-                    //else {
-                    //    for (var i = 1; i < jsondata_.length; i++) {
-                    //        $("#knp" + i + "").attr('disabled', 'disabled').css("background-color", "rgb(149,149,149)")
-                    //    }
-                    //}
-
-                    sessionStorage.setItem("itmId", jsondata_.length);
-                },
-                complete: function () { }
-
-            })
 
         }
+        
+       
 
 
-        function DeleteAccount(lg) {
-            var obj = { "LogId": lg }
-            $.ajax({
-                type: "POST",
-                url: "Accounts.aspx/DeleteAccount",
-                data: JSON.stringify(obj),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (result) {
-                    var log_Id = sessionStorage.getItem("Log");
-                    SaveLog("Удалить", "Важное", "Администратор", "Клиентское администрирование", "В системе удален учетный запись (" + $("#fio").val() + ")", log_Id);
-                    window.location.href = "Accounts.aspx"
-                }
-
-            })
-        }
+       
         $("#backAcc").click(function () {
             var cmsf_a = sessionStorage.getItem("cmsf_a");
             // var cmsf = sessionStorage.getItem("cmsf");
@@ -5506,6 +5275,84 @@
     }
 
 });
+
+
+function DeleteAccount(lg) {
+    var obj = { "LogId": lg }
+    $.ajax({
+        type: "POST",
+        url: "Accounts.aspx/DeleteAccount",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            var log_Id = sessionStorage.getItem("Log");
+            //SaveLog("Удалить", "Важное", "Администратор", "Клиентское администрирование", "В системе удален учетный запись (" + $("#fio").val() + ")", log_Id);
+            window.location.href = "Accounts.aspx"
+        }
+
+    })
+}
+function GetModeRole(lg_) {
+    var obj = { "LogId": lg_ }
+    var Aj1 = $.ajax({
+        type: "POST",
+        url: "CreateAccount.aspx/GetModel_Role",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            var jsondata_ = JSON.parse(result.d)
+            //console.log(jsondata_.length);
+            //console.log(jsondata_)
+
+            // getModul("#modul", 1, lg_, jsondata_[0].sm, jsondata_[0].sr)
+            $('.row[itemid=0]').remove();
+          
+            for (var i = jsondata_.length - 1; i >= 0; i--) {
+           
+                if (i!=0) {
+                    AddMRSS()
+                    $('.knp1').attr('class', 'knp1 deActiveAdd btn btn1 h56 outline shadow-none flexCenter').removeAttr('disabled');
+                }
+                getModules2(jsondata_[i].sr, i, jsondata_[i].sm)
+            }
+            sessionStorage.setItem("itmId", jsondata_.length);
+        },
+        complete: function () { }
+
+    })
+
+}
+function getDetailAcc(lg) {
+    //orx
+    // var Id_ = $("#role").val();
+    var obj = { "LogId_": lg }
+    $.ajax({
+        type: "POST",
+        url: "Accounts.aspx/GetAccDetail",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+
+            //console.log(result)
+
+            var jsondata_ = JSON.parse(result.d)
+            $("#Hacc").text(jsondata_[0].ACCOUNT_NAME)
+            $("#email").val(jsondata_[0].E_MAIL)
+            $("#login").val("Login_" + jsondata_[0].LOG_IN_ID)
+            $("#pass").val(jsondata_[0].PASSWORD)
+            $("#fio").val(jsondata_[0].ACCOUNT_NAME)
+            $("#phone1").val(jsondata_[0].PHONE_NUMBER)
+            if (jsondata_[0].LOGIN == "") {
+                $("#DeleteAcc").hide();
+                $(".col-xs-4").hide();
+            }
+        }
+
+    })
+}
 function CheckEmail(eml) {
     var obj = {
         email: eml
@@ -5533,6 +5380,36 @@ function CheckEmail(eml) {
 
         }
     })
+}
+
+function UpdateAcc(ClId, LogId, AccData) {
+    var p = sessionStorage.getItem("p")
+    var pas_s = (p == 1) ? $("#pass").val().trim() : "";
+    var jsonObj = { 'SMSR': AccData.SMSR, 'accName_': AccData.fio, 'PNumb_': AccData.phone, 'Email_': AccData.email, 'Pass_': pas_s, 'ClId_': ClId, 'Login_': AccData.Login, "LgId": LogId };
+    console.log(jsonObj)
+    $.ajax({
+        type: "POST",
+        url: "CreateAccount.aspx/UpdateAcc",
+        data: JSON.stringify(jsonObj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            //console.log(data.d)
+            var jsondata = $.parseJSON(data.d);
+            if (jsondata.result == 1) {
+                var log_Id = sessionStorage.getItem("Log");
+                SaveLog("Сохранить изменения", "Простое", "Администратор", "Клиентское администрирование", "Изменены настройки учетной записи (" + fio + ")", log_Id);
+                window.location.href = "Accounts.aspx";
+            }
+            //console.log(JSON.stringify(result)); $("#resulter").text(JSON.stringify(result));
+        },
+        error: function (r) {
+            // //alert("Error");
+            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function (r) {
+        }
+    });
 }
 function CreateNewAcc(ClId, AccData) {
     var jsonObj = { 'SMSR': AccData.SMSR, 'accName_': AccData.fio, 'PNumb_': AccData.phone, 'Email_': AccData.email, 'Pass_': AccData.pass, 'ClId_': ClId, 'Login_': AccData.Login };
@@ -7152,7 +7029,7 @@ function GetRoleByModule(lg, itemid, slctdR) {//GetRoleByModule
     //  $('.knp1').attr('class', 'knp1 deActiveAdd').attr('disabled', 'disabled');
     var mdsSelval = $('.mdls[itemid=' + itemid + ']').val();
     if (mdsSelval == 0) {
-        $('.knp1').attr('class', 'knp1 deActiveAdd').attr('disabled', 'disabled');
+        $('.knp1').attr('class', 'knp1 deActiveAdd btn btn1 h56 outline shadow-none flexCenter').attr('disabled', 'disabled');
     }
     if (lg == 0) {
         $('.rls[itemid=' + itemid + '] option:not(:first)').remove();
@@ -7191,6 +7068,13 @@ function GetRoleByModule(lg, itemid, slctdR) {//GetRoleByModule
         })
     }
 }
+
+function DetailAcc(accLogId) {
+    sessionStorage.setItem("ComesTo", "");
+    sessionStorage.setItem("LogId", accLogId)
+    window.location.href ="CreateAccount.aspx"
+}
+
 function checkControls_Accounts()
 {
     var isSuccess = true
@@ -7265,7 +7149,7 @@ function AddMRSS() {
     //$('.row[itemid=' + lastitemid + ']').after('<div class="row" itemid=' + nextitemid + '><div class="col-xs-4" itemid=' + nextitemid + '> <select class="mdls" onchange="GetRoleByModule(0,' + nextitemid + ',0)" itemid=' + nextitemid + '><option value= "0"  id= "" > Выберите Модуль</option></select></div><div  class="col-xs-4" itemid=' + nextitemid + '><select class="rls" onchange="ChangeRole(' + nextitemid + ')" itemid=' + nextitemid + '><option value="0"   >Выберите Роль</option></select></div><div class="col-xs-4" itemid=' + nextitemid + '><input class="knp del" onclick="delElements(' + nextitemid + ')" type="button" itemid=' + nextitemid + '    value="Удалить"></div></div>')
     $('.mrss:last').after('<div id="mrss" itemid="' + nextitemid + '" class="mrss w-100 flexHoriz flex-wrap justify-content-between"> <div class="posRel w-40" itemid="' + nextitemid + '"> <select class="mdls" onchange="GetRoleByModule(0,' + nextitemid + ',0)" id="m' + nextitemid + '" itemid="' + nextitemid + '"> <option value="0" id="">Выберите Модуль</option> </select> <label for="m' + nextitemid + '" class="transp backLab">Модуль</label> </div> <div class="posRel w-40" itemid="' + nextitemid + '"> <select class="rls" onchange="ChangeRole(' + nextitemid + ')" itemid="' + nextitemid + '"> <option value="0">Выберите Роль</option> </select> <label for="r' + nextitemid + '" class="transp backLab">Роль</label> </div> <div class="posRel w-20"  itemid="' + nextitemid + '"> <input class="knp del btn btn1 h56 outline shadow-none flexCenter" onclick="delElements(' + nextitemid + ')" type="button" itemid="' + nextitemid + '" value="Удалить"></div></div>');
 
-    $('.knp1').attr('class', 'knp1 deActiveAdd').attr('disabled', 'disabled');
+    $('.knp1').attr('class', 'knp1 deActiveAdd btn btn1 h56 outline shadow-none flexCenter').attr('disabled', 'disabled');
     getModules2("", nextitemid, "");
     $('.del').show();
 }

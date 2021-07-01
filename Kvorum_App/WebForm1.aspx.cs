@@ -3,8 +3,11 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using HttpUtils;
 using Kvorum_App.Client_Admin.Utilities;
+using Kvorum_App.DB;
 using Kvorum_App.Manager;
 using Kvorum_App.Manager.Helpers;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -21,6 +24,8 @@ using System.Web.Script.Serialization;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.AspNet.Identity;
+using System.Security.Claims;
 
 namespace Kvorum_App
 {
@@ -28,7 +33,9 @@ namespace Kvorum_App
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            //  DeleteAccuntIdendity();
+            // CreateAccoountIdendity("orx@gmail", "123456Aa");
+            UpdateAccuntIdendity();
             #region For Test
             //string values_T = "{T1: \"1\",T2:\"2\", T3:\"3\"}";
             //  string values_T = "{T1: \"1\",T2:\"2\"}";
@@ -58,6 +65,142 @@ namespace Kvorum_App
             //SendSmSForNewLS();
             // sendEmailForNewLs();
 
+        }
+
+        private static void CreateAccoountIdendity(string Email, string Password_)
+        {
+            ApplicationDbContext dbcontext_ = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(dbcontext_);
+            var manager = new UserManager<ApplicationUser>(userStore);
+            ApplicationUser user = new ApplicationUser
+            {
+                Email = Email,
+                UserName = Email,
+                NormalizedUserName = Email.ToUpper(),
+                Password_deser = Password_,
+                PhoneNumber = "+79999999999",
+                LockoutEnabled = true,
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                TwoFactorEnabled = false,
+                FirstName = "Orxan",
+                SecondName = "Abdu",
+                MiddleName = "teymur",
+                TypeOrgName = "dispatcher",
+                NormalizedEmail = Email.ToUpper(),
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            };//,LockoutEndDateUtc=null
+
+
+            IdentityResult result = manager.Create(user, Password_);
+
+
+            //var result = await manager.CreateAsync(user, Password);
+            if (result.Succeeded)
+            {
+
+                var resultClaim_name = manager.AddClaimAsync(user.Id, new Claim("name", "Orxan")).Result;
+                var resultClaim_email_given_name = manager.AddClaimAsync(user.Id, new Claim("given_name", "Abdu")).Result;
+                var resultClaim_family_name = manager.AddClaimAsync(user.Id, new Claim("family_name", "Teymur")).Result;
+                var resultClaim_website = manager.AddClaimAsync(user.Id, new Claim("website", "http://lk.upravbot.ru:55555/CoreApi/api/v2/")).Result;
+                var resultClaim_role = manager.AddClaimAsync(user.Id, new Claim("role", "dispatcher")).Result;
+
+
+                //var resultClaims = manager.AddClaim(user, new Claim[]{
+                //            new Claim("Webpage","http://lk.upravbot.ru/CoreApi/api/v2/"),
+                //            new Claim("email_verified", user.MiddleName == null ? "" : user.MiddleName ),
+                //            new Claim("email", user.SecondName),
+                //            new Claim("name", "http://lk.upravbot.ru/CoreApi/api/v2/"),
+                //            new Claim("role","0" )});
+                // new Claim(JwtClaimTypes.PhoneNumberVerified, "0"),//user.TypeOrgName == null ? "Житель" : user.TypeOrgName
+
+                /*
+              website	http://lk.upravbot.ru:55555/CoreApi/api/v2/
+email_verified	true
+email	amirov@matorin-un.ru
+name	Login_856
+role	0
+  
+
+                 */
+
+                //var resultClaims = _userManager.AddClaimsAsync(user, new Claim[]{
+                //               new Claim(JwtClaimTypes.Name, user.FirstName),
+                //               new Claim(JwtClaimTypes.GivenName, user.MiddleName == null ? "" : user.MiddleName ),
+                //               new Claim(JwtClaimTypes.FamilyName, user.SecondName),
+                //               new Claim(JwtClaimTypes.WebSite, "http://lk.upravbot.ru/CoreApi/api/v2/"),
+                //               new Claim(JwtClaimTypes.Role, user.TypeOrgName == null ? "Житель" : user.TypeOrgName)
+                //             // new Claim(JwtClaimTypes.PhoneNumberVerified, "0"),
+                //           }).Result;
+            }
+            else
+            {
+                string b = result.Errors.FirstOrDefault();
+            }
+        }
+
+        public static void DeleteAccuntIdendity()
+        {
+            ApplicationDbContext dbcontext_ = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(dbcontext_);
+            var manager = new UserManager<ApplicationUser>(userStore);
+            ApplicationUser user = manager.FindById("14203f52-b0ac-4517-8351-0bc576f70c6c");
+            IdentityResult result = manager.Delete(user);
+
+        }
+
+        public static void UpdateAccuntIdendity()
+        {
+            ApplicationDbContext dbcontext_ = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(dbcontext_);
+            var manager = new UserManager<ApplicationUser>(userStore);
+            ApplicationUser user = manager.FindById("a8ed31f9-08e2-4ee4-a550-df989d417d8b");
+            user.Email = "orx2@gmail";
+            user.UserName = "orx2@gmail";
+            user.NormalizedUserName = "orx2@gmail".ToUpper();
+            user.Password_deser = "123456Aa2";//Password_,
+            user.PhoneNumber = "+79999999992";
+            user.LockoutEnabled = true;
+            user.EmailConfirmed = true;
+            user.PhoneNumberConfirmed = true;
+            user.TwoFactorEnabled = false;
+            user.FirstName = "Orxan2";
+            user.SecondName = "Abdu2";
+            user.MiddleName = "teymur2";
+            user.TypeOrgName = "dispatcher2";
+            user.NormalizedEmail = "orx2@gmail".ToUpper();
+             
+           
+
+          
+
+            IdentityResult Mresult = manager.Update(user);
+            if (Mresult.Succeeded==true)
+            {
+                var Clime_identity = new ClaimsIdentity(user.Id);
+                //IdentityResult result1 = manager.RemoveClaim(user.Id,new Claim("name",value));
+                //IdentityResult result2 = manager.RemoveClaim(user.Id, Clime_identity.FindFirst("given_name"));
+                //IdentityResult result3 = manager.RemoveClaim(user.Id, Clime_identity.FindFirst("family_name"));
+                //IdentityResult result4 = manager.RemoveClaim(user.Id, Clime_identity.FindFirst("website"));
+                //IdentityResult result5 = manager.RemoveClaim(user.Id, Clime_identity.FindFirst("role"));
+
+                var userClaims = manager.GetClaims(user.Id);
+                foreach (var item in userClaims)
+                {
+                    manager.RemoveClaim(user.Id, item);
+                }
+                var resultClaim_name = manager.AddClaimAsync(user.Id, new Claim("name", "Orxan2")).Result;
+                var resultClaim_email_given_name = manager.AddClaimAsync(user.Id, new Claim("given_name", "Abdu2")).Result;
+                var resultClaim_family_name = manager.AddClaimAsync(user.Id, new Claim("family_name", "Teymur2")).Result;
+                var resultClaim_website = manager.AddClaimAsync(user.Id, new Claim("website", "http://lk.upravbot.ru:55555/CoreApi/api/v2/2")).Result;
+                var resultClaim_role = manager.AddClaimAsync(user.Id, new Claim("role", "dispatcher2")).Result;
+            }
+
+
+            /*
+           
+             
+             */
         }
 
         private void sendEmailForNewLs()
@@ -194,7 +337,8 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
             }
             return success;
         }
-        public static string GeneratePass() {
+        public static string GeneratePass()
+        {
             var bigCases = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             var smallCases = "abcdefghijklmnopqrstuvwxyz";
             var numbers = "0123456789";
@@ -205,7 +349,7 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
             int smallRand_ = random.Next(smallCases.Length);
             var smallRand = smallCases[smallRand_];//smallCases[Math.Floor(Math.random() * smallCases.Length)];
 
-            var numbRand="";
+            var numbRand = "";
             for (var i = 0; i < 6; i++)
             {
                 numbRand += numbers[random.Next(numbers.Length)]; //numbers[Math.Floor(Math.random() * numbers.Length)];
@@ -213,7 +357,7 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
             var GenPas = BigRand + smallRand + numbRand;
             return GenPas;
         }
-        public static string SendLoginMailFor34(string Login_Mail = null, string pass_ = null, string Email_=null)
+        public static string SendLoginMailFor34(string Login_Mail = null, string pass_ = null, string Email_ = null)
         {
             string succEm = "0";
             //string protocol = Mydb.ExecuteScalar("select DOMAIN_NAME from OBJECT_DOMAIN where OBJECT_ID=@o", new SqlParameter[] { new SqlParameter("@o", ObjecId) }, CommandType.Text).ToString();
@@ -226,10 +370,10 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
             {
                 string Em = item["E_MAIL"].ToString();
                 string Login_ = item["LOG_IN_ID"].ToString();
-                  pass = GeneratePass();
+                pass = GeneratePass();
                 string Account__ = item["ACCOUNT_NAME"].ToString();
                 string EncryptedPass = GetMd5HashData(pass);
-                Mydb.ExecuteNoNQuery(" update ACCOUNT  set [PASSWORD]=@encPass where LOG_IN_ID=@lg", new SqlParameter[] {new SqlParameter("@encPass", EncryptedPass),new SqlParameter("@lg",Convert.ToInt32(Login_)) }, CommandType.Text);
+                Mydb.ExecuteNoNQuery(" update ACCOUNT  set [PASSWORD]=@encPass where LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@encPass", EncryptedPass), new SqlParameter("@lg", Convert.ToInt32(Login_)) }, CommandType.Text);
 
                 string body = @"<div style=""display: block; width: 100 %; height: 100 %; background - color: #f3f3f3; margin: 0px; padding: 0px; padding: 10px; font-family: sans-serif;""><div style=""display: block; max-width: 700px; margin-left: auto; margin-right: auto; background-color: #ffffff; padding: 20px;""><p>{0} в&nbsp;системе «УПРАВБОТ».</p><p>Ваш логин: <b>""{1}""</b></p><p>Ваш пароль:<b>""{2}""</b></p><p>Перейти в УправБот Вы можете по ссылке <a href=""https://upravbot.ru"">https://upravbot.ru</a></p<br><p>При возникновении вопросов по работе портала «УПРАВБОТ», пожалуйста, обратитесь в&nbsp;техподдержку: <a href=""mailto:helpdesk@upravbot.ru"">help-desk@upravbot.ru </a></p><br><p>C уважением, Ваш «УПРАВБОТ».</p></div></div>";
 
@@ -239,12 +383,12 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
                 {
                     Mydb.ExecuteNoNQuery("sp_Send_Mail_Upravbot", new SqlParameter[] { new SqlParameter("@mailto", Em), new SqlParameter("@theme", "Upravbot.ru"), new SqlParameter("@body", body) }, CommandType.StoredProcedure);
                     succEm = "1";
-                    Mydb.ExecuteNoNQuery("insert into AccPassEms (LoginID,Account_name,[Password],E_mail) values(@LoginID,@Account_name,@Password,@E_mail)", new SqlParameter[] {new SqlParameter("@LoginID",Login_),new SqlParameter("@Account_name", Account__),new SqlParameter("@Password", pass),new SqlParameter("@E_mail", Em) }, CommandType.Text);
+                    Mydb.ExecuteNoNQuery("insert into AccPassEms (LoginID,Account_name,[Password],E_mail) values(@LoginID,@Account_name,@Password,@E_mail)", new SqlParameter[] { new SqlParameter("@LoginID", Login_), new SqlParameter("@Account_name", Account__), new SqlParameter("@Password", pass), new SqlParameter("@E_mail", Em) }, CommandType.Text);
                 }
                 catch (Exception ex)
                 {
-                    Mydb.ExecuteNoNQuery("insert into AccPassEms (LoginID,Account_name,[Password],E_mail) values(@LoginID,@Account_name,@Password,@E_mail)", new SqlParameter[] { new SqlParameter("@LoginID", Login_), new SqlParameter("@Account_name", Account__), new SqlParameter("@Password", pass), new SqlParameter("@E_mail","Error_("+ ex.Message + ")_"+ Em) }, CommandType.Text);
-                    succEm =ex.Message;
+                    Mydb.ExecuteNoNQuery("insert into AccPassEms (LoginID,Account_name,[Password],E_mail) values(@LoginID,@Account_name,@Password,@E_mail)", new SqlParameter[] { new SqlParameter("@LoginID", Login_), new SqlParameter("@Account_name", Account__), new SqlParameter("@Password", pass), new SqlParameter("@E_mail", "Error_(" + ex.Message + ")_" + Em) }, CommandType.Text);
+                    succEm = ex.Message;
                 }
             }
 
@@ -252,29 +396,30 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
 
 
 
-            
 
-            
+
+
             //string mobile = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host + "/getmobile.aspx";
-           
-          
+
+
             return succEm;
         }
         public static string GetMd5HashData(string yourString)
         {
             return string.Join("", MD5.Create().ComputeHash(Encoding.ASCII.GetBytes(yourString)).Select(s => s.ToString("x2")));
         }
-        public static void gg(){
-        
-}
+        public static void gg()
+        {
+
+        }
         public void jsondata()
         {
             //Dictionary<string, string> region;
             //List<Dictionary<string, object>> regions = new List<Dictionary<string, object>>();
             List<Locations> regions = new List<Locations>();
 
-           
-            DataTable dt= Mydb.ExecuteReadertoDataTable("sp_KLADR_GET_REGION", new SqlParameter[] { }, CommandType.StoredProcedure);
+
+            DataTable dt = Mydb.ExecuteReadertoDataTable("sp_KLADR_GET_REGION", new SqlParameter[] { }, CommandType.StoredProcedure);
             foreach (DataRow item in dt.Rows)
             {
 
@@ -313,9 +458,9 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
             //wb.SaveAs(strFilePath);
             using (var workbook = new XLWorkbook())
             {
-                
+
                 var worksheet = workbook.Worksheets.Add("Sample Sheet");
-                
+
                 int cell = 2;
                 worksheet.Cell("A1").Value = "№ ЛС*";
                 worksheet.Cell("A1").Style.Font.Bold = true;
@@ -343,21 +488,21 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
                 foreach (DataRow item in dt.Rows)
                 {
                     worksheet.Cell("A" + cell.ToString() + "").Value = item["№ ЛС*"].ToString();
-                    if (item["Ошибка"].ToString().IndexOf("Не заполнено обязательное поле")!=-1)
+                    if (item["Ошибка"].ToString().IndexOf("Не заполнено обязательное поле") != -1)
                     {
                         worksheet.Cell("A" + cell.ToString() + "").Style.Fill.BackgroundColor = XLColor.Red;
                     }
                     if (item["Ошибка"].ToString().IndexOf("Л/с нет в системе") != -1)
                     {
                         worksheet.Cell("A" + cell.ToString() + "").Style.Font.Bold = true;
-                        worksheet.Cell("A" + cell.ToString() + "").Style.Font.FontColor= XLColor.Red;
+                        worksheet.Cell("A" + cell.ToString() + "").Style.Font.FontColor = XLColor.Red;
                     }
                     worksheet.Cell("B" + cell.ToString()).Style.NumberFormat.Format = "MMMM yyyy";
                     worksheet.Cell("B" + cell.ToString() + "").Value = item["Период*"].ToString();
 
                     if (item["Ошибка"].ToString().IndexOf("Не заполнено обязательное поле") != -1)
                     {
-                       
+
                         worksheet.Cell("B" + cell.ToString() + "").Style.Fill.BackgroundColor = XLColor.Red;
                     }
                     if (item["Ошибка"].ToString().IndexOf("Некорректно заполнено поле") != -1)
@@ -366,7 +511,7 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
                         worksheet.Cell("B" + cell.ToString() + "").Style.Font.FontColor = XLColor.Red;
                     }
 
-                  
+
                     worksheet.Cell("C" + cell.ToString() + "").Value = item["Услуга*"].ToString();
 
                     if (item["Ошибка"].ToString().IndexOf("Не заполнено обязательное поле") != -1)
@@ -397,9 +542,9 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
                     worksheet.Cell("F" + cell.ToString() + "").Value = item["Начислено*"].ToString();
                     worksheet.Cell("G" + cell.ToString() + "").Value = item["Поступило"].ToString();
 
-                    if (item["Услуга*"].ToString()== "Итого")
+                    if (item["Услуга*"].ToString() == "Итого")
                     {
-                        if (item["№ ЛС*"].ToString().Length==0)
+                        if (item["№ ЛС*"].ToString().Length == 0)
                         {
                             worksheet.Cell("A" + cell.ToString() + "").Style.Fill.BackgroundColor = XLColor.Red;
                         }
@@ -432,7 +577,7 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
                         {
                             worksheet.Cell("H" + cell.ToString() + "").Style.Fill.BackgroundColor = XLColor.Red;
                         }
-                        
+
                     }
 
                     if (item["Ошибка"].ToString().IndexOf("Не заполнено обязательное поле") != -1)
@@ -447,7 +592,7 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
                     worksheet.Cell("I" + cell.ToString() + "").Style.Font.FontColor = XLColor.Red;
                     cell++;
                 }
-                var rngTable = worksheet.Range("A1:I"+cell.ToString()+"");
+                var rngTable = worksheet.Range("A1:I" + cell.ToString() + "");
                 rngTable.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
                 rngTable.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                 worksheet.Columns().AdjustToContents();
@@ -461,7 +606,7 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
             dtError.TableName = "Errors_PDS";
             dtError.Clear();
             dtError.Columns.Add("№ ЛС*");
-            dtError.Columns.Add("Период*",typeof(string));
+            dtError.Columns.Add("Период*", typeof(string));
             dtError.Columns.Add("Услуга*");
             dtError.Columns.Add("Тип начисления/платежа*");
             dtError.Columns.Add("Остаток на начало периода");
@@ -692,7 +837,7 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
             {
                 string Project = dt.Rows[i][0].ToString();
 
-                int ProjectId = (int)Mydb.ExecuteScalar("select PROJECT_ID from PROJECTS where PROJECT_NAME=@PROJECT_NAME", new SqlParameter[] {new SqlParameter("@PROJECT_NAME", Project) }, CommandType.Text);
+                int ProjectId = (int)Mydb.ExecuteScalar("select PROJECT_ID from PROJECTS where PROJECT_NAME=@PROJECT_NAME", new SqlParameter[] { new SqlParameter("@PROJECT_NAME", Project) }, CommandType.Text);
 
                 string SERVICE_NAME = dt.Rows[i][2].ToString();
 
@@ -702,10 +847,10 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
                 // decimal Cost = decimal.Parse(string.Format("{0:0.00}", dt.Rows[i][4].ToString()));
                 string Cost = dt.Rows[i][4].ToString();
 
-                int PRODUCT_SERVICE_ID = (int)Mydb.ExecuteScalar("select SERVICE_ID from PRODUCT_SERVICE where [SERVICE_NAME]=@SERVICE_NAME and DIRECTION_ID= (select DIRECTION_ID from SERVICE_DIRECT where DIRECTION_NAME=@DIRECTION_NAME) and UNIT_OF_MEASURE_ID =( select UNIT_OF_MEASURE_ID from UNIT_OF_MEASURE where UNIT_OF_MEASURE_NAME=@UNIT_OF_MEASURE_NAME)", new SqlParameter[] {new SqlParameter("@SERVICE_NAME",SERVICE_NAME),new SqlParameter("@DIRECTION_NAME", DIRECTION_NAME),new SqlParameter("@UNIT_OF_MEASURE_NAME", UNIT_OF_MEASURE_NAME) }, CommandType.Text);
+                int PRODUCT_SERVICE_ID = (int)Mydb.ExecuteScalar("select SERVICE_ID from PRODUCT_SERVICE where [SERVICE_NAME]=@SERVICE_NAME and DIRECTION_ID= (select DIRECTION_ID from SERVICE_DIRECT where DIRECTION_NAME=@DIRECTION_NAME) and UNIT_OF_MEASURE_ID =( select UNIT_OF_MEASURE_ID from UNIT_OF_MEASURE where UNIT_OF_MEASURE_NAME=@UNIT_OF_MEASURE_NAME)", new SqlParameter[] { new SqlParameter("@SERVICE_NAME", SERVICE_NAME), new SqlParameter("@DIRECTION_NAME", DIRECTION_NAME), new SqlParameter("@UNIT_OF_MEASURE_NAME", UNIT_OF_MEASURE_NAME) }, CommandType.Text);
 
-                int COuntOfPROJECT_PRODUCT_SERVICE_ = (int)Mydb.ExecuteScalar("select COUNT(*) from PROJECT_PRODUCT_SERVICE where PRODUCT_SERVICE_ID=@PRODUCT_SERVICE_ID and PROJECT_ID=@PROJECT_ID and COST=@COST", new SqlParameter[] {new SqlParameter("@PRODUCT_SERVICE_ID", PRODUCT_SERVICE_ID),new SqlParameter("@PROJECT_ID",ProjectId),new SqlParameter("@COST",Cost) }, CommandType.Text);
-                if (COuntOfPROJECT_PRODUCT_SERVICE_==0)
+                int COuntOfPROJECT_PRODUCT_SERVICE_ = (int)Mydb.ExecuteScalar("select COUNT(*) from PROJECT_PRODUCT_SERVICE where PRODUCT_SERVICE_ID=@PRODUCT_SERVICE_ID and PROJECT_ID=@PROJECT_ID and COST=@COST", new SqlParameter[] { new SqlParameter("@PRODUCT_SERVICE_ID", PRODUCT_SERVICE_ID), new SqlParameter("@PROJECT_ID", ProjectId), new SqlParameter("@COST", Cost) }, CommandType.Text);
+                if (COuntOfPROJECT_PRODUCT_SERVICE_ == 0)
                 {
                     Mydb.ExecuteNoNQuery("insert into PROJECT_PRODUCT_SERVICE(PRODUCT_SERVICE_ID,PROJECT_ID,COST) values(@PRODUCT_SERVICE_ID,@PROJECT_ID,@COST)", new SqlParameter[] { new SqlParameter("@PRODUCT_SERVICE_ID", PRODUCT_SERVICE_ID), new SqlParameter("@PROJECT_ID", ProjectId), new SqlParameter("@COST", Cost) }, CommandType.Text);
                 }
@@ -732,7 +877,7 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
             string value = cell.CellValue.InnerXml;
             if (cell.DataType != null && cell.DataType.Value == CellValues.SharedString)
             {
-                
+
                 return stringTablePart.SharedStringTable.ChildElements[Int32.Parse(value)].InnerText;
             }
             else
@@ -778,7 +923,7 @@ inner join IND_NAME in_ on in_.INDIVIDUAL_ID = ip.INDIVIDUAL_ID and in_.PHONE is
 
                 foreach (Cell cell in rows.ElementAt(0))
                 {
-                    
+
                     dt.Columns.Add(GetCellValue(doc, cell)); // this will include 2nd row a header row
                 }
                 //Loop through the Worksheet rows
