@@ -79,7 +79,7 @@
 
         // console.log("Ok")
         Id = 346;// sessionStorage.getItem("Clien_ID"); //Orxcan
-        sessionStorage.setItem("Clien_ID",346)
+        sessionStorage.setItem("Clien_ID", 346)
         // alert(Id)
         //Id=197
         if (Id == null) {
@@ -784,7 +784,7 @@
                             fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                                 var module = oData.MODULES
                                 module = module.substring(1, module.length)
-                                $(nTd).html('<a href="#" title="' + module+'" onclick="DetailAcc(' + oData.LOG_IN_ID + ')">' + module + '</a>');
+                                $(nTd).html('<a href="#" title="' + module + '" onclick="DetailAcc(' + oData.LOG_IN_ID + ')">' + module + '</a>');
                             }
                         },
                         {
@@ -792,7 +792,7 @@
                             fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                                 var role = oData.ROLES
                                 role = role.substring(1, role.length)
-                                $(nTd).html('<a href="#" title="' + role+'" onclick="DetailAcc(' + oData.LOG_IN_ID + ')">' + role + '</a>');
+                                $(nTd).html('<a href="#" title="' + role + '" onclick="DetailAcc(' + oData.LOG_IN_ID + ')">' + role + '</a>');
                             }
                         }
 
@@ -1228,7 +1228,7 @@
         })
         $("#SaveMO").click(function () { sessionStorage.setItem("ComesTo", ""); window.location.href = "CreateAccount.aspx" })
     }
-  
+
     if (loc == "/Client_Admin/CreateAccount.aspx") {
         $("#fio").keyup(function () { $("#Uofio,#yesfio").hide() })
         $("#phone1").keyup(function () { $("#yesPhone,#UoPhone").hide() })
@@ -1275,22 +1275,28 @@
                 $("#yesC").show();
                 $("#UoPas_").html('Данное поле должно содержать как минимум 6 символов<br/>').show();//.text("Данное поле должно содержать как минимум 6 символов").show();
             }
-  
+
         })
         $("#email").keyup(function () {
             var email = $(this).val();
             if (isValidEmailAddress(email)) {
-                
+
                 CheckEmail(email);
             }
             else {
                 $("#yesmail").show();
-                ErrorForControls($("#email"),'Введенное значение не соответствует формату электронной почты')
-               
+                ErrorForControls($("#email"), 'Введенное значение не соответствует формату электронной почты')
+
             }
         })
         sessionStorage.setItem("itmId", null)
-       
+        $('#phone1').blur(function () {
+            var phone = $(this).val()
+            if (phone.length == 17) {
+                CHeckIdendityPhone(phone, $(this))
+            }
+
+        })
         sessionStorage.setItem("PreviousText", "");
         //alert(loc)
         var ClId = sessionStorage.getItem("Clien_ID")//localStorage.setItem("Clien_ID", jsondata.Id)
@@ -1302,25 +1308,25 @@
             //getModul("#modul", 1);
             getModules2("", 0, "")
 
-           
-            $("#CreateAcc").click(function ()
-            {
-               
+
+            $("#CreateAcc").click(function () {
+
                 if (checkControls_Accounts().isSuccess == true) {
 
                     CreateNewAcc(ClId, checkControls_Accounts());
                 }
             })
-           
+
             getLogin()
             $("#knp1").attr('disabled', 'disabled').attr("class", 'knp1 deActiveAdd btn btn1 h56 outline shadow-none flexCenter')//.attr("style","background-color: rgb(149,153,156);color:  white;font-family: unset;font-weight: 700;border: none;")//.css("background-color","rgb(149, 149, 149)")
 
         }
         else {
+
             $("#pass").keypress(function () { sessionStorage.setItem("p", "1") })
             $("#DeleteAcc").show();
             //$("#CreateAcc").text("Обновить")
-
+            $('#email').attr('disabled','disabled')
             //alert(LogId);
             getDetailAcc(LogId)
             GetModeRole(LogId)
@@ -1328,24 +1334,24 @@
 
                 alertWithButton("Вы действительно хотите удалить учетную запись?", " " + $("#FirstName").val() + " ", "")
             })
-            $("#deleteO").click(function () { DeleteAccount(LogId) })
+            $("#deleteO").click(function () { DeleteAccount(LogId, $('#email').val()) })
             $("#CreateAcc").text("Сохранить")
 
             $("#CreateAcc").click(function () {
 
-                if (checkControls_Accounts().isSuccess==true) {
+                if (checkControls_Accounts().isSuccess == true) {
                     UpdateAcc(ClId, LogId, checkControls_Accounts());
                 }
             })
-          
+
 
 
         }
-        
-       
 
 
-       
+
+
+
         $("#backAcc").click(function () {
             var cmsf_a = sessionStorage.getItem("cmsf_a");
             // var cmsf = sessionStorage.getItem("cmsf");
@@ -1456,7 +1462,7 @@
             window.location.href = "InfoUO.aspx"
         })
         function validateNumber(event) {
-            
+
             var key = window.event ? event.keyCode : event.which;
             if (event.keyCode === 8 || event.keyCode === 46) {
                 return true;
@@ -1467,7 +1473,7 @@
             }
         };
         $("#INN,#OGRN,#OKPO,#KPP,#RS,#BKRS,#bik").keypress(validateNumber);
-       
+
         $("#INN,#OGRN,#OKPO,#KPP,#BKRS,#bik,#RS").keyup(function () {
             var maxlenght = $(this).attr("maxlength")
             var id = $(this).attr('Id')
@@ -1475,13 +1481,13 @@
             $('label[for="' + id + '"]').hide();
             $('#counter').remove();
             $(this).before("<label id='counter' class='transp backLab counter'>" + Original_text + " (Осталось " + (maxlenght - $(this).val().length) + " символов)</label>")
-           // $(this).closest('label').text("" + Original_text + " (Осталось " + (maxlenght - $(this).val().length) + " символов)").show();
+            // $(this).closest('label').text("" + Original_text + " (Осталось " + (maxlenght - $(this).val().length) + " символов)").show();
             if ($(this).val().length == maxlenght) {
                 $('.counter').remove();
                 $('label[for="' + id + '"]').show();
             }
         })
-       
+
         $("#RS").keyup(function () {
             var maxlenght = $(this).attr("maxlength")
             $("#RSS").text("Осталось " + (maxlenght - $(this).val().length) + " символов").show();
@@ -1521,7 +1527,7 @@
                 GetBankByBIK(bik_);
             }
         })//bik_B
-       
+
         $("#mail").keyup(function () {
             var email = $(this).val();
             if (isValidEmailAddress(email)) {
@@ -1569,15 +1575,15 @@
 
         var UoId = sessionStorage.getItem("UOID");
         if (UoId == "" || UoId == null || UoId == undefined) {
-           
+
             $("#INfoU").hide();
             $("#SaveMO").click(function () {
                 if (checkControls_ManagerComp().isSuccess == true) {
-                    createNew_ManagerCompany(Id, checkControls_ManagerComp(),null);
+                    createNew_ManagerCompany(Id, checkControls_ManagerComp(), null);
                 }
-               
+
             })
-       
+
         }
         else {
             $("#DeleteUO").show();
@@ -1586,7 +1592,7 @@
             getDetailUO(UoId)
             //$("#SozUp").text(" ")
             $("#SaveMO").click(function () {
-               
+
                 if (checkControls_ManagerComp().isSuccess == true) {
                     createNew_ManagerCompany(Id, checkControls_ManagerComp(), UoId);
                 }
@@ -1626,7 +1632,7 @@
             }
         }
     }
-  
+
     if (loc == "/Client_Admin/MyResources.aspx") {
         sessionStorage.setItem("R_Id", "")
         $("#loader,.ui-loader-background").hide();
@@ -1670,114 +1676,19 @@
     if (loc == "/Client_Admin/ProfileSettings.aspx") {
         $("#loader,.ui-loader-background").hide();
         sessionStorage.setItem("itmId", null)
-        //alert(loc)
         sessionStorage.setItem("ComesTo", "");
-        var ClId = sessionStorage.getItem("Clien_ID")//localStorage.setItem("Clien_ID", jsondata.Id)
-        //var clId2 = localStorage.getItem("Clien_ID2")//localStorage.setItem("Clien_ID2", Id)
-        //ClId = (ClId != null) ? ClId : clId2
-        // alert(ClId);
-
+        var ClId = sessionStorage.getItem("Clien_ID")
         $("#adr").focus(function () {
             var manual = $("#manu").prop('checked');
             if (manual == true) {
                 $("#adrList").empty().hide();
             }
         })
-        $("#adr").keyup(function () {
-            $("#adrList").empty();
-            var adres = $("#adr").val();
 
-            if (adres.length >= 4) {
-                var manual = $("#manu").prop('checked');
-                if (manual == false) {
-                    var obj = { txt: adres }
-
-                    $.ajax({
-                        url: "/Client_Admin/CreateOpject.aspx/GetStreetsBytext",
-                        data: JSON.stringify(obj),
-                        dataType: "json",
-                        type: "POST",
-                        contentType: "application/json; charset=utf-8",
-                        success: function (data) {
-                            // console.log(data);
-                            var jsondata = JSON.parse(data.d);
-                            //console.log(jsondata.d[0].CODE);
-                            // console.log(data.d.CODE)
-                            $.each(jsondata, function (key, value) {
-                                $("#adrList").append('<option value="' + value.Name + ' " itemid=' + value.CODE + '></option>')
-                                // console.log(value.Name)
-                            })
-                        }
-                    })
-                }
-            }
-            //if ($("#manu").is(":checked")) {
-
-            //}
-            //else {
-            //    if (adres.length >= 4) {
-            //        //console.log("""")
-            //        var obj = { txt: adres }
-
-            //        $.ajax({
-            //            url: "/Client_Admin/CreateOpject.aspx/GetStreetsBytext",
-            //            data: JSON.stringify(obj),
-            //            dataType: "json",
-            //            type: "POST",
-            //            contentType: "application/json; charset=utf-8",
-            //            success: function (data) {
-            //                // console.log(data);
-            //                var jsondata = JSON.parse(data.d);
-            //                //console.log(jsondata.d[0].CODE);
-            //                // console.log(data.d.CODE)
-            //                $.each(jsondata, function (key, value) {
-            //                    $("#adrList").append('<option value="' + value.Name + ' " itemid=' + value.CODE + '></option>')
-            //                    // console.log(value.Name)
-            //                })
-            //            }
-            //        })
-
-            //    }
-            //    else {
-            //        $("#adrList").empty();
-            //    }
-            //}
-
-        })
-        $("#pass").keyup(function () {
-            var p = $(this).val()
-            if (p.length >= 6) {
-                var o = {
-                    Log: L_ogin_id,
-                    Pass: p
-                };
-                $.ajax({
-                    type: "POST",
-                    url: "ProfileSettings.aspx/ChkPass",
-                    data: JSON.stringify(o),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (data) {
-                        var jsondata = $.parseJSON(data.d);
-                        if (jsondata.result == 1) {
-                            $("#CpassN").show().text("Текущий пароль введен  неправильно")
-                        }
-                        else {
-                            $("#CpassN").hide();
-                        }
-                    }
-                })
-            }
-            else {
-                $("#CpassN").show().text("Текущий пароль введен  неправильно")
-            }
-        })
         $(document).on('change', '#typE', function () {
             var svalue = $("#typE").val();
             var ogrn = $("#OGRN").val()
             if (ogrn.length == 15) {
-                //$("#OGRN").val().slice(0,- 2)
-                //ogrn.substr(0, ogrn.length - 2)
                 ogrn = ogrn.slice(0, 13)
                 $("#OGRN").val(ogrn)
             }
@@ -1804,83 +1715,25 @@
             }
         });
         GetType_Entity();
-        GetDetailCilent()
-
-        $("#CompName").keyup(function () { $("#CompNameS").hide() })
-
-        $("#INN").keypress(validateNumber);
-        $("#INN").keyup(function () {
+        GetDetailCilent(ClId)
+        $("#INN,#OGRN,#OKPO,#KPP,#RS,#BKRS,#bik,#KPPB,#INNB").keypress(validateNumber);
+        $("#INN,#OGRN,#OKPO,#KPP,#BKRS,#bik,#RS,#KPPB,#INNB").keyup(function () {
             var maxlenght = $(this).attr("maxlength")
-            $("#INNS").text("Осталось " + (maxlenght - $(this).val().length) + " символов").show();
+            var id = $(this).attr('Id')
+            var Original_text = $('label[for="' + id + '"]').text();
+            $('label[for="' + id + '"]').hide();
+            $('#counter').remove();
+            $(this).before("<label id='counter' class='transp backLab counter'>" + Original_text + " (Осталось " + (maxlenght - $(this).val().length) + " символов)</label>")
+            // $(this).closest('label').text("" + Original_text + " (Осталось " + (maxlenght - $(this).val().length) + " символов)").show();
             if ($(this).val().length == maxlenght) {
-                $("#INNS").hide();
-            }
-        })
-        $("#OGRN").keypress(validateNumber);
-        $("#OGRN").keyup(function () {
-            var maxlenght = $(this).attr("maxlength")
-            $("#OGRNS").text("Осталось " + (maxlenght - $(this).val().length) + " символов").show();
-            if ($(this).val().length == maxlenght) {
-                $("#OGRNS").hide();
-            }
-        })
-        $("#okpo").keypress(validateNumber);
-        $("#okpo").keyup(function () {
-            var maxlenght = $(this).attr("maxlength")
-            $("#okpoS").text("Осталось " + (maxlenght - $(this).val().length) + " символов").show();
-            if ($(this).val().length == maxlenght) {
-                $("#okpoS").hide();
-            }
-        })
-        $("#kpp").keypress(validateNumber);
-        $("#kpp").keyup(function () {
-            var maxlenght = $(this).attr("maxlength")
-            $("#kppS").text("Осталось " + (maxlenght - $(this).val().length) + " символов").show();
-            if ($(this).val().length == maxlenght) {
-                $("#kppS").hide();
-            }
-        })
-        $("#RS").keypress(validateNumber);
-        $("#RS").keyup(function () {
-            var maxlenght = $(this).attr("maxlength")
-            $("#RSS").text("Осталось " + (maxlenght - $(this).val().length) + " символов").show();
-            if ($(this).val().length == maxlenght) {
-                $("#RSS").hide();
-            }
-        })
-        $("#BKRS").keypress(validateNumber);
-        $("#BKRS").keyup(function () {
-            var maxlenght = $(this).attr("maxlength")
-            $("#BKRSS").text("Осталось " + (maxlenght - $(this).val().length) + " символов").show();
-            if ($(this).val().length == maxlenght) {
-                $("#BKRSS").hide();
+                $('.counter').remove();
+                $('label[for="' + id + '"]').show();
             }
         })
 
-        $("#bik").keypress(validateNumber);
-        $("#bik").keyup(function () {
-            var maxlenght = $(this).attr("maxlength")
-            $("#bikS").text("Осталось " + (maxlenght - $(this).val().length) + " символов").show();
-            if ($(this).val().length == maxlenght) {
-                $("#bikS").hide();
-            }
-        })
-        $("#KPPB").keypress(validateNumber);
-        $("#KPPB").keyup(function () {
-            var maxlenght = $(this).attr("maxlength")
-            $("#KPPBS").text("Осталось " + (maxlenght - $(this).val().length) + " символов").show();
-            if ($(this).val().length == maxlenght) {
-                $("#KPPBS").hide();
-            }
-        })
-        $("#INNB").keypress(validateNumber);
-        $("#INNB").keyup(function () {
-            var maxlenght = $(this).attr("maxlength")
-            $("#INNBS").text("Осталось " + (maxlenght - $(this).val().length) + " символов").show();
-            if ($(this).val().length == maxlenght) {
-                $("#INNBS").hide();
-            }
-        })
+
+
+
         function gtBik(bik_) {
             var obj = { BIK: bik_ };
             $.ajax({
@@ -1900,7 +1753,7 @@
 
                 },
                 error: function () {
-                    gtBik(bik_)
+                  //  gtBik(bik_)
                 }
 
             })
@@ -1911,67 +1764,29 @@
                 gtBik(bi_k_)
             }
         })
-        $("#NPass").keyup(function () {
-            var PassVal = $(this).val();
-            if (PassVal.length > 5) {
-                $("#passN").hide();
-                var numbers_ = /[0-9]/g
-                var upperCaseLetters = /[A-Z]/g;
-                var lowerCaseLetters = /[a-z]/g;
-                if (PassVal.match(/[a-z]/g) || PassVal.match(/[A-Z]/g)) {
-                    $("#passN").hide();
 
-                    if (PassVal.match(/(.)\1/)) {
-                        $("#passN").text("Пароль должен содержать символы в разных регистрах").show();
-                    }
-                    else {
-                        $("#passN").hide();
-                    }
-                    if (PassVal.match(numbers_) && PassVal.match(upperCaseLetters) && PassVal.match(lowerCaseLetters)) {
-                        $("#passN").hide();
-                    }
-                    else {
-                        $("#passN").text('Пароль должен содержать символы в разных регистрах').show
-                    }
-                }
-                else {
-                    $("#passN").text("Пароль должен содержать латинские символы и цифры").show();
-                }
-                if (!PassVal.match(numbers_)) {
-                    $("#passN").text("Пароль должен содержать латинские символы и цифры").show();
-                }
-            }
-            else {
-                $("#passN").text("Данное поле должно содержать как минимум 6 символов").show();
-            }
-            if (PassVal.length == 0) {
-                $("#passN").hide();
-            }
-        })
-        $("#RPass").keyup(function () {
-            var RPass = $(this).val()
-            var NPass = $("#NPass").val();
-            if (RPass != NPass) {
-                $("#passR").text("Новый пароль и повторный пароль не совпадают").show()
-            }
-            else {
-                $("#passR").hide();
-            }
-        })
+
         $("#email").keyup(function () {
             if (isValidEmailAddress($(this).val())) {
-                $("#emailS").hide();
+
             }
             else {
-                $("#emailS").text("Введенное значение не соответствует формату электронной почты").show();
+                ErrorForControls($("#email"), "Введенное значение не соответствует формату электронной почты")
+
             }
         })
-        $("#BNAME").keyup(function () { $("#BNAMES").hide() })
-        $("#tel").keyup(function () { $("#telS").hide() })
-        $("#adr").keyup(function () { $("#adrS").hide() })
-        $("#dom").keyup(function () { $("#DOMS").hide(); })
-        $("#fio").keyup(function () { $("#fioS").hide(); })
-        $("#SaveChanges").click(function () {
+
+        $('#tel').blur(function () {
+            var phone = $(this).val()
+            if (phone.length == 17) { CHeckIdendityPhone(phone, $(this)) }
+        })
+        $('#SaveChanges').click(function () {
+            if (checkControls_PS().isSuccess==true) {
+                ProfileSettingsSave(ClId, checkControls_PS());
+            }
+            //
+        })
+        $("#SaveChanges_").click(function () {
             var NPass = $("#NPass").val().trim();
             var RPass = $("#RPass").val().trim();
             var pass = $("#pass").val().trim();
@@ -2232,129 +2047,8 @@
 
         })
     }
-    function GetType_Entity() {
-        $.ajax({
-            type: "POST",
-            url: "ProfileSettings.aspx/GetEntityType",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                //console.log(data)
-
-                var jsondata_1 = JSON.parse(data.d)
-                //console.log(jsondata_1[0].ENTITY_TYPE_NAME)
-                for (var i = 0; i < jsondata_1.length; i++) {
-                    $("#first").after("<option value='" + jsondata_1[i].ENTITY_TYPE_ID + "'>" + jsondata_1[i].ENTITY_TYPE_NAME + "</option>")
-                }
 
 
-            },
-
-            error: function (r) {
-                //  //alert("Error");
-                console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-            },
-            failure: function (r) {
-                alert("FAIL");
-            }
-        });
-    }
-    function GetDetailCilent() {
-        var obj = {
-            Cl: ClId
-        };
-        $.ajax({
-            type: "POST",
-            url: "ProfileSettings.aspx/GetDetailClient",
-            data: JSON.stringify(obj),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-
-                //console.log(result)
-
-                var jsondata_ = JSON.parse(result.d)
-
-                //console.log(jsondata_)
-
-                for (var i = 0; i < jsondata_.length; i++) {
-
-                    // console.log(jsondata_[i].LOG_IN_ID)
-                    $("#fio").val(jsondata_[i].ACCOUNT_NAME)
-                    $("#email").val(jsondata_[i].E_MAIL)
-                    $("#tel").val(jsondata_[i].PHONE_NUMBER)
-                    $("#pass").attr('oldpass', jsondata_[i].PASSWORD)
-                    $("#typE").val(jsondata_[i].ENTITY_TYPE_ID)
-                    if (jsondata_[i].ENTITY_TYPE_ID == 1) {
-
-                        $("#kpp").show()
-                        $("#kppH").show();
-                        $("#ogrnH").text("ОГРН")
-                        $("#kpp").val(jsondata_[i].KPP)
-
-                    }
-                    if (jsondata_[i].ENTITY_TYPE_ID == 2) {
-                        $("#kpp").show();
-                        $("#kpp").hide();
-                        $("#kppH").hide();
-
-                        $("#ogrnH").text("ОГРНИП")
-                        $("#kpp").val("")
-                    }
-                    $("#CompName").val(jsondata_[i].COMPANY_NAME)
-                    $("#INN").val(jsondata_[i].INN)
-                    $("#OGRN").val(jsondata_[i].OGRN_OGRNIP)
-                    $("#okpo").val(jsondata_[i].OKPO)
-
-
-                    $("#adr").val(jsondata_[i].HOUSE)
-                    var dom_ = $("#adr").val().substring($("#adr").val().lastIndexOf("Д. ") + 1, $("#adr").val().lastIndexOf(",")).replace('.', '').replace(' ', '');
-                    // var korp_ = $("#adr").val().substring($("#adr").val().lastIndexOf("К. ") + 1, $("#adr").val().lastIndexOf("")).replace('.', '').replace(' ', '');
-
-                    var numbers = /[0-9]/g
-                    var korp_ = (jsondata_[i].HOUSE.lastIndexOf("К. ") > 0) ? jsondata_[i].HOUSE.substring(jsondata_[i].HOUSE.lastIndexOf("К. ") + 3) : ""//jsondata_[i].HOUSE.substr( jsondata_[i].HOUSE.length - 2);
-                    if (!korp_.match(numbers)) {
-                        korp_ = "";
-                    }
-                    $("#dom").val(dom_)
-                    dom_ = "Д. " + dom_;
-                    var adress = jsondata_[i].HOUSE.substring(0, jsondata_[i].HOUSE.indexOf(dom_))
-                    adress = adress.substring(0, adress.lastIndexOf(","))
-                    $("#adr").val(adress)
-                    $("#korp").val(korp_)
-                    //var adr = $("#adr").val()
-                    //var l = adr.length - 1;
-                    //var lastChar = adr.substring(l - 1, l);
-                    //if (lastChar == ",") { // if the last char is dot, remove the last char
-                    //    result = adr.substring(0, l - 1);
-                    //    $("#adr").val(result)
-                    //}
-                    //$("#adr").val(adr.slice(0,-1))
-
-
-                    $("#bik").val(jsondata_[i].BIK)
-                    $("#BNAME").val(jsondata_[i].BNAME)
-                    $("#BKRS").val(jsondata_[i].BKRS)
-                    $("#RS").val(jsondata_[i].RS)
-                    $("#INNB").val(jsondata_[i].INNB)
-                    $("#KPPB").val(jsondata_[i].KPPB)
-                    sessionStorage.setItem("loginId", jsondata_[i].LOG_IN_ID)
-                    sessionStorage.setItem("AdressID", jsondata_[i].LOG_IN_ID)
-
-
-
-                }
-
-            },
-
-            error: function (r) {
-                // //alert("Error");
-                console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-            },
-            failure: function (r) {
-                alert("FAIL");
-            }
-        });
-    }
     function GetOpjectsForDisp(CL_Id, sob) {
         $("#objcts").empty();
         var obj = {
@@ -3196,51 +2890,7 @@
             window.location.href = "CreateOpject.aspx"
         })
     }
-    function GetDisps(ClId) {
-        var obj = {
-            C: ClId
-        };
-        //alert(JSON.stringify(obj));
-
-        $.ajax({
-            type: "POST",
-            url: "Disp.aspx/GetDisps",
-            data: JSON.stringify(obj),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-
-                //  console.log(result)
-
-                var jsondata_ = JSON.parse(result.d)
-
-                // console.log(jsondata_)
-
-                for (var i = 0; i < jsondata_.length; i++) {
-                    //console.log(jsondata_[i].LOG_IN_ID)
-                    if (jsondata_[i].DISP_STATUS == false) {//
-                        $(".dispList").append('<li><div><a href="#"   onclick=EdFunc(' + jsondata_[i].DISP_ID + ') id="disp_1"><img class="foto-disp" src="' + jsondata_[i].DISP_ICON_IMG + '" /><h4>' + jsondata_[i].DISP_NAME + '</h4></a><button id="disp1" class="btn btn-default dispBtn" onclick=Activation(this,' + jsondata_[i].DISP_ID + ') type="button">Активировать</button></div></li>')
-
-                        //$(".dispList").append("<li><div><a href='#'   onclick=EdFunc(" + jsondata_[i].DISP_ID + ") id='disp_1'><img class='foto- disp' src='" + jsondata_[i].DISP_ICON_IMG + "' /><h4>" + jsondata_[i].DISP_NAME + "</h4></a><button id='disp1' class='btn btn-default dispBtn' onclick=Activation(this," + jsondata_[i].DISP_ID + ",'" + jsondata_[i].DISP_NAME + "') type='button'>Активировать</button></div></li>")
-                    }
-                    if (jsondata_[i].DISP_STATUS == true) {
-                        $(".dispList").append('<li><div><a href="#" onclick=EdFunc(' + jsondata_[i].DISP_ID + ') id="disp_1"><img class="foto-disp" src="' + jsondata_[i].DISP_ICON_IMG + '" /><h4>' + jsondata_[i].DISP_NAME + '</h4></a><span> &nbsp;</span></div></li>')
-                    }
-
-
-                }
-
-            },
-
-            error: function (r) {
-                //alert("Error");
-                console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-            },
-            failure: function (r) {
-                alert("FAIL");
-            }
-        });
-    }
+  
     if (loc == "/Client_Admin/Disp.aspx") {
         sessionStorage.removeItem("Disp_ID")
         GetDisps(Id);
@@ -5275,10 +4925,366 @@
     }
 
 });
+function GetDisps(ClId) {
+    var obj = {
+        C: ClId
+    };
+    //alert(JSON.stringify(obj));
+
+    $.ajax({
+        type: "POST",
+        url: "Disp.aspx/GetDisps",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+
+            //  console.log(result)
+
+            var jsondata_ = JSON.parse(result.d)
+
+            // console.log(jsondata_)
+
+            for (var i = 0; i < jsondata_.length; i++) {
+                //console.log(jsondata_[i].LOG_IN_ID)
+                if (jsondata_[i].DISP_STATUS == false) {//
+                    //$(".dispList").append('<li><div><a href="#"   onclick=EdFunc(' + jsondata_[i].DISP_ID + ') id="disp_1"><img class="foto-disp" src="' + jsondata_[i].DISP_ICON_IMG + '" /><h4>' + jsondata_[i].DISP_NAME + '</h4></a><button id="disp1" class="btn btn-default dispBtn" onclick=Activation(this,' + jsondata_[i].DISP_ID + ') type="button">Активировать</button></div></li>')
+
+                    $('.dispList').append('<div  class="col-lg-6 col-md-12 mb-3"> <div class="row m-0 bgWhite rounded16 shade w-50 h-40 p-4 "> <div class="col-md-12 col-sm-12 pl-0 pr-1 column-flex align-items-center"> <button class="btn btn1 h56 mr-2"onclick="Activation(this,' + jsondata_[i].DISP_ID + ')" id="activate"><strong>Активировать</strong></button> <img onclick=EdFunc(this,' + jsondata_[i].DISP_ID + ') src="https://upravbot.ru/img/disp2.png" class="w177 cursor" alt=""> <button onclick=EdFunc(this,' + jsondata_[i].DISP_ID + ') class="btn3 btn1 h48 w-100 outline shadow-none"><span>' + jsondata_[i].DISP_NAME + '</span></button> </div> </div> </div>')
+                }
+                if (jsondata_[i].DISP_STATUS == true) {
+                    $('.dispList').append('<div onclick=EdFunc(this,' + jsondata_[i].DISP_ID + ')  class="col-lg-6 col-md-12 mb-3 cursor"> <div class="row m-0 bgWhite rounded16 shade w-50 h-40 p-4 "> <div class="col-md-12 col-sm-12 pl-0 pr-1 column-flex align-items-center"></button> <img src="https://upravbot.ru/img/disp2.png" class="w177 cursor" alt=""> <button class="btn3 btn1 h48 w-100 outline shadow-none"><span>' + jsondata_[i].DISP_NAME + '</span></button> </div> </div> </div>')
+                }
 
 
-function DeleteAccount(lg) {
-    var obj = { "LogId": lg }
+            }
+
+        },
+
+        error: function (r) {
+            //alert("Error");
+            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function (r) {
+            alert("FAIL");
+        }
+    });
+}
+function Activation(e, DId) {
+    alert('active')
+    //var obj = {
+    //    D: DId
+    //};
+    ////alert(JSON.stringify(obj));
+
+    //$.ajax({
+    //    type: "POST",
+    //    url: "Disp.aspx/Activation",
+    //    data: JSON.stringify(obj),
+    //    contentType: "application/json; charset=utf-8",
+    //    dataType: "json",
+    //    success: function (result) {
+    //        var log_Id = sessionStorage.getItem("Log");
+    //        var DName = $(e).parent().find('a').find('h4').text();
+    //        //  var Id = sessionStorage.getItem("Clien_ID")
+    //        SaveLog("Активировать", "Простое", "Администратор", "Клиентское администрирование", "Активирована диспетчерская (" + DName + ")", log_Id);
+    //        $(e).hide();
+
+    //    },
+
+    //    error: function (r) {
+    //        //alert("Error");
+    //        console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+    //    },
+    //    failure: function (r) {
+    //        alert("FAIL");
+    //    }
+    //});
+}
+function EdFunc(e, D_Id) {
+    var id = $(this).attr('id')
+    if (id !='activate') {
+     sessionStorage.setItem("Disp_ID", D_Id)
+        alert("div")
+    }
+    else {
+        $(this).children('#activate').click();
+    }
+  //  window.location.href = "EditDisp.aspx"
+
+}
+function checkControls_PS() {
+    var isSuccess = true
+    $('[required="required"]').each(function () {
+        var id = $(this).attr('id')
+
+        if (isSuccess == true) {
+            if (id == "typE") {
+                if ($(this).val() == 0) {
+                    ErrorForControls($(this), "")
+                    isSuccess = false
+                }
+            }
+            else {
+                var id = $(this).attr('Id')
+                var Original_text = $('label[for="' + id + '"]').text();
+                var value = $(this).val();
+                if (value.length == 0) {
+                    $('.counter').remove()
+                    Original_text = 'Необходимо заполнить поле "' + Original_text + '"'
+                    ErrorForControls($(this), Original_text)
+                    isSuccess = false
+                }
+            }
+        }
+        else {
+            return false;
+        }
+
+        
+    })
+    var FirstName = $('#FirstName').val();
+    var SecondName = $('#SecondName').val();
+    var MiddleName = $('#MiddleName').val();
+    var email = $("#email").val().trim();
+    var tel = $("#tel").val().trim();
+    var phone_succ = $("#tel").attr('data-succ')
+    if (phone_succ != undefined) {
+        isSuccess = false
+        ErrorForControls($("tel"), "Такой телефонный номер уже зарегистрирован.")
+    }
+    var typE = $("#typE").val()
+    var CompName = $("#CompName").val();
+    var INN = $("#INN").val();
+    var OGRN = $("#OGRN").val();
+    var OKPO = $("#OKPO").val();
+    var KPP = $("#KPP").val()
+    var adr_ = ($("#adr").val() != null) ? $("#adr").val() : null;
+
+    var adrCode_;
+    adrCode_ = ($("#manu").is(":checked")) ? "" : adrCode_
+    adrCode_ = (adrCode_ == undefined) ? "" : adrCode_
+    var adrtext_;
+    var DOM_ = $("#DOM").val();
+    var KORP_ = ($("#KORP").val().length != 0) ? "K. " + $("#KORP").val() : "";
+    adrtext_ = adr_ + ", Д. " + DOM_ + ", " + KORP_;
+    var bik = $("#bik").val();
+    var BNAME = $("#BNAME").val()
+    var BKRS = $("#BKRS").val();
+    var RS = $("#RS").val();
+    var INNB = $("#INNB").val();
+    var KPPB = $("#KPPB").val();
+    var Login_Id = sessionStorage.getItem("loginId")
+    var adress_Id = sessionStorage.getItem("AdressID")
+    return { isSuccess: isSuccess, FirstName: FirstName, SecondName: SecondName, MiddleName: MiddleName, email: email, tel: tel, typE: typE, CompName: CompName, INN: INN, OGRN: OGRN, OKPO: OKPO, KPP: KPP, adr_: adr_, adrCode_: adrCode_, adrtext_: adrtext_, bik: bik, BNAME: BNAME, BKRS: BKRS, RS: RS, INNB: INNB, KPPB: KPPB, Login_Id: Login_Id, adress_Id: adress_Id }
+}
+function ProfileSettingsSave(ClId, P_data) {
+    var obj = {
+        PASSWORD: "",//RPass,
+       // ACCOUNT_NAME: "",
+        FirstName: P_data.FirstName,
+        SecondName: P_data.SecondName,
+        MiddleName: P_data.MiddleName,
+        PHONE_NUMBER: P_data.tel,
+        E_MAIL: P_data.email,
+        COMPANY_NAME: P_data.CompName,
+        INN: P_data.INN,
+        KPP: P_data.KPP,
+        OGRN_OGRNIP: P_data.OGRN,
+        ENTITY_TYPE_ID: P_data.typE,
+        OKPO: P_data.OKPO,
+        HOUSE: P_data.adrtext_,
+        BNAME: P_data.BNAME,
+        INNB: P_data.INNB,
+        KPPB: P_data.KPPB,
+        BIK: P_data.bik,
+        BKRS: P_data.BKRS,
+        RS: P_data.RS,
+        CL: ClId,
+        Login_Id: P_data.Login_Id
+    };
+    console.log(obj)
+    $.ajax({
+        type: "POST",
+        url: "ProfileSettings.aspx/Save_Changes",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            // alert("OK. See Console -  press F12");
+            //  alertMessage("Операция прошла успешно", "Ваши данные успешно добавлены", ":)")
+            var log_Id = sessionStorage.getItem("Log");
+            //   SaveLog("Сохранить изменения", "Простое", "Администратор", "Клиентское администрирование", "Изменены данные настройки профиля (" + $("#email").val() + ")", log_Id);
+            window.location.href = "/Client_Admin/Accounts.aspx";
+            //window.location.href = "RegisterUO.aspx"
+            // console.log(JSON.stringify(result)); $("#resulter").text(JSON.stringify(result));
+        },
+        error: function (r) {
+            ////alert("Error");
+           // alertMessage("Oшибка", "Не удалось выполнить операцию", ":(");
+           // console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+            $("#loader,.ui-loader-background").hide();
+        },
+        failure: function (r) {
+            // alert("FAIL");
+            alertMessage("Oшибка", "Не удалось выполнить операцию", "Fail");
+            $("#loader,.ui-loader-background").hide();
+        }
+    });
+}
+
+function GetType_Entity(selected) {
+    $.ajax({
+        type: "POST",
+        url: "ProfileSettings.aspx/GetEntityType",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            //console.log(data)
+
+            var jsondata_1 = JSON.parse(data.d)
+            //console.log(jsondata_1[0].ENTITY_TYPE_NAME)
+            for (var i = 0; i < jsondata_1.length; i++) {
+                $("#typE").append("<option value='" + jsondata_1[i].ENTITY_TYPE_ID + "'>" + jsondata_1[i].ENTITY_TYPE_NAME + "</option>")
+            }
+            if (selected != undefined) {
+                $("#typE").val(selected)
+            }
+            $("#typE").select2({ minimumResultsForSearch: "Infinity" })
+
+        },
+
+        error: function (r) {
+            //  //alert("Error");
+            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function (r) {
+            alert("FAIL");
+        }
+    });
+}
+function GetDetailCilent(ClId) {
+    var obj = {
+        Cl: ClId
+    };
+    $.ajax({
+        type: "POST",
+        url: "ProfileSettings.aspx/GetDetailClient",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+
+
+            var jsondata_ = JSON.parse(result.d)
+
+
+
+            for (var i = 0; i < jsondata_.length; i++) {
+
+
+                $("#fio").val(jsondata_[i].ACCOUNT_NAME)
+                $("#email").val(jsondata_[i].E_MAIL)
+                $("#tel").val(jsondata_[i].PHONE_NUMBER)
+                $("#pass").attr('oldpass', jsondata_[i].PASSWORD)
+                $("#typE").val(jsondata_[i].ENTITY_TYPE_ID).select2({ minimumResultsForSearch: "Infinity" })
+
+                if (jsondata_[i].ENTITY_TYPE_ID == 1) {
+
+                    $("#kpp").show()
+                    $("#kppH").show();
+                    $("#ogrnH").text("ОГРН")
+                    $("#kpp").val(jsondata_[i].KPP)
+
+                }
+                if (jsondata_[i].ENTITY_TYPE_ID == 2) {
+                    $("#kpp").show();
+                    $("#kpp").hide();
+                    $("#kppH").hide();
+
+                    $("#ogrnH").text("ОГРНИП")
+                    $("#kpp").val("")
+                }
+                $("#CompName").val(jsondata_[i].COMPANY_NAME)
+                $("#INN").val(jsondata_[i].INN)
+                $("#OGRN").val(jsondata_[i].OGRN_OGRNIP)
+                $("#okpo").val(jsondata_[i].OKPO)
+
+
+                $("#adr").val(jsondata_[i].HOUSE)
+                var dom_ = $("#adr").val().substring($("#adr").val().lastIndexOf("Д. ") + 1, $("#adr").val().lastIndexOf(",")).replace('.', '').replace(' ', '');
+                // var korp_ = $("#adr").val().substring($("#adr").val().lastIndexOf("К. ") + 1, $("#adr").val().lastIndexOf("")).replace('.', '').replace(' ', '');
+
+                var numbers = /[0-9]/g
+                var korp_ = (jsondata_[i].HOUSE.lastIndexOf("К. ") > 0) ? jsondata_[i].HOUSE.substring(jsondata_[i].HOUSE.lastIndexOf("К. ") + 3) : ""//jsondata_[i].HOUSE.substr( jsondata_[i].HOUSE.length - 2);
+                if (!korp_.match(numbers)) {
+                    korp_ = "";
+                }
+                $("#dom").val(dom_)
+                dom_ = "Д. " + dom_;
+                var adress = jsondata_[i].HOUSE.substring(0, jsondata_[i].HOUSE.indexOf(dom_))
+                adress = adress.substring(0, adress.lastIndexOf(","))
+                $("#adr").val(adress)
+                $("#korp").val(korp_)
+                //var adr = $("#adr").val()
+                //var l = adr.length - 1;
+                //var lastChar = adr.substring(l - 1, l);
+                //if (lastChar == ",") { // if the last char is dot, remove the last char
+                //    result = adr.substring(0, l - 1);
+                //    $("#adr").val(result)
+                //}
+                //$("#adr").val(adr.slice(0,-1))
+
+
+                $("#bik").val(jsondata_[i].BIK)
+                $("#BNAME").val(jsondata_[i].BNAME)
+                $("#BKRS").val(jsondata_[i].BKRS)
+                $("#RS").val(jsondata_[i].RS)
+                $("#INNB").val(jsondata_[i].INNB)
+                $("#KPPB").val(jsondata_[i].KPPB)
+                sessionStorage.setItem("loginId", jsondata_[i].LOG_IN_ID)
+                sessionStorage.setItem("AdressID", jsondata_[i].LOG_IN_ID)
+
+
+
+            }
+
+        },
+
+        error: function (r) {
+            // //alert("Error");
+            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function (r) {
+            alert("FAIL");
+        }
+    });
+}
+function ChkPass(L_ogin_id, p) {
+    var o = {
+        Log: L_ogin_id,
+        Pass: p
+    };
+    $.ajax({
+        type: "POST",
+        url: "ProfileSettings.aspx/ChkPass",
+        data: JSON.stringify(o),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            var jsondata = $.parseJSON(data.d);
+            if (jsondata.result == 1) {
+
+                ErrorForControls($('#pass'), 'Текущий пароль введен  неправильно')
+            }
+            else {
+                $("#CpassN").hide();
+            }
+        }
+    });
+}
+
+function DeleteAccount(lg, Email) {
+    var obj = { "LogId": lg, Email: Email }
     $.ajax({
         type: "POST",
         url: "CreateAccount.aspx/DeleteAccount",
@@ -5308,10 +5314,10 @@ function GetModeRole(lg_) {
 
             // getModul("#modul", 1, lg_, jsondata_[0].sm, jsondata_[0].sr)
             $('.row[itemid=0]').remove();
-          
+
             for (var i = jsondata_.length - 1; i >= 0; i--) {
-           
-                if (i!=0) {
+
+                if (i != 0) {
                     AddMRSS()
                     $('.knp1').attr('class', 'knp1 deActiveAdd btn btn1 h56 outline shadow-none flexCenter').removeAttr('disabled');
                 }
@@ -5323,6 +5329,26 @@ function GetModeRole(lg_) {
 
     })
 
+}
+function CHeckIdendityPhone(PNumb_, e) {
+    $("#loader,.ui-loader-background").show();
+    var obj = { "PNumb_": PNumb_ }
+    $.ajax({
+        type: "POST",
+        url: "CreateAccount.aspx/CHeckIdendityPhone",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            $(e).removeAttr('data-succ')
+            var jsondata_ = JSON.parse(result.d)
+            if (jsondata_.result != 1) {
+                $(e).attr('data-succ', 'false')
+                ErrorForControls($(e), jsondata_.result)
+            }
+            $("#loader,.ui-loader-background").hide();
+        }
+    })
 }
 function getDetailAcc(lg) {
     //orx
@@ -5343,7 +5369,7 @@ function getDetailAcc(lg) {
             $("#email").val(jsondata_[0].E_MAIL)
             $("#login").val("Login_" + jsondata_[0].LOG_IN_ID)
             $("#pass").val(jsondata_[0].PASSWORD)
-          //  $("#fio").val(jsondata_[0].ACCOUNT_NAME)
+            //  $("#fio").val(jsondata_[0].ACCOUNT_NAME)
             $('#FirstName').val(jsondata_[0].FIRST_NAME)
             $('#SecondName').val(jsondata_[0].SECOND_NAME)
             $('#MiddleName').val(jsondata_[0].MIDDLE_NAME)
@@ -5377,8 +5403,8 @@ function CheckEmail(eml) {
             }
             else {
                 ErrorForControls($("#email"), 'Данный e-mail уже зарегистрирован в системе')
-              //  $("#yesmail").show();//
-              //  $("#Uomail").html('Данный e-mail уже зарегистрирован в системе<br/>').show();//.text("Данный e-mail уже зарегистрирован в системе").show();
+                //  $("#yesmail").show();//
+                //  $("#Uomail").html('Данный e-mail уже зарегистрирован в системе<br/>').show();//.text("Данный e-mail уже зарегистрирован в системе").show();
             }
 
         }
@@ -5390,6 +5416,7 @@ function UpdateAcc(ClId, LogId, AccData) {
     var pas_s = (p == "1") ? $("#pass").val().trim() : "";
     var jsonObj = { 'SMSR': AccData.SMSR, 'PNumb_': AccData.phone, 'Email_': AccData.email, 'Pass_': pas_s, 'ClId_': ClId, 'Login_': AccData.Login, "LgId": LogId, 'FirstName': AccData.FirstName, 'SecondName': AccData.SecondName, 'MiddleName': AccData.MiddleName };
     console.log(jsonObj)
+    $("#loader,.ui-loader-background").show();
     $.ajax({
         type: "POST",
         url: "CreateAccount.aspx/UpdateAcc",
@@ -5401,28 +5428,30 @@ function UpdateAcc(ClId, LogId, AccData) {
             var jsondata = $.parseJSON(data.d);
             if (jsondata.result == 1) {
                 var log_Id = sessionStorage.getItem("Log");
-               // SaveLog("Сохранить изменения", "Простое", "Администратор", "Клиентское администрирование", "Изменены настройки учетной записи (" + fio + ")", log_Id);
+                // SaveLog("Сохранить изменения", "Простое", "Администратор", "Клиентское администрирование", "Изменены настройки учетной записи (" + fio + ")", log_Id);
                 window.location.href = "Accounts.aspx";
             }
+            $("#loader,.ui-loader-background").hide();
             //console.log(JSON.stringify(result)); $("#resulter").text(JSON.stringify(result));
         },
         error: function (r) {
             // //alert("Error");
-            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+            //  console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
         },
         failure: function (r) {
         }
     });
 }
 function CreateNewAcc(ClId, AccData) {
-    var jsonObj = { 'SMSR': AccData.SMSR, 'PNumb_': AccData.phone, 'Email_': AccData.email, 'Pass_': AccData.pass, 'ClId_': ClId, 'Login_': AccData.Login, 'FirstName': AccData.FirstName, 'SecondName': AccData.SecondName, 'MiddleName': AccData.MiddleName  };
+    $("#loader,.ui-loader-background").show();
+    var jsonObj = { 'SMSR': AccData.SMSR, 'PNumb_': AccData.phone, 'Email_': AccData.email, 'Pass_': AccData.pass, 'ClId_': ClId, 'Login_': AccData.Login, 'FirstName': AccData.FirstName, 'SecondName': AccData.SecondName, 'MiddleName': AccData.MiddleName };
     $.ajax({
         type: "POST",
         url: "CreateAccount.aspx/SaveAcc",
         data: JSON.stringify(jsonObj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             var jsondata = $.parseJSON(data.d);
             if (jsondata.result == 1) {
                 var comesTo = sessionStorage.getItem("ComesTo"); //vck
@@ -5435,16 +5464,20 @@ function CreateNewAcc(ClId, AccData) {
                 arrAcc.push({ "ID": ID, "f_io": f_io, "Modul1": Modul1, "Role1": Role1 });
                 sessionStorage.setItem("ComesTo", JSON.stringify(arrAcc));
                 var log_Id = sessionStorage.getItem("Log");
-              //  SaveLog("Создать новую учетную запись", "Простое", "Администратор", "Клиентское администрирование", "В системе создана учетная запись  (" + fio + ")", log_Id);
+                //  SaveLog("Создать новую учетную запись", "Простое", "Администратор", "Клиентское администрирование", "В системе создана учетная запись  (" + fio + ")", log_Id);
                 var cmsf_a = sessionStorage.getItem("cmsf_a");
                 window.location.href = (cmsf_a.length != 0) ? cmsf_a : "Accounts.aspx";
             }
+            else {
+                alert(jsondata.result)
+            }
+            $("#loader,.ui-loader-background").hide();
         },
-        error: function(r) {
+        error: function (r) {
             // 
-           // console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+            // console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
         },
-        failure: function(r) {
+        failure: function (r) {
             alert("FAIL");
         }
     });
@@ -5465,7 +5498,7 @@ function DELETE_UO(UoId, SaveLog, alertMessage) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         //async: false,
-        success: function(result) {
+        success: function (result) {
             // alert("OK. See Console -  press F12");
             // alertMessage("Операция прошла успешно", "Добавление Управляюшего Организаций Успешно", ":)")
             var log_Id = sessionStorage.getItem("Log");
@@ -5474,13 +5507,13 @@ function DELETE_UO(UoId, SaveLog, alertMessage) {
             console.log(JSON.stringify(result));
             $("#resulter").text(JSON.stringify(result));
         },
-        error: function(r) {
+        error: function (r) {
             ////alert("Error");
-       //     alertMessage("Oшибка", "Не удалось выполнить операцию", ":(");
-           // console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+            //     alertMessage("Oшибка", "Не удалось выполнить операцию", ":(");
+            // console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
             $("#loader,.ui-loader-background").hide();
         },
-        failure: function(r) {
+        failure: function (r) {
             // alert("FAIL");
             alertMessage("Oшибка", "Не удалось выполнить операцию", "Fail");
             $("#loader,.ui-loader-background").hide();
@@ -5503,7 +5536,7 @@ function getDetailUO(UoId) {
         //cache: false,
         success: function (result) {
 
-             
+
             // var jsondata_1 = JSON.stringify(result.ResultData)
             var jsondata_2 = JSON.parse(result.d)
             console.log(jsondata_2)
@@ -5517,7 +5550,7 @@ function getDetailUO(UoId) {
             $("#OKPO").val(jsondata_2[0].OKPO);
             $('#Shopid').val(jsondata_2[0].SHOP_ID)
 
-            
+
             $("#adr").val(jsondata_2[0].ADRESS);
             var dom_ = $("#adr").val().substring($("#adr").val().lastIndexOf("Д. ") + 1, $("#adr").val().lastIndexOf(",")).replace('.', '').replace(' ', '');
             var numbers = /[0-9]/g
@@ -5586,7 +5619,7 @@ function createNew_ManagerCompany(ClId, obj_, MAN_COMPANY_ID) {
         BNAME: obj_.BNAME_,
         BKRS: obj_.BKRS_,
         RS: obj_.RS_,
-        action: (MAN_COMPANY_ID==null)?"0":"1",
+        action: (MAN_COMPANY_ID == null) ? "0" : "1",
         shopid: obj_.Shopid//$('#Shopid').val() // 0-insert, 1-update, 2-delete
     };
     var url = MAN_COMPANY_ID == null ? "CreateOrg.aspx/CRUD_UO" : "CreateOrg.aspx/UpdataUo"
@@ -5597,10 +5630,10 @@ function createNew_ManagerCompany(ClId, obj_, MAN_COMPANY_ID) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         //async: false,
-        success: function(result) {
+        success: function (result) {
 
-            if (MAN_COMPANY_ID==null) {
-     var cmsf_uo = sessionStorage.getItem("cmsf_uo");
+            if (MAN_COMPANY_ID == null) {
+                var cmsf_uo = sessionStorage.getItem("cmsf_uo");
                 var log_Id = sessionStorage.getItem("Log");
                 SaveLog("Создан", "Простое", "Администратор", "Клиентское администрирование", "В системе создана управляющая организация  (" + Name_ + ")", log_Id);
                 window.location.href = (cmsf_uo.length != 0) ? cmsf_uo : 'RegisterUO.aspx';
@@ -5612,10 +5645,10 @@ function createNew_ManagerCompany(ClId, obj_, MAN_COMPANY_ID) {
                 window.location.href = "RegisterUO.aspx"
             }
         },
-        error: function(r) {
+        error: function (r) {
             $("#loader,.ui-loader-background").hide();
         },
-        failure: function(r) {
+        failure: function (r) {
             // alert("FAIL");
             alertMessage("Oшибка", "Не удалось выполнить операцию", "Fail");
             $("#loader,.ui-loader-background").hide();
@@ -5623,23 +5656,21 @@ function createNew_ManagerCompany(ClId, obj_, MAN_COMPANY_ID) {
     });
 }
 
-function checkControls_ManagerComp()
-{
-    var isSuccess=true
-    $('[required="required"]').each(function ()
-    {
+function checkControls_ManagerComp() {
+    var isSuccess = true
+    $('[required="required"]').each(function () {
         var value = $(this).val();
         if (isSuccess == true) {
             var maxlenght = $(this).attr('maxlength')
             var id = $(this).attr('Id')
             var Original_text = $('label[for="' + id + '"]').text();
             if (value.length != maxlenght && maxlenght != undefined) {
-              
+
                 $('.counter').remove()
                 $('label[for="' + id + '"]').show()
-                Original_text =  Original_text + "(Осталось " + (maxlenght - $(this).val().length) + " символов)"
+                Original_text = Original_text + "(Осталось " + (maxlenght - $(this).val().length) + " символов)"
                 ErrorForControls($(this), Original_text)
-                isSuccess=false
+                isSuccess = false
             }
             if (maxlenght == undefined) {
                 if (value.length == 0) {
@@ -5649,14 +5680,14 @@ function checkControls_ManagerComp()
                     isSuccess = false
                 }
             }
-            
+
         }
         else {
             return false;
         }
 
     })
-    
+
     var Inn_ = ($("#INN").val() != null) ? $("#INN").val() : "";
     var OGRN_ = $("#OGRN").val();
     var Name_ = $("#NAME").val();
@@ -5683,9 +5714,10 @@ function checkControls_ManagerComp()
     var ok_ = ($("#ok").val() != null) ? $("#ok").val() : "";
     var fb_ = ($("#fb").val() != null) ? $("#fb").val() : "";
     var tw_ = ($("#tw").val() != null) ? $("#tw").val() : "";
-    
+
     return {
-        isSuccess: isSuccess, Inn_: Inn_, OGRN_: OGRN_, Name_: Name_, KPP_: KPP_, OKPO_: OKPO_, adr_: adr_, adrCode_: adrCode_, adrtext_: adrtext_, BIK_: BIK_, BNAME_: BNAME_, BKRS_: BKRS_, Shopid: Shopid, RS_: RS_, tlf_: tlf_, mail_: mail_, vk_: vk_, ok_: ok_, fb_: fb_, tw_: tw_}
+        isSuccess: isSuccess, Inn_: Inn_, OGRN_: OGRN_, Name_: Name_, KPP_: KPP_, OKPO_: OKPO_, adr_: adr_, adrCode_: adrCode_, adrtext_: adrtext_, BIK_: BIK_, BNAME_: BNAME_, BKRS_: BKRS_, Shopid: Shopid, RS_: RS_, tlf_: tlf_, mail_: mail_, vk_: vk_, ok_: ok_, fb_: fb_, tw_: tw_
+    }
 }
 function GetBankByBIK(bik_) {
     var obj = { BIK: bik_ };
@@ -5696,7 +5728,7 @@ function GetBankByBIK(bik_) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         //async: false,
-        success: function(result) {
+        success: function (result) {
             //console.log(JSON.stringify(result))
             // console.log(result);
             var jsondata = JSON.stringify(result.ResultData);
@@ -6000,22 +6032,22 @@ function ErrorForControls(e, text) {
     if (e_class.indexOf('select2-hidden-accessible') != -1) {
         $(e).parent().find('.select2-selection').attr('style', 'border-color:#f06d06 !important')
         if (text != undefined) {
-            
+
             $(e).next().next('label').hide()
-           
+
             if ($(e).parent().children('#ErrorLabel_').length == 0) {
                 $(e).next().next('label').after('<label id="ErrorLabel_" title="' + text + '" class="w-95 transp backLab" style="color:red">' + text + '</label>')
             }
             var select2Id = $(e).attr('id');
             var spanId = '#select2-' + select2Id + '-container'
-            
+
             $(spanId).attr('title', text)
             window.setTimeout(function () {
-            
+
                 $('#ErrorLabel_').remove()
                 $(e).next().next('label').show()
-                 
-               
+
+
 
             }, 5000);
         }
@@ -6026,8 +6058,8 @@ function ErrorForControls(e, text) {
     else {
         $(e).attr('style', 'border-color:#f06d06;')
     }
-    var position = $(e).offset().top 
-    position = (window.location.pathname != '/Client_Admin/CreateOrg.aspx') ? $(e).offset().top : $(e).offset().top - 100
+    var position = $(e).offset().top
+    position = (window.location.pathname != '/Client_Admin/CreateOrg.aspx' && window.location.pathname != '/Client_Admin/ProfileSettings.aspx') ? $(e).offset().top : $(e).offset().top - 100
     $("html, body").animate({ scrollTop: position }, "slow");
 
     window.setTimeout(function () { $(e).removeAttr('style'); $('#servicelbl').remove() }, 5000);
@@ -6926,46 +6958,46 @@ function GetSortedTable(srtd) {
     $("#UoBody tr:not(:first)").remove();
     var Id_ = new URL(location.href).searchParams.get('Id');
 
- 
-sessionStorage.setItem("Clien_ID", Id_)
-var obj9 = { sr_t: srtd, C: Id_ }
-$.ajax({
-    type: "POST",
-    url: "Accounts.aspx/getSortedTable",
-    data: JSON.stringify(obj9),
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    success: function (result) {
 
-        // console.log(result)
+    sessionStorage.setItem("Clien_ID", Id_)
+    var obj9 = { sr_t: srtd, C: Id_ }
+    $.ajax({
+        type: "POST",
+        url: "Accounts.aspx/getSortedTable",
+        data: JSON.stringify(obj9),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
 
-        var jsondata_ = JSON.parse(result.d)
+            // console.log(result)
 
-        //console.log(jsondata_)
-        for (var i = 0; i < jsondata_.length; i++) {
-            //console.log(jsondata_[i].LOG_IN_ID)
-            //<td ><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>******</a></td>
-            $("#uz1").after('<tr><td><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].LOG_IN_ID + '</a></td > <td ><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].ACCOUNT_NAME + '</a></td><td ><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].PHONE_NUMBER + '</a></td> <td><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].E_MAIL + '</a></td><td id="Mm' + jsondata_[i].LOG_IN_ID + '"></td><td id="Rr' + jsondata_[i].LOG_IN_ID + '"></td></tr >')
-            var to_ = "#Mm" + jsondata_[i].LOG_IN_ID
-            var To_2 = "#Rr" + jsondata_[i].LOG_IN_ID;
-            // $("#em" + jsondata_[i].LOG_IN_ID + "").after('""')
-            getModules_BylgId(to_, jsondata_[i].LOG_IN_ID)
-            getRoles_BylgId(To_2, jsondata_[i].LOG_IN_ID)
+            var jsondata_ = JSON.parse(result.d)
+
+            //console.log(jsondata_)
+            for (var i = 0; i < jsondata_.length; i++) {
+                //console.log(jsondata_[i].LOG_IN_ID)
+                //<td ><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>******</a></td>
+                $("#uz1").after('<tr><td><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].LOG_IN_ID + '</a></td > <td ><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].ACCOUNT_NAME + '</a></td><td ><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].PHONE_NUMBER + '</a></td> <td><a href="CreateAccount.aspx" onclick=DetailAcc(' + jsondata_[i].LOG_IN_ID + ')>' + jsondata_[i].E_MAIL + '</a></td><td id="Mm' + jsondata_[i].LOG_IN_ID + '"></td><td id="Rr' + jsondata_[i].LOG_IN_ID + '"></td></tr >')
+                var to_ = "#Mm" + jsondata_[i].LOG_IN_ID
+                var To_2 = "#Rr" + jsondata_[i].LOG_IN_ID;
+                // $("#em" + jsondata_[i].LOG_IN_ID + "").after('""')
+                getModules_BylgId(to_, jsondata_[i].LOG_IN_ID)
+                getRoles_BylgId(To_2, jsondata_[i].LOG_IN_ID)
+            }
+
+
+        },
+
+        error: function (r) {
+            // //alert("Error");
+            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function (r) {
+            alert("FAIL");
         }
-
-
-    },
-
-    error: function (r) {
-        // //alert("Error");
-        console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-    },
-    failure: function (r) {
-        alert("FAIL");
-    }
-});
+    });
 }
- 
+
 
 function Sortedby(e, srt) {
     // sessionStorage.setItem("ss", srt);
@@ -7075,24 +7107,23 @@ function GetRoleByModule(lg, itemid, slctdR) {//GetRoleByModule
 function DetailAcc(accLogId) {
     sessionStorage.setItem("ComesTo", "");
     sessionStorage.setItem("LogId", accLogId)
-    window.location.href ="CreateAccount.aspx"
+    window.location.href = "CreateAccount.aspx"
 }
 
-function checkControls_Accounts()
-{
+function checkControls_Accounts() {
     var isSuccess = true
     $('[required="required"]').each(function () {
         var value = $(this).val();
         if (isSuccess == true) {
             var id = $(this).attr('Id')
             var Original_text = $('label[for="' + id + '"]').text();
-                if (value.length == 0) {
-                    $('.counter').remove()
-                    Original_text = 'Необходимо заполнить поле "' + Original_text + '"'
-                    ErrorForControls($(this), Original_text)
-                    isSuccess = false
-                }
-            
+            if (value.length == 0) {
+                $('.counter').remove()
+                Original_text = 'Необходимо заполнить поле "' + Original_text + '"'
+                ErrorForControls($(this), Original_text)
+                isSuccess = false
+            }
+
 
         }
         else {
@@ -7115,19 +7146,25 @@ function checkControls_Accounts()
     for (var i = 0; i < countofItem; i++) {
         Modul = $(".mdls:eq(" + i + ") option:selected").val();
         Role = $(".rls:eq(" + i + ") option:selected").val();
-      
+
         if (Modul != 0 && Role != 0) {
 
             Modules_Roles.push({ 'sm': Modul, 'sr': Role })
         }
     }
-    if (Modules_Roles.length==0) {
+    if (Modules_Roles.length == 0) {
         ErrorForControls($('.mdls'), "Выберите Модуль и роль")
         ErrorForControls($('.rls'), "Выберите Модуль и роль")
         isSuccess = false
     }
-
-    return { isSuccess: isSuccess, SMSR: Modules_Roles, Login: Login, email: email, pass: pass, phone: phone, FirstName: FirstName, SecondName: SecondName, MiddleName: MiddleName}
+    if (isSuccess == true) {
+        var phone_succ = $("#phone1").attr('data-succ')
+        if (phone_succ != undefined) {
+            isSuccess = false
+            ErrorForControls($("#phone1"), "Такой телефонный номер уже зарегистрирован.")
+        }
+    }
+    return { isSuccess: isSuccess, SMSR: Modules_Roles, Login: Login, email: email, pass: pass, phone: phone, FirstName: FirstName, SecondName: SecondName, MiddleName: MiddleName }
 }
 function ChangeRole(itemid) {
     $("#mrsIm").hide()

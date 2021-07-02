@@ -35,7 +35,7 @@ namespace Kvorum_App
         {
             //  DeleteAccuntIdendity();
             // CreateAccoountIdendity("orx@gmail", "123456Aa");
-            CHeckIdendityPhone();
+          //  CHeckIdendityPhone();
            // UpdateAccuntIdendity();
             #region For Test
             //string values_T = "{T1: \"1\",T2:\"2\", T3:\"3\"}";

@@ -1,164 +1,201 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Client_Admin/Client.Master" AutoEventWireup="true" CodeBehind="ProfileSettings.aspx.cs" Inherits="Kvorum_App.Client_Admin.ProfileSettings" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UPRAVOD</title>
-      <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/Navigation-Clean1.css">
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/styles.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-           <h2>Настройки профиля</h2>
-       
-     
-            
- <div class="polya">
-                <h4>Персональные данные клиента</h4>
-                <span id="fioS" style="float: right; font-weight:bold;color:red;display:none">""</span>
-                <label>ФИО </label>
-                <input type="text" id="fio" />
-                 <span id="emailS" style="float: right; font-weight:bold;color:red;display:none">""</span>
-                <label>E-mail </label>
-                <input type="text" id="email" />
-                
-               <span id="telS" style="float: right; font-weight:bold;color:red;display:none">""</span>
-                <label>Мобильный телефон</label>
-                <input type="text" id="tel" />
-                
-                
-                <input style="display:none" type="checkbox"/>
-                <label style="display:none"  class="checkBx">Включить двухфакторную аутентификацию при входе</label> 
-                 
-    
-                <br />
-              <span id="CpassN" style="float: right; font-weight:bold;color:red;display:none">""</span>
-                <label>Пароль </label>
-                    <input type="password" id="pass" placeholder="Действующий пароль" class="inputPswdBlock"/>
-       <span id="passN" style="float: left; font-weight:bold;color:red;display:none">""</span>
-                    <input type="password" id="NPass" placeholder="Новый пароль" class="inputPswdBlock"/>
-     <span id="passR" style=" font-weight:bold;color:red;display:none">""</span>
-                    <input type="password" id="RPass" placeholder="Повторите новый пароль" class="inputPswdBlock"/>
-                
-                
-                <input style="display:none" type="checkbox"/>
-                <label style="display:none" class="checkBx">Включить рассылку новостей в личный кабинет жителя</label>
-               
-                    
-                <br />
-                
-                <h4>Сведения, необходимые для заключения договора</h4>
-                <span id="typES" style="float: right; font-weight:bold;color:red;display:none">""</span>
-                <label>Вид организации</label>
-                    <select id="typE">
-                         <option value="0" id="first" >Выберите вид организации</option>
-                       <%-- <option value="12" selected="">Юридическое лицо</option>
-                        <option value="">Индивидуальный предприниматель</option>--%>
-                    </select>
-                <span id="CompNameS" style="float: right; font-weight:bold;color:red;display:none">""</span>
-                <label>Наименование организации</label>
-                    <input type="text" id="CompName" />
-                <!--
-                <label>Фамилия </label>
-                    <input type="text" />
-                
-                <label>Имя </label>
-                    <input type="text" />
-                
-                <label>Отчество </label>
-                    <input type="text" />
-                -->
-        <span id="INNS" style="float: right; font-weight:bold;color:red;display:none">""</span>
-                <label>ИНН* </label>
-    
-                    <input type="text" maxlength="10" id="INN" />
-                 <span id="OGRNS" style="float: right; font-weight:bold;color:red;display:none">""</span>
-                <label id="ogrnH">ОГРН/ОГРНИП </label>
-                    <input type="text" id="OGRN" maxlength="13" />
-                <span id="okpoS" style="float: right; font-weight:bold;color:red;display:none">""</span>
-                <label>ОКПО </label>
-                    <input type="text" id="okpo" maxlength="10"/>
-                 <span id="kppS" style="float: right; font-weight:bold;color:red;display:none">""</span>
-                <label id="kppH" style="display:none">КПП </label>
-                    <input type="text" style="display:none"  id="kpp" maxlength="9"/>
-                
-                <br />
-     <span id="adrS" style="float: right; font-weight:bold;color:red;display:none">""</span>
-     <h4>Юридический адрес</h4>
-     <div style="padding: 5px 8px;border: 1px solid #ddd;background-color: #F4F4F8;">
-         <label>Область, город, район, улица</label>
-     
-                <input type="text" id="adr" list="adrList">
-                    <datalist id="adrList">
-                   
-                    </datalist>
-               
-                    <input id="manu" style="margin-left: inherit;" type="checkbox"> 
-                   <label for="manu" class="checkOut">Ввести вручную</label>
- 
-            <div class="row" style="margin-right: -15px;">
-                <div class="col-xs-6">
-                    <span id="DOMS" style="float: right; font-weight:bold;color:red;display:none">""</span>
-                    <label for="DOM">Дом</label>
-                    <input type="text" id="dom">
+    <div class="row w-100 m-0 min-vh-100">
+        <div class="col-sm-12 p-0">
+
+            <div class="row p-4 m-0">
+                <div class="col-lg-6 col-sm-12">
+
+                    <div class="bgWhite rounded16 shadow w-100 p-4">
+
+                        <div class="flexHoriz w-100" id="infoCount">
+                            <h2 id="profilSettings" class="font24b textBlack">Настройки профиля</h2>
+
+                        </div>
+                      <div class="w-100 flexHoriz flex-wrap justify-content-between">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" required="required" class="FirstName" id="FirstName">
+                                <label for="FirstName" class="transp backLab">Имя</label>
+                            </div>
+                        </div>
+                        <div class="w-100 flexHoriz flex-wrap justify-content-between">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" required="required" class="SecondName" id="SecondName">
+                                <label for="SecondName" class="transp backLab">Фамилия</label>
+                            </div>
+                        </div>
+                        <div class="w-100 flexHoriz flex-wrap justify-content-between">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" class="MiddleName" id="MiddleName">
+                                <label for="MiddleName" class="transp backLab">Отчество</label>
+                            </div>
+                        </div>
+
+
+                        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" required="required" id="email" class="email">
+                                <label for="email" class="transp backLab">E-mail </label>
+                            </div>
+                        </div>
+                        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" onkeyup="MaskPhone(this)" required="required" id="tel" class="email">
+                                <label for="tel" class="transp backLab">Мобильный телефон</label>
+                            </div>
+                        </div>
+                <%--        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="password" id="pass" class="pass">
+                                <label for="pass" class="transp backLab">Пароль</label>
+                            </div>
+                        </div>
+                        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="password" id="passN" class="passN">
+                                <label for="passN" class="transp backLab">Новый пароль</label>
+                            </div>
+                        </div>
+                        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="password" id="RPass" class="RPass">
+                                <label for="RPass" class="transp backLab">Повторите новый пароль</label>
+                            </div>
+                        </div>--%>
+                        <h3>Сведения, необходимые для заключения договора</h3>
+                        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <select required="required" id="typE">
+                                    <option value="0">Выберите вид организации</option>
+                                    
+                                </select>
+                                <label for="typE" class="transp backLab">Вид организации</label>
+                            </div>
+                        </div>
+                         <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" id="CompName" required="required" class="CompName">
+                                <label for="CompName" class="transp backLab">Наименование организации *</label>
+                            </div>
+
+                        </div>
+                        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text"   required="required" class="Inn" id="INN" maxlength="10">
+                                <label for="INN" class="transp backLab">ИНН*</label>
+                            </div>
+
+                        </div>
+
+
+                        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" id="OGRN" required="required" class="OGRN" maxlength="13">
+                                <label for="OGRN" class="transp backLab">ОГРН *</label>
+                            </div>
+
+                        </div>
+
+
+                        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" id="OKPO" required="required" maxlength="10" class="OKPO">
+                                <label for="OKPO" class="transp backLab">ОКПО *</label>
+                            </div>
+
+                        </div>
+                       
+                         <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" id="KPP" required="required" maxlength="9" class="KPP">
+                                <label for="KPP" class="transp backLab">КПП *</label>
+                            </div>
+
+                        </div>
+
+                        
+                        <div class="w-100 flexHoriz flex-wrap justify-content-between">
+                            <h5>Юридический адрес</h5>
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" id="adr" required="required" class="adr" list="adrList">
+                                <label for="adr" class="transp backLab">Область, город, район, улица</label>
+                            </div>
+                            <div class="w-100 mb-3">
+                                <input id="manu" class="checkbox-item" type="checkbox">
+                                <label for="manu">Ввести вручную</label>
+                            </div>
+                            <div class="posRel w-48">
+
+
+                                <input type="text" required="required" class="DOM" id="DOM">
+                                <label for="DOM" class="transp backLab">Дом</label>
+                            </div>
+                            <div class="posRel w-48">
+
+                                <input type="text" required="required" class="KORP" id="KORP">
+                                <label for="KORP" class="transp backLab">Строение/корпус</label>
+                            </div>
+
+                        </div>
+                        <hr />
+                        <h5>Реквизиты для оплаты услуг клиентами</h5>
+                        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" id="bik" required="required" maxlength="9" class="bik">
+                                <label for="bik" class="transp backLab">БИК  *</label>
+                            </div>
+                        </div>
+                        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" disabled="disabled" required="required" id="BNAME" class="BNAME">
+                                <label for="BNAME" class="transp backLab">Наименование банка</label>
+                            </div>
+                        </div>
+                        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" disabled="disabled" required="required" id="BKRS" maxlength="20" class="BKRS">
+                                <label for="BKRS" class="transp backLab">Корреспондентский счет</label>
+                            </div>
+                        </div>
+
+                        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" id="RS" maxlength="20" required="required" class="RS">
+                                <label for="RS" class="transp backLab">Расчетный счет  *</label>
+                            </div>
+                        </div>
+
+                        
+                        <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" id="INNB" maxlength="10" required="required" class="INNB">
+                                <label for="INNB" class="transp backLab">ИНН банка</label>
+                            </div>
+                        </div>
+                          <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" id="KPPB" maxlength="9" required="required" class="KPPB">
+                                <label for="KPPB" class="transp backLab">КПП банка</label>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3 mb-3" id="btns">
+                            <div class="col-sm-12 ">
+                                <button class="btn btn1 h56 mr-2" id="SaveChanges"><strong>Сохранить изменения</strong></button>
+                            </div>
+
+                        </div>
+                        <!-- row -->
+                    </div>
+                    <!-- wrapper -->
                 </div>
-                <div class="col-xs-6">
-                     
-                    <label for="KORP">Строение/корпус</label>
-                    <input type="text" id="korp">
-                </div>
+
             </div>
-     </div>
-                
-     <h4>Реквизиты для оплаты услуг клиентами</h4>
-     <span id="bikS" style="float: right; font-weight:bold;color:red;display:none">""</span>
-     <label>БИК</label>
-     <input type="text" id="bik" maxlength="9">
-     <span id="BNAMES" style="float: right; font-weight:bold;color:red;display:none">""</span>
-      <label>Наименование банка</label>
-      <input type="text" id="BNAME">
-      <span id="BKRSS" style="float: right; font-weight:bold;color:red;display:none">""</span>
-      <label>Корреспондентский счет</label>
-      <input type="text" id="BKRS" maxlength="20">
-      <span id="RSS" style="float: right; font-weight:bold;color:red;display:none">""</span>
-      <label>Расчетный счет</label>
-      <input type="text" id="RS" maxlength="20">
-      <span id="INNBS" style="float: right; font-weight:bold;color:red;display:none">""</span>
-       <label>ИНН банка</label>
-                    <input type="text" maxlength="10" id="INNB" />
-     <span id="KPPBS" style="float: right; font-weight:bold;color:red;display:none">""</span>
-     <label>КПП банка</label>
-                    <input type="text" maxlength="9" id="KPPB" />
-               <%-- 
-                
-                <label>Наименование банка</label>
-                    <input type="text" />
-                
-                <label>ИНН банка</label>
-                    <input type="text" />
-                
-                <label>КПП банка</label>
-                    <input type="text" />
-                
-                <label>БИК </label>
-                    <input type="text" />
-                
-                <label>Кор. счет</label>
-                    <input type="text" />
-                
-                <label>Расчетный счет</label>
-                    <input type="text" />--%>
-                
-                    
-      
-                <div class="">
-                
-                    <button id="SaveChanges" class="btn btn-default logBtn" type="button" style="background-color:rgb(0,147,233);width:auto;">Сохранить изменения</button>
-                   <%-- <button id="backUo" class="btn btn-default logBtn" type="button" style="background-color:rgb(149,153,156);margin-left:5%;">Отмена</button>--%>
-                </div>
 
+            <!-- row -->
         </div>
-
-       <%-- <a href="#" class="genBtn btn"style="margin-left:20px;">Настройка платежных систем</a>--%>
+    </div>
 </asp:Content>

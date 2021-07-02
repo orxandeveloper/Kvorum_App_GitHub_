@@ -34,19 +34,19 @@
                         </div>
                         <div class="w-100 flexHoriz flex-wrap justify-content-between">
                             <div class="posRel w-100 mb-3">
-                                <input type="text"  required="required" class="FirstName" id="FirstName">
+                                <input type="text" required="required" class="FirstName" id="FirstName">
                                 <label for="FirstName" class="transp backLab">Имя</label>
                             </div>
                         </div>
-                           <div class="w-100 flexHoriz flex-wrap justify-content-between">
+                        <div class="w-100 flexHoriz flex-wrap justify-content-between">
                             <div class="posRel w-100 mb-3">
-                                <input type="text"  required="required" class="SecondName" id="SecondName">
+                                <input type="text" required="required" class="SecondName" id="SecondName">
                                 <label for="SecondName" class="transp backLab">Фамилия</label>
                             </div>
                         </div>
-                         <div class="w-100 flexHoriz flex-wrap justify-content-between">
+                        <div class="w-100 flexHoriz flex-wrap justify-content-between">
                             <div class="posRel w-100 mb-3">
-                                <input type="text"  class="MiddleName" id="MiddleName">
+                                <input type="text" class="MiddleName" id="MiddleName">
                                 <label for="MiddleName" class="transp backLab">Отчество</label>
                             </div>
                         </div>
@@ -65,34 +65,33 @@
                             </div>
                         </div>
                         <div id="mrss" itemid="0" class="mrss w-100 flexHoriz flex-wrap justify-content-between">
-                             <div class="posRel w-40" itemid="0">
-                                    <select class="mdls" onchange="GetRoleByModule(0,0,0)" id="m0" itemid="0">
-                                        <option value="0" id="">Выберите Модуль</option>
-                                    </select>
-                                   <label for="m0" class="transp backLab">Модуль</label>
-                                </div>
-                                <div class="posRel w-40" itemid="0">
-                                    <select class="rls" onchange="ChangeRole(0)" itemid="0">
-                                        <option value="0">Выберите Роль</option>
-                                    </select>
-                                     <label for="r0" class="transp backLab">Роль</label>
-                                </div>
-                                <div class="posRel w-20" style="display:none" itemid="0">
-                                    <input class="knp del btn btn1 h56 outline shadow-none flexCenter" onclick="delElements(0)" type="button" itemid="0" value="Удалить">
-                                </div>
-                           
+                            <div class="posRel w-40" itemid="0">
+                                <select class="mdls" onchange="GetRoleByModule(0,0,0)" id="m0" itemid="0">
+                                    <option value="0" id="">Выберите Модуль</option>
+                                </select>
+                                <label for="m0" class="transp backLab">Модуль</label>
+                            </div>
+                            <div class="posRel w-40" itemid="0">
+                                <select class="rls" onchange="ChangeRole(0)" itemid="0">
+                                    <option value="0">Выберите Роль</option>
+                                </select>
+                                <label for="r0" class="transp backLab">Роль</label>
+                            </div>
+                            <div class="posRel w-20" style="display: none" itemid="0">
+                                <input class="knp del btn btn1 h56 outline shadow-none flexCenter" onclick="delElements(0)" type="button" itemid="0" value="Удалить">
+                            </div>
+
                         </div>
-                       <div class="flexHoriz justify-content-between mt-3">
+                        <div class="flexHoriz justify-content-between mt-3">
                             <div class="posRel w-20 mb-3">
-                              <input class="knp1 deActiveAdd btn btn1 h56 outline shadow-none flexCenter" onclick="AddMRSS()" disabled="disabled" type="button" value="Добавить">
-                               
+                                <input class="knp1 deActiveAdd btn btn1 h56 outline shadow-none flexCenter" onclick="AddMRSS()" disabled="disabled" type="button" value="Добавить">
                             </div>
                         </div>
                         <div class="row mt-3 mb-3" id="btns">
                             <div class="col-sm-12 ">
-                                <button id="CreateAcc" class="btn btn1 h56 mr-2" ><strong>Создать новую учетную запись</strong></button>
+                                <button id="CreateAcc" class="btn btn1 h56 mr-2"><strong>Создать новую учетную запись</strong></button>
 
-                                <button id="backAcc" class="btn btn1 h56 outline shadow-none flexCenter"  >Назад</button>
+                                <button id="backAcc" class="btn btn1 h56 outline shadow-none flexCenter">Назад</button>
 
                                 <a id="myBtn" href="#" role="button" style="display: none" class="create font18b position-relative delObj">
                                     <img src="../img/ic-bin.svg" class="mr-3 position-absolute d-flex ml-n4" alt="">
@@ -110,6 +109,6 @@
             <!-- row -->
         </div>
     </div>
-     
+
 
 </asp:Content>
