@@ -2085,6 +2085,7 @@
     }
     if (loc == "/Client_Admin/CreateDisp.aspx") {
         getPhone();
+        var Disp_ID = sessionStorage.getItem("Disp_ID")
         sessionStorage.setItem("currentDatas", "");
         var csmf = sessionStorage.getItem("cmsf_O")
         GetProjectsByClient(Id)
@@ -2183,352 +2184,199 @@
             }
         })
 
-        csmf = (csmf == "") ? sessionStorage.getItem("cmsf_a") : csmf;
-        if (csmf == "") {
-          
-            GetAccForDisp(Id, 4, 3, "")
-            GetAccFor_Tex_and_Engnrs(Id, 4, 6, "")
-            GetAccFor_Responsibles(Id, 1,16, "")
-           
+        if (Disp_ID == undefined || Disp_ID == ""|| Disp_ID == null) {
+      csmf = (csmf == "") ? sessionStorage.getItem("cmsf_a") : csmf;
+            if (csmf == "") {
 
-        }
-        else {
-            var sel_Obj = sessionStorage.getItem("selObj");
-            sel_Obj = JSON.parse(sel_Obj)
-            var prj = sessionStorage.getItem('prj')
-            GetProjectsByClient(Id, prj)
-            if (prj!=0) {
-                $('#objcts').empty()
-                GetOpjectsForDisp(Id, prj, sel_Obj)
-            }
-            var sel_Disps = sessionStorage.getItem("selDisps");
-            sel_Disps = JSON.parse(sel_Disps)
-            GetAccForDisp(Id, 4, 3, sel_Disps)
-            var s_Injs = sessionStorage.getItem("sInjs");
-            s_Injs = JSON.parse(s_Injs);
-          //  GetAccForEngnrs(Id, s_Injs);
-            GetAccFor_Tex_and_Engnrs(Id, 4, 6, s_Injs)
-            var Resps = sessionStorage.getItem('Resps')
-            Resps = JSON.parse(Resps)
-            GetAccFor_Responsibles(Id, 1, 16, Resps)
-            var simg = sessionStorage.getItem("SImage");
-            simg = simg.replace('"', '').replace('"', '').replace('"', '')
-            $(".SImage").attr('src', simg)
-            var n_disp = sessionStorage.getItem('ndisp')
-            $("#DispName").val(n_disp)
+                GetAccForDisp(Id, 4, 3, "")
+                GetAccFor_Tex_and_Engnrs(Id, 4, 6, "")
+                GetAccFor_Responsibles(Id, 1, 16, "")
 
 
-
-
-            sessionStorage.removeItem('ndisp')
-            sessionStorage.setItem('cmsf_O', "");
-            sessionStorage.setItem('cmsf_a', "");
-        }
-
-        $("#backD").click(function () { window.location.href = "/Client_Admin/Disp.aspx" })
-        $("#telDisp").keyup(function () { $("#TlDIsp,#yesTelDisp").hide() })
-        $("#DispName").keyup(function () { $("#NMDIsp,#yesNMDisp").hide() })
-        $('#filesB').click(function () { $('#files').click(); })
-        $("#files").change(function () {
-
-            var filePath = $('#files').val();
-
-            if (filePath.length != 0) {
-                $("#loader,.ui-loader-background").show();
-                var index = filePath.lastIndexOf("\\") + 1;
-                var filename = filePath.substr(index);
-                var ext = this.value.split('.').pop();
-                ext = ext.toLowerCase()
-                // console.log(ext);
-                if (ext == "jpg" || ext == "png") {
-                    readURL(this, filename);
-                    $("#flS").hide();
-                }
-                else {
-                    $("#loader,.ui-loader-background").hide();
-                    $("#flS").text("Неверный  формат файла ").show();
-                }
-            }
-
-        })
-        function readURL(input, imgName) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.readAsDataURL(input.files[0]);
-                reader.onload = function (e) {
-
-
-                    $('.foto-disp').attr('src', e.target.result);
-
-                    //var nameImg = imgName
-                    //var arrayBuffer = reader.result
-                    //var bytes = new Uint8Array(arrayBuffer);
-                    //var obj = { baseString: bytes, imgName: nameImg };
-                    var formData = new FormData();
-                    var file = document.getElementById("files").files[0];
-
-                    formData.append('file', file, encodeURI(file.name));
-                    formData.append('object_id', '1');
-                    //console.log(formData);
-
-
-
-                    $.ajax({
-                        type: "POST",
-                        url: 'http://172.20.20.24/WCFServices/Constructor_API.svc/UploadFile',//window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/UploadFile",
-                        data: formData,
-                        //cache: false,
-                        type: 'POST',
-                        //async:false,
-                        contentType: "multipart/form-data",
-                        processData: false,
-                        success: function (result) {
-
-                            //alert("OK. See Console -  press F12");
-                            //console.log(JSON.stringify(result)); $("#resulter").text(JSON.stringify(result));
-                            //var jsondata_1 = jQuery.parseJSON(result)
-                            //var jsondata_1 = JSON.stringify(result)
-                            // var jsondata_1 = JSON.parse(result)
-                            $('#fDiv4').remove();
-                            $('.foto-disp').attr('class', 'foto-disp')
-                            $('#fDiv3').after('<div id="fDiv4" class="posRel h56 rounded-lg mb-4 w-50 pointer"> <img class="foto-disp SImage" id="fotoDisp1" onclick="SImage(this)" src="' + result.URL.replace('~', window.location.protocol + '//' + window.location.host + '/') + '"> </div>')
-                            // $('.foto-disp').attr('src', result.URL.replace('~', window.location.protocol + '//' + window.location.host + '/'))
-                            $("#loader,.ui-loader-background").hide();
-
-                        },
-
-                        error: function (r) {
-
-                            //  //alert("Error");
-                            //  console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-                            $("#loader,.ui-loader-background").hide();
-                            var filePath = $('#files').val();
-                            var index = filePath.lastIndexOf("\\") + 1;
-                            var filename = filePath.substr(index);
-                            //readURL(input, filename)
-                        },
-                        complete: function (r) {
-                            //var jsonEroorData = JSON.parse(r);
-
-                            //if (r.readyState == 4 && r.status == 200) { //do something }; 
-                            //    $('.foto-disp').attr('src', result.URL.replace('~', '..'))
-                            //    $("#loader,.ui-loader-background").hide();
-                            //}
-                        },
-                        failure: function (r) {
-                            alert("FAIL");
-                        }
-                    });
-
-
-                }
-
-
-            }
-        }
-        $("#saveD").click(function () {
-
-            if (checkControls_Disp().IsSuccess == true) {
-                var obj = {
-                    Dsts: 0,
-                    icon: checkControls_Disp().icon__,
-                    NDisp: checkControls_Disp().DispName,
-                    PhDisp: checkControls_Disp().telDisp,
-                    C: Id,
-                    objs: checkControls_Disp().Objcts,
-                    DispAcc: checkControls_Disp().Disps,
-                    Spess: checkControls_Disp().Spess,
-                    Resps: checkControls_Disp().Resps
-                };
-
-                CRDisp(obj);
-            }
-        })
-      
-        $("#saveActD").click(function () {
-            var DispName = $("#DispName").val();
-            if (DispName.length != 0) {
-
-                var telDisp = $("#telDisp").val();
-                if (telDisp.length != 0) {
-                    $("#yesTelDisp").hide();
-                    $("#TlDIsp").hide()
-
-                    //var Objcts = JSON.parse(sessionStorage.getItem("Sobjcts"))
-                    var Objcts = [];//JSON.parse(sessionStorage.getItem("Sobjcts"))//Must refactering Object_Id
-                    $("#objcts input[type=checkbox]").each(function () {
-
-                        if ($(this).is(":checked")) {
-                            Objcts.push({ Object_Id: $(this).attr('itemid') });
-                            //sessionStorage.setItem(selectedObj)
-
-                        }
-                    })
-
-                    if (Objcts != null) {
-                        if (Objcts.length != 0) {
-                            $("#yesObDisp").hide();
-                            $("#ObDIsp").hide()
-                            // var Disps = JSON.parse(sessionStorage.getItem("SDisps"))
-                            var Disps = [] //JSON.parse(sessionStorage.getItem("SDisps"))  LOG_IN_ID /KPP
-                            $("#Disps input[type=checkbox]").each(function () {
-
-                                if ($(this).is(":checked")) {
-                                    Disps.push({ LOG_IN_ID: $(this).attr('itemid') });
-                                    //sessionStorage.setItem(selectedObj)
-
-                                }
-                            })
-                            if (Disps != null) {
-
-                                if (Disps.length != 0) {
-                                    $("#yesDDisp").hide();
-                                    $("#DDIsp").hide()
-                                    //  var Enginers = JSON.parse(sessionStorage.getItem("SENG"))
-                                    var Enginers = []
-                                    $("#engnrs input[type=checkbox]").each(function () {
-
-                                        if ($(this).is(":checked")) {
-                                            Enginers.push({ LOG_IN_ID: $(this).attr('itemid') });
-                                            //sessionStorage.setItem(selectedObj)
-
-                                        }
-                                    })
-                                    if (Enginers != null) {
-                                        if (Enginers.length != 0) {
-                                            $("#yesEngDisp").hide();
-                                            $("#EngDIsp").hide()
-
-                                            //  var Tex = JSON.parse(sessionStorage.getItem("STEX"))
-                                            var Tex = []//JSON.parse(sessionStorage.getItem("STEX"))LOG_IN_ID
-                                            $("#tex input[type=checkbox]").each(function () {
-
-                                                if ($(this).is(":checked")) {
-                                                    Tex.push({ LOG_IN_ID: $(this).attr('itemid') });
-                                                    //sessionStorage.setItem(selectedObj)
-
-                                                }
-                                            })
-                                            if (Tex != null) {
-                                                if (Tex.length != 0) {
-                                                    $("#yesTExDisp").hide();
-                                                    $("#TExDIsp").hide()
-                                                    var icon_ = $("#fotoDisp").attr('src');
-                                                    var obj = {
-                                                        Dsts: 1,
-                                                        icon: icon_,
-                                                        NDisp: DispName,
-                                                        PhDisp: telDisp,
-                                                        C: Id,
-                                                        objs: Objcts,
-                                                        DispAcc: Disps,
-                                                        EngAcc: Enginers,
-                                                        TexAcc: Tex
-                                                    };
-
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        url: "CreateDisp.aspx/CRDisp",
-                                                        data: JSON.stringify(obj),
-                                                        contentType: "application/json; charset=utf-8",
-                                                        dataType: "json",
-                                                        success: function (result) {
-                                                            var log_Id = sessionStorage.getItem("Log")
-                                                            SaveLog("Активировать", "Простое", "Администратор", "Клиентское администрирование", "Активация Диспетчерской (" + DispName + ")", log_Id);
-                                                            window.location.href = "Disp.aspx"
-                                                        },
-                                                        error: function (r) {
-                                                            // //alert("Error");
-                                                            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-                                                        },
-                                                        failure: function (r) {
-                                                            alert("FAIL");
-                                                        }
-                                                    });
-                                                }
-                                                else {
-                                                    $("#yesTExDisp").show();
-                                                    $("#TExDIsp").text("Пожалуйста, выберите Техника").show()
-                                                }
-
-
-                                            }
-                                            else {
-                                                //yesTExDisp
-                                                //TExDIsp
-                                                $("#yesTExDisp").show();
-                                                $("#TExDIsp").text("Пожалуйста, выберите техника").show()
-                                            }
-                                        }
-                                        else {
-                                            $("#yesEngDisp").show();
-                                            $("#EngDIsp").text("Пожалуйста, выберите инженера").show()
-                                            $("html, body").animate({ scrollTop: 500 }, "slow");
-                                        }
-
-                                    }
-                                    else {
-                                        //yesEngDisp
-                                        //EngDIsp
-                                        $("#yesEngDisp").show();
-                                        $("#EngDIsp").text("Пожалуйста, выберите инженера").show()
-                                        $("html, body").animate({ scrollTop: 500 }, "slow");
-                                    }
-                                }
-                                else {
-                                    $("#yesDDisp").show();
-                                    $("#DDIsp").text("Пожалуйста, выберите диспетчера").show()
-                                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                                }
-
-                            }
-                            else {
-                                //yesDDisp
-                                //DDIsp
-                                $("#yesDDisp").show();
-                                $("#DDIsp").text("Пожалуйста, выберите диспетчера").show()
-                                $("html, body").animate({ scrollTop: 50 }, "slow");
-                            }
-                        }
-                        else {
-                            $("#yesObDisp").show();
-                            $("#ObDIsp").text("Пожалуйста, выберите Объект диспетчерской").show()
-                            $("html, body").animate({ scrollTop: 50 }, "slow");
-                        }
-
-                    }
-                    else {
-                        //yesObDisp
-                        //ObDIsp
-                        $("#yesObDisp").show();
-                        $("#ObDIsp").text("Пожалуйста, выберите Объект диспетчерской ").show()
-                        $("html, body").animate({ scrollTop: 50 }, "slow");
-                    }
-
-                }
-                else {
-                    $("#yesTelDisp").show();
-                    $("#TlDIsp").text("Пожалуйста, не оставляйте пустым данное поле").show()
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                }
-
-                $("#yesNMDisp").hide();
-                $("#NMDIsp").hide()
             }
             else {
-                $("#yesNMDisp").show();
-                $("#NMDIsp").text("Пожалуйста, не оставляйте пустым данное поле").show()
-                $("html, body").animate({ scrollTop: 50 }, "slow");
+                var sel_Obj = sessionStorage.getItem("selObj");
+                sel_Obj = JSON.parse(sel_Obj)
+                var prj = sessionStorage.getItem('prj')
+                GetProjectsByClient(Id, prj)
+                if (prj != 0) {
+                    $('#objcts').empty()
+                    GetOpjectsForDisp(Id, prj, sel_Obj)
+                }
+                var sel_Disps = sessionStorage.getItem("selDisps");
+                sel_Disps = JSON.parse(sel_Disps)
+                GetAccForDisp(Id, 4, 3, sel_Disps)
+                var s_Injs = sessionStorage.getItem("sInjs");
+                s_Injs = JSON.parse(s_Injs);
+                //  GetAccForEngnrs(Id, s_Injs);
+                GetAccFor_Tex_and_Engnrs(Id, 4, 6, s_Injs)
+                var Resps = sessionStorage.getItem('Resps')
+                Resps = JSON.parse(Resps)
+                GetAccFor_Responsibles(Id, 1, 16, Resps)
+                var simg = sessionStorage.getItem("SImage");
+                simg = simg.replace('"', '').replace('"', '').replace('"', '')
+                $(".SImage").attr('src', simg)
+                var n_disp = sessionStorage.getItem('ndisp')
+                $("#DispName").val(n_disp)
+
+
+
+
+                sessionStorage.removeItem('ndisp')
+                sessionStorage.setItem('cmsf_O', "");
+                sessionStorage.setItem('cmsf_a', "");
             }
-        })
-        $("#AddAcc").click(function () {
-            
-            TemproSaveAndGo("CreateAccount.aspx")
-           
-        })
-        $("#AddOb").click(function () {
-            TemproSaveAndGo("CreateOpject.aspx")
-        })
+
+            $("#backD").click(function () { window.location.href = "/Client_Admin/Disp.aspx" })
+
+            $('#filesB').click(function () { $('#files').click(); })
+            $("#files").change(function () {
+
+                var filePath = $('#files').val();
+
+                if (filePath.length != 0) {
+                    $("#loader,.ui-loader-background").show();
+                    var index = filePath.lastIndexOf("\\") + 1;
+                    var filename = filePath.substr(index);
+                    var ext = this.value.split('.').pop();
+                    ext = ext.toLowerCase()
+                    // console.log(ext);
+                    if (ext == "jpg" || ext == "png") {
+                        readURL(this, filename);
+                        $("#flS").hide();
+                    }
+                    else {
+                        $("#loader,.ui-loader-background").hide();
+                        $("#flS").text("Неверный  формат файла ").show();
+                    }
+                }
+
+            })
+            function readURL(input, imgName) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(input.files[0]);
+                    reader.onload = function (e) {
+
+
+                        $('.foto-disp').attr('src', e.target.result);
+
+                        //var nameImg = imgName
+                        //var arrayBuffer = reader.result
+                        //var bytes = new Uint8Array(arrayBuffer);
+                        //var obj = { baseString: bytes, imgName: nameImg };
+                        var formData = new FormData();
+                        var file = document.getElementById("files").files[0];
+
+                        formData.append('file', file, encodeURI(file.name));
+                        formData.append('object_id', '1');
+                        //console.log(formData);
+
+
+
+                        $.ajax({
+                            type: "POST",
+                            url: 'http://172.20.20.24/WCFServices/Constructor_API.svc/UploadFile',//window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/UploadFile",
+                            data: formData,
+                            //cache: false,
+                            type: 'POST',
+                            //async:false,
+                            contentType: "multipart/form-data",
+                            processData: false,
+                            success: function (result) {
+
+                                //alert("OK. See Console -  press F12");
+                                //console.log(JSON.stringify(result)); $("#resulter").text(JSON.stringify(result));
+                                //var jsondata_1 = jQuery.parseJSON(result)
+                                //var jsondata_1 = JSON.stringify(result)
+                                // var jsondata_1 = JSON.parse(result)
+                                $('#fDiv4').remove();
+                                $('.foto-disp').attr('class', 'foto-disp')
+                                $('#fDiv3').after('<div id="fDiv4" class="posRel h56 rounded-lg mb-4 w-50 pointer"> <img class="foto-disp SImage" id="fotoDisp1" onclick="SImage(this)" src="' + result.URL.replace('~', window.location.protocol + '//' + window.location.host + '/') + '"> </div>')
+                                // $('.foto-disp').attr('src', result.URL.replace('~', window.location.protocol + '//' + window.location.host + '/'))
+                                $("#loader,.ui-loader-background").hide();
+
+                            },
+
+                            error: function (r) {
+
+                                //  //alert("Error");
+                                //  console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+                                $("#loader,.ui-loader-background").hide();
+                                var filePath = $('#files').val();
+                                var index = filePath.lastIndexOf("\\") + 1;
+                                var filename = filePath.substr(index);
+                                //readURL(input, filename)
+                            },
+                            complete: function (r) {
+                                //var jsonEroorData = JSON.parse(r);
+
+                                //if (r.readyState == 4 && r.status == 200) { //do something }; 
+                                //    $('.foto-disp').attr('src', result.URL.replace('~', '..'))
+                                //    $("#loader,.ui-loader-background").hide();
+                                //}
+                            },
+                            failure: function (r) {
+                                alert("FAIL");
+                            }
+                        });
+
+
+                    }
+
+
+                }
+            }
+            $("#saveD").click(function () {
+
+                if (checkControls_Disp().IsSuccess == true) {
+                    var obj = {
+                        Dsts: 0,
+                        icon: checkControls_Disp().icon_,
+                        NDisp: checkControls_Disp().DispName,
+                        PhDisp: checkControls_Disp().telDisp,
+                        C: Id,
+                        objs: checkControls_Disp().Objcts,
+                        DispAcc: checkControls_Disp().Disps,
+                        Spess: checkControls_Disp().Spess,
+                        Resps: checkControls_Disp().Resps
+                    };
+
+                    CRDisp(obj);
+                }
+            })
+            $('#saveActD').click(function () {
+                if (checkControls_Disp().IsSuccess == true) {
+                    var obj = {
+                        Dsts: 1,
+                        icon: checkControls_Disp().icon_,
+                        NDisp: checkControls_Disp().DispName,
+                        PhDisp: checkControls_Disp().telDisp,
+                        C: Id,
+                        objs: checkControls_Disp().Objcts,
+                        DispAcc: checkControls_Disp().Disps,
+                        Spess: checkControls_Disp().Spess,
+                        Resps: checkControls_Disp().Resps
+                    };
+
+                    CRDisp(obj);
+                }
+            })
+
+            $("#AddAcc").click(function () {
+
+                TemproSaveAndGo("CreateAccount.aspx")
+
+            })
+            $("#AddOb").click(function () {
+                TemproSaveAndGo("CreateOpject.aspx")
+            })
+        }
+        else {
+            GetDetailDisp(Disp_ID)
+            //GetDispObjectsById(Disp_ID)
+            //GetDispAccByDispId(Disp_ID)
+        }
     }
 
     if (loc == "/Client_Admin/Disp.aspx") {
@@ -4565,6 +4413,27 @@
     }
 
 });
+function GetDetailDisp(d)
+{
+    var obj = {
+        d: d
+
+    };
+    $.ajax({
+        type: "POST",
+        url: "CreateDisp.aspx/GetDetailDisp",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            j = JSON.parse(result.d);
+            $('#DispName').val(j[0].DISP_NAME);
+            $('#telDisp').val(j[0].DISP_PHONE_NUMBER);
+            $('#fDiv3').remove()
+            $('#fDiv2').after('<div id="fDiv3" class="posRel h56 rounded-lg mb-4 w-32 pointer"> <img class="foto-disp SImage" id="fotoDisp1" onclick="SImage(this)" src="' + j[0].DISP_ICON_IMG + '"> </div>')
+        }
+    })
+}
 function CRDisp(obj) {
     $.ajax({
         type: "POST",
@@ -4595,7 +4464,8 @@ function checkControls_Disp()
         IsSuccess = false
         ErrorForControls($('#DispName'), 'Необходимо заполнить поле "Название диспетчерской"')
     }
-    var icon_ = $('.SImage')
+    var telDisp = $('#telDisp').val();
+    var icon_ = $('.SImage').attr('src')
     if (IsSuccess == true) {
 
         if (icon_.length == 0) {
@@ -4663,16 +4533,16 @@ function checkControls_Disp()
             }
         })
         if (Resps.length == 0) {
-            $('#emptyData3').remove()
+            $('#emptyData4').remove()
             $('#Resps').prepend('<div id="emptyData4" class="flexHoriz ml-3 justify-content-between mt-3 w-auto">  <label for="chk0" class="serviceName" style=" color: red; ">Необходима выбрать Ответственного</label></div>')
             IsSuccess = false
             $('#AccLi').click()
         }
     }
     window.setTimeout(function () {
-        $('#imgError,#emptyData,#emptyData2,#emptyData3,#emptyData3').remove()
+        $('#imgError,#emptyData,#emptyData2,#emptyData3,#emptyData4').remove()
     }, 5000);
-    return { IsSuccess: IsSuccess, DispName: DispName, icon_: icon_ ,Objcts: Objcts, Disps: Disps, Spess: Spess ,Resps: Resps}
+    return { IsSuccess: IsSuccess, DispName: DispName, telDisp: telDisp,icon_: icon_ ,Objcts: Objcts, Disps: Disps, Spess: Spess ,Resps: Resps}
 }
 function TemproSaveAndGo(Page)
 {
@@ -5093,46 +4963,43 @@ function GetDisps(ClId) {
     });
 }
 function Activation(e, DId) {
-    alert('active')
-    //var obj = {
-    //    D: DId
-    //};
-    ////alert(JSON.stringify(obj));
+    
+    var obj = {
+        D: DId
+    };
+    //alert(JSON.stringify(obj));
 
-    //$.ajax({
-    //    type: "POST",
-    //    url: "Disp.aspx/Activation",
-    //    data: JSON.stringify(obj),
-    //    contentType: "application/json; charset=utf-8",
-    //    dataType: "json",
-    //    success: function (result) {
-    //        var log_Id = sessionStorage.getItem("Log");
-    //        var DName = $(e).parent().find('a').find('h4').text();
-    //        //  var Id = sessionStorage.getItem("Clien_ID")
-    //        SaveLog("Активировать", "Простое", "Администратор", "Клиентское администрирование", "Активирована диспетчерская (" + DName + ")", log_Id);
-    //        $(e).hide();
+    $.ajax({
+        type: "POST",
+        url: "Disp.aspx/Activation",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            var log_Id = sessionStorage.getItem("Log");
+            var DName = $(e).parent().find('a').find('h4').text();
+            //  var Id = sessionStorage.getItem("Clien_ID")
+            SaveLog("Активировать", "Простое", "Администратор", "Клиентское администрирование", "Активирована диспетчерская (" + DName + ")", log_Id);
+            $(e).hide();
 
-    //    },
+        },
 
-    //    error: function (r) {
-    //        //alert("Error");
-    //        console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-    //    },
-    //    failure: function (r) {
-    //        alert("FAIL");
-    //    }
-    //});
+        error: function (r) {
+            //alert("Error");
+            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function (r) {
+            alert("FAIL");
+        }
+    });
 }
 function EdFunc(e, D_Id) {
     var id = $(this).attr('id')
-    if (id != 'activate') {
+   
         sessionStorage.setItem("Disp_ID", D_Id)
         alert("div")
-    }
-    else {
-        $(this).children('#activate').click();
-    }
-    //  window.location.href = "EditDisp.aspx"
+    
+    window.location.href = "CreateDisp.aspx"
 
 }
 function checkControls_PS() {

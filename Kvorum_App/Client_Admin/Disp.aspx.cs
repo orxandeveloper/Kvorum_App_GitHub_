@@ -46,7 +46,7 @@ namespace Kvorum_App.Client_Admin
         [WebMethod]
         public static string Activation(int D)
         {
-            Mydb.ExecuteNoNQuery("UPDATE DISP SET DISP_STATUS = '1' WHERE DISP_ID=@D", new SqlParameter[] {new SqlParameter("@D",D) }, CommandType.Text);
+            Mydb.ExecuteNoNQuery("ActivationDisp", new SqlParameter[] {new SqlParameter("@D",D) }, CommandType.StoredProcedure);
             return "";
         }
     }

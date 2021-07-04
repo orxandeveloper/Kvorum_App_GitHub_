@@ -97,17 +97,25 @@ namespace Kvorum_App.Client_Admin
         }
 
         [WebMethod]
+        public static string GetDetailDisp(int d)
+        {
+            return Mydb.ExecuteAsJson("GetDetailDisp", new SqlParameter[] {new SqlParameter("@d",d) }, CommandType.StoredProcedure);
+        }
+        [WebMethod]
+        public static string GetDispObjectsById(int @d)
+        {
+            return Mydb.ExecuteAsJson("GetDispObjectsById", new SqlParameter[] {new SqlParameter("@d",d) }, CommandType.StoredProcedure);
+        }
+        [WebMethod]
+        public static string GetDispAccByDispId(int d)
+        {
+            return Mydb.ExecuteAsJson("GetDispAccByDispId", new SqlParameter[] { new SqlParameter("@d",d) }, CommandType.StoredProcedure);
+        }
+
+        [WebMethod]
         public static string CRDisp(string Dsts, string icon, string NDisp, string PhDisp, int C, List<ObjectS> objs, List<Account_> DispAcc, List<Account_> Spess, List<Account_> Resps)
         {
-            //Mydb.ExecuteNoNQuery("insert into DISP_ICON (DISP_ICON_IMG) values(@ic)", new SqlParameter[] { new SqlParameter("@ic", icon) }, CommandType.Text);
-            //int DispicId = (int)Mydb.ExecuteScalar("select top 1 DISP_ICON_ID from DISP_ICON order by DISP_ICON_ID desc", new SqlParameter[] { }, CommandType.Text);
-
-            //Mydb.ExecuteNoNQuery("insert into DISP (DISP_STATUS,DISP_NAME,DISP_PHONE_NUMBER,CLIENT_ID,DISP_ICON_ID) values(@dsts,@Dn,@Dph,@c,@ic)", new SqlParameter[] {new SqlParameter("@dsts",Dsts), new SqlParameter("@Dn",NDisp),
-            //    new SqlParameter("@Dph",PhDisp),
-            //    new SqlParameter("@c",C),
-            //    new SqlParameter("@ic",DispicId)
-            //},CommandType.Text);
-            //int DispId = (int)Mydb.ExecuteScalar("select top 1 DISP_ID from DISP order by DISP_ID desc", new SqlParameter[] { }, CommandType.Text);
+             
             int DispId = Convert.ToInt32(Mydb.ExecuteScalar("CRDisp", new SqlParameter[] {
                 new SqlParameter("@ic", icon),
                 new SqlParameter("@dsts",Dsts),
@@ -123,22 +131,22 @@ namespace Kvorum_App.Client_Admin
 
             foreach (Account_ item in DispAcc)
             {
-                //Mydb.ExecuteNoNQuery("Update ACCOUNT_ROLE set DISP_ID=@dsp where LOG_IN_ID=@lg", new SqlParameter[] {new SqlParameter("@dsp",DispId),new SqlParameter("@lg",item.LOG_IN_ID) }, CommandType.Text);
+               
                 Mydb.ExecuteNoNQuery("InsertAccountToDisp", new SqlParameter[] {
                     new SqlParameter("@lg",item.LOG_IN_ID),
                     new SqlParameter("@d",DispId),
                     new SqlParameter("@R",Convert.ToInt32(item.MODULE_ROLES))
 
-                }, CommandType.Text);
+                }, CommandType.StoredProcedure);
             }
             foreach (Account_ item in Spess)
             {
-                //Mydb.ExecuteNoNQuery("Update ACCOUNT_ROLE set DISP_ID=@dsp where LOG_IN_ID=@lg", new SqlParameter[] { new SqlParameter("@dsp", DispId), new SqlParameter("@lg", item.LOG_IN_ID) }, CommandType.Text);
+                
                 Mydb.ExecuteNoNQuery("InsertAccountToDisp", new SqlParameter[] {
                     new SqlParameter("@lg",item.LOG_IN_ID),
                     new SqlParameter("@d",DispId),
                         new SqlParameter("@R",Convert.ToInt32(item.MODULE_ROLES))
-                }, CommandType.Text);
+                }, CommandType.StoredProcedure);
             }
 
             foreach (Account_ item in Resps)
@@ -148,7 +156,7 @@ namespace Kvorum_App.Client_Admin
                     new SqlParameter("@lg",item.LOG_IN_ID),
                     new SqlParameter("@d",DispId),
                         new SqlParameter("@R",Convert.ToInt32(item.MODULE_ROLES))
-                }, CommandType.Text);
+                }, CommandType.StoredProcedure);
             }
             Mydb.ExecuteNoNQuery("BusyDIspPhone", new SqlParameter[] { new SqlParameter("@ph", PhDisp) }, CommandType.StoredProcedure);
             return "";
