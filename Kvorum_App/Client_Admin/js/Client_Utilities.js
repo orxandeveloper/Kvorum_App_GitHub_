@@ -1326,7 +1326,7 @@
             $("#pass").keypress(function () { sessionStorage.setItem("p", "1") })
             $("#DeleteAcc").show();
             //$("#CreateAcc").text("Обновить")
-            $('#email').attr('disabled','disabled')
+            $('#email').attr('disabled', 'disabled')
             //alert(LogId);
             getDetailAcc(LogId)
             GetModeRole(LogId)
@@ -1753,7 +1753,7 @@
 
                 },
                 error: function () {
-                  //  gtBik(bik_)
+                    //  gtBik(bik_)
                 }
 
             })
@@ -1781,7 +1781,7 @@
             if (phone.length == 17) { CHeckIdendityPhone(phone, $(this)) }
         })
         $('#SaveChanges').click(function () {
-            if (checkControls_PS().isSuccess==true) {
+            if (checkControls_PS().isSuccess == true) {
                 ProfileSettingsSave(ClId, checkControls_PS());
             }
             //
@@ -2049,217 +2049,9 @@
     }
 
 
-    function GetOpjectsForDisp(CL_Id, sob) {
-        $("#objcts").empty();
-        var obj = {
-            ClId: CL_Id
-        };
 
-        var objecs = [];
 
-        $.ajax({
-            type: "POST",
-            url: "CreateDisp.aspx/GetNotSelObj",
-            data: JSON.stringify(obj),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (result) {
 
-                //console.log(result)
-                //var jsondata_1 = JSON.stringify(result.ResultData)
-                //var jsondata_2 = JSON.parse(jsondata_1)
-                var jsondata_1 = JSON.parse(result.d)
-
-                for (var i = 0; i < jsondata_1.length; i++) {
-
-                    //console.log()//OBJECT_ID
-                    $("#objcts").append('<input type="checkbox" itemid=' + jsondata_1[i].Object_Id + ' onclick=SObjdata(this,' + jsondata_1[i].Object_Id + ') class="dispDatas"/><label class="checkBx">' + jsondata_1[i].ObjectAdress + '</label>')
-                    objecs.push({ "Object_Id": jsondata_1[i].Object_Id });
-
-                }
-                sessionStorage.setItem("objss", JSON.stringify(objecs))
-
-                if (sob != "") {
-                    for (var i = 0; i < sob.length; i++) {
-                        $("#objcts input[type=checkbox]").each(function () {
-                            if ($(this).attr('itemid') == sob[i].sObjss) {
-                                $(this).prop('checked', true)
-                            }
-                        })
-                    }
-                    sessionStorage.removeItem('selObj')
-                }
-
-            },
-
-            error: function (r) {
-                ////alert("Error");
-                console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-            },
-            failure: function (r) {
-                alert("FAIL");
-            }
-        });
-    }
-    function GetAccForDisp(CL_id, M_Id, R_ID, s_disp) {
-        var obj = {
-            CId: CL_id,
-            MId: M_Id,
-            RId: R_ID
-
-        };
-        //alert(JSON.stringify(obj));
-
-        $.ajax({
-            type: "POST",
-            url: "CreateDisp.aspx/GetAccForMR",
-            data: JSON.stringify(obj),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-
-                // console.log(result)
-
-                var jsondata_ = JSON.parse(result.d)
-
-                // console.log(jsondata_)
-
-                for (var i = 0; i < jsondata_.length; i++) {
-                    // console.log(jsondata_[i].ACCOUNT_NAME)
-
-                    //
-                    //<input type="checkbox" style="margin-left:5px;"/><label class="checkBx">Диспетчер 1</label>
-
-                    $("#Disps").append('<input type="checkbox" data-url="' + jsondata_[i].KPP + '"  itemid="' + jsondata_[i].LOG_IN_ID + '" onclick=SDsdata(this,' + jsondata_[i].LOG_IN_ID + ',' + jsondata_[i].KPP + ') class="dispDatas"/><label  class="checkBx">' + jsondata_[i].ACCOUNT_NAME + '</label>')
-                }
-                if (s_disp != "") {
-                    for (var i = 0; i < s_disp.length; i++) {
-                        $("#Disps input[type=checkbox]").each(function () {
-                            if ($(this).attr('itemid') == s_disp[i].sDisp) {
-                                $(this).prop('checked', true)
-                            }
-                        })
-                    }
-                    sessionStorage.removeItem('selDisps')
-                }
-
-            },
-
-            error: function (r) {
-                // //alert("Error");
-                console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-            },
-            failure: function (r) {
-                alert("FAIL");
-            }
-        });
-
-    }
-    function GetAccForEngnrs(CL_id, S_injs) {
-        var obj = {
-            clientId: CL_id
-
-        };
-        //alert(JSON.stringify(obj));
-
-        $.ajax({
-            type: "POST",
-            url: "CreateDisp.aspx/GetEngineers",
-            data: JSON.stringify(obj),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-
-                // console.log(result)
-
-                var jsondata_ = JSON.parse(result.d)
-
-                // console.log(jsondata_)
-
-                for (var i = 0; i < jsondata_.length; i++) {
-                    // console.log(jsondata_[i].ACCOUNT_NAME)
-
-                    //
-                    //<input type="checkbox" style="margin-left:5px;"/><label class="checkBx">Диспетчер 1</label>
-
-                    $("#engnrs").append('<input type="checkbox" data-url="' + jsondata_[i].KPP + '" itemid="' + jsondata_[i].LOG_IN_ID + '" onclick=SEngdata(this,' + jsondata_[i].LOG_IN_ID + ',' + jsondata_[i].KPP + ') class="dispDatas"/><label  class="checkBx">' + jsondata_[i].ACCOUNT_NAME + '</label>')
-                }
-                if (S_injs != "") {
-                    for (var i = 0; i < S_injs.length; i++) {
-                        $("#engnrs input[type=checkbox]").each(function () {
-                            if ($(this).attr('itemid') == S_injs[i].sInjs) {
-                                $(this).prop('checked', true)
-                            }
-                        })
-                    }
-                    sessionStorage.removeItem('sInjs')
-                }
-
-            },
-
-            error: function (r) {
-                ////alert("Error");
-                console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-            },
-            failure: function (r) {
-                alert("FAIL");
-            }
-        });
-
-    }
-    function GetAccFortex(ClId, s_tex) {
-        var obj = {
-            clientId: ClId
-
-        };
-        //alert(JSON.stringify(obj));
-
-        $.ajax({
-            type: "POST",
-            url: "CreateDisp.aspx/GetTexniks",
-            data: JSON.stringify(obj),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-
-                // console.log(result)
-
-                var jsondata_ = JSON.parse(result.d)
-
-                // console.log(jsondata_)
-
-                for (var i = 0; i < jsondata_.length; i++) {
-                    // console.log(jsondata_[i].ACCOUNT_NAME)
-
-                    //
-                    //<input type="checkbox" style="margin-left:5px;"/><label class="checkBx">Диспетчер 1</label>
-
-                    $("#tex").append('<input type="checkbox" itemid="' + jsondata_[i].LOG_IN_ID + '" onclick=STdata(this,' + jsondata_[i].LOG_IN_ID + ',' + jsondata_[i].KPP + ') class="dispDatas"/><label  class="checkBx">' + jsondata_[i].ACCOUNT_NAME + '</label>')
-                }
-                if (s_tex != "") {
-                    for (var i = 0; i < s_tex.length; i++) {
-                        $("#tex input[type=checkbox]").each(function () {
-
-                            if ($(this).attr('itemid') == s_tex[i].stexs) {
-                                $(this).prop('checked', true)
-                            }
-                        })
-                    }
-                    sessionStorage.removeItem('texs');
-                }
-
-            },
-
-            error: function (r) {
-                // //alert("Error");
-                console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-            },
-            failure: function (r) {
-                alert("FAIL");
-            }
-        });
-
-    }
     function getPhone() {
         $.ajax({
             type: "POST",
@@ -2295,31 +2087,133 @@
         getPhone();
         sessionStorage.setItem("currentDatas", "");
         var csmf = sessionStorage.getItem("cmsf_O")
+        GetProjectsByClient(Id)
+        $('#prj').change(function () {
+            var prj = $(this).val();
+            $('#objcts').empty()
+            if (prj != 0) {
+                GetOpjectsForDisp(Id, prj, "")
+            }
+        })
+        $('#SDispatcher').keyup(function () {
+            $('.chkDispD').each(function () {
+                if (!$(this).prop('checked')) {
+                    $(this).parent().remove();
+                }
+            })
+            var SText = $('#SDispatcher').val().toLowerCase();
+            var j = $('#Disps').data('Disps');
+
+            var jsondata_ = j.filter(function (srv) {
+
+                return srv.ACCOUNT_NAME.toLowerCase().indexOf(SText) > -1
+            })
+
+            for (var i = 0; i < jsondata_.length; i++) {
+                var existAccount = $('#Disps').children('div[itemid="' + jsondata_[i].LOG_IN_ID + '"]').length
+                if (existAccount == 0) {
+                    $("#Disps").append('<div itemid="' + jsondata_[i].LOG_IN_ID + '" class="flexHoriz ml-3 justify-content-between mt-3 w-auto"> <input type="checkbox" itemid="' + jsondata_[i].LOG_IN_ID + '" class="col-md-1 chkDispD checkbox-item"  data-url="' + jsondata_[i].MR_ID + '" id="chk' + jsondata_[i].LOG_IN_ID + '"> <label for="chk' + jsondata_[i].LOG_IN_ID + '" class="serviceName">' + jsondata_[i].ACCOUNT_NAME + '</label> </div>')
+                }
+            }
+        })
+        $('#S_Spes').keyup(function () {
+            $('.chkDispIT').each(function () {
+                if (!$(this).prop('checked')) {
+                    $(this).parent().remove();
+                }
+            })
+            var SText = $('#S_Spes').val().toLowerCase();
+            var j = $('#Spess').data('Spess');
+
+
+            var jsondata_ = j.filter(function (srv) {
+
+                return srv.ACCOUNT_NAME.toLowerCase().indexOf(SText) > -1
+            })
+
+            for (var i = 0; i < jsondata_.length; i++) {
+                var existAccount = $('#Spess').children('div[itemid="' + jsondata_[i].LOG_IN_ID + '"]').length
+                if (existAccount==0) {
+                    $("#Spess").append('<div itemid="' + jsondata_[i].LOG_IN_ID + '" class="flexHoriz ml-3 justify-content-between mt-3 w-auto"> <input type="checkbox" itemid="' + jsondata_[i].LOG_IN_ID + '" data-role="' + jsondata_[i].ROLE_ID + '" class="col-md-1 chkDispIT checkbox-item"  data-url="' + jsondata_[i].MR_ID + '" id="chk' + jsondata_[i].LOG_IN_ID + '"> <label for="chk' + jsondata_[i].LOG_IN_ID + '" class="serviceName">' + jsondata_[i].ACCOUNT_NAME + '</label> </div>')
+                }
+              
+            }
+        })
+        $('#S_Resps').keyup(function () {
+            $('.chkDispR').each(function () {
+                if (!$(this).prop('checked')) {
+                    $(this).parent().remove();
+                }
+            })
+            var SText = $('#S_Resps').val().toLowerCase();
+            var j = $('#Resps').data('Resps');
+            var jsondata_ = j.filter(function (srv) {
+
+                return srv.ACCOUNT_NAME.toLowerCase().indexOf(SText) > -1
+            })
+
+            for (var i = 0; i < jsondata_.length; i++) {
+                var existAccount = $('#Resps').children('div[itemid="' + jsondata_[i].LOG_IN_ID + '"]').length
+                if (existAccount==0) {
+                    $("#Resps").append('<div itemid="' + jsondata_[i].LOG_IN_ID + '" class="flexHoriz ml-3 justify-content-between mt-3 w-auto"> <input type="checkbox"itemid="' + jsondata_[i].LOG_IN_ID + '" class="col-md-1 chkDispR checkbox-item"  data-url="' + jsondata_[i].MR_ID + '" id="chk' + jsondata_[i].LOG_IN_ID + '"> <label for="chk' + jsondata_[i].LOG_IN_ID + '" class="serviceName">' + jsondata_[i].ACCOUNT_NAME + '</label> </div>')
+                }
+               
+            }
+        })
+        $('#SObj').keyup(function () {
+            $('.chkDispO').each(function () {
+                if (!$(this).prop('checked')) {
+                    $(this).parent().remove();
+                }
+            })
+            var SText = $('#SObj').val().toLowerCase();
+            var j = $('#objcts').data('objcts');
+
+            var jsondata_1 = j.filter(function (srv) {
+
+                return srv.OBJECT_ADRESS.toLowerCase().indexOf(SText) > -1
+            })
+            for (var i = 0; i < jsondata_1.length; i++) {
+                var existsObject = $('#objcts').children('div[itemid="' + jsondata_1[i].OBJECT_ID + '"]').length
+                if (existsObject == 0) {
+                    $("#objcts").append('<div  itemid=' + jsondata_1[i].OBJECT_ID + ' class="flexHoriz ml-3 justify-content-between mt-3 w-auto"> <input type="checkbox"  itemid=' + jsondata_1[i].OBJECT_ID + ' class="col-md-1 chkDispO checkbox-item" id="chk' + jsondata_1[i].OBJECT_ID + '"> <label for="chk' + jsondata_1[i].OBJECT_ID + '" class="serviceName">' + jsondata_1[i].OBJECT_ADRESS + '</label> </div>')
+                }
+
+
+            }
+        })
+
         csmf = (csmf == "") ? sessionStorage.getItem("cmsf_a") : csmf;
         if (csmf == "") {
-            GetOpjectsForDisp(Id, "")
+          
             GetAccForDisp(Id, 4, 3, "")
-            GetAccForEngnrs(Id, "")
-            GetAccFortex(Id, "")
+            GetAccFor_Tex_and_Engnrs(Id, 4, 6, "")
+            GetAccFor_Responsibles(Id, 1,16, "")
+           
+
         }
         else {
             var sel_Obj = sessionStorage.getItem("selObj");
             sel_Obj = JSON.parse(sel_Obj)
-            GetOpjectsForDisp(Id, sel_Obj)
-
+            var prj = sessionStorage.getItem('prj')
+            GetProjectsByClient(Id, prj)
+            if (prj!=0) {
+                $('#objcts').empty()
+                GetOpjectsForDisp(Id, prj, sel_Obj)
+            }
             var sel_Disps = sessionStorage.getItem("selDisps");
             sel_Disps = JSON.parse(sel_Disps)
             GetAccForDisp(Id, 4, 3, sel_Disps)
-
             var s_Injs = sessionStorage.getItem("sInjs");
             s_Injs = JSON.parse(s_Injs);
-            GetAccForEngnrs(Id, s_Injs);
-            var s_texs = sessionStorage.getItem('texs')
-            s_texs = JSON.parse(s_texs)
-            GetAccFortex(Id, s_texs);
-            var simg = sessionStorage.getItem("imgDisp");
+          //  GetAccForEngnrs(Id, s_Injs);
+            GetAccFor_Tex_and_Engnrs(Id, 4, 6, s_Injs)
+            var Resps = sessionStorage.getItem('Resps')
+            Resps = JSON.parse(Resps)
+            GetAccFor_Responsibles(Id, 1, 16, Resps)
+            var simg = sessionStorage.getItem("SImage");
             simg = simg.replace('"', '').replace('"', '').replace('"', '')
-            $("#fotoDisp").attr('src', simg)
+            $(".SImage").attr('src', simg)
             var n_disp = sessionStorage.getItem('ndisp')
             $("#DispName").val(n_disp)
 
@@ -2334,6 +2228,7 @@
         $("#backD").click(function () { window.location.href = "/Client_Admin/Disp.aspx" })
         $("#telDisp").keyup(function () { $("#TlDIsp,#yesTelDisp").hide() })
         $("#DispName").keyup(function () { $("#NMDIsp,#yesNMDisp").hide() })
+        $('#filesB').click(function () { $('#files').click(); })
         $("#files").change(function () {
 
             var filePath = $('#files').val();
@@ -2380,7 +2275,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/UploadFile",
+                        url: 'http://172.20.20.24/WCFServices/Constructor_API.svc/UploadFile',//window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/UploadFile",
                         data: formData,
                         //cache: false,
                         type: 'POST',
@@ -2394,7 +2289,10 @@
                             //var jsondata_1 = jQuery.parseJSON(result)
                             //var jsondata_1 = JSON.stringify(result)
                             // var jsondata_1 = JSON.parse(result)
-                            $('.foto-disp').attr('src', result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/"))
+                            $('#fDiv4').remove();
+                            $('.foto-disp').attr('class', 'foto-disp')
+                            $('#fDiv3').after('<div id="fDiv4" class="posRel h56 rounded-lg mb-4 w-50 pointer"> <img class="foto-disp SImage" id="fotoDisp1" onclick="SImage(this)" src="' + result.URL.replace('~', window.location.protocol + '//' + window.location.host + '/') + '"> </div>')
+                            // $('.foto-disp').attr('src', result.URL.replace('~', window.location.protocol + '//' + window.location.host + '/'))
                             $("#loader,.ui-loader-background").hide();
 
                         },
@@ -2407,7 +2305,7 @@
                             var filePath = $('#files').val();
                             var index = filePath.lastIndexOf("\\") + 1;
                             var filename = filePath.substr(index);
-                            readURL(input, filename)
+                            //readURL(input, filename)
                         },
                         complete: function (r) {
                             //var jsonEroorData = JSON.parse(r);
@@ -2428,184 +2326,25 @@
 
             }
         }
-
         $("#saveD").click(function () {
-            var DispName = $("#DispName").val();
-            if (DispName.length != 0) {
 
-                var telDisp = $("#telDisp").val();
-                if (telDisp.length != 0) {
-                    $("#yesTelDisp").hide();
-                    $("#TlDIsp").hide()
+            if (checkControls_Disp().IsSuccess == true) {
+                var obj = {
+                    Dsts: 0,
+                    icon: checkControls_Disp().icon__,
+                    NDisp: checkControls_Disp().DispName,
+                    PhDisp: checkControls_Disp().telDisp,
+                    C: Id,
+                    objs: checkControls_Disp().Objcts,
+                    DispAcc: checkControls_Disp().Disps,
+                    Spess: checkControls_Disp().Spess,
+                    Resps: checkControls_Disp().Resps
+                };
 
-                    var Objcts = [];//JSON.parse(sessionStorage.getItem("Sobjcts"))//Must refactering Object_Id
-                    $("#objcts input[type=checkbox]").each(function () {
-
-                        if ($(this).is(":checked")) {
-                            Objcts.push({ Object_Id: $(this).attr('itemid') });
-                            //sessionStorage.setItem(selectedObj)
-
-                        }
-                    })
-                    // Objcts = JSON.parse(Objcts)
-
-                    if (Objcts != null) {
-                        if (Objcts.length != 0) {
-                            $("#yesObDisp").hide();
-                            $("#ObDIsp").hide()
-                            var Disps = [] //JSON.parse(sessionStorage.getItem("SDisps"))  LOG_IN_ID /KPP
-                            $("#Disps input[type=checkbox]").each(function () {
-
-                                if ($(this).is(":checked")) {
-                                    Disps.push({ LOG_IN_ID: $(this).attr('itemid') });
-                                    //sessionStorage.setItem(selectedObj)
-
-                                }
-                            })
-                            //  Disps = JSON.parse(Disps)
-                            if (Disps != null) {
-
-                                if (Disps.length != 0) {
-                                    $("#yesDDisp").hide();
-                                    $("#DDIsp").hide()
-                                    var Enginers = []//JSON.parse(sessionStorage.getItem("SENG")) LOG_IN_ID
-                                    $("#engnrs input[type=checkbox]").each(function () {
-
-                                        if ($(this).is(":checked")) {
-                                            Enginers.push({ LOG_IN_ID: $(this).attr('itemid') });
-                                            //sessionStorage.setItem(selectedObj)
-
-                                        }
-                                    })
-                                    //   Enginers = JSON.parse(Enginers)
-                                    if (Enginers != null) {
-                                        if (Enginers.length != 0) {
-                                            $("#yesEngDisp").hide();
-                                            $("#EngDIsp").hide()
-
-                                            var Tex = []//JSON.parse(sessionStorage.getItem("STEX"))LOG_IN_ID
-                                            $("#tex input[type=checkbox]").each(function () {
-
-                                                if ($(this).is(":checked")) {
-                                                    Tex.push({ LOG_IN_ID: $(this).attr('itemid') });
-                                                    //sessionStorage.setItem(selectedObj)
-
-                                                }
-                                            })
-                                            //   Tex = JSON.parse(Tex);
-                                            if (Tex != null) {
-                                                if (Tex.length != 0) {
-                                                    $("#yesTExDisp").hide();
-                                                    $("#TExDIsp").hide()
-                                                    var icon_ = $("#fotoDisp").attr('src');
-                                                    var obj = {
-                                                        Dsts: 0,
-                                                        icon: icon_,
-                                                        NDisp: DispName,
-                                                        PhDisp: telDisp,
-                                                        C: Id,
-                                                        objs: Objcts,
-                                                        DispAcc: Disps,
-                                                        EngAcc: Enginers,
-                                                        TexAcc: Tex
-                                                    };
-
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        url: "CreateDisp.aspx/CRDisp",
-                                                        data: JSON.stringify(obj),
-                                                        contentType: "application/json; charset=utf-8",
-                                                        dataType: "json",
-                                                        success: function (result) {
-                                                            var log_Id = sessionStorage.getItem("Log")
-                                                            SaveLog("Сохранить", "Простое", "Администратор", "Клиентское администрирование", "В системе создана диспетчерская (" + $("#DispName").val() + ")", log_Id);
-                                                            window.location.href = "Disp.aspx"
-                                                        },
-                                                        error: function (r) {
-                                                            // //alert("Error");
-                                                            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-                                                        },
-                                                        failure: function (r) {
-                                                            alert("FAIL");
-                                                        }
-                                                    });
-                                                }
-                                                else {
-                                                    $("#yesTExDisp").show();
-                                                    $("#TExDIsp").text("Пожалуйста, выберите Техника").show()
-                                                }
-
-
-                                            }
-                                            else {
-                                                //yesTExDisp
-                                                //TExDIsp
-                                                $("#yesTExDisp").show();
-                                                $("#TExDIsp").text("Пожалуйста, выберите техника").show()
-                                                //  $("html, body").animate({ scrollTop: 50 }, "slow");
-                                            }
-                                        }
-                                        else {
-                                            $("#yesEngDisp").show();
-                                            $("#EngDIsp").text("Пожалуйста, выберите инженера").show()
-                                            $("html, body").animate({ scrollTop: 500 }, "slow");
-                                        }
-
-                                    }
-                                    else {
-                                        //yesEngDisp
-                                        //EngDIsp          
-                                        $("#yesEngDisp").show();
-                                        $("#EngDIsp").text("Пожалуйста, выберите инженера").show()
-                                        $("html, body").animate({ scrollTop: 550 }, "slow");
-                                    }
-                                }
-                                else {
-                                    $("#yesDDisp").show();
-                                    $("#DDIsp").text("Пожалуйста, выберите диспетчера").show()
-                                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                                }
-
-                            }
-                            else {
-                                //yesDDisp
-                                //DDIsp
-                                $("#yesDDisp").show();
-                                $("#DDIsp").text("Пожалуйста, выберите диспетчера").show()
-                                $("html, body").animate({ scrollTop: 50 }, "slow");
-                            }
-                        }
-                        else {
-                            $("#yesObDisp").show();
-                            $("#ObDIsp").text("Пожалуйста, выберите Объект диспетчерской").show()
-                            $("html, body").animate({ scrollTop: 50 }, "slow");
-                        }
-
-                    }
-                    else {
-                        //yesObDisp
-                        //ObDIsp
-                        $("#yesObDisp").show();
-                        $("#ObDIsp").text("Пожалуйста, выберите Объект диспетчерской ").show()
-                        $("html, body").animate({ scrollTop: 50 }, "slow");
-                    }
-
-                }
-                else {
-                    $("#yesTelDisp").show();
-                    $("#TlDIsp").text("Пожалуйста, не оставляйте пустым данное поле").show()
-                    $("html, body").animate({ scrollTop: 50 }, "slow");
-                }
-
-                $("#yesNMDisp").hide();
-                $("#NMDIsp").hide()
-            }
-            else {
-                $("#yesNMDisp").show();
-                $("#NMDIsp").text("Пожалуйста, не оставляйте пустым данное поле").show()
-                $("html, body").animate({ scrollTop: 50 }, "slow");
+                CRDisp(obj);
             }
         })
+      
         $("#saveActD").click(function () {
             var DispName = $("#DispName").val();
             if (DispName.length != 0) {
@@ -2783,114 +2522,15 @@
             }
         })
         $("#AddAcc").click(function () {
-            sessionStorage.setItem("LogId", "")
-            var selectedObj = [];
-            var selDisp = []
-            var inj = []
-            var texs = []
-            $("#objcts input[type=checkbox]").each(function () {
-
-                if ($(this).is(":checked")) {
-                    selectedObj.push({ sObjss: $(this).attr('itemid') });
-                    //sessionStorage.setItem(selectedObj)
-
-                }
-            })
-            //console.log("selObj" + JSON.stringify(selectedObj));
-            sessionStorage.setItem("selObj", JSON.stringify(selectedObj))
-            $("#Disps input[type=checkbox]").each(function () {
-
-                if ($(this).is(":checked")) {
-                    selDisp.push({ sDisp: $(this).attr('itemid') });
-                    //sessionStorage.setItem(selectedObj)
-
-                }
-            })
-            // console.log("selDisps" + JSON.stringify(selDisp));
-            sessionStorage.setItem("selDisps", JSON.stringify(selDisp))
-            $("#engnrs input[type=checkbox]").each(function () {
-
-                if ($(this).is(":checked")) {
-                    inj.push({ sInjs: $(this).attr('itemid') });
-                    //sessionStorage.setItem(selectedObj)
-
-                }
-            })
-            //console.log("sInjs" + JSON.stringify(inj));
-            sessionStorage.setItem("sInjs", JSON.stringify(inj))
-            $("#tex input[type=checkbox]").each(function () {
-
-                if ($(this).is(":checked")) {
-                    texs.push({ stexs: $(this).attr('itemid') });
-                    //sessionStorage.setItem(selectedObj)
-
-                }
-            })
-            // console.log("texs" + JSON.stringify(texs));
-            sessionStorage.setItem("texs", JSON.stringify(texs))
-            var imgDisp = $("#fotoDisp").attr('src');
-            //console.log("imgDisp", imgDisp);
-            sessionStorage.setItem("imgDisp", imgDisp)
-            var dspName = $("#DispName").val()
-            sessionStorage.setItem('ndisp', dspName);
-
-            sessionStorage.setItem("cmsf_a", "CreateDisp.aspx")
-            window.location.href = "CreateAccount.aspx"
+            
+            TemproSaveAndGo("CreateAccount.aspx")
+           
         })
         $("#AddOb").click(function () {
-            var selectedObj = [];
-            var selDisp = []
-            var inj = []
-            var texs = []
-            $("#objcts input[type=checkbox]").each(function () {
-
-                if ($(this).is(":checked")) {
-                    selectedObj.push({ sObjss: $(this).attr('itemid') });
-                    //sessionStorage.setItem(selectedObj)
-
-                }
-            })
-            //console.log("selObj" + JSON.stringify(selectedObj));
-            sessionStorage.setItem("selObj", JSON.stringify(selectedObj))
-            $("#Disps input[type=checkbox]").each(function () {
-
-                if ($(this).is(":checked")) {
-                    selDisp.push({ sDisp: $(this).attr('itemid') });
-                    //sessionStorage.setItem(selectedObj)
-
-                }
-            })
-            // console.log("selDisps" + JSON.stringify(selDisp));
-            sessionStorage.setItem("selDisps", JSON.stringify(selDisp))
-            $("#engnrs input[type=checkbox]").each(function () {
-
-                if ($(this).is(":checked")) {
-                    inj.push({ sInjs: $(this).attr('itemid') });
-                    //sessionStorage.setItem(selectedObj)
-
-                }
-            })
-            //console.log("sInjs" + JSON.stringify(inj));
-            sessionStorage.setItem("sInjs", JSON.stringify(inj))
-            $("#tex input[type=checkbox]").each(function () {
-
-                if ($(this).is(":checked")) {
-                    texs.push({ stexs: $(this).attr('itemid') });
-                    //sessionStorage.setItem(selectedObj)
-
-                }
-            })
-            // console.log("texs" + JSON.stringify(texs));
-            sessionStorage.setItem("texs", JSON.stringify(texs))
-            var imgDisp = $("#fotoDisp").attr('src');
-            //console.log("imgDisp", imgDisp);
-            sessionStorage.setItem("imgDisp", imgDisp)
-            sessionStorage.setItem('ndisp', $("#DispName").val());
-            sessionStorage.setItem("cmsf_O", "CreateDisp.aspx")
-            window.location.href = "CreateOpject.aspx"
+            TemproSaveAndGo("CreateOpject.aspx")
         })
     }
-  
+
     if (loc == "/Client_Admin/Disp.aspx") {
         sessionStorage.removeItem("Disp_ID")
         GetDisps(Id);
@@ -4925,6 +4565,488 @@
     }
 
 });
+function CRDisp(obj) {
+    $.ajax({
+        type: "POST",
+        url: "CreateDisp.aspx/CRDisp",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(result) {
+            var log_Id = sessionStorage.getItem("Log");
+            //   SaveLog("Сохранить", "Простое", "Администратор", "Клиентское администрирование", "В системе создана диспетчерская (" + $("#DispName").val() + ")", log_Id);
+            window.location.href = "Disp.aspx";
+        },
+        error: function(r) {
+            // //alert("Error");
+            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function(r) {
+            alert("FAIL");
+        }
+    });
+}
+
+function checkControls_Disp()
+{
+    var IsSuccess = true;
+    var DispName = $('#DispName').val();
+    if (DispName.length==0) {
+        IsSuccess = false
+        ErrorForControls($('#DispName'), 'Необходимо заполнить поле "Название диспетчерской"')
+    }
+    var icon_ = $('.SImage')
+    if (IsSuccess == true) {
+
+        if (icon_.length == 0) {
+            $('#imgError').remove()
+            IsSuccess=false
+            $('#fDiv1').before('<label id="imgError" style="color:red">Необходимо выбрать изображение</label>')
+           
+        }
+         
+    }
+    var Objcts = []
+    if (IsSuccess==true) {
+     $("#objcts input[type=checkbox]").each(function () {
+
+            if ($(this).is(":checked")) {
+                Objcts.push({ Object_Id: $(this).attr('itemid') });
+                //sessionStorage.setItem(selectedObj)
+
+            }
+        })
+        if (Objcts.length == 0) {
+            $('#objcts').prepend('<div id="emptyData" class="flexHoriz ml-3 justify-content-between mt-3 w-auto">  <label for="chk0" class="serviceName" style=" color: red; ">Необходима выбрать объект</label></div>')
+            IsSuccess == false
+            $('#ObjLi').click()
+        }
+    }
+
+    var Disps = []
+    if (IsSuccess == true) {
+        $("#Disps input[type=checkbox]").each(function () {
+
+            if ($(this).is(":checked")) {
+                Disps.push({ LOG_IN_ID: $(this).attr('itemid'), MODULE_ROLES: "3"});
+            }
+        })
+        if (Disps.length == 0) {
+            $('#emptyData2').remove()
+            $('#Disps').prepend('<div id="emptyData2" class="flexHoriz ml-3 justify-content-between mt-3 w-auto">  <label for="chk0" class="serviceName" style=" color: red; ">Необходима выбрать диспетчер</label></div>')
+            IsSuccess = false
+            $('#AccLi').click()
+        }
+    }
+    var Spess=[]
+    if (IsSuccess == true) {
+        $("#Spess input[type=checkbox]").each(function () {
+
+            if ($(this).is(":checked")) {
+                Spess.push({ LOG_IN_ID: $(this).attr('itemid'), MODULE_ROLES: $(this).attr('data-role') });
+            }
+        })
+        if (Spess.length == 0) {
+            $('#emptyData3').remove()
+            $('#Spess').prepend('<div id="emptyData3" class="flexHoriz ml-3 justify-content-between mt-3 w-auto">  <label for="chk0" class="serviceName" style=" color: red; ">Необходима выбрать Техник или Инженера</label></div>')
+            IsSuccess = false
+            $('#AccLi').click()
+        }
+    }
+
+    var Resps = []
+    if (IsSuccess == true) {
+        $("#Resps input[type=checkbox]").each(function () {
+
+            if ($(this).is(":checked")) {
+                Resps.push({ LOG_IN_ID: $(this).attr('itemid'), MODULE_ROLES: "16" });
+            }
+        })
+        if (Resps.length == 0) {
+            $('#emptyData3').remove()
+            $('#Resps').prepend('<div id="emptyData4" class="flexHoriz ml-3 justify-content-between mt-3 w-auto">  <label for="chk0" class="serviceName" style=" color: red; ">Необходима выбрать Ответственного</label></div>')
+            IsSuccess = false
+            $('#AccLi').click()
+        }
+    }
+    window.setTimeout(function () {
+        $('#imgError,#emptyData,#emptyData2,#emptyData3,#emptyData3').remove()
+    }, 5000);
+    return { IsSuccess: IsSuccess, DispName: DispName, icon_: icon_ ,Objcts: Objcts, Disps: Disps, Spess: Spess ,Resps: Resps}
+}
+function TemproSaveAndGo(Page)
+{
+    var selectedObj = [];
+    var selDisp = []
+    var inj = []
+    var Resps = []
+    var prj = $('#prj').val()
+    sessionStorage.setItem("prj", prj)
+    $("#objcts input[type=checkbox]").each(function () {
+
+        if ($(this).is(":checked")) {
+            var objId = $(this).attr('itemid')
+
+            selectedObj.push({ sObjss: $(this).attr('itemid') });
+            //sessionStorage.setItem(selectedObj)
+
+        }
+    })
+    console.log("selObj" + JSON.stringify(selectedObj));
+    sessionStorage.setItem("selObj", JSON.stringify(selectedObj))
+    $("#Disps input[type=checkbox]").each(function () {
+
+        if ($(this).is(":checked")) {
+            selDisp.push({ sDisp: $(this).attr('itemid') });
+            //sessionStorage.setItem(selectedObj)
+
+        }
+    })
+    console.log("selDisps" + JSON.stringify(selDisp));
+    sessionStorage.setItem("selDisps", JSON.stringify(selDisp))
+    $("#Spess input[type=checkbox]").each(function () {
+
+        if ($(this).is(":checked")) {
+            inj.push({ sInjs: $(this).attr('itemid') });
+            //sessionStorage.setItem(selectedObj)
+
+        }
+    })
+    console.log("sInjs" + JSON.stringify(inj));
+    sessionStorage.setItem("sInjs", JSON.stringify(inj))
+    $("#Resps input[type=checkbox]").each(function () {
+
+        if ($(this).is(":checked")) {
+            Resps.push({ Resp: $(this).attr('itemid') });
+            //sessionStorage.setItem(selectedObj)
+
+        }
+    })
+    console.log("Resps" + JSON.stringify(Resps));
+    sessionStorage.setItem("Resps", JSON.stringify(Resps))
+    var imgDisp = $(".SImage").attr('src');
+    //console.log("imgDisp", imgDisp);
+    sessionStorage.setItem("SImage", imgDisp)
+    sessionStorage.setItem('ndisp', $("#DispName").val());
+
+    var sessionKey = (Page == "CreateAccount.aspx") ? "cmsf_a" : "cmsf_O"
+    if (Page=="CreateAccount.aspx") {
+        sessionStorage.setItem("LogId", "")
+    }
+    sessionStorage.setItem(sessionKey, "CreateDisp.aspx")
+    window.location.href = Page
+
+  
+    //sessionStorage.setItem("cmsf_O", "CreateDisp.aspx")
+    //window.location.href = "CreateOpject.aspx"
+}
+function GetAccFortex(ClId, s_tex) {
+    var obj = {
+        clientId: ClId
+
+    };
+    //alert(JSON.stringify(obj));
+
+    $.ajax({
+        type: "POST",
+        url: "CreateDisp.aspx/GetTexniks",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+
+            // console.log(result)
+
+            var jsondata_ = JSON.parse(result.d)
+
+            // console.log(jsondata_)
+
+            for (var i = 0; i < jsondata_.length; i++) {
+                // console.log(jsondata_[i].ACCOUNT_NAME)
+
+                //
+                //<input type="checkbox" style="margin-left:5px;"/><label class="checkBx">Диспетчер 1</label>
+
+                $("#tex").append('<input type="checkbox" itemid="' + jsondata_[i].LOG_IN_ID + '" onclick=STdata(this,' + jsondata_[i].LOG_IN_ID + ',' + jsondata_[i].KPP + ') class="dispDatas"/><label  class="checkBx">' + jsondata_[i].ACCOUNT_NAME + '</label>')
+            }
+            if (s_tex != "") {
+                for (var i = 0; i < s_tex.length; i++) {
+                    $("#tex input[type=checkbox]").each(function () {
+
+                        if ($(this).attr('itemid') == s_tex[i].stexs) {
+                            $(this).prop('checked', true)
+                        }
+                    })
+                }
+                sessionStorage.removeItem('texs');
+            }
+
+        },
+
+        error: function (r) {
+            // //alert("Error");
+            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function (r) {
+            alert("FAIL");
+        }
+    });
+
+}
+function GetAccFor_Responsibles(CL_id, M_Id, R_ID, S_injs)
+{
+    var obj = {
+        CId: CL_id,
+        MId: M_Id,
+        RId: R_ID
+
+    };
+    //alert(JSON.stringify(obj));
+
+    $.ajax({
+        type: "POST",
+        url: "CreateDisp.aspx/GetAccForMR",//GetEngineers",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+
+            var jsondata_ = JSON.parse(result.d)
+
+
+
+            for (var i = 0; i < jsondata_.length; i++) {
+
+                $("#Resps").append('<div itemid="' + jsondata_[i].LOG_IN_ID + '" class="flexHoriz ml-3 justify-content-between mt-3 w-auto"> <input type="checkbox" itemid="' + jsondata_[i].LOG_IN_ID + '" class="col-md-1 chkDispR checkbox-item" data-url="' + jsondata_[i].MR_ID + '" id="chk' + jsondata_[i].LOG_IN_ID + '"> <label for="chk' + jsondata_[i].LOG_IN_ID + '" class="serviceName">' + jsondata_[i].ACCOUNT_NAME + '</label> </div>')
+            }
+            if (S_injs != "") {
+                for (var i = 0; i < S_injs.length; i++) {
+                    $("#Resps input[type=checkbox]").each(function () {
+                        if ($(this).attr('itemid') == S_injs[i].Resp) {
+                            $(this).prop('checked', true)
+                        }
+                    })
+                }
+                sessionStorage.removeItem('sInjs')
+            }
+            $('#emptyData4').remove();
+            if (jsondata_.length == 0) {
+                $('#Resps').append('<div id="emptyData4" class="flexHoriz ml-3 justify-content-between mt-3 w-100">  <label for="chk0" class="serviceName" style=" color: red; ">Свабодный учетный запись как Ответсвенный нет</label></div>')
+            }
+            else {
+                $("#Resps").data('Resps', jsondata_)
+            }
+        },
+
+        error: function (r) {
+            ////alert("Error");
+            //  console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function (r) {
+            alert("FAIL");
+        }
+    });
+}
+function GetAccFor_Tex_and_Engnrs(CL_id, M_Id, R_ID, S_injs) {
+    var obj = {
+        CId: CL_id,
+        MId: M_Id,
+        RId: R_ID
+
+    };
+     
+    $.ajax({
+        type: "POST",
+        url: "CreateDisp.aspx/GetAccForMR",//GetEngineers",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            
+            var jsondata_ = JSON.parse(result.d)
+
+     
+
+            for (var i = 0; i < jsondata_.length; i++) {
+
+                $("#Spess").append('<div itemid="' + jsondata_[i].LOG_IN_ID + '" class="flexHoriz ml-3 justify-content-between mt-3 w-auto"> <input type="checkbox" itemid="' + jsondata_[i].LOG_IN_ID + '" class="col-md-1 chkDispIT checkbox-item" data-role="' + jsondata_[i].ROLE_ID + '" data-url="' + jsondata_[i].MR_ID + '" id="chk' + jsondata_[i].LOG_IN_ID + '"> <label for="chk' + jsondata_[i].LOG_IN_ID + '" class="serviceName">' + jsondata_[i].ACCOUNT_NAME + '</label> </div>')
+            }
+            if (S_injs != "") {
+                for (var i = 0; i < S_injs.length; i++) {
+                    $("#Spess input[type=checkbox]").each(function () {
+                        if ($(this).attr('itemid') == S_injs[i].sInjs) {
+                            $(this).prop('checked', true)
+                        }
+                    })
+                }
+                sessionStorage.removeItem('sInjs')
+            }
+            $('#emptyData3').remove();
+            if (jsondata_.length == 0) {
+                $('#Spess').append('<div id="emptyData3" class="flexHoriz ml-3 justify-content-between mt-3 w-100">  <label for="chk0" class="serviceName" style=" color: red; ">Свабодный учетный запись как Техник или Инженер нет</label></div>')
+            }
+            else {
+                $("#Spess").data('Spess', jsondata_)
+            }
+        },
+
+        error: function (r) {
+            ////alert("Error");
+          //  console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function (r) {
+            alert("FAIL");
+        }
+    });
+
+}
+function GetAccForDisp(CL_id, M_Id, R_ID, s_disp) {
+    var obj = {
+        CId: CL_id,
+        MId: M_Id,
+        RId: R_ID
+
+    };
+ 
+
+    $.ajax({
+        type: "POST",
+        url: "CreateDisp.aspx/GetAccForMR",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            var jsondata_ = JSON.parse(result.d)
+            for (var i = 0; i < jsondata_.length; i++) {
+
+                $("#Disps").append('<div itemid="' + jsondata_[i].LOG_IN_ID + '" class="flexHoriz ml-3 justify-content-between mt-3 w-auto"> <input type="checkbox" itemid="' + jsondata_[i].LOG_IN_ID + '" class="col-md-1 chkDispD checkbox-item"  data-url="' + jsondata_[i].MR_ID + '" id="chk' + jsondata_[i].LOG_IN_ID + '"> <label for="chk' + jsondata_[i].LOG_IN_ID + '" class="serviceName">' + jsondata_[i].ACCOUNT_NAME + '</label> </div>')
+            }
+            $('#emptyData2').remove();
+            if (jsondata_.length == 0) {
+                $('#Disps').append('<div id="emptyData2" class="flexHoriz ml-3 justify-content-between mt-3 w-100">  <label for="chk0" class="serviceName" style=" color: red; ">Свабодный учетный запись как Диспетчер нет</label></div>')
+            }
+            else {
+                $("#Disps").data('Disps', jsondata_)
+            }
+            if (s_disp != "") {
+                for (var i = 0; i < s_disp.length; i++) {
+                    $("#Disps input[type=checkbox]").each(function () {
+                        if ($(this).attr('itemid') == s_disp[i].sDisp) {
+                            $(this).prop('checked', true)
+                        }
+                    })
+                }
+                sessionStorage.removeItem('selDisps')
+            }
+
+        },
+
+        error: function (r) {
+            // //alert("Error");
+            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function (r) {
+            alert("FAIL");
+        }
+    });
+
+}
+function OpenTab(countTab, e) {
+    $(e).parent('ol').children('li').attr('class', 'w200 mr-3 h-100 m-0 pointer')
+    $(e).attr('class', 'w200 mr-3 h-100 m-0 active pointer')
+    $('div[data-tabid="1"],div[data-tabid="2"],div[data-tabid="3"],div[data-tabid="4"]').attr('style', 'display:none !important')
+    $('div[data-tabid="' + countTab + '"]').attr('style', 'display:flex !important')
+}
+function SImage(e) {
+    //var bg = $(e).css("background-image")
+    // bg = bg.replace(/.*\s?url\([\'\"]?/, '').replace(/[\'\"]?\).*/, '')
+    // $("#fotoDisp").attr("src", bg)
+    $('.foto-disp').attr('class', 'foto-disp')
+    $(e).attr('class', 'foto-disp SImage')
+    //alert( )
+}
+function GetProjectsByClient(CL_Id, s) {
+
+    var obj = {
+        C: CL_Id
+    };
+    $.ajax({
+        type: "POST",
+        url: "CreateDisp.aspx/GetProjectsByClient",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            var j = JSON.parse(result.d)
+            for (var i = 0; i < j.length; i++) {
+                $('#prj').append('<option value="' + j[i].PROJECT_ID + '">' + j[i].PROJECT_NAME + '</option>')
+            }
+            if (s != undefined) {
+                $('#prj').val(s)
+            }
+            $('#prj').select2()
+        }
+    })
+}
+function GetOpjectsForDisp(CL_Id, prj, sob) {
+    $("#objcts").empty();
+    var obj = {
+        ClId: CL_Id,
+        prj: prj
+    };
+
+    var objecs = [];
+
+    $.ajax({
+        type: "POST",
+        url: "CreateDisp.aspx/GetNotSelObj",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+
+            //console.log(result)
+            //var jsondata_1 = JSON.stringify(result.ResultData)
+            //var jsondata_2 = JSON.parse(jsondata_1)
+            var jsondata_1 = JSON.parse(result.d)
+
+            for (var i = 0; i < jsondata_1.length; i++) {
+
+                $("#objcts").append('<div  itemid=' + jsondata_1[i].OBJECT_ID + ' class="flexHoriz ml-3 justify-content-between mt-3 w-auto"> <input type="checkbox"  itemid=' + jsondata_1[i].OBJECT_ID + ' class="col-md-1 chkDispO checkbox-item" id="chk' + jsondata_1[i].OBJECT_ID + '"> <label for="chk' + jsondata_1[i].OBJECT_ID + '" class="serviceName">' + jsondata_1[i].OBJECT_ADRESS + '</label> </div>')
+                objecs.push({ "Object_Id": jsondata_1[i].OBJECT_ID });
+
+            }
+            $('#emptyData').remove();
+            if (jsondata_1.length == 0) {
+                $('#objcts').append('<div id="emptyData" class="flexHoriz ml-3 justify-content-between mt-3 w-100">  <label for="chk0" class="serviceName" style=" color: red; ">Свабодный объект нет</label></div>')
+            }
+            else {
+                $("#objcts").data('objcts', jsondata_1)
+            }
+            sessionStorage.setItem("objss", JSON.stringify(objecs))
+
+            if (sob != "") {
+                for (var i = 0; i < sob.length; i++) {
+                    $("#objcts input[type=checkbox]").each(function () {
+                        if ($(this).attr('itemid') == sob[i].sObjss) {
+                            $(this).prop('checked', true)
+                        }
+                    })
+                }
+                sessionStorage.removeItem('selObj')
+            }
+
+        },
+
+        error: function (r) {
+            ////alert("Error");
+            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function (r) {
+            alert("FAIL");
+        }
+    });
+}
 function GetDisps(ClId) {
     var obj = {
         C: ClId
@@ -5003,14 +5125,14 @@ function Activation(e, DId) {
 }
 function EdFunc(e, D_Id) {
     var id = $(this).attr('id')
-    if (id !='activate') {
-     sessionStorage.setItem("Disp_ID", D_Id)
+    if (id != 'activate') {
+        sessionStorage.setItem("Disp_ID", D_Id)
         alert("div")
     }
     else {
         $(this).children('#activate').click();
     }
-  //  window.location.href = "EditDisp.aspx"
+    //  window.location.href = "EditDisp.aspx"
 
 }
 function checkControls_PS() {
@@ -5041,7 +5163,7 @@ function checkControls_PS() {
             return false;
         }
 
-        
+
     })
     var FirstName = $('#FirstName').val();
     var SecondName = $('#SecondName').val();
@@ -5081,7 +5203,7 @@ function checkControls_PS() {
 function ProfileSettingsSave(ClId, P_data) {
     var obj = {
         PASSWORD: "",//RPass,
-       // ACCOUNT_NAME: "",
+        // ACCOUNT_NAME: "",
         FirstName: P_data.FirstName,
         SecondName: P_data.SecondName,
         MiddleName: P_data.MiddleName,
@@ -5121,8 +5243,8 @@ function ProfileSettingsSave(ClId, P_data) {
         },
         error: function (r) {
             ////alert("Error");
-           // alertMessage("Oшибка", "Не удалось выполнить операцию", ":(");
-           // console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+            // alertMessage("Oшибка", "Не удалось выполнить операцию", ":(");
+            // console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
             $("#loader,.ui-loader-background").hide();
         },
         failure: function (r) {
