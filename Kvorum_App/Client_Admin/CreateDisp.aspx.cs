@@ -24,10 +24,10 @@ namespace Kvorum_App.Client_Admin
             return Mydb.ExecuteAsJson("GetProjectsByClient", new SqlParameter[] { new SqlParameter("@C", C) }, CommandType.StoredProcedure);
         }
         [WebMethod]
-        public static string GetNotSelObj(int ClId, int prj)
+        public static string GetNotSelObj(int ClId, int prj, int d)
         {
 
-            return Mydb.ExecuteAsJson("GetNotSelObj", new SqlParameter[] { new SqlParameter("@C", ClId), new SqlParameter("@prj", prj) }, CommandType.StoredProcedure);
+            return Mydb.ExecuteAsJson("GetNotSelObj", new SqlParameter[] { new SqlParameter("@C", ClId), new SqlParameter("@prj", prj),new SqlParameter("@d", d) }, CommandType.StoredProcedure);
         }
         [WebMethod]
         public static string getPhone()
@@ -46,9 +46,9 @@ namespace Kvorum_App.Client_Admin
         }
 
         [WebMethod]
-        public static string GetAccForMR(int CId, int MId, int RId)
+        public static string GetAccForMR(int CId, int MId, int RId,int d)
         {
-            return Mydb.ExecuteAsJson("GetAccForMR", new SqlParameter[] { new SqlParameter("@C", CId), new SqlParameter("@M", MId), new SqlParameter("@R", RId) }, CommandType.StoredProcedure);
+            return Mydb.ExecuteAsJson("GetAccForMR", new SqlParameter[] { new SqlParameter("@C", CId), new SqlParameter("@M", MId), new SqlParameter("@R", RId),new SqlParameter("@d",d) }, CommandType.StoredProcedure);
         }
         [WebMethod]
         public static string GetTexniks(int clientId)

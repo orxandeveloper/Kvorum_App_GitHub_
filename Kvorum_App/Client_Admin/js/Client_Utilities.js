@@ -2093,7 +2093,7 @@
             var prj = $(this).val();
             $('#objcts').empty()
             if (prj != 0) {
-                GetOpjectsForDisp(Id, prj, "")
+                GetOpjectsForDisp(Id, prj,"" ,0)
             }
         })
         $('#SDispatcher').keyup(function () {
@@ -2188,7 +2188,7 @@
       csmf = (csmf == "") ? sessionStorage.getItem("cmsf_a") : csmf;
             if (csmf == "") {
 
-                GetAccForDisp(Id, 4, 3, "")
+                GetAccForDisp(Id, 4, 3, "",0)
                 GetAccFor_Tex_and_Engnrs(Id, 4, 6, "")
                 GetAccFor_Responsibles(Id, 1, 16, "")
 
@@ -2201,11 +2201,11 @@
                 GetProjectsByClient(Id, prj)
                 if (prj != 0) {
                     $('#objcts').empty()
-                    GetOpjectsForDisp(Id, prj, sel_Obj)
+                    GetOpjectsForDisp(Id, prj, sel_Obj,0)
                 }
                 var sel_Disps = sessionStorage.getItem("selDisps");
                 sel_Disps = JSON.parse(sel_Disps)
-                GetAccForDisp(Id, 4, 3, sel_Disps)
+                GetAccForDisp(Id, 4, 3, sel_Disps,0)
                 var s_Injs = sessionStorage.getItem("sInjs");
                 s_Injs = JSON.parse(s_Injs);
                 //  GetAccForEngnrs(Id, s_Injs);
@@ -2374,8 +2374,9 @@
         }
         else {
             GetDetailDisp(Disp_ID)
-            //GetDispObjectsById(Disp_ID)
-            //GetDispAccByDispId(Disp_ID)
+            GetDispObjectsById(Disp_ID, Id)
+           
+            GetDispAccByDispId(Disp_ID, Id)
         }
     }
 
@@ -4434,6 +4435,63 @@ function GetDetailDisp(d)
         }
     })
 }
+function GetDispObjectsById(d,cid)
+{
+    var obj = {
+        d: d
+
+    };
+    $.ajax({
+        type: "POST",
+        url: "CreateDisp.aspx/GetDispObjectsById",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            js = JSON.parse(result.d);
+            GetProjectsByClient(cid, js[0].PROJECT_ID)
+            var prj = js[0].PROJECT_ID
+            //for (var i = 0; i < js.length; i++) {
+            //         delete js[i]['PROJECT_ID'];
+            //    delete js[i]['DISP_ID'];
+            //}
+            GetOpjectsForDisp(cid, prj, js, d)
+            GetAccForDisp(cid, 4, 3, "", d)
+            console.log(js)
+        }
+    })
+}
+function GetDispAccByDispId(d,cid)
+{
+    var obj = {
+        d: d
+
+    };
+    $.ajax({
+        type: "POST",
+        url: "CreateDisp.aspx/GetDispAccByDispId",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            js = JSON.parse(result.d);
+            var groupByRol = groupBy(js, 'ROLE_ID')
+            console.log(js)
+            console.log('groupByRol')
+            console.log()
+            GetAccFor_Responsibles(cid, 1, 16,groupByRol[16])
+           
+        }
+    })
+}
+
+var groupBy = function (xs, key) {
+    return xs.reduce(function (rv, x) {
+        (rv[x[key]] = rv[x[key]] || []).push(x);
+        return rv;
+    }, {});
+};
+
 function CRDisp(obj) {
     $.ajax({
         type: "POST",
@@ -4557,7 +4615,7 @@ function TemproSaveAndGo(Page)
         if ($(this).is(":checked")) {
             var objId = $(this).attr('itemid')
 
-            selectedObj.push({ sObjss: $(this).attr('itemid') });
+            selectedObj.push({ OBJECT_ID: $(this).attr('itemid') });
             //sessionStorage.setItem(selectedObj)
 
         }
@@ -4770,12 +4828,12 @@ function GetAccFor_Tex_and_Engnrs(CL_id, M_Id, R_ID, S_injs) {
     });
 
 }
-function GetAccForDisp(CL_id, M_Id, R_ID, s_disp) {
+function GetAccForDisp(CL_id, M_Id, R_ID, s_disp,d) {
     var obj = {
         CId: CL_id,
         MId: M_Id,
-        RId: R_ID
-
+        RId: R_ID,
+        d:d
     };
  
 
@@ -4788,8 +4846,9 @@ function GetAccForDisp(CL_id, M_Id, R_ID, s_disp) {
         success: function (result) {
             var jsondata_ = JSON.parse(result.d)
             for (var i = 0; i < jsondata_.length; i++) {
-
-                $("#Disps").append('<div itemid="' + jsondata_[i].LOG_IN_ID + '" class="flexHoriz ml-3 justify-content-between mt-3 w-auto"> <input type="checkbox" itemid="' + jsondata_[i].LOG_IN_ID + '" class="col-md-1 chkDispD checkbox-item"  data-url="' + jsondata_[i].MR_ID + '" id="chk' + jsondata_[i].LOG_IN_ID + '"> <label for="chk' + jsondata_[i].LOG_IN_ID + '" class="serviceName">' + jsondata_[i].ACCOUNT_NAME + '</label> </div>')
+                var checked = (jsondata_[i].Selected);
+                checked = (checked.length!=0)?"checked='checked'":""
+                $("#Disps").append('<div itemid="' + jsondata_[i].LOG_IN_ID + '" class="flexHoriz ml-3 justify-content-between mt-3 w-auto"> <input type="checkbox" '+checked+' itemid="' + jsondata_[i].LOG_IN_ID + '" class="col-md-1 chkDispD checkbox-item"  data-url="' + jsondata_[i].MR_ID + '" id="chk' + jsondata_[i].LOG_IN_ID + '"> <label for="chk' + jsondata_[i].LOG_IN_ID + '" class="serviceName">' + jsondata_[i].ACCOUNT_NAME + '</label> </div>')
             }
             $('#emptyData2').remove();
             if (jsondata_.length == 0) {
@@ -4858,11 +4917,13 @@ function GetProjectsByClient(CL_Id, s) {
         }
     })
 }
-function GetOpjectsForDisp(CL_Id, prj, sob) {
+function GetOpjectsForDisp(CL_Id, prj, sob,d) {
     $("#objcts").empty();
+    
     var obj = {
         ClId: CL_Id,
-        prj: prj
+        prj: prj,
+        d: d
     };
 
     var objecs = [];
@@ -4898,7 +4959,9 @@ function GetOpjectsForDisp(CL_Id, prj, sob) {
             if (sob != "") {
                 for (var i = 0; i < sob.length; i++) {
                     $("#objcts input[type=checkbox]").each(function () {
-                        if ($(this).attr('itemid') == sob[i].sObjss) {
+                        var this_item= $(this).attr('itemid')
+                        var sob_item = sob[i].OBJECT_ID
+                        if (this_item == sob_item) {
                             $(this).prop('checked', true)
                         }
                     })
