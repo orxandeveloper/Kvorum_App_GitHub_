@@ -52,59 +52,60 @@ namespace Kvorum_App.Client_Admin
         [WebMethod]
         public static string GetDetailClient(int Cl)
         {
-            int countRelationalDatas =(int) Mydb.ExecuteScalar("select count(*)from ACCOUNT a,CLIENT c, ENTITY_ADRESS e, ENTITY_TYPE et where et.ENTITY_TYPE_ID = c.ENTITY_TYPE_ID and e.ADRESS_ID = c.ADRESS_ID and c.CLIENT_ID = @c", new SqlParameter[] {new SqlParameter("@c",Cl) }, CommandType.Text);
+            return Mydb.ExecuteAsJson("getDetailClient", new SqlParameter[] { new SqlParameter("@c", Cl) }, CommandType.StoredProcedure);
+            //int countRelationalDatas =(int) Mydb.ExecuteScalar("select count(*)from ACCOUNT a,CLIENT c, ENTITY_ADRESS e, ENTITY_TYPE et where et.ENTITY_TYPE_ID = c.ENTITY_TYPE_ID and e.ADRESS_ID = c.ADRESS_ID and c.CLIENT_ID = @c", new SqlParameter[] {new SqlParameter("@c",Cl) }, CommandType.Text);
 
-            if (countRelationalDatas==0)
-            {
-                DataTable dt = Mydb.ExecuteReadertoDataTable("select E_MAIL,PASSWORD from ACCOUNT where CLIENT_ID=@cl and LOGIN is null", new SqlParameter[] { new SqlParameter("@cl", Cl) }, CommandType.Text);
-                List < Account_ > accs = new List<Account_>();
-                foreach (DataRow item in dt.Rows)
-                {
-                    Account_ acc = new Account_();
+            //if (countRelationalDatas==0)
+            //{
+            //    DataTable dt = Mydb.ExecuteReadertoDataTable("select E_MAIL,PASSWORD from ACCOUNT where CLIENT_ID=@cl and LOGIN is null", new SqlParameter[] { new SqlParameter("@cl", Cl) }, CommandType.Text);
+            //    List < Account_ > accs = new List<Account_>();
+            //    foreach (DataRow item in dt.Rows)
+            //    {
+            //        Account_ acc = new Account_();
 
-                    acc.E_MAIL = item["E_MAIL"].ToString();
+            //        acc.E_MAIL = item["E_MAIL"].ToString();
 
-                    acc.PASSWORD = item["PASSWORD"].ToString();
+            //        acc.PASSWORD = item["PASSWORD"].ToString();
 
 
-                    accs.Add(acc);
-                }
-                JavaScriptSerializer js = new JavaScriptSerializer();
-                return js.Serialize(accs);
-            }
-            else
-            {
-                List<Account_> accs = new List<Account_>();
-                DataTable dt = Mydb.ExecuteReadertoDataTable("getDetailClient", new SqlParameter[] { new SqlParameter("@c", Cl) }, CommandType.StoredProcedure);
+            //        accs.Add(acc);
+            //    }
+            //    JavaScriptSerializer js = new JavaScriptSerializer();
+            //    return js.Serialize(accs);
+            //}
+            //else
+            //{
+            //    List<Account_> accs = new List<Account_>();
+            //    DataTable dt = Mydb.ExecuteReadertoDataTable("getDetailClient", new SqlParameter[] { new SqlParameter("@c", Cl) }, CommandType.StoredProcedure);
 
-                foreach (DataRow item in dt.Rows)
-                {
-                    Account_ acc = new Account_();
-                    acc.ACCOUNT_NAME = item["ACCOUNT_NAME"].ToString();
-                    acc.COMPANY_NAME = item["COMPANY_NAME"].ToString();
-                    acc.ENTITY_TYPE_ID = Convert.ToInt32(item["ENTITY_TYPE_ID"]);
-                    acc.E_MAIL = item["E_MAIL"].ToString();
-                    acc.HOUSE = item["HOUSE"].ToString();
-                    acc.INN = item["INN"].ToString();
-                    acc.KPP = item["KPP"].ToString();
-                    acc.BNAME = item["BNAME"].ToString();
-                    acc.INNB = item["INNB"].ToString();
-                    acc.KPPB = item["KPPB"].ToString();
-                    acc.ADRESS_ID = item["ADRESS_ID"].ToString();
-                    acc.BIK = item["BIK"].ToString();
-                    acc.BKRS = item["BKRS"].ToString();
-                    acc.RS = item["RS"].ToString();
-                    acc.LOG_IN_ID = Convert.ToInt32(item["LOG_IN_ID"]);
-                    acc.OGRN_OGRNIP = item["OGRN_OGRNIP"].ToString();
-                    acc.OKPO = item["OKPO"].ToString();
-                    acc.PASSWORD = item["PASSWORD"].ToString();
-                    acc.PHONE_NUMBER = item["PHONE_NUMBER"].ToString();
+            //    foreach (DataRow item in dt.Rows)
+            //    {
+            //        Account_ acc = new Account_();
+            //        acc.ACCOUNT_NAME = item["ACCOUNT_NAME"].ToString();
+            //        acc.COMPANY_NAME = item["COMPANY_NAME"].ToString();
+            //        acc.ENTITY_TYPE_ID = Convert.ToInt32(item["ENTITY_TYPE_ID"]);
+            //        acc.E_MAIL = item["E_MAIL"].ToString();
+            //        acc.HOUSE = item["HOUSE"].ToString();
+            //        acc.INN = item["INN"].ToString();
+            //        acc.KPP = item["KPP"].ToString();
+            //        acc.BNAME = item["BNAME"].ToString();
+            //        acc.INNB = item["INNB"].ToString();
+            //        acc.KPPB = item["KPPB"].ToString();
+            //        acc.ADRESS_ID = item["ADRESS_ID"].ToString();
+            //        acc.BIK = item["BIK"].ToString();
+            //        acc.BKRS = item["BKRS"].ToString();
+            //        acc.RS = item["RS"].ToString();
+            //        acc.LOG_IN_ID = Convert.ToInt32(item["LOG_IN_ID"]);
+            //        acc.OGRN_OGRNIP = item["OGRN_OGRNIP"].ToString();
+            //        acc.OKPO = item["OKPO"].ToString();
+            //        acc.PASSWORD = item["PASSWORD"].ToString();
+            //        acc.PHONE_NUMBER = item["PHONE_NUMBER"].ToString();
 
-                    accs.Add(acc);
-                }
-                JavaScriptSerializer js = new JavaScriptSerializer();
-                return js.Serialize(accs);
-            }
+            //        accs.Add(acc);
+            //    }
+            //    JavaScriptSerializer js = new JavaScriptSerializer();
+            //    return js.Serialize(accs);
+            //}
 
         }
         public static string GetMd5HashData(string yourString)

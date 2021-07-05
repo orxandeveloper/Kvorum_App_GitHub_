@@ -19,7 +19,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Services;
-
+using Kvorum_App.DB;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Kvorum_App
 {
@@ -28,6 +30,8 @@ namespace Kvorum_App
         protected global::System.Web.UI.WebControls.DataList dlClaims;
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+
             var keyExistsToken = check_for_session_key("Token");
             if (!check_for_session_key("Token"))
             {
@@ -98,7 +102,18 @@ namespace Kvorum_App
 
                         if (CountOfMailAsClient==0)
                         {
-                            Mydb.ExecuteNoNQuery("InsertNewClient_T", new SqlParameter[] { new SqlParameter("@mail", Id_) }, CommandType.StoredProcedure);
+                            ApplicationDbContext dbcontext_ = new ApplicationDbContext();
+                            var userStore = new UserStore<ApplicationUser>(dbcontext_);
+                            var manager = new UserManager<ApplicationUser>(userStore);
+
+                            ApplicationUser user = manager.FindByEmail(Id_);
+                            string phone_number = user.PhoneNumber;
+                            string first_name = user.FirstName;
+                            Mydb.ExecuteNoNQuery("InsertNewClient_T", new SqlParameter[] { new SqlParameter("@mail", Id_)
+                                ,new SqlParameter("@phone_number",user.PhoneNumber),
+                            new SqlParameter("@first_name", user.FirstName),
+                            new SqlParameter("@second_name",user.SecondName),
+                            new SqlParameter("@middle_name",user.MiddleName)}, CommandType.StoredProcedure);
 
                             returnvalue = UK_Login(Id_);
                         }

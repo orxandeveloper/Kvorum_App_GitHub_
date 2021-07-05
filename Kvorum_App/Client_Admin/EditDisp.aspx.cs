@@ -179,15 +179,7 @@ namespace Kvorum_App.Client_Admin
                 }, CommandType.Text);
             }
 
-            #region
-
-
-
-
-
-
-
-            #endregion
+           
             return "";
         }
         [WebMethod]

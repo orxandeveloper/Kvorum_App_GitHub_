@@ -74,12 +74,13 @@
     if (g != null) {
         $("#myBtn").hide();
     }
+    sessionStorage.setItem("Clien_ID", 426)
     // Id = 214;
     if (Id == null) {
 
         // console.log("Ok")
-        Id = 346;// sessionStorage.getItem("Clien_ID"); //Orxcan
-        sessionStorage.setItem("Clien_ID", 346)
+        Id =  sessionStorage.getItem("Clien_ID"); //Orxcan
+      //  sessionStorage.setItem("Clien_ID", 346)
         // alert(Id)
         //Id=197
         if (Id == null) {
@@ -458,7 +459,7 @@
                 var ext = this.value.split('.').pop();
                 ext = ext.toLowerCase()
                 if (ext == "jpg" || ext == "jpeg" || ext == "png") {
-                    readURL(this, filename);
+                    readURL_O(this, filename);
                     $("#flS").hide();
                 }
                 else {
@@ -471,77 +472,7 @@
 
 
         })
-        function readURL(input, imgName) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.readAsDataURL(input.files[0]);
-                reader.onload = function (e) {
-
-
-                    $('.foto').attr('src', e.target.result);
-
-                    //var nameImg = imgName
-                    //var arrayBuffer = reader.result
-                    //var bytes = new Uint8Array(arrayBuffer);
-                    //var obj = { baseString: bytes, imgName: nameImg };
-                    var formData = new FormData();
-                    var file = document.getElementById("files").files[0];
-
-                    formData.append('file', file, encodeURI(file.name));
-                    formData.append('object_id', '1');
-                    //console.log(formData);
-
-
-
-                    $.ajax({
-                        type: "POST",
-                        url: window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/UploadFile",//"../WCFServices/Constructor_API.svc/UploadFile"
-                        data: formData,
-                        type: 'POST',
-                        contentType: "multipart/form-data",
-                        processData: false,
-                        // //async: false,
-                        success: function (result) {
-
-                            //console.log(result)
-                            //alert("OK. See Console -  press F12");
-                            // console.log(JSON.stringify(result)); $("#resulter").text(JSON.stringify(result));
-                            //var jsondata_1 = jQuery.parseJSON(result)
-                            //var jsondata_1 = JSON.stringify(result)
-                            // var jsondata_1 = JSON.parse(result)
-                            $('.foto').attr('src', result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/"))//replace('~', '..'))
-                            $("#loader,.ui-loader-background").hide();
-
-                        },
-
-                        error: function (r) {
-                            $(".foto").attr('src', '/img/brickdom.png')
-                            $("#loader,.ui-loader-background").hide();
-                            //// //alert("Error");
-                            //var jsonEroorData = JSON.parse(r);
-                            //if (jsonEroorData.readyState==4) {
-                            //    $('.foto').attr('src', result.URL.replace('~', '..'))
-                            //    $("#loader,.ui-loader-background").hide();
-                            //}
-                            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-                            //console.log("AJAX error in request: " + JSON.stringify(datas, null, 2));
-
-                            var filePath = $('#files').val();
-                            var index = filePath.lastIndexOf("\\") + 1;
-                            var filename = filePath.substr(index);
-                            readURL(input, filename)
-                        },
-                        failure: function (r) {
-                            alert("FAIL");
-                        }
-                    });
-
-
-                }
-
-
-            }
-        }
+     
         $("#adr").focus(function () {
             var manual = $("#manu").prop('checked');
             if (manual == true) {
@@ -1443,14 +1374,7 @@
         $("#backUo").click(function () {
             var cmsf_uo = sessionStorage.getItem("cmsf_uo");
             window.location.href = (cmsf_uo.length != 0) ? cmsf_uo : 'RegisterUO.aspx'
-            //if (cmsto!="") {
-
-            //    window.location.href = 'CreateOpject.aspx'
-            //}
-            //else {
-
-            //    window.location.href = 'RegisterUO.aspx'
-            //}
+            
         })
         $("#ObUo").click(function () {
             var uoI_d = $(this).attr("itemid");
@@ -2189,8 +2113,8 @@
             if (csmf == "") {
 
                 GetAccForDisp(Id, 4, 3, "",0)
-                GetAccFor_Tex_and_Engnrs(Id, 4, 6, "")
-                GetAccFor_Responsibles(Id, 1, 16, "")
+                GetAccFor_Tex_and_Engnrs(Id, 4, 6, "",0)
+                GetAccFor_Responsibles(Id, 1, 16, "",0)
 
 
             }
@@ -2209,10 +2133,10 @@
                 var s_Injs = sessionStorage.getItem("sInjs");
                 s_Injs = JSON.parse(s_Injs);
                 //  GetAccForEngnrs(Id, s_Injs);
-                GetAccFor_Tex_and_Engnrs(Id, 4, 6, s_Injs)
+                GetAccFor_Tex_and_Engnrs(Id, 4, 6, s_Injs,0)
                 var Resps = sessionStorage.getItem('Resps')
                 Resps = JSON.parse(Resps)
-                GetAccFor_Responsibles(Id, 1, 16, Resps)
+                GetAccFor_Responsibles(Id, 1, 16, Resps,0)
                 var simg = sessionStorage.getItem("SImage");
                 simg = simg.replace('"', '').replace('"', '').replace('"', '')
                 $(".SImage").attr('src', simg)
@@ -2375,8 +2299,40 @@
         else {
             GetDetailDisp(Disp_ID)
             GetDispObjectsById(Disp_ID, Id)
-           
+            $('#saveD').text('Обнавить')
             GetDispAccByDispId(Disp_ID, Id)
+            $('#saveActD').click(function ()
+            {
+                Activation("0", Disp_ID)
+            })
+            $('#saveD').click(function ()
+            {
+                if (checkControls_Disp().IsSuccess == true) {
+                    var obj = {
+                        d: Disp_ID,
+                        icon: checkControls_Disp().icon_,
+                        NDisp: checkControls_Disp().DispName,
+                        PhDisp: checkControls_Disp().telDisp,
+                        objs: checkControls_Disp().Objcts,
+                        DispAcc: checkControls_Disp().Disps,
+                        Spess: checkControls_Disp().Spess,
+                        Resps: checkControls_Disp().Resps
+                    };
+                    UpdateDisp(obj)
+                }
+            })
+            $('#DelDisp').click(function () {
+                var DName = $('#DispName').val()
+               // var fName = "DeleteDisp(" + Disp_ID+")"
+                DispAlert('Вы действительно хотите удалить?', DName, DelDisp)
+            })
+            $('.modal-footer2').children('#deleteO').click(function ()
+            {
+                DeleteDisp(Disp_ID)
+            })
+            $('.CancelProject,#close_').click(function () {
+                $('#myModal2').hide()
+            })
         }
     }
 
@@ -2937,33 +2893,7 @@
 
         })
     }
-    function DeleteDisp(dd) {
-        var obj = {
-            DD: dd
-
-        };
-
-        $.ajax({
-            type: "POST",
-            url: "EditDisp.aspx/DispDelete",
-            data: JSON.stringify(obj),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-                var log_Id = sessionStorage.getItem("Log");
-                SaveLog("Удалить", "Важное", "Администратор", "Клиентское администрирование", "Удалена диспетчерская (" + $("#DName").val() + ")", log_Id);
-                window.location.href = "Disp.aspx";
-            },
-
-            error: function (r) {
-                //alert("Error");
-                console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
-            },
-            failure: function (r) {
-                alert("FAIL");
-            }
-        });
-    }
+   
     if (loc == "/Client_Admin/EditDisp.aspx") {
         var Dddspid = sessionStorage.getItem("Disp_ID");
         var comes_to = sessionStorage.getItem("ComesTo");
@@ -4414,6 +4344,111 @@
     }
 
 });
+function readURL_O(input, imgName) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.readAsDataURL(input.files[0]);
+        reader.onload = function (e) {
+
+
+            $('.foto').attr('src', e.target.result);
+
+            //var nameImg = imgName
+            //var arrayBuffer = reader.result
+            //var bytes = new Uint8Array(arrayBuffer);
+            //var obj = { baseString: bytes, imgName: nameImg };
+            var formData = new FormData();
+            var file = document.getElementById("files").files[0];
+
+            formData.append('file', file, encodeURI(file.name));
+            formData.append('object_id', '1');
+            //console.log(formData);
+
+
+
+            $.ajax({
+                type: "POST",
+                url: window.location.protocol + '//' + window.location.host + "/WCFServices/Constructor_API.svc/UploadFile",//"../WCFServices/Constructor_API.svc/UploadFile"
+                data: formData,
+                type: 'POST',
+                contentType: "multipart/form-data",
+                processData: false,
+                // //async: false,
+                success: function (result) {
+
+                    //console.log(result)
+                    //alert("OK. See Console -  press F12");
+                    // console.log(JSON.stringify(result)); $("#resulter").text(JSON.stringify(result));
+                    //var jsondata_1 = jQuery.parseJSON(result)
+                    //var jsondata_1 = JSON.stringify(result)
+                    // var jsondata_1 = JSON.parse(result)
+                    $('#imgObj').attr('src', result.URL.replace('~', window.location.protocol + '//' + window.location.host + "/"))//replace('~', '..'))
+                    $("#loader,.ui-loader-background").hide();
+
+                },
+
+                error: function (r) {
+                    $(".foto").attr('src', '/img/brickdom.png')
+                    $("#loader,.ui-loader-background").hide();
+                    //// //alert("Error");
+                    //var jsonEroorData = JSON.parse(r);
+                    //if (jsonEroorData.readyState==4) {
+                    //    $('.foto').attr('src', result.URL.replace('~', '..'))
+                    //    $("#loader,.ui-loader-background").hide();
+                    //}
+                    console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+                    //console.log("AJAX error in request: " + JSON.stringify(datas, null, 2));
+
+                    var filePath = $('#files').val();
+                    var index = filePath.lastIndexOf("\\") + 1;
+                    var filename = filePath.substr(index);
+                    readURL(input, filename)
+                },
+                failure: function (r) {
+                    alert("FAIL");
+                }
+            });
+
+
+        }
+
+
+    }
+}
+function DeleteDisp(dd) {
+    var obj = {
+        DD: dd
+
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "EditDisp.aspx/DispDelete",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            var log_Id = sessionStorage.getItem("Log");
+            SaveLog("Удалить", "Важное", "Администратор", "Клиентское администрирование", "Удалена диспетчерская (" + $("#DName").val() + ")", log_Id);
+            window.location.href = "Disp.aspx";
+        },
+
+        error: function (r) {
+            //alert("Error");
+            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function (r) {
+            alert("FAIL");
+        }
+    });
+}
+function DispAlert(Htext,bodyText,FName) {
+
+    $('.modal-headerProject').children('#mh2').text(Htext)
+    $('.modal-body2').children('#txt2').text(bodyText)
+ //   $('.modal-footer2').children('#deleteO').attr('onclick', FName)
+    $('#myModal2').show()
+}
 function GetDetailDisp(d)
 {
     var obj = {
@@ -4428,6 +4463,14 @@ function GetDetailDisp(d)
         dataType: "json",
         success: function (result) {
             j = JSON.parse(result.d);
+            if (j[0].DISP_STATUS == "True") {
+                $('#saveActD').hide();
+     console.log('detail')
+                console.log(j)
+            }
+            else {
+                $('#saveActD').text('Активировать');
+            }
             $('#DispName').val(j[0].DISP_NAME);
             $('#telDisp').val(j[0].DISP_PHONE_NUMBER);
             $('#fDiv3').remove()
@@ -4478,8 +4521,13 @@ function GetDispAccByDispId(d,cid)
             var groupByRol = groupBy(js, 'ROLE_ID')
             console.log(js)
             console.log('groupByRol')
-            console.log()
-            GetAccFor_Responsibles(cid, 1, 16,groupByRol[16])
+          
+            console.log(groupByRol)
+            var eng_tex = $.merge( groupByRol[2], groupByRol[6])
+            console.log(eng_tex)
+            GetAccFor_Responsibles(cid, 1, 16, groupByRol[16], d)
+            GetAccFor_Tex_and_Engnrs(cid, 4, 6, eng_tex, d)
+          
            
         }
     })
@@ -4506,14 +4554,35 @@ function CRDisp(obj) {
         },
         error: function(r) {
             // //alert("Error");
-            console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+            //console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
         },
         failure: function(r) {
             alert("FAIL");
         }
     });
 }
-
+function UpdateDisp(obj)
+{
+    $.ajax({
+        type: "POST",
+        url: "CreateDisp.aspx/UpdateDisp",
+        data: JSON.stringify(obj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            var log_Id = sessionStorage.getItem("Log");
+            //   SaveLog("Сохранить", "Простое", "Администратор", "Клиентское администрирование", "В системе создана диспетчерская (" + $("#DispName").val() + ")", log_Id);
+            window.location.href = "Disp.aspx";
+        },
+        error: function (r) {
+            // //alert("Error");
+            //console.log("AJAX error in request: " + JSON.stringify(r, null, 2));
+        },
+        failure: function (r) {
+            alert("FAIL");
+        }
+    });
+}
 function checkControls_Disp()
 {
     var IsSuccess = true;
@@ -4721,12 +4790,13 @@ function GetAccFortex(ClId, s_tex) {
     });
 
 }
-function GetAccFor_Responsibles(CL_id, M_Id, R_ID, S_injs)
+function GetAccFor_Responsibles(CL_id, M_Id, R_ID, S_injs,d)
 {
     var obj = {
         CId: CL_id,
         MId: M_Id,
-        RId: R_ID
+        RId: R_ID,
+        d:d
 
     };
     //alert(JSON.stringify(obj));
@@ -4750,7 +4820,9 @@ function GetAccFor_Responsibles(CL_id, M_Id, R_ID, S_injs)
             if (S_injs != "") {
                 for (var i = 0; i < S_injs.length; i++) {
                     $("#Resps input[type=checkbox]").each(function () {
-                        if ($(this).attr('itemid') == S_injs[i].Resp) {
+                        var resp = (S_injs[i].Resp == undefined) ? S_injs[i].LOG_IN_ID : S_injs[i].Resp
+                        var thisRespItem = $(this).attr('itemid')
+                        if (thisRespItem== resp) {
                             $(this).prop('checked', true)
                         }
                     })
@@ -4775,12 +4847,12 @@ function GetAccFor_Responsibles(CL_id, M_Id, R_ID, S_injs)
         }
     });
 }
-function GetAccFor_Tex_and_Engnrs(CL_id, M_Id, R_ID, S_injs) {
+function GetAccFor_Tex_and_Engnrs(CL_id, M_Id, R_ID, S_injs,d) {
     var obj = {
         CId: CL_id,
         MId: M_Id,
-        RId: R_ID
-
+        RId: R_ID,
+        d:d
     };
      
     $.ajax({
@@ -4802,7 +4874,8 @@ function GetAccFor_Tex_and_Engnrs(CL_id, M_Id, R_ID, S_injs) {
             if (S_injs != "") {
                 for (var i = 0; i < S_injs.length; i++) {
                     $("#Spess input[type=checkbox]").each(function () {
-                        if ($(this).attr('itemid') == S_injs[i].sInjs) {
+                        var sInjs = (S_injs[i].sInjs == undefined) ? S_injs[i].LOG_IN_ID : S_injs[i].sInjs
+                        if ($(this).attr('itemid') == sInjs) {
                             $(this).prop('checked', true)
                         }
                     })
@@ -5042,8 +5115,12 @@ function Activation(e, DId) {
             var log_Id = sessionStorage.getItem("Log");
             var DName = $(e).parent().find('a').find('h4').text();
             //  var Id = sessionStorage.getItem("Clien_ID")
-            SaveLog("Активировать", "Простое", "Администратор", "Клиентское администрирование", "Активирована диспетчерская (" + DName + ")", log_Id);
-            $(e).hide();
+         //   SaveLog("Активировать", "Простое", "Администратор", "Клиентское администрирование", "Активирована диспетчерская (" + DName + ")", log_Id);
+            if (e != "0") {
+                $(e).hide();
+            } else {
+                window.location.href = "Disp.aspx";
+            }
 
         },
 
@@ -5060,7 +5137,7 @@ function EdFunc(e, D_Id) {
     var id = $(this).attr('id')
    
         sessionStorage.setItem("Disp_ID", D_Id)
-        alert("div")
+      //  alert("div")
     
     window.location.href = "CreateDisp.aspx"
 
@@ -5230,11 +5307,13 @@ function GetDetailCilent(ClId) {
             var jsondata_ = JSON.parse(result.d)
 
 
-
+            console.log(jsondata_)
             for (var i = 0; i < jsondata_.length; i++) {
 
 
-                $("#fio").val(jsondata_[i].ACCOUNT_NAME)
+                $("#FirstName").val(jsondata_[i].FIRST_NAME)
+                $("#SecondName").val(jsondata_[i].SECOND_NAME)
+                $("#MiddleName").val(jsondata_[i].MIDDLE_NAME)
                 $("#email").val(jsondata_[i].E_MAIL)
                 $("#tel").val(jsondata_[i].PHONE_NUMBER)
                 $("#pass").attr('oldpass', jsondata_[i].PASSWORD)
@@ -5245,7 +5324,7 @@ function GetDetailCilent(ClId) {
                     $("#kpp").show()
                     $("#kppH").show();
                     $("#ogrnH").text("ОГРН")
-                    $("#kpp").val(jsondata_[i].KPP)
+                    $("#KPP").val(jsondata_[i].KPP)
 
                 }
                 if (jsondata_[i].ENTITY_TYPE_ID == 2) {
@@ -5259,7 +5338,7 @@ function GetDetailCilent(ClId) {
                 $("#CompName").val(jsondata_[i].COMPANY_NAME)
                 $("#INN").val(jsondata_[i].INN)
                 $("#OGRN").val(jsondata_[i].OGRN_OGRNIP)
-                $("#okpo").val(jsondata_[i].OKPO)
+                $("#OKPO").val(jsondata_[i].OKPO)
 
 
                 $("#adr").val(jsondata_[i].HOUSE)
@@ -5687,13 +5766,13 @@ function createNew_ManagerCompany(ClId, obj_, MAN_COMPANY_ID) {
             if (MAN_COMPANY_ID == null) {
                 var cmsf_uo = sessionStorage.getItem("cmsf_uo");
                 var log_Id = sessionStorage.getItem("Log");
-                SaveLog("Создан", "Простое", "Администратор", "Клиентское администрирование", "В системе создана управляющая организация  (" + Name_ + ")", log_Id);
+            //    SaveLog("Создан", "Простое", "Администратор", "Клиентское администрирование", "В системе создана управляющая организация  (" + Name_ + ")", log_Id);
                 window.location.href = (cmsf_uo.length != 0) ? cmsf_uo : 'RegisterUO.aspx';
 
             }
             else {
                 var log_Id = sessionStorage.getItem("Log")
-                SaveLog("Сохранить изменения", "Простое", "Администратор", "Клиентское администрирование", "Сохранены изменения в карточке управляющей организации (" + Name_ + ")", log_Id);
+              //  SaveLog("Сохранить изменения", "Простое", "Администратор", "Клиентское администрирование", "Сохранены изменения в карточке управляющей организации (" + Name_ + ")", log_Id);
                 window.location.href = "RegisterUO.aspx"
             }
         },
@@ -6260,6 +6339,7 @@ function SaveDataAndGoTo(page) {
     else if (page == 'CreateAccount.aspx') {
         sessionStorage.setItem("LogId", "")
         sessionStorage.setItem("ComesTo", "OB")
+       sessionStorage.setItem("cmsf_a","CreateOpject.aspx")
     }
 
     sessionStorage.setItem("currentDatas", JSON.stringify(objectDetail))

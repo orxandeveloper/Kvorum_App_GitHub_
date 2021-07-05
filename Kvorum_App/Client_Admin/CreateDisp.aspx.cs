@@ -161,5 +161,58 @@ namespace Kvorum_App.Client_Admin
             Mydb.ExecuteNoNQuery("BusyDIspPhone", new SqlParameter[] { new SqlParameter("@ph", PhDisp) }, CommandType.StoredProcedure);
             return "";
         }
+
+        [WebMethod]
+        public static string UpdateDisp(int d, string icon, string NDisp, string PhDisp, List<ObjectS> objs, List<Account_> DispAcc, List<Account_> Spess, List<Account_> Resps)
+        {
+
+
+            Mydb.ExecuteNoNQuery("UpdateDisp", new SqlParameter[] {
+                new SqlParameter("@d",d),
+                new SqlParameter("@ic",icon),
+                new SqlParameter("@Dn",NDisp),
+                new SqlParameter("@dph",PhDisp),
+            }, CommandType.StoredProcedure);
+          
+            foreach (ObjectS item in objs)
+            {
+                Mydb.ExecuteNoNQuery("InsertObjectToDisp", new SqlParameter[] { new SqlParameter("@oId", item.Object_Id), new SqlParameter("@Did", d) }, CommandType.StoredProcedure);
+
+               
+            }
+
+            foreach (Account_ item in DispAcc)
+            {
+
+                Mydb.ExecuteNoNQuery("InsertAccountToDisp", new SqlParameter[] {
+                    new SqlParameter("@lg",item.LOG_IN_ID),
+                    new SqlParameter("@d",d),
+                    new SqlParameter("@R",Convert.ToInt32(item.MODULE_ROLES))
+
+                }, CommandType.StoredProcedure);
+            }
+
+            foreach (Account_ item in Spess)
+            {
+
+                Mydb.ExecuteNoNQuery("InsertAccountToDisp", new SqlParameter[] {
+                    new SqlParameter("@lg",item.LOG_IN_ID),
+                    new SqlParameter("@d",d),
+                        new SqlParameter("@R",Convert.ToInt32(item.MODULE_ROLES))
+                }, CommandType.StoredProcedure);
+            }
+            foreach (Account_ item in Resps)
+            {
+
+                Mydb.ExecuteNoNQuery("InsertAccountToDisp", new SqlParameter[] {
+                    new SqlParameter("@lg",item.LOG_IN_ID),
+                    new SqlParameter("@d",d),
+                        new SqlParameter("@R",Convert.ToInt32(item.MODULE_ROLES))
+                }, CommandType.StoredProcedure);
+            }
+
+
+            return "";
+        }
     }
 }

@@ -105,7 +105,7 @@
                 </div>
                 <div class="flexHoriz w-100 mt-4">
                     <button id="saveD" class="btn btn1 ml-3">Сохранить</button>
-                    <button class="btn btn1 ml-3" id="backAppart">Сохранить и активировать</button>
+                    <button class="btn btn1 ml-3" id="saveActD">Сохранить и активировать</button>
                     <button class="btn btn1 outline shadow-none ml-3" id="backD">Назад</button>
                     <%--  <button class="btn btn1 outline shadow-none ml-auto" id="backAppart">Сохранить и активировать</button>--%>
                 </div>
