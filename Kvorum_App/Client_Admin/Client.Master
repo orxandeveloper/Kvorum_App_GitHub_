@@ -262,7 +262,7 @@
                         <img src="../img/news-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font14b mb-0">Управляющие организации</p>
                     </a></li>
-                    <li class="nav-link active"><a href="RegisterObject.aspx" class="flexHoriz">
+                    <li class="nav-link active"><a id="gotoObj" href="RegisterObject.aspx" class="flexHoriz">
                         <img src="../img/home-ic-bl.svg" class="w24 mr-3" alt="" />
                         <p class="font14b mb-0">Объекты</p>
                     </a></li>

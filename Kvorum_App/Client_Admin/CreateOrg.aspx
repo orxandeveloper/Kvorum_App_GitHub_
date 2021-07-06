@@ -20,11 +20,11 @@
                         </div>
 
 
-                        <div class="row mt-3 mb-3" id="btns" style="display:none">
+                        <div class="row mt-3 mb-3" >
                             <div class="col-sm-12 ">
 
-                                <button class="btn btn1 h56 mr-2" id="savO"><strong>Объекты</strong></button>
-                                <button class="btn btn1 h56 outline shadow-none flexCenter" id="back_O">Раскрытие информации</button>
+                                <button class="btn btn1 h56 mr-2" id="ObUo"><strong>Объекты</strong></button>
+                                <button class="btn btn1 h56 outline shadow-none" id="INfoU">Раскрытие информации</button>
                                 
                             </div>
 

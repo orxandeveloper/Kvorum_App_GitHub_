@@ -2,10 +2,19 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-       <h2 id="CompName">Раскрытие информации об управляющей организации ООО "Ромашка"</h2>
-  
-     <form runat="server">
-         <table class="formTable vaTop">
+      
+<div class="p-4">
+
+        <h2  id="CompName" class=" font24b textBlack ml-0 pb-4">Объекты</h2> <!-- h2New -->
+
+     
+ </div>
+        <div class="row w-100 m-0 min-vh-100">
+            <div class="col-sm-12 p-0">
+
+          
+                 <div class="overflowX w-100">
+         <table class="mngTable w-100 formTable">
             <thead>
                 <tr>
                   <th>Наименование документа</th>
@@ -90,9 +99,17 @@
              </tr>
          </table>
          <div class="buttons">
-                    <button id="savInfo" class="btn btn-default logBtn" type="button" style="background-color:rgb(0,147,233);">Сохранить</button>
-                    <button id="back_Uo" class="btn btn-default logBtn" type="button" style="background-color:rgb(149,153,156);margin-left:5%;">Назад</button>
-                    <%--<input type="button" name="name" id="tst" value="test" />--%>
+             <button id="savInfo" class="btn btn-default logBtn" type="button" ><strong>Сохранить</strong></button>
+             <button id="back_Uo" class="btn btn-default logBtn" id="INfoU">Назад</button>
+                    
+                  
                 </div>
-      </form>
+      </div>
+
+
+             
+            </div>
+        </div>
+  
+   
 </asp:Content>
