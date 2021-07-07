@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Client_Admin/Client.Master" AutoEventWireup="true" CodeBehind="ProfileSettings.aspx.cs" Inherits="Kvorum_App.Client_Admin.ProfileSettings" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .pointer{
+            cursor:pointer
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row w-100 m-0 min-vh-100">
@@ -12,7 +17,7 @@
                     <div class="bgWhite rounded16 shadow w-100 p-4">
 
                         <div class="flexHoriz w-100" id="infoCount">
-                            <h2 id="profilSettings" class="font24b textBlack">Настройки профиля</h2>
+                            <h2 id="profilSettings" class="font24b textBlack mb-3">Настройки профиля</h2>
 
                         </div>
                       <div class="w-100 flexHoriz flex-wrap justify-content-between">
@@ -35,10 +40,45 @@
                         </div>
 
 
-                        <div class="flexHoriz justify-content-between mt-3">
-                            <div class="posRel w-100 mb-3">
-                                <input type="text" required="required" id="email" class="email">
+                          <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-85 mb-3">
+                                <input type="text" disabled="disabled" required="required" id="email" class="email">
                                 <label for="email" class="transp backLab">E-mail </label>
+                            </div>
+                            <div class="posRel w-24 mb-3 ml-3">
+                                <a onclick="showNew(this,0,true)" class="flexHoriz pointer btn btn1 transp border flexCenter h-100 w-100">
+                                    <img src="../img/tasks-ic-bl.svg" class="w24 reddishSvg mr-2" alt=""><p class="font14b mb-0">Изменить</p>
+
+                                </a>
+                            </div>
+                        </div>
+                        <div id="emailNewDiv" style="display: none !important" class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-100 mb-3">
+                                <input type="text" required="required" id="emailNew" class="email">
+                                <label for="email" class="transp backLab">Новый E-mail </label>
+                            </div>
+                        </div>
+                       
+                         <div class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-85 mb-3">
+                                <input type="password" disabled="disabled" required="required" id="pass" class="pass">
+                                <label for="pass" class="transp backLab">Пароль </label>
+                            </div>
+                          <div class="posRel w-24 mb-3 ml-3">
+                                <a onclick="showNew(this,1,true)" class="flexHoriz pointer btn btn1 transp border flexCenter h-100 w-100">
+                                    <img src="../img/tasks-ic-bl.svg" class="w24 reddishSvg mr-2" alt=""><p class="font14b mb-0">Изменить</p>
+
+                                </a>
+                            </div>
+                        </div>
+                         <div id="NRPassDiv" style="display: none !important" class="flexHoriz justify-content-between mt-3">
+                            <div class="posRel w-50 mb-3 mr-3">
+                                <input type="password" required="required" id="NPass" class="NPass">
+                                <label for="NPass" class="transp backLab">Новый пароль</label>
+                            </div>
+                             <div class="posRel w-50 mb-3">
+                                <input type="password" required="required" id="RPass" class="RPass">
+                                <label for="RPass" class="transp backLab">Повторите новый пароль </label>
                             </div>
                         </div>
                         <div class="flexHoriz justify-content-between mt-3">
@@ -47,25 +87,8 @@
                                 <label for="tel" class="transp backLab">Мобильный телефон</label>
                             </div>
                         </div>
-                <%--        <div class="flexHoriz justify-content-between mt-3">
-                            <div class="posRel w-100 mb-3">
-                                <input type="password" id="pass" class="pass">
-                                <label for="pass" class="transp backLab">Пароль</label>
-                            </div>
-                        </div>
-                        <div class="flexHoriz justify-content-between mt-3">
-                            <div class="posRel w-100 mb-3">
-                                <input type="password" id="passN" class="passN">
-                                <label for="passN" class="transp backLab">Новый пароль</label>
-                            </div>
-                        </div>
-                        <div class="flexHoriz justify-content-between mt-3">
-                            <div class="posRel w-100 mb-3">
-                                <input type="password" id="RPass" class="RPass">
-                                <label for="RPass" class="transp backLab">Повторите новый пароль</label>
-                            </div>
-                        </div>--%>
-                        <h3>Сведения, необходимые для заключения договора</h3>
+           
+                        <h3 class="font16b mt-1">Сведения, необходимые для заключения договора</h3>
                         <div class="flexHoriz justify-content-between mt-3">
                             <div class="posRel w-100 mb-3">
                                 <select required="required" id="typE">
@@ -118,12 +141,12 @@
 
                         
                         <div class="w-100 flexHoriz flex-wrap justify-content-between">
-                            <h5>Юридический адрес</h5>
+                            <h5 class="font16b mt-1">Юридический адрес</h5>
                             <div class="posRel w-100 mb-3">
                                 <input type="text" id="adr" required="required" class="adr" list="adrList">
                                 <label for="adr" class="transp backLab">Область, город, район, улица</label>
                             </div>
-                            <div class="w-100 mb-3">
+                            <div class="w-100 mb-3" style="display:none">
                                 <input id="manu" class="checkbox-item" type="checkbox">
                                 <label for="manu">Ввести вручную</label>
                             </div>
@@ -135,13 +158,13 @@
                             </div>
                             <div class="posRel w-48">
 
-                                <input type="text" required="required" class="KORP" id="KORP">
+                                <input type="text" class="KORP" id="KORP">
                                 <label for="KORP" class="transp backLab">Строение/корпус</label>
                             </div>
 
                         </div>
                         <hr />
-                        <h5>Реквизиты для оплаты услуг клиентами</h5>
+                        <h5 class="font16b mt-1">Реквизиты для оплаты услуг клиентами</h5>
                         <div class="flexHoriz justify-content-between mt-3">
                             <div class="posRel w-100 mb-3">
                                 <input type="text" id="bik" required="required" maxlength="9" class="bik">

@@ -75,7 +75,7 @@
         $("#myBtn").hide();
     }
     // Id = 214;
-    sessionStorage.setItem("Clien_ID", 429)
+    sessionStorage.setItem("Clien_ID", 426)
     if (Id == null) {
 
         // console.log("Ok")
@@ -1195,7 +1195,7 @@
             var email = $(this).val();
             if (isValidEmailAddress(email)) {
 
-                CheckEmail(email);
+                CheckEmail($(this),email);
             }
             else {
                 $("#yesmail").show();
@@ -1622,7 +1622,18 @@
         })
 
 
+        $("#emailNew").keyup(function () {
+            var email = $(this).val();
+            if (isValidEmailAddress(email)) {
+                $('#emailNew').removeAttr('data-success')
+                CheckEmail($(this),email);
+            }
+            else {
+                $('#emailNew').attr('data-success','false')
+                ErrorForControls($("#emailNew"), 'Введенное значение не соответствует формату электронной почты')
 
+            }
+        })
 
         function gtBik(bik_) {
             var obj = { BIK: bik_ };
@@ -4054,6 +4065,40 @@
     }
 
 });
+function showNew(e,num,isOpen)
+{
+    if (num == 0) {
+        $('#emailNew').val('');
+        if (isOpen == true) {
+
+            $('#emailNewDiv').removeAttr('style')
+            $(e).children('p').text('Назад')
+            $(e).attr('onclick', 'showNew(this,0,false)')
+        }
+        else {
+
+            $('#emailNewDiv').attr('style', 'display: none !important')
+            $(e).children('p').text('Изменить')
+            $(e).attr('onclick', 'showNew(this,0,true)')
+        }
+    }
+    else if (num==1)
+    {
+        $('#NPass,#RPass').val('');
+        if (isOpen == true) {
+
+            $('#NRPassDiv').removeAttr('style')
+            $(e).children('p').text('Назад')
+            $(e).attr('onclick', 'showNew(this,1,false)')
+        }
+        else {
+
+            $('#NRPassDiv').attr('style', 'display: none !important')
+            $(e).children('p').text('Изменить')
+            $(e).attr('onclick', 'showNew(this,1,true)')
+        }
+    }
+}
 function GotoMain() {
     window.location.href = 'RegisterUO.aspx'
 }
@@ -5169,7 +5214,7 @@ function GetDetailCilent(ClId) {
                 $("#MiddleName").val(jsondata_[i].MIDDLE_NAME)
                 $("#email").val(jsondata_[i].E_MAIL)
                 $("#tel").val(jsondata_[i].PHONE_NUMBER)
-                $("#pass").attr('oldpass', jsondata_[i].PASSWORD)
+                $("#pass").val('********')//.attr('oldpass', jsondata_[i].PASSWORD)
                 $("#typE").val(jsondata_[i].ENTITY_TYPE_ID).select2({ minimumResultsForSearch: "Infinity" })
 
                 if (jsondata_[i].ENTITY_TYPE_ID == 1) {
@@ -5368,7 +5413,7 @@ function getDetailAcc(lg) {
 
     })
 }
-function CheckEmail(eml) {
+function CheckEmail(e,eml) {
     var obj = {
         email: eml
     };
@@ -5382,13 +5427,15 @@ function CheckEmail(eml) {
         dataType: "json",
         success: function (data) {
             var jsondata_2 = JSON.parse(data.d)
-            if (jsondata_2.result == 0) {
+            if (jsondata_2.result == 1) {
+                $(e).removeAttr('data-success')
                 $("#yesmail").hide();
                 $("#Uomail").hide();
                 $("#Uomail").html("")
             }
             else {
-                ErrorForControls($("#email"), 'Данный e-mail уже зарегистрирован в системе')
+                $(e).attr('data-success', 'false')
+                ErrorForControls($(e), 'Данный e-mail уже зарегистрирован в системе')
                 //  $("#yesmail").show();//
                 //  $("#Uomail").html('Данный e-mail уже зарегистрирован в системе<br/>').show();//.text("Данный e-mail уже зарегистрирован в системе").show();
             }

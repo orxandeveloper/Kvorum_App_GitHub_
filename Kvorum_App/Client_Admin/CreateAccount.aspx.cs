@@ -26,18 +26,22 @@ namespace Kvorum_App.Client_Admin
         {
 
         }
+       
+
         [WebMethod]
         public static string CheckMail(string email)
         {
-            int EmCount = (int)Mydb.ExecuteScalar("select COUNT(*) from ACCOUNT where E_MAIL=@em", new SqlParameter[] { new SqlParameter("@em", email) }, CommandType.Text);
-            if (EmCount==0)
+            ApplicationDbContext dbcontext_ = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(dbcontext_);
+            var _userManager = new UserManager<ApplicationUser>(userStore);
+            bool IsEmailAlreadyRegistered = _userManager.Users.Any(item => item.Email == email);
+            string a = "1";
+            if (IsEmailAlreadyRegistered == true)
             {
-                return "{\"result\" : \"0\"}";
+                a = "Данный e-mail уже зарегистрирован в системе.";
+
             }
-            else
-            {
-                return "{\"result\" : \"1\"}";
-            }
+            return "{\"result\" : \"" + a + "\"}";
         }
         public static string GetMd5HashData(string yourString)
         {
@@ -96,7 +100,7 @@ namespace Kvorum_App.Client_Admin
             
             return "{\"result\" : \""+error+"\"}";
         }
-        private static string CreateAccoountIdendity(string Email, string Password_, string PhoneNumber, string FirstName, string SecondName, string MiddleName, string roles)
+        public static string CreateAccoountIdendity(string Email, string Password_, string PhoneNumber, string FirstName, string SecondName, string MiddleName, string roles)
         {
             ApplicationDbContext dbcontext_ = new ApplicationDbContext();
             var userStore = new UserStore<ApplicationUser>(dbcontext_);
@@ -241,23 +245,27 @@ namespace Kvorum_App.Client_Admin
             ApplicationUser user = manager.FindByEmail(Email);
             IdentityResult result = manager.Delete(user);
         }
+
+
         [WebMethod]
-        public static string CHeckIdendityPhone( string PNumb_)
+        public static string CHeckIdendityEmail(string Email)
         {
-            PNumb_ = PNumb_.Replace("(", "").Replace(")", "").Replace("-", "").Replace("-", "").Replace(" ", "");
+           // PNumb_ = PNumb_.Replace("(", "").Replace(")", "").Replace("-", "").Replace("-", "").Replace(" ", "");
 
             ApplicationDbContext dbcontext_ = new ApplicationDbContext();
             var userStore = new UserStore<ApplicationUser>(dbcontext_);
             var _userManager = new UserManager<ApplicationUser>(userStore);
-            bool IsPhoneAlreadyRegistered = _userManager.Users.Any(item => item.PhoneNumber == PNumb_);
+            bool IsEmailAlreadyRegistered = _userManager.Users.Any(item => item.Email == Email);
             string a = "1";
-            if (IsPhoneAlreadyRegistered == true)
+            if (IsEmailAlreadyRegistered == true)
             {
-                 a = "Такой телефонный номер уже зарегистрирован.";
+                a = "Данный e-mail уже зарегистрирован в системе.";
 
             }
             return "{\"result\" : \"" + a + "\"}";
         }
+
+  
         private static string GiveRole(int R_Id)
         {
           return  (R_Id == 1) ? "Управляющий" : (R_Id == 2) ? "Инженер" : (R_Id == 3) ? "Диспетчер" : (R_Id == 4) ? "Администратор" : (R_Id == 5) ? "Бизнес-администратор" : (R_Id == 6) ? "Техник" : (R_Id == 7) ? "Житель" : (R_Id == 8) ? "Паспортист" : (R_Id == 9) ? "Менеджер по работе с клиентами" : (R_Id == 10) ? "Начальник расчетного отдела" : (R_Id == 11) ? "Специалист расчетного отдела" : (R_Id == 12) ? "Начальник юридического отдела" : (R_Id == 13) ? "Юрист" : (R_Id == 14) ? "Администратор управляющей организации" : (R_Id == 15) ? "Диспетчер поставщика" : (R_Id == 16) ? "Ответственный" : "Супер Диспетчер";
