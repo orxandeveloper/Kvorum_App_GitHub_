@@ -1622,17 +1622,13 @@
         })
 
 
-        $("#emailNew").keyup(function () {
+        $("#emailNew").blur(function () {
             var email = $(this).val();
             if (isValidEmailAddress(email)) {
                 $('#emailNew').removeAttr('data-success')
                 CheckEmail($(this),email);
             }
-            else {
-                $('#emailNew').attr('data-success','false')
-                ErrorForControls($("#emailNew"), 'Введенное значение не соответствует формату электронной почты')
-
-            }
+           
         })
 
         function gtBik(bik_) {
@@ -1681,7 +1677,54 @@
             var phone = $(this).val()
             if (phone.length == 17) { CHeckIdendityPhone(phone, $(this)) }
         })
+        $("#NPass").keyup(function () {
+            var password = $(this).val();
+            $(this).removeAttr('data-success')
+            if (password.length > 5) {
+                $("#yesC").hide();
+                $("#UoPass_").hide();
+                var numbers_ = /[0-9]/g
+                var upperCaseLetters = /[A-Z]/g;
+                var lowerCaseLetters = /[a-z]/g
+                if (password.match(/[a-z]/g) || password.match(/[A-Z]/g)) {
+                    $("#yesC").hide();
+                    $("#UoPass_").hide();
+                    if (password.match(/(.)\1/)) {
+
+                        $(this).attr('data-success',"false")
+                        ErrorForControls($(this), 'Пароль должен содержать символы в разных регистрах')
+                    }
+                    else {
+                        $(this).removeAttr('data-success')
+                    }
+                    if (password.match(numbers_) && password.match(upperCaseLetters) && password.match(lowerCaseLetters)) {
+                        $(this).removeAttr('data-success')
+                    }
+                    else {
+                     
+                        $(this).attr('data-success', "false")
+                        ErrorForControls($(this), 'Пароль должен содержать символы в разных регистрах')
+                    }
+                }
+                else {
+                 
+                    $(this).attr('data-success', "false")
+                    ErrorForControls($(this), 'Пароль должен содержать латинские символы и цифры')
+                }
+                if (!password.match(numbers_)) {
+                    $(this).attr('data-success', "false")
+                    ErrorForControls($(this), 'Пароль должен содержать латинские символы и цифры')
+                }
+            }
+            else {
+               
+                $(this).attr('data-success', "false")
+                ErrorForControls($(this),'Данное поле должно содержать как минимум 6 символов')
+            }
+
+        })
         $('#SaveChanges').click(function () {
+            console.log(checkControls_PS())
             if (checkControls_PS().isSuccess == true) {
                 $("#loader,.ui-loader-background").show();
                 ProfileSettingsSave(ClId, checkControls_PS());
@@ -5073,12 +5116,29 @@ function checkControls_PS() {
     var SecondName = $('#SecondName').val();
     var MiddleName = $('#MiddleName').val();
     var email = $("#email").val().trim();
+    var email_succ = $("#emailNew").attr('data-success')
+    if (email_succ != undefined) {
+        isSuccess = false;
+        ErrorForControls($("#emailNew"), 'Данный e-mail уже зарегистрирован в системе')
+    }
+    var emailNew = $('#emailNew').val();
+    var NPass_succ = $('#NPass').attr('data-success')
+    if (NPass_succ != undefined) {
+        isSuccess = false;
+        ErrorForControls($("#NPass"), 'Пароль не правильно')
+    }
+    var RPass = $('#RPass').val()
+    if (RPass != $('#NPass').val()) {
+        isSuccess = false;
+        ErrorForControls($("#RPass"), 'Новый пароль и повторный пароль не совпадают')
+    }
     var tel = $("#tel").val().trim();
     var phone_succ = $("#tel").attr('data-succ')
     if (phone_succ != undefined) {
         isSuccess = false
         ErrorForControls($("tel"), "Такой телефонный номер уже зарегистрирован.")
     }
+    
     var typE = $("#typE").val()
     var CompName = $("#CompName").val();
     var INN = $("#INN").val();
@@ -5102,17 +5162,18 @@ function checkControls_PS() {
     var KPPB = $("#KPPB").val();
     var Login_Id = sessionStorage.getItem("loginId")
     var adress_Id = sessionStorage.getItem("AdressID")
-    return { isSuccess: isSuccess, FirstName: FirstName, SecondName: SecondName, MiddleName: MiddleName, email: email, tel: tel, typE: typE, CompName: CompName, INN: INN, OGRN: OGRN, OKPO: OKPO, KPP: KPP, adr_: adr_, adrCode_: adrCode_, adrtext_: adrtext_, bik: bik, BNAME: BNAME, BKRS: BKRS, RS: RS, INNB: INNB, KPPB: KPPB, Login_Id: Login_Id, adress_Id: adress_Id }
+    return { isSuccess: isSuccess, PASSWORD: RPass, FirstName: FirstName, SecondName: SecondName, MiddleName: MiddleName, email: email, emailNew: emailNew ,tel: tel, typE: typE, CompName: CompName, INN: INN, OGRN: OGRN, OKPO: OKPO, KPP: KPP, adr_: adr_, adrCode_: adrCode_, adrtext_: adrtext_, bik: bik, BNAME: BNAME, BKRS: BKRS, RS: RS, INNB: INNB, KPPB: KPPB, Login_Id: Login_Id, adress_Id: adress_Id }
 }
 function ProfileSettingsSave(ClId, P_data) {
     var obj = {
-        PASSWORD: "",//RPass,
+        PASSWORD: P_data.PASSWORD,//RPass,
         // ACCOUNT_NAME: "",
         FirstName: P_data.FirstName,
         SecondName: P_data.SecondName,
         MiddleName: P_data.MiddleName,
         PHONE_NUMBER: P_data.tel,
         E_MAIL: P_data.email,
+        emailNew: P_data.emailNew,
         COMPANY_NAME: P_data.CompName,
         INN: P_data.INN,
         KPP: P_data.KPP,

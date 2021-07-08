@@ -196,9 +196,16 @@ namespace Kvorum_App.Client_Admin
            
             ApplicationUser user = manager.FindByEmail(Email);
             Password_ = (Password_.Length == 0) ? user.Password_deser : Password_;
-          //  user.Email = Email;
-           // user.UserName = Email;
-         //   user.NormalizedUserName = Email.ToUpper();
+            if (Password_.Length != 0)
+            {
+                var PasswordHasher = manager.PasswordHasher.HashPassword(Password_);
+                userStore.SetPasswordHashAsync(user, PasswordHasher);
+                // var userP = manager.ChangePassword(user.Id, user.Password_deser, Password_);//.AddPassword(user.Id, Password_);//
+            }
+
+            //  user.Email = Email;
+            // user.UserName = Email;
+            //   user.NormalizedUserName = Email.ToUpper();
             user.Password_deser = Password_;
             user.PhoneNumber = PhoneNumber;
             user.LockoutEnabled = true;

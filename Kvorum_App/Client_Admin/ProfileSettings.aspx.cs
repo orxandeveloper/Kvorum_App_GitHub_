@@ -1,9 +1,13 @@
 ﻿using Kvorum_App.Client_Admin.Utilities;
+using Kvorum_App.DB;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -112,16 +116,61 @@ namespace Kvorum_App.Client_Admin
         {
             return string.Join("", MD5.Create().ComputeHash(Encoding.ASCII.GetBytes(yourString)).Select(s => s.ToString("x2")));
         }
+        public static void UpdateAccuntIdendity(string OldEmail, string NewEmail ,string Password_, string PhoneNumber, string FirstName, string SecondName, string MiddleName, string roles)
+        {
+            NewEmail = (NewEmail.Length == 0) ? OldEmail : NewEmail;
+            ApplicationDbContext dbcontext_ = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(dbcontext_);
+            var manager = new UserManager<ApplicationUser>(userStore);
+        
+            ApplicationUser user = manager.FindByEmail(OldEmail);
+            Password_ = (Password_.Length == 0) ? user.Password_deser : Password_;
+            if (Password_.Length!=0)
+            {
+                var PasswordHasher = manager.PasswordHasher.HashPassword(Password_);
+                userStore.SetPasswordHashAsync(user, PasswordHasher);
+               // var userP = manager.ChangePassword(user.Id, user.Password_deser, Password_);//.AddPassword(user.Id, Password_);//
+            }
+              user.Email = NewEmail;
+             user.UserName = NewEmail;
+               user.NormalizedUserName = NewEmail.ToUpper();
+            user.Password_deser = Password_;
+            user.PhoneNumber = PhoneNumber;
+            user.LockoutEnabled = true;
+            user.EmailConfirmed = true;
+            user.PhoneNumberConfirmed = true;
+            user.TwoFactorEnabled = false;
+            user.FirstName = FirstName;
+            user.SecondName = SecondName;
+            user.MiddleName = MiddleName;
+            user.TypeOrgName = roles;
+            user.NormalizedEmail = NewEmail.ToUpper();
+            IdentityResult Mresult = manager.Update(user);
+            if (Mresult.Succeeded == true)
+            {
+                var userClaims = manager.GetClaims(user.Id);
+                foreach (var item in userClaims)
+                {
+                    manager.RemoveClaim(user.Id, item);
+                }
+                var resultClaim_name = manager.AddClaimAsync(user.Id, new Claim("name", FirstName)).Result;
+                var resultClaim_email_given_name = manager.AddClaimAsync(user.Id, new Claim("given_name", SecondName)).Result;
+                var resultClaim_family_name = manager.AddClaimAsync(user.Id, new Claim("family_name", MiddleName)).Result;
+                var resultClaim_website = manager.AddClaimAsync(user.Id, new Claim("website", "http://lk.upravbot.ru:55555/CoreApi/api/v2/")).Result;
+                var resultClaim_role = manager.AddClaimAsync(user.Id, new Claim("role", roles)).Result;
+            }
+
+        }
         [WebMethod]
-        public static string Save_Changes(string PASSWORD,string FirstName, string SecondName,string MiddleName, string PHONE_NUMBER,string E_MAIL, string COMPANY_NAME,string INN,string KPP,string OGRN_OGRNIP,int ENTITY_TYPE_ID,string OKPO,string HOUSE, string BNAME,string INNB,string KPPB,string BIK,string BKRS,string RS,int CL,string Login_Id)
+        public static string Save_Changes(string PASSWORD,string FirstName, string SecondName,string MiddleName, string PHONE_NUMBER,string E_MAIL, string emailNew, string COMPANY_NAME,string INN,string KPP,string OGRN_OGRNIP,int ENTITY_TYPE_ID,string OKPO,string HOUSE, string BNAME,string INNB,string KPPB,string BIK,string BKRS,string RS,int CL,string Login_Id)
         {
            // string Id_idendity = Mydb.ExecuteScalar("GetId_idendity", new SqlParameter[] { new SqlParameter("@lg", Login_Id) }, CommandType.StoredProcedure).ToString();
             
               
                
                 PHONE_NUMBER = PHONE_NUMBER.Replace("(", "").Replace(")", "").Replace("-", "").Replace("-", "").Replace(" ", "");
-                CreateAccount.UpdateAccuntIdendity(E_MAIL, PASSWORD, PHONE_NUMBER, FirstName, SecondName, MiddleName, "УК");
-           
+                UpdateAccuntIdendity(E_MAIL, emailNew, PASSWORD, PHONE_NUMBER, FirstName, SecondName, MiddleName, "УК");
+            E_MAIL = (emailNew.Length == 0) ? E_MAIL : emailNew;
             Mydb.ExecuteNoNQuery("UpdateAcc", new SqlParameter[]  {new SqlParameter("@e",E_MAIL),
             new SqlParameter("@p",PHONE_NUMBER),
          
@@ -130,6 +179,7 @@ namespace Kvorum_App.Client_Admin
           new SqlParameter("@MiddleName",MiddleName),
             new SqlParameter("@L",Login_Id),
             new SqlParameter("@pas",PASSWORD)}, CommandType.StoredProcedure);
+
             Mydb.ExecuteNoNQuery("UpdateClient", new SqlParameter[] {
                 new SqlParameter("@cn",COMPANY_NAME),
                 new SqlParameter("@enId",ENTITY_TYPE_ID),

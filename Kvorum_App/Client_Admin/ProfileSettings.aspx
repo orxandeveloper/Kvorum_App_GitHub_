@@ -54,7 +54,7 @@
                         </div>
                         <div id="emailNewDiv" style="display: none !important" class="flexHoriz justify-content-between mt-3">
                             <div class="posRel w-100 mb-3">
-                                <input type="text" required="required" id="emailNew" class="email">
+                                <input type="text"  id="emailNew" class="email">
                                 <label for="email" class="transp backLab">Новый E-mail </label>
                             </div>
                         </div>
@@ -73,11 +73,11 @@
                         </div>
                          <div id="NRPassDiv" style="display: none !important" class="flexHoriz justify-content-between mt-3">
                             <div class="posRel w-50 mb-3 mr-3">
-                                <input type="password" required="required" id="NPass" class="NPass">
+                                <input type="password"  id="NPass" class="NPass">
                                 <label for="NPass" class="transp backLab">Новый пароль</label>
                             </div>
                              <div class="posRel w-50 mb-3">
-                                <input type="password" required="required" id="RPass" class="RPass">
+                                <input type="password"  id="RPass" class="RPass">
                                 <label for="RPass" class="transp backLab">Повторите новый пароль </label>
                             </div>
                         </div>
