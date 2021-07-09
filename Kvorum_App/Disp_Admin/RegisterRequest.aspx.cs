@@ -685,7 +685,7 @@ namespace Kvorum_App.Disp_Admin
             StringBuilder sb = new StringBuilder();
             try
             {
-                int count = 1;
+               // int count = 1;
                 int totalColumns = dt.Columns.Count;
                 /*
                 foreach (DataColumn dr in dt.Columns)

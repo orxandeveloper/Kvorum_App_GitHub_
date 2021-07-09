@@ -3,6 +3,7 @@
     $('#OutD').click(function () {
         window.location.href = 'https://upravbot.ru/IDS4/connect/endsession'//'../HomePage.aspx';
     })
+    sessionStorage.setItem("Log",997);
     var Log = sessionStorage.getItem("Log");
     var searchParams = new URLSearchParams(window.location.search)
     var eml = searchParams.get('eml')
@@ -2976,6 +2977,10 @@ function closeModal(ModalId) {
         $('#CounterAddwindow').load('AddCounter.aspx #pop')
     }
 }
+function checkAll(e)
+{
+    $('.chkProjNews').prop('checked',$(e).prop('checked'))
+}
 function CheckNewsDatas() {
     var SuccessNews = true
     var dateNews = $('#dateNews').val();
@@ -3008,11 +3013,26 @@ function CheckNewsDatas() {
     var fileName = ($('#FileNews').length != 0) ? $('#fileName').text() : '';
     var imgNews = ($('#imgNews').length != 0) ? $('#imgNews').attr('src') : '';
     var ImpNews = $('#ImpNews').prop('checked');
-    var NewsFor = $("input[type='radio'][name='newsFor']:checked").attr('data-project');
-    NewsFor = (NewsFor == undefined) ? '0' : NewsFor;
+    var NewsFor = []//$("input[type='radio'][name='newsFor']:checked").attr('data-project');
+    $('.chkProjNews:checked').each(function () {
+        NewsFor.push({'PROJECT_ID':$(this).attr('itemid')})
+    })
+    if (NewsFor.length == 0) {
+        SuccessNews=false
+        $('#emptyData').empty();
+        $('#prjcts').prepend('<div id="emptyData" class="flexHoriz ml-3 justify-content-between mt-3 w-100">  <label for="chk0" class="serviceName" style=" color: red; ">Выберите проект</label></div>')
+        window.setTimeout(function () {
+     
+            $('#emptyData').empty();
+            
+             
+
+        }, 5000);
+    }
+  //  NewsFor = (NewsFor == undefined) ? '0' : NewsFor;
     var fixed = $('#fixed').prop('checked')
     var Active = $('#Active').prop('checked')
-    var retJson = { SuccessNews: SuccessNews, dateNews: dateNews, timeNews: timeNews, HeaderText: HeaderText, NewText: NewText, PreviewText: PreviewText, FileNews: FileNews, fileName: fileName, imgNews: imgNews, ImpNews: ImpNews, NewsFor: NewsFor, fixed: fixed, Active: Active }
+    var retJson = { SuccessNews: SuccessNews, dateNews: dateNews, timeNews: timeNews, HeaderText: HeaderText, NewText: NewText, PreviewText: PreviewText, FileNews: FileNews, fileName: fileName, imgNews: imgNews, ImpNews: ImpNews, NewsFor: JSON.stringify(NewsFor), fixed: fixed, Active: Active }
     console.log(retJson)
     return retJson
 }
@@ -4346,17 +4366,22 @@ function getProjectNamebyLogin(lg) {
         success: function (data) {
             var j = JSON.parse(data.d)
             for (var i = 0; i < j.length; i++) {
-                if (i==0) {
-                    $('#forAlbl').text(j[i].PROJECT_NAME)
-                }
-                else {
-                    var prName = $('#forAlbl').text();
-                    prName = prName + ', ' + j[i].PROJECT_NAME
-                    $('#forAlbl').text(prName);
-                }
+                $('#prjcts').append('<div itemid="' + j[i].PROJECT_ID + '"> <input type="checkbox" itemid="' + j[i].PROJECT_ID + '" class="chkProjNews checkbox-item" id="chk' + j[i].PROJECT_ID + '"> <label for="chk' + j[i].PROJECT_ID + '" class="mb-3">' + j[i].PROJECT_NAME + '</label> </div>');
+                //if (i==0) {
+                //    $('#forAlbl').text(j[i].PROJECT_NAME)
+                //}
+                //else {
+                //    var prName = $('#forAlbl').text();
+                //    prName = prName + ', ' + j[i].PROJECT_NAME
+                //    $('#forAlbl').text(prName);
+                //}
+            }
+            if (j.length == 0) {
+                $('#emptyData').empty();
+                $('#prjcts').append('<div id="emptyData" class="flexHoriz ml-3 justify-content-between mt-3 w-100">  <label for="chk0" class="serviceName" style=" color: red; ">у Вас нет привязанных объектов</label></div>')
             }
            
-            $('#forAlbl').prev().prop('checked', 'checked').attr('data-project', j[0].PROJECT_ID);
+          //  $('#forAlbl').prev().prop('checked', 'checked').attr('data-project', j[0].PROJECT_ID);
         }
     })
 }

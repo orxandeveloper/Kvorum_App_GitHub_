@@ -352,8 +352,8 @@ namespace Server
             string result = "";
             string errNo = "";
             string errMsg = "";
-            string id = "";
-            string value_ = "";
+            //string id = "";
+            //string value_ = "";
 
             [DataMember]
             public string Result

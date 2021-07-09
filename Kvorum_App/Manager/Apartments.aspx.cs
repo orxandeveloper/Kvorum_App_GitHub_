@@ -475,11 +475,11 @@ namespace Kvorum_App.Manager
                 }
                 catch (Exception ex)
                 {
-                    string a_ = "dutdut";
+                  
                 }
 
             }
-            string a = "thats all";
+            
         }
 
         [WebMethod]

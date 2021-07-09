@@ -285,7 +285,7 @@ namespace Kvorum_App.Super_Disp
         [WebMethod]
         public static string Filtering(List<Kvorum_App.Disp_Admin.Utilities.Filter> flt, int Log, int role, int all)
         {
-            string returnval = "";
+            //string returnval = "";
 
             /*string r ="REQUEST_ID=5";
             Console.WriteLine(r);

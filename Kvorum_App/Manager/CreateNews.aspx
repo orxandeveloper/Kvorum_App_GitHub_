@@ -10,6 +10,10 @@
                         color: #3b404f; 
                         padding-right: 10px; 
                 } 
+                .{
+                        overflow: auto;
+    height: 200px;
+                }
         </style>  
 		
 </asp:Content>
@@ -63,15 +67,20 @@ $('.col-lg-9half').toggleClass('max-vh-100');
 
             <div id="forNewsDiv" class="border p-3 rounded8 column-flex">
                 <h4 class="font16b">Проект, к которому относится новость</h4>
-				
-				<div class="radio-item pl-0">
+				<div class="mb-3">
+					<input type="checkbox" onclick="checkAll(this)" name="newsFor" class="checkbox-item" id="forAll" class="">
+					<label for="forAll">Для всех</label>
+				</div>
+                <div id="prjcts" class="w-100 h-15 shadow rounded8 prjcts p-2 position-relative">
+                    </div>
+			<%--	<div class="radio-item pl-0">
 					<input type="radio" id="forProject" name="newsFor" class="">
 					<label for="forProject" id="forAlbl">Какой-то проект</label>
                 </div>
 				<div class="radio-item pl-0">
 					<input type="radio" name="newsFor" id="forAll" class="">
 					<label for="forAll">Для всех</label>
-				</div>
+				</div>--%>
             </div>
         
 

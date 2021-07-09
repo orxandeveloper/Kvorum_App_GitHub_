@@ -1639,7 +1639,7 @@ namespace Kvorum_App.Manager
                                     int T3_count_eng = dublicateDatas.Count(x => x.TARIF.Contains("T3"));
                                     int T3_count_rus = dublicateDatas.Count(x => x.TARIF.Contains("Т3"));
 
-                                    bool tSuccess = true;
+                                  //  bool tSuccess = true;
                                     if (mtr.AMUNT_TARIF == "3")
                                     {
 
