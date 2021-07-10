@@ -2017,7 +2017,7 @@
         $('#loader,.ui-loader-background').hide()
         CKEDITOR.replace('editor1', { height: 100 });
         getDateAndTime();
-        getProjectNamebyLogin(Log);
+      
         $('#backto').click(function () {
             window.location.href = 'NewsRegister.aspx';
         })
@@ -2043,6 +2043,7 @@
             })
         }
         else {
+            getProjectNamebyLogin(Log);
             $('#SavePublish').click(function () {
              
 
@@ -4083,7 +4084,7 @@ function GetNewsDetail(guid) {
             //   $('#SaveNews').text('Редактировать')
             $('#SaveNews,#SavePublish').attr('data-state', 'Update')
             var j = JSON.parse(data.d)
-            ////console.log(j)
+            console.log(j)
             var dateNews = j[0].PUBLISH_DATETIME
             dateNews = dateNews.substr(0, 10)
             //  dateNews = dateNews.split('-').reverse().join('.')
@@ -4110,14 +4111,22 @@ function GetNewsDetail(guid) {
                 $('#filesN').hide();
             }
             $('#ImpNews').prop('checked', j[0].IS_IMPORTANT)
-            if (j[0].PROJECT_ID == null) {
-                $('#forAll').prop('checked', true);
+            //if (j[0].PROJECT_ID == null) {
+            //    $('#forAll').prop('checked', true);
+            //}
+            if (j[0].PROJECT_ID!=null) {
+                getProjectNamebyLogin(sessionStorage.getItem("Log"), j[0].PROJECT_ID.split(','))
             }
+            
             $('#fixed').prop('checked', j[0].TOP_ATTACHED)
 
             $('#forNewsDiv').after('<div class="border p-3 rounded8 column-flex"><div class="radio-item pl-0"> <input type="radio" id="Active" name="Activate" data-project="23"> <label for="Active">Активно</label> </div> <div class="radio-item pl-0"> <input type="radio" name="Activate" id="NoneActive"> <label for="NoneActive" >не Активно</label> </div> </div>')
 
-
+            if (j[0].AUTENTICY == true) {
+                $('#ShowNews,#SavePublish,#SaveNews').hide();
+                $('input,#PreviewText,#NewText,[onclick="removeNewsImg(this)"]').attr('disabled','disabled')
+            }
+           
             //.after('<div style="border-style: groove; border-color: linen; width: 32%;"><span></span><br><input type="radio" id="Active" name="Activate" data-project="23"><span id="forAlbl" style="margin-right: 15px;"> Активно</span><input type="radio" checked="checked" name="Activate" id="NoneActive"><span> не Активно</span></div>')
             $('#Active').prop('checked', j[0].ACTIVE)
             $('label[for="dateNews"],label[for="timeNews"],label[for="HeaderText"]').attr('class', 'transp backLab')
@@ -4353,7 +4362,7 @@ function removeNewsImg(e) {
     $('#filesN').show().val('');
 }
 
-function getProjectNamebyLogin(lg) {
+function getProjectNamebyLogin(lg,s) {
 
     var Obj = { "lg": lg }
     $.ajax({
@@ -4380,7 +4389,11 @@ function getProjectNamebyLogin(lg) {
                 $('#emptyData').empty();
                 $('#prjcts').append('<div id="emptyData" class="flexHoriz ml-3 justify-content-between mt-3 w-100">  <label for="chk0" class="serviceName" style=" color: red; ">у Вас нет привязанных объектов</label></div>')
             }
-           
+            if (s != undefined) {
+                for (var i = 0; i < s.length; i++) {
+                    $('.chkProjNews[itemId="' + s[i] + '"]').prop('checked','checked')
+                }
+            }
           //  $('#forAlbl').prev().prop('checked', 'checked').attr('data-project', j[0].PROJECT_ID);
         }
     })

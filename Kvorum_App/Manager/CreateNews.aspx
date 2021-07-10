@@ -10,7 +10,7 @@
                         color: #3b404f; 
                         padding-right: 10px; 
                 } 
-                .{
+                .prjcts{
                         overflow: auto;
     height: 200px;
                 }

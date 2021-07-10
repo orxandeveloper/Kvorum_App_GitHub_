@@ -697,9 +697,9 @@ Mydb.ExecuteAsJson("getRoomTypes", new SqlParameter[] { }, CommandType.StoredPro
             return Mydb.ExecuteReadertoDataTableAsJson("GetExistSeriveDirect", new SqlParameter[] { new SqlParameter("@ss", ss), new SqlParameter("@obj", obj) }, CommandType.StoredProcedure);
         }
         [WebMethod]
-        public static string GetResponsibels_()
+        public static string GetResponsibels_(int lg)
         {
-            return Mydb.ExecuteReadertoDataTableAsJson("GetResponsibels", new SqlParameter[] { }, CommandType.StoredProcedure);
+            return Mydb.ExecuteReadertoDataTableAsJson("GetResponsibels", new SqlParameter[] { new SqlParameter("@lg",lg) }, CommandType.StoredProcedure);
 
         }
         [WebMethod]
