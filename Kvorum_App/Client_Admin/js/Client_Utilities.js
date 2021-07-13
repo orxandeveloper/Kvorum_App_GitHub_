@@ -159,6 +159,7 @@
         $("#loader,.ui-loader-background").hide();
         $("#dom").keyup(function () { $("#domS").hide() })
 
+        DatData_GetAdressByText("test");
         $("#back_O").click(function () {
 
             var cmsf_O = sessionStorage.getItem("cmsf_O");
@@ -208,6 +209,14 @@
         //if (Ob!="") {
         if (currentDatas != "" && currentDatas != null) {
             currentDatas = JSON.parse(currentDatas);
+            $("#adr").suggestions({
+                token: "a1cc4bcf3ac339478fa91a5626d8665f4c2e3891",
+                type: "ADDRESS",
+                /* Вызывается, когда пользователь выбирает одну из подсказок */
+                onSelect: function (suggestion) {
+                    console.log(suggestion);
+                }
+            });
             // console.log(currentDatas[0].opt)
             GerUoList(Id, currentDatas[0].opt)
             // $("#uo").prop("selectedIndex", currentDatas[0].opt);
@@ -6218,6 +6227,34 @@ function searchAdress(adres) {
     //        })
     //    }
     //})
+}
+function DatData_GetAdressByText(text) {
+   
+    var url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
+    var token = "a1cc4bcf3ac339478fa91a5626d8665f4c2e3891";
+    var query = "москва хабар";
+    var obj = { query: query }
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Authorization": "Token " + token
+        },
+        data: JSON.stringify(obj),
+       // contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            console.log(result)
+        }
+    })
+}
+function SelectAdres(e)
+{
+    var e_itemId = $(e).attr('itemId');
+    var labelText = $('#lbl' + e_itemId).text()
+    $('#adr').val('').val(labelText)
 }
 function GerUoList(CL_Id, Suo) {
     var obj = {

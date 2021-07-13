@@ -36,7 +36,7 @@ namespace Kvorum_App
             //  DeleteAccuntIdendity();
             // CreateAccoountIdendity("orx@gmail", "123456Aa");
           //  CHeckIdendityPhone();
-           // UpdateAccuntIdendity();
+          //  UpdateAccuntIdendity();
             #region For Test
             //string values_T = "{T1: \"1\",T2:\"2\", T3:\"3\"}";
             //  string values_T = "{T1: \"1\",T2:\"2\"}";
@@ -155,21 +155,21 @@ role	0
             ApplicationDbContext dbcontext_ = new ApplicationDbContext();
             var userStore = new UserStore<ApplicationUser>(dbcontext_);
             var manager = new UserManager<ApplicationUser>(userStore);
-            ApplicationUser user = manager.FindById("a8ed31f9-08e2-4ee4-a550-df989d417d8b");
-            user.Email = "orx2@gmail";
-            user.UserName = "orx2@gmail";
-            user.NormalizedUserName = "orx2@gmail".ToUpper();
-            user.Password_deser = "123456Aa2";//Password_,
-            user.PhoneNumber = "+79999999992";
+            ApplicationUser user = manager.FindById("a26d39a9-ba9e-45b2-9395-70c1b757a24d");
+           // user.Email = "orx2@gmail";
+            user.UserName = "Login_728";
+            user.NormalizedUserName = "Login_728".ToUpper();
+            user.Password_deser = "123456Aa";//Password_,
+           // user.PhoneNumber = "+79999999992";
             user.LockoutEnabled = true;
             user.EmailConfirmed = true;
             user.PhoneNumberConfirmed = true;
             user.TwoFactorEnabled = false;
-            user.FirstName = "Orxan2";
-            user.SecondName = "Abdu2";
-            user.MiddleName = "teymur2";
-            user.TypeOrgName = "dispatcher2";
-            user.NormalizedEmail = "orx2@gmail".ToUpper();
+            user.FirstName = "Test";
+            user.SecondName = "Disp";
+            user.MiddleName = "Test";
+            user.TypeOrgName = "dispatcher";
+         //   user.NormalizedEmail = "orx2@gmail".ToUpper();
              
            
 
@@ -190,11 +190,11 @@ role	0
                 {
                     manager.RemoveClaim(user.Id, item);
                 }
-                var resultClaim_name = manager.AddClaimAsync(user.Id, new Claim("name", "Orxan2")).Result;
-                var resultClaim_email_given_name = manager.AddClaimAsync(user.Id, new Claim("given_name", "Abdu2")).Result;
-                var resultClaim_family_name = manager.AddClaimAsync(user.Id, new Claim("family_name", "Teymur2")).Result;
+                var resultClaim_name = manager.AddClaimAsync(user.Id, new Claim("name", "Test")).Result;
+                var resultClaim_email_given_name = manager.AddClaimAsync(user.Id, new Claim("given_name", "Disp")).Result;
+                var resultClaim_family_name = manager.AddClaimAsync(user.Id, new Claim("family_name", "Test")).Result;
                 var resultClaim_website = manager.AddClaimAsync(user.Id, new Claim("website", "http://lk.upravbot.ru:55555/CoreApi/api/v2/2")).Result;
-                var resultClaim_role = manager.AddClaimAsync(user.Id, new Claim("role", "dispatcher2")).Result;
+                var resultClaim_role = manager.AddClaimAsync(user.Id, new Claim("role", "dispatcher")).Result;
             }
 
 

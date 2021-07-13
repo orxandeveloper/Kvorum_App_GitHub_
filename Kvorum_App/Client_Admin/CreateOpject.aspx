@@ -2,9 +2,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .delObj{
-                float: right;
-    color: #D11B25;
+        .delObj {
+            float: right;
+            color: #D11B25;
         }
         /* Add Animation */
         @-webkit-keyframes animatetop {
@@ -102,7 +102,24 @@
             overflow: auto;
             width: 67.5%;
         }
+
+        .adrDiv {
+            overflow: auto;
+            height: 200px;
+        }
+        .adrH:hover{
+            background-color:#D11B25;
+            color:white;
+            cursor:pointer;
+            
+                
+        }
+        #adrs{
+                overflow: auto;
+    height: 200px;
+        }
     </style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row w-100 m-0 min-vh-100">
@@ -133,11 +150,11 @@
 
                                 <button class="btn btn1 h56 outline shadow-none flexCenter" id="back_O">Назад</button>
 
-                                <a id="myBtn" href="#" role="button" style="display:none" class="create font18b position-relative delObj">
-                        <img src="../img/ic-bin.svg" class="mr-3 position-absolute d-flex ml-n4" alt="">
-                        <!--<i class="fa fa-times-circle" aria-hidden="true"></i>&nbsp;-->
-                        Удалить
-                    </a>
+                                <a id="myBtn" href="#" role="button" style="display: none" class="create font18b position-relative delObj">
+                                    <img src="../img/ic-bin.svg" class="mr-3 position-absolute d-flex ml-n4" alt="">
+                                    <!--<i class="fa fa-times-circle" aria-hidden="true"></i>&nbsp;-->
+                                    Удалить
+                                </a>
                             </div>
 
                         </div>
@@ -171,24 +188,54 @@
 
 
                         <div class="w-100 flexHoriz flex-wrap justify-content-between">
-                            <div class="posRel w-100 mb-3">
+                            <div class="posRel w-100 mb-0">
+                                <%---3--%>
                                 <input type="text" id="adr" class="adr" list="adrList">
                                 <label for="adr" class="transp backLab">Область, город, район, улица</label>
                             </div>
-                            <div class="w-100 mb-3">
+                            <div id="adrs" class="w-100 shadow rounded8 objcts p-2 position-relative">
+                                <div itemid="31" onclick="SelectAdres(this)" class="adrH w-100">
+                                    <label id="lbl31"  class="adrH w-100">Москва,Варварино,Нагорная ул , 77, 666</label>
+                                </div>
+                                <div itemid="32" onclick="SelectAdres(this)"class="adrH w-100">
+                                    <label id="lbl32"   class="adrH w-100">Москва,Богоявление,СНТ Колос-1 тер , щщ, йй</label>
+                                </div>
+                                <div itemid="33"onclick="SelectAdres(this)" class="adrH w-100">
+                                    <label id="lbl33"  class="adrH w-100">abdullazada Orxan, 1212, 3434</label>
+                                </div>
+                                <div itemid="39" class="adrH w-100">
+                                    <label id="lbl39"  class="adrH w-100">bbbb, Д. ttt</label>
+                                </div>
+                                <div itemid="40" class="adrH w-100">
+                                    <label for="chk40"  class="adrH w-100">bbbb, Д. ttt, К. ccc</label>
+                                </div>
+                                   <div itemid="40" class="adrH w-100">
+                                    <label for="chk40"  class="adrH w-100">bbbb, Д. ttt, К. ccc</label>
+                                </div>
+                                   <div itemid="40" class="adrH w-100">
+                                    <label for="chk40"  class="adrH w-100">bbbb, Д. ttt, К. ccc</label>
+                                </div>
+                                   <div itemid="40" class="adrH w-100">
+                                    <label for="chk40"  class="adrH w-100">bbbb, Д. ttt, К. ccc</label>
+                                </div>
+                                   <div itemid="40" class="adrH w-100">
+                                    <label for="chk40"  class="adrH w-100">bbbb, Д. ttt, К. ccc</label>
+                                </div>
+                            </div>
+                            <div class="w-100 mb-3 mt-3">
                                 <input id="manu" class="checkbox-item" type="checkbox">
                                 <label for="manu">Ввести вручную</label>
                             </div>
                             <div class="posRel w-48">
 
-                              
+
                                 <input type="text" class="dom" id="dom">
-                                  <label for="dom"  class="transp backLab">Дом</label>
+                                <label for="dom" class="transp backLab">Дом</label>
                             </div>
                             <div class="posRel w-48">
-                               
+
                                 <input type="text" class="korp" id="korp">
-                                 <label for="korp" class="transp backLab">Строение/корпус</label>
+                                <label for="korp" class="transp backLab">Строение/корпус</label>
                             </div>
 
                         </div>
@@ -200,9 +247,9 @@
                                 <label class="transp backLab" for="uob">Управляющий объекта</label>
                             </div>
                             <div class="posRel w-80 mb-3">
-                                 <input type="button" name="name" class="btn btn1 h56 outline shadow-none flexCenter" id="DobUob" value="Добавить">
+                                <input type="button" name="name" class="btn btn1 h56 outline shadow-none flexCenter" id="DobUob" value="Добавить">
                             </div>
-                           
+
                         </div>
 
 
@@ -231,29 +278,29 @@
         <!-- Modal content -->
         <div class="modal-contentProject  bgWhite rounded16 p-4 shadow">
             <div class="modal-headerProject  bgWhite flexHoriz">
-              <%--  <span class="closeProject" id="closeUplC">×</span>--%>
-             <label id="mhProject" class="textBlack font24b w-90 mb-0">Создать Проект</label>
+                <%--  <span class="closeProject" id="closeUplC">×</span>--%>
+                <label id="mhProject" class="textBlack font24b w-90 mb-0">Создать Проект</label>
                 <span class="close2 ml-auto mr-3" id="closeUplC">
                     <img src="../img/close.svg" alt="Закрыть" class="w24">
                 </span>
             </div>
             <div class="modal-bodyProject  mt-4">
-              <%--  <label>Выберите Управляющую организацию</label>--%>
+                <%--  <label>Выберите Управляющую организацию</label>--%>
                 <select id="uoProject" class="uoProject">
                 </select>
                 <br>
                 <div class="posRel w-48">
-                     <input type="text" id="pName" class="pName">
-                      <label for="pName" class="transp backLab">Проект</label>
+                    <input type="text" id="pName" class="pName">
+                    <label for="pName" class="transp backLab">Проект</label>
                 </div>
-              
-               
+
+
             </div>
             <div class="modal-footerProject">
-               
-               
-                <button class="btn btn1 h56 mr-2"  id="AddProject"><strong>Добавить</strong></button>
-                <button class="btn btn1 h56 outline shadow-none flexCenter CancelProject"id="CancelProject" >Назад</button>
+
+
+                <button class="btn btn1 h56 mr-2" id="AddProject"><strong>Добавить</strong></button>
+                <button class="btn btn1 h56 outline shadow-none flexCenter CancelProject" id="CancelProject">Назад</button>
             </div>
         </div>
 
