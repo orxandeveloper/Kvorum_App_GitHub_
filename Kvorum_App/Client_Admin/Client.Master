@@ -67,7 +67,31 @@
             text-align: left;
             color: black
         }
-    </style>
+    
+         .adrDiv {
+            overflow: auto;
+            height: 200px;
+        }
+        .adrH:hover{
+            background-color:#D11B25;
+            color:white;
+            cursor:pointer;
+            
+                
+        }
+        .searched{
+            background-color:yellow
+        }
+        .searched:hover{
+            background-color:#D11B25;
+            color:white;
+            cursor:pointer;
+        }
+        #adrs{
+                overflow: auto;
+    height: 200px;
+        }
+        </style>
 
 </head>
 <body>

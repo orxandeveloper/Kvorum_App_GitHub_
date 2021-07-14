@@ -73,8 +73,12 @@
                         <div class="w-100 flexHoriz flex-wrap justify-content-between">
                             <h5>Юридический адрес</h5>
                             <div class="posRel w-100 mb-3">
-                                <input type="text" id="adr" required="required" class="adr" list="adrList">
+                                 
+                                 <input type="text" required="required" onkeyup="DatData_GetAdressByText(this)" id="adr" class="adr" list="adrList">
                                 <label for="adr" class="transp backLab">Область, город, район, улица</label>
+                            </div>
+                               <div id="adrs" style="display:none" class="w-100 shadow rounded8 objcts p-2 position-relative">
+                            
                             </div>
                             <div class="w-100 mb-3">
                                 <input id="manu" class="checkbox-item" type="checkbox">

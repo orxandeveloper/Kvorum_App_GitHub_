@@ -114,6 +114,14 @@
             
                 
         }
+        .searched{
+            background-color:yellow
+        }
+        .searched:hover{
+            background-color:#D11B25;
+            color:white;
+            cursor:pointer;
+        }
         #adrs{
                 overflow: auto;
     height: 200px;
@@ -167,7 +175,7 @@
                                 <label for="uo" class="transp backLab">Управляющая организация</label>
                             </div>
                             <div class="posRel w-80 mb-3">
-                                <input type="button" name="name" class="btn btn1 h56 outline shadow-none flexCenter" id="DobUo" value="Добавить">
+                                <input type="button"  name="name" class="btn btn1 h56 outline shadow-none flexCenter" id="DobUo" value="Добавить">
                             </div>
                         </div>
 
@@ -190,40 +198,14 @@
                         <div class="w-100 flexHoriz flex-wrap justify-content-between">
                             <div class="posRel w-100 mb-0">
                                 <%---3--%>
-                                <input type="text" id="adr" class="adr" list="adrList">
+                                <input type="text" onkeyup="DatData_GetAdressByText(this)" id="adr" class="adr" list="adrList">
                                 <label for="adr" class="transp backLab">Область, город, район, улица</label>
                             </div>
-                            <div id="adrs" class="w-100 shadow rounded8 objcts p-2 position-relative">
-                                <div itemid="31" onclick="SelectAdres(this)" class="adrH w-100">
-                                    <label id="lbl31"  class="adrH w-100">Москва,Варварино,Нагорная ул , 77, 666</label>
-                                </div>
-                                <div itemid="32" onclick="SelectAdres(this)"class="adrH w-100">
-                                    <label id="lbl32"   class="adrH w-100">Москва,Богоявление,СНТ Колос-1 тер , щщ, йй</label>
-                                </div>
-                                <div itemid="33"onclick="SelectAdres(this)" class="adrH w-100">
-                                    <label id="lbl33"  class="adrH w-100">abdullazada Orxan, 1212, 3434</label>
-                                </div>
-                                <div itemid="39" class="adrH w-100">
-                                    <label id="lbl39"  class="adrH w-100">bbbb, Д. ttt</label>
-                                </div>
-                                <div itemid="40" class="adrH w-100">
-                                    <label for="chk40"  class="adrH w-100">bbbb, Д. ttt, К. ccc</label>
-                                </div>
-                                   <div itemid="40" class="adrH w-100">
-                                    <label for="chk40"  class="adrH w-100">bbbb, Д. ttt, К. ccc</label>
-                                </div>
-                                   <div itemid="40" class="adrH w-100">
-                                    <label for="chk40"  class="adrH w-100">bbbb, Д. ttt, К. ccc</label>
-                                </div>
-                                   <div itemid="40" class="adrH w-100">
-                                    <label for="chk40"  class="adrH w-100">bbbb, Д. ttt, К. ccc</label>
-                                </div>
-                                   <div itemid="40" class="adrH w-100">
-                                    <label for="chk40"  class="adrH w-100">bbbb, Д. ttt, К. ccc</label>
-                                </div>
+                            <div id="adrs" style="display:none" class="w-100 shadow rounded8 objcts p-2 position-relative">
+                            
                             </div>
                             <div class="w-100 mb-3 mt-3">
-                                <input id="manu" class="checkbox-item" type="checkbox">
+                                <input id="manu" onclick="removeSearch(this)" class="checkbox-item" type="checkbox">
                                 <label for="manu">Ввести вручную</label>
                             </div>
                             <div class="posRel w-48">

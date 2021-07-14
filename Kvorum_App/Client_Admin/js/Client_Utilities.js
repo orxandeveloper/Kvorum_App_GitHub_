@@ -153,13 +153,25 @@
         sessionStorage.clear();
         window.location.href = "../ClientLogin.aspx"
     })
-
+   
     if (loc == "/Client_Admin/CreateOpject.aspx") {
+        document.addEventListener('click', function (event) {
+            const yourContainer = document.getElementById('adrs');
+            if (!yourContainer.contains(event.target)) {
+                //hide things classes.. yourContainer.classList.add('hidden');
+                yourContainer.style.display = "none"
+            }
+        });
         var ObjId = sessionStorage.getItem("ObjId")
         $("#loader,.ui-loader-background").hide();
         $("#dom").keyup(function () { $("#domS").hide() })
 
-        DatData_GetAdressByText("test");
+        //$('#adrs').blur(function () {
+        //    hidingDtas('close')
+        //})
+        
+
+      //  DatData_GetAdressByText("test");
         $("#back_O").click(function () {
 
             var cmsf_O = sessionStorage.getItem("cmsf_O");
@@ -1358,6 +1370,13 @@
 
     if (loc == "/Client_Admin/CreateOrg.aspx") {
         //alert(loc)
+        document.addEventListener('click', function (event) {
+            const yourContainer = document.getElementById('adrs');
+            if (!yourContainer.contains(event.target)) {
+                //hide things classes.. yourContainer.classList.add('hidden');
+                yourContainer.style.display = "none"
+            }
+        });
         $('#ol_li').children('li').attr('class', 'nav-link')
         $('a[href="RegisterUO.aspx"]').parent().attr('class', 'nav-link active')
         $('#tlf').keyup(function () {
@@ -1569,6 +1588,13 @@
         })
     }
     if (loc == "/Client_Admin/ProfileSettings.aspx") {
+        document.addEventListener('click', function (event) {
+            const yourContainer = document.getElementById('adrs');
+            if (!yourContainer.contains(event.target)) {
+                //hide things classes.. yourContainer.classList.add('hidden');
+                yourContainer.style.display = "none"
+            }
+        });
         sessionStorage.setItem('cmsf_O', "");
         sessionStorage.setItem('cmsf_a', "");
         $('#ol_li').children('li').attr('class', 'nav-link')
@@ -6228,34 +6254,81 @@ function searchAdress(adres) {
     //    }
     //})
 }
-function DatData_GetAdressByText(text) {
-   
-    var url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
-    var token = "a1cc4bcf3ac339478fa91a5626d8665f4c2e3891";
-    var query = "москва хабар";
-    var obj = { query: query }
-    $.ajax({
-        type: "POST",
-        url: url,
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "Authorization": "Token " + token
-        },
-        data: JSON.stringify(obj),
-       // contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (result) {
-            console.log(result)
-        }
-    })
+function removeSearch(e) {
+    if ($(e).prop('checked') == true) {
+        $('#adr').removeAttr('onkeyup')
+    }
+    else {
+        $('#adr').attr('onkeyup','DatData_GetAdressByText(this)')
+    }
+}
+function DatData_GetAdressByText(e) {
+    var query = $(e).val()
+    var patt = /[а-яА-Я]/g;
+    var iscyrillic = patt.test(query)
+    //  console.log('patt:'+)
+    if (query.length != 0 && iscyrillic == true) {
+        $('#adrs').show();
+       $('#adrs').empty();
+        var url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
+        var token = "a1cc4bcf3ac339478fa91a5626d8665f4c2e3891";
+
+        var obj = { query: query }
+        $.ajax({
+            type: "POST",
+            url: url,
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Token " + token
+            },
+            data: JSON.stringify(obj),
+            // contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var j = result.suggestions
+               
+                for (var i = 0; i < j.length; i++) {
+                    var regex = new RegExp(query, 'gi');
+                    var label_ = '<label id=\"lbl' + i + '\"  class=\"adrH w-100\">' + j[i].value + '</label>'
+                    label_ = label_.replace(regex, '<span class=\"searched\">'+ query + '</span>')
+                    $('#adrs').append('<div itemid=\"' + i + '\" onmouseover=SpanClasschanger(this,true) onmouseout=SpanClasschanger(this,false) onclick=SelectAdres(this) class=\"adrH w-100\">' + label_ + '</div>')
+                  
+                    //$(this).children('a:contains("' + SearchText_ + '")').html($(this).text().replace(regex, "<span style='background:yellow'>" + SearchText_ + "</span>"));
+
+
+                }
+                console.log(j)
+            }
+        })
+    }
+    else {
+        $('#adrs').hide()
+    }
+}
+function SpanClasschanger(e,isremove)
+{
+    if (isremove) {
+     $(e).children().find('span').removeAttr('class')
+    }
+    else {
+        $(e).children().find('span').attr('class','searched')
+    }
 }
 function SelectAdres(e)
 {
     var e_itemId = $(e).attr('itemId');
     var labelText = $('#lbl' + e_itemId).text()
     $('#adr').val('').val(labelText)
+  //  $('#adrs').hide();
 }
+function hidingDtas(t) {
+    if (t=='close') {
+       $('#adrs').hide();
+        $('#adrs').empty();
+    }
+}
+
 function GerUoList(CL_Id, Suo) {
     var obj = {
         client_id: CL_Id
