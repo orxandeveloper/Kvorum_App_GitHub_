@@ -172,6 +172,7 @@
         
 
       //  DatData_GetAdressByText("test");
+        LocalSaerch("верх");
         $("#back_O").click(function () {
 
             var cmsf_O = sessionStorage.getItem("cmsf_O");
@@ -6300,11 +6301,43 @@ function DatData_GetAdressByText(e) {
                 }
                 console.log(j)
             }
+            ,
+            error: function () {
+
+                LocalSaerch(query)
+            }
         })
     }
     else {
         $('#adrs').hide()
     }
+}
+function LocalSaerch(query)
+{
+    var obj = {
+        "Stext": query
+    };
+    $.ajax({
+        type: "GET",
+        url: window.location.protocol + '//' + window.location.host + location.port + '/ProjectApi/Home/SearchFiasAdress',//'http://localhost:63362/Home/SearchFiasAdress',
+        data: obj,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            var j = result
+
+            for (var i = 0; i < j.length; i++) {
+                var regex = new RegExp(query, 'gi');
+                var label_ = '<label id=\"lbl' + i + '\"  class=\"adrH w-100\">' + j[i].FORMALNAME + '</label>'
+                label_ = label_.replace(regex, '<span class=\"searched\">' + query + '</span>')
+                $('#adrs').append('<div itemid=\"' + i + '\" onmouseover=SpanClasschanger(this,true) onmouseout=SpanClasschanger(this,false) onclick=SelectAdres(this) class=\"adrH w-100\">' + label_ + '</div>')
+
+                //$(this).children('a:contains("' + SearchText_ + '")').html($(this).text().replace(regex, "<span style='background:yellow'>" + SearchText_ + "</span>"));
+                
+            }
+            console.log(j)
+        }
+    })
 }
 function SpanClasschanger(e,isremove)
 {
