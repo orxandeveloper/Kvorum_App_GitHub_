@@ -105,6 +105,7 @@ namespace Kvorum_App.Client_Admin
             ApplicationDbContext dbcontext_ = new ApplicationDbContext();
             var userStore = new UserStore<ApplicationUser>(dbcontext_);
             var manager = new UserManager<ApplicationUser>(userStore);
+            manager.UserValidator = new UserValidator<ApplicationUser>(manager) { AllowOnlyAlphanumericUserNames = false };
             ApplicationUser user = new ApplicationUser
             {
                 Email = Email,
@@ -272,7 +273,23 @@ namespace Kvorum_App.Client_Admin
             return "{\"result\" : \"" + a + "\"}";
         }
 
-  
+        [WebMethod]
+        public static string CHeckIdendityPhone(string PNumb_)
+        {
+            PNumb_ = PNumb_.Replace("(", "").Replace(")", "").Replace("-", "").Replace("-", "").Replace(" ", "");
+            ApplicationDbContext dbcontext_ = new ApplicationDbContext();
+            var userStore = new UserStore<ApplicationUser>(dbcontext_);
+            var _userManager = new UserManager<ApplicationUser>(userStore);
+            bool IsPhoneAlreadyRegistered = _userManager.Users.Any(item => item.PhoneNumber == PNumb_);
+            string a = "1";
+            if (IsPhoneAlreadyRegistered == true)
+            {
+                  a = "Такой телефонный номер уже зарегистрирован.";
+
+            }
+            return "{\"result\" : \"" + a + "\"}";
+        }
+
         private static string GiveRole(int R_Id)
         {
           return  (R_Id == 1) ? "Управляющий" : (R_Id == 2) ? "Инженер" : (R_Id == 3) ? "Диспетчер" : (R_Id == 4) ? "Администратор" : (R_Id == 5) ? "Бизнес-администратор" : (R_Id == 6) ? "Техник" : (R_Id == 7) ? "Житель" : (R_Id == 8) ? "Паспортист" : (R_Id == 9) ? "Менеджер по работе с клиентами" : (R_Id == 10) ? "Начальник расчетного отдела" : (R_Id == 11) ? "Специалист расчетного отдела" : (R_Id == 12) ? "Начальник юридического отдела" : (R_Id == 13) ? "Юрист" : (R_Id == 14) ? "Администратор управляющей организации" : (R_Id == 15) ? "Диспетчер поставщика" : (R_Id == 16) ? "Ответственный" : "Супер Диспетчер";
